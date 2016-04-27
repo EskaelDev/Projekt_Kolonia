@@ -21,6 +21,11 @@
   <ItemGroup>
     <ClCompile Include="main_final.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Library Include="C:\SDL2-2.0.4\lib\x86\SDL2.lib" />
+    <Library Include="C:\SDL2-2.0.4\lib\x86\SDL2main.lib" />
+    <Library Include="C:\SDL2-2.0.4\lib\x86\SDL2test.lib" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BA26DA03-E6BE-47BC-A936-B4E9952D1E9C}</ProjectGuid>
     <RootNamespace>Finalny</RootNamespace>

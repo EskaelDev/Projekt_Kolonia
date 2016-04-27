@@ -119,6 +119,9 @@
   <ItemGroup>
     <ClCompile Include="main_rob.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\SDL 2\SDL2-2.0.4\lib\x64\SDL2.dll" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

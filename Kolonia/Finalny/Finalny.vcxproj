@@ -22,11 +22,6 @@
     <ClCompile Include="main_final.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="C:\SDL2-2.0.4\lib\x86\SDL2.lib" />
-    <Library Include="C:\SDL2-2.0.4\lib\x86\SDL2main.lib" />
-    <Library Include="C:\SDL2-2.0.4\lib\x86\SDL2test.lib" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Biblioteki\SDL 2\include\begin_code.h" />
     <ClInclude Include="Biblioteki\SDL 2\include\close_code.h" />
     <ClInclude Include="Biblioteki\SDL 2\include\SDL.h" />
@@ -97,6 +92,15 @@
     <ClInclude Include="Biblioteki\SDL 2\include\SDL_types.h" />
     <ClInclude Include="Biblioteki\SDL 2\include\SDL_version.h" />
     <ClInclude Include="Biblioteki\SDL 2\include\SDL_video.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Nowy folder\libFLAC-8.dll" />
+    <None Include="C:\Nowy folder\libmodplug-1.dll" />
+    <None Include="C:\Nowy folder\libogg-0.dll" />
+    <None Include="C:\Nowy folder\libvorbis-0.dll" />
+    <None Include="C:\Nowy folder\libvorbisfile-3.dll" />
+    <None Include="C:\Nowy folder\SDL2_mixer.dll" />
+    <None Include="C:\Nowy folder\smpeg2.dll" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BA26DA03-E6BE-47BC-A936-B4E9952D1E9C}</ProjectGuid>

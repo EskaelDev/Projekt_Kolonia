@@ -18,6 +18,9 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main_final.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BA26DA03-E6BE-47BC-A936-B4E9952D1E9C}</ProjectGuid>
     <RootNamespace>Finalny</RootNamespace>

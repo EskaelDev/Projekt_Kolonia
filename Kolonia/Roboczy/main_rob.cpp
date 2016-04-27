@@ -4,6 +4,7 @@ and may not be redistributed without written permission.*/
 //Using SDL and standard IO
 #include <SDL.h>
 #include <stdio.h>
+#include "conio.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -116,6 +117,6 @@ int main(int argc, char* args[])
 
 	//Free resources and close SDL
 	close();
-
+	_getch();
 	return 0;
 }

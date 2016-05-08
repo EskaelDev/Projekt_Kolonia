@@ -119,7 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\main.cpp">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\stdafx.cpp" />
     <ClCompile Include="main_rob.cpp">

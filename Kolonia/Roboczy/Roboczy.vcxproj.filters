@@ -18,8 +18,31 @@
     <ClCompile Include="main_rob.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SDL2.dll" />
+    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\libfreetype-6.dll" />
+    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\libjpeg-9.dll" />
+    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\libpng16-16.dll" />
+    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\libtiff-5.dll" />
+    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\libwebp-4.dll" />
+    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\SDL2.dll" />
+    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\SDL2_image.dll" />
+    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\SDL2_ttf.dll" />
+    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\zlib1.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -18,10 +18,13 @@
     <ClCompile Include="main_rob.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\stdafx.cpp">
+    <ClCompile Include="S:\Projekt_PO\Kolonia\Roboczy\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -37,7 +40,7 @@
     <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\zlib1.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\stdafx.h">
+    <ClInclude Include="S:\Projekt_PO\Kolonia\Roboczy\stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\targetver.h">

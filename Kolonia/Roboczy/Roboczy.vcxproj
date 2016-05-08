@@ -117,21 +117,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\main.cpp" />
+    <ClCompile Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\main.cpp">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\stdafx.cpp" />
     <ClCompile Include="main_rob.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\libfreetype-6.dll" />
-    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\libjpeg-9.dll" />
-    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\libpng16-16.dll" />
-    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\libtiff-5.dll" />
-    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\libwebp-4.dll" />
-    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\SDL2.dll" />
-    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\SDL2_image.dll" />
-    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\SDL2_ttf.dll" />
-    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\zlib1.dll" />
-    <None Include="SDL2.dll" />
+    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\libfreetype-6.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\libjpeg-9.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\libpng16-16.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\libtiff-5.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\libwebp-4.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\SDL2_image.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\SDL2_ttf.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\zlib1.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+    </None>
+    <None Include="SDL2.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\stdafx.h" />

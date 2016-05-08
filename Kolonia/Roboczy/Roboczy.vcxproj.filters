@@ -32,7 +32,6 @@
     <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\libpng16-16.dll" />
     <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\libtiff-5.dll" />
     <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\libwebp-4.dll" />
-    <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\SDL2.dll" />
     <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\SDL2_image.dll" />
     <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\SDL2_ttf.dll" />
     <None Include="..\..\..\..\Visual Studio 2015\Projects\po-zadania\SDL\nauka\zlib1.dll" />

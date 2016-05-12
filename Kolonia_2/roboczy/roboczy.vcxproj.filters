@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Rysowanie_po_przycisnieciu.cpp">
+    <ClCompile Include="kolonia.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

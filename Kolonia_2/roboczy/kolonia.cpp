@@ -4,52 +4,59 @@ and may not be redistributed without written permission.*/
 //Using SDL, SDL_image, standard IO, and strings
 #include <SDL.h>
 #include <SDL_image.h>
-#include <conio.h>
-#include "SDL_ttf.h"
+#include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #include <stdio.h>
+#include <iostream>
 #include <string>
-
+#include <conio.h>
 
 // Rozmiar okna
 const int SCREEN_WIDTH = 1366;
 const int SCREEN_HEIGHT = 768;
 
+// Rozmiary przyciskow (nowa gra,wczytaj gre, zapisz gre, wyjdz z gry, wroc, graj
 const int MAIN_BUTTON_WIDTH = 118;
 const int MAIN_BUTTON_HEIGHT = 35;
 
+// Rozmiary przyciskow splashy
 const int BUILDINGS_BUTTON_WIDTH = 911;
 const int BUILDINGS_BUTTON_HEIGHT = 256;
 
+// Rozmiary przyciskow (zbuduj, zburz)
 const int BUILD_BUTTON_WIDTH = 60;
 const int BUILD_BUTTON_HEIGHT = 20;
 
+// Rozmiary przyciskow (kup, sprzedaj)
 const int BUY_BUTTON_WIDTH = 90;
 const int BUY_BUTTON_HEIGHT = 70;
 
+// Sprity stanow przycisku
 enum LButtonSprite
 {
-	BUTTON_SPRITE_MOUSE_OUT = 0,
-	BUTTON_SPRITE_MOUSE_OVER_MOTION = 1,
-	BUTTON_SPRITE_MOUSE_DOWN = 2,
-	BUTTON_SPRITE_MOUSE_UP = 3,
-	BUTTON_SPRITE_TOTAL = 4,
-	UNKNOWN = 5
+	BUTTON_SPRITE_MOUSE_OUT,
+	BUTTON_SPRITE_MOUSE_OVER_MOTION,
+	BUTTON_SPRITE_MOUSE_DOWN ,
+	BUTTON_SPRITE_MOUSE_UP,
+	BUTTON_SPRITE_TOTAL
 };
 
+// Stany wyswietlanego ekranu
 enum Screen
 {
 	MAIN,
-	GAME,
 	LOAD,
 	SAVE,
+	GAME,
+	PUB,
+	IND,
+	PROD,
 	QUIT
-};
+} screen;
 
-Screen screen;
-
+// Akcje dla przyciskow
 enum Actions
 {
-	NONE,
 	NEW_GAME,
 	PLAY_GAME,
 	LOAD_GAME,
@@ -74,15 +81,15 @@ SDL_Window* gWindow = NULL;
 //The window renderer
 SDL_Renderer* gRenderer = NULL;
 
-// Aktualnie wyswietlana tekstura
+// Wyswietlane tekstury
 SDL_Texture* gTexture = NULL;
 SDL_Texture* gTexture2 = NULL;
 
-//Globally used font
+// Czcionka
 TTF_Font *gFont = NULL;
 
-//Mouse button sprites
-SDL_Rect gSpriteClips[BUTTON_SPRITE_TOTAL];
+// Dzwiek klikania
+Mix_Chunk *gClickSound = NULL;
 
 // Wlaczenie SDL i stworzenie okna
 bool init();
@@ -93,57 +100,48 @@ bool loadMedia();
 // Zwalnianie mediow i zamykanie SDL
 void close();
 
-//Texture wrapper class
 class LTexture
 {
 public:
-	//Initializes variables
 	LTexture();
-
-	//Deallocates memory
 	~LTexture();
 
-	//Loads image at specified path
+	// Ladowanie obrazka z podanej sciezki
 	bool loadFromFile(std::string path);
 
-	//Creates image from font string
+	// Tworzenie obrazka z tekstu
 	bool loadFromRenderedText(std::string textureText, SDL_Color textColor);
 
-	//Deallocates texture
+	// Zwalnianie tekstury
 	void free();
 
-	//Set color modulation
+	// Ustawianie koloru modulacji
 	void setColor(Uint8 red, Uint8 green, Uint8 blue);
 
-	//Set blending
+	// Ustawianie mieszania
 	void setBlendMode(SDL_BlendMode blending);
 
-	//Set alpha modulation
+	// Ustawianie modulacji przezroczystosci
 	void setAlpha(Uint8 alpha);
 
-	//Renders texture at given point
+	// Renderowanie tekstury w podanym punkcie
 	void render(int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
-	//Gets image dimensions
+	// Pobranie rozmiarow obrazka
 	int getWidth();
 	int getHeight();
 
 private:
-	//The actual hardware texture
+	// Aktualna tekstura
 	SDL_Texture* mTexture;
 
-	//Image dimensions
+	// Rozmiary obrazka
 	int mWidth;
 	int mHeight;
 };
 
-LTexture gButtonSpriteSheetTexture;
-
-LTexture gTextTexture;
-
 LTexture::LTexture()
 {
-	//Initialize
 	mTexture = NULL;
 	mWidth = 0;
 	mHeight = 0;
@@ -151,30 +149,29 @@ LTexture::LTexture()
 
 LTexture::~LTexture()
 {
-	//Deallocate
 	free();
 }
 
 bool LTexture::loadFromFile(std::string path)
 {
-	//Get rid of preexisting texture
+	// Usuniecie wczesniejszej tekstury
 	free();
 
-	//The final texture
+	// Finalna tekstura
 	SDL_Texture* newTexture = NULL;
 
-	//Load image at specified path
+	// Zaladowanie obrazka z podanej sciezki
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 	if (loadedSurface == NULL)
 	{
-		printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
+		printf("Nie mozna zaladowac obrazka %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
 	}
 	else
 	{
 		//Color key image
-		//SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
+		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
 
-		//Create texture from surface pixels
+		// Tworzenie tekstury z powierzchni
 		newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
 		if (newTexture == NULL)
 		{
@@ -182,26 +179,26 @@ bool LTexture::loadFromFile(std::string path)
 		}
 		else
 		{
-			//Get image dimensions
+			// Pobranie wymiarow obrazka
 			mWidth = loadedSurface->w;
 			mHeight = loadedSurface->h;
 		}
 
-		//Get rid of old loaded surface
+		// Usuniecie starej powierzchni
 		SDL_FreeSurface(loadedSurface);
 	}
 
-	//Return success
+	// Return success
 	mTexture = newTexture;
 	return mTexture != NULL;
 }
 
 bool LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor)
 {
-	//Get rid of preexisting texture
+	// Usuniecie wczesniejszej tekstury
 	free();
 
-	//Render text surface
+	// Renderowanie powierzchni tekstu
 	SDL_Surface* textSurface = TTF_RenderText_Solid(gFont, textureText.c_str(), textColor);
 	if (textSurface == NULL)
 	{
@@ -209,7 +206,7 @@ bool LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor
 	}
 	else
 	{
-		//Create texture from surface pixels
+		// Tworzenie tekstury z powierzchni
 		mTexture = SDL_CreateTextureFromSurface(gRenderer, textSurface);
 		if (mTexture == NULL)
 		{
@@ -217,22 +214,22 @@ bool LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor
 		}
 		else
 		{
-			//Get image dimensions
+			// Pobranie wymiarow obrazka
 			mWidth = textSurface->w;
 			mHeight = textSurface->h;
 		}
 
-		//Get rid of old surface
+		// Usuniecie starej powierzchni
 		SDL_FreeSurface(textSurface);
 	}
 
-	//Return success
+	// Return success
 	return mTexture != NULL;
 }
 
 void LTexture::free()
 {
-	//Free texture if it exists
+	// Zwalnianie tekstury, jesli istnieje
 	if (mTexture != NULL)
 	{
 		SDL_DestroyTexture(mTexture);
@@ -244,35 +241,35 @@ void LTexture::free()
 
 void LTexture::setColor(Uint8 red, Uint8 green, Uint8 blue)
 {
-	//Modulate texture rgb
+	// Modulacja RGB tekstury
 	SDL_SetTextureColorMod(mTexture, red, green, blue);
 }
 
 void LTexture::setBlendMode(SDL_BlendMode blending)
 {
-	//Set blending function
+	// Ustawienie funkcji mieszania
 	SDL_SetTextureBlendMode(mTexture, blending);
 }
 
 void LTexture::setAlpha(Uint8 alpha)
 {
-	//Modulate texture alpha
+	// Modulacja przezroczystosci tekstury
 	SDL_SetTextureAlphaMod(mTexture, alpha);
 }
 
 void LTexture::render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip)
 {
-	//Set rendering space and render to screen
+	// Ustawienie miejsca renderowania i renderowanie na ekran
 	SDL_Rect renderQuad = { x, y, mWidth, mHeight };
 
-	//Set clip rendering dimensions
+	// Ustawienie rozmiaru renderowania clip
 	if (clip != NULL)
 	{
 		renderQuad.w = clip->w;
 		renderQuad.h = clip->h;
 	}
 
-	//Render to screen
+	// Renderowanie na ekran
 	SDL_RenderCopyEx(gRenderer, mTexture, clip, &renderQuad, angle, center, flip);
 }
 
@@ -286,35 +283,49 @@ int LTexture::getHeight()
 	return mHeight;
 }
 
-//The mouse button
+LTexture gTextTexture;
+
 class LButton
 {
 public:
-	//Initializes internal variables
 	LButton(Actions, int, int, int, int, char*);
 	LButton(int, Actions, int, int, int, int, char*);
 	~LButton();
 
-	//Sets top left position
-	void setPosition(int x, int y);
+	// Ustawia pozycje przycisku
+	void setPosition(int, int);
 
-	//Handles mouse event
+	// Kieruje akcja przycisku
 	void handleEvent(SDL_Event* e);
 
-	//Shows button sprite
+	// Wyswietla przycisk
 	void render();
-	void del();
 
+	// Ustawia teksture przycisku
+	void setTexture();
+
+	// Dzialanie po nacisnieciu na przycisk
 	void operation(Actions);
+
 private:
-	//Top left position
+	// Tekstura przycisku
+	LTexture gButtonSpriteSheetTexture;
+
+	// id budynku, szerokosc, wysokosc
 	int id, w, h;
+
+	// Sciezka (nazwa) pliku
 	char *img;
+
+	// Pozycja przycisku
 	SDL_Point mPosition;
+
+	// Warunek akcji przycisku
 	Actions action;
 
-	//Currently used global sprite
+	// Aktualnie wyswietlany sprite
 	LButtonSprite mCurrentSprite;
+	SDL_Rect gSpriteClips[BUTTON_SPRITE_TOTAL];
 };
 
 LButton::LButton(Actions action, int width, int height, int pos_x, int pos_y, char *image)
@@ -322,12 +333,13 @@ LButton::LButton(Actions action, int width, int height, int pos_x, int pos_y, ch
 	this->action = action;
 	this->w = width;
 	this->h = height;
-	img = new char[strlen(image) + strlen("imgs/buttons/")];
+	img = new char[strlen(image) + strlen("imgs/buttons/") + 2];
 	strcpy(img, "imgs/buttons/");
 	strcat(img, image);
 
 	setPosition(pos_x, pos_y);
 	mCurrentSprite = BUTTON_SPRITE_MOUSE_OUT;
+	setTexture();
 }
 
 LButton::LButton(int id, Actions action, int w, int h, int pos_x, int pos_y, char *image)
@@ -345,25 +357,10 @@ LButton::LButton(int id, Actions action, int w, int h, int pos_x, int pos_y, cha
 
 LButton::~LButton()
 {
-	this->action = NONE;
 	this->w = NULL;
 	this->h = NULL;
-	img = NULL;
-
-	setPosition(0, 0);
-	mCurrentSprite = UNKNOWN;
+	delete[] img;
 }
-// button(action, width, height, pos_x, pos_y, filename)
-LButton new_game_button(NEW_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 400, "new.png");
-LButton load_game_button(LOAD_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 480, "load.png");
-LButton save_game_button(SAVE_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 560, "save.png");
-LButton exit_game_button(EXIT_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 660, "exit.png");
-LButton main_menu_button(MAIN_MENU, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 660, "back.png");
-LButton pub_button(PUBLIC, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 455, 0, "/buildings/pub.png");
-LButton ind_button(INDUSTRIAL, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 455, 256, "/buildings/ind.png");
-LButton prod_button(PRODUCTION, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 455, 512, "/buildings/prod.png");
-LButton buy_button(BUY, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 624, 660, "back.png");
-LButton sell_button(SELL, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 624, 660, "back.png");
 
 void LButton::setPosition(int x, int y)
 {
@@ -373,43 +370,43 @@ void LButton::setPosition(int x, int y)
 
 void LButton::handleEvent(SDL_Event* e)
 {
-	//If mouse event happened
+	// Jesli zdarzenie myszy zaszlo
 	if (e->type == SDL_MOUSEMOTION || e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP)
 	{
-		//Get mouse position
+		// Pobierz pozycje myszy
 		int x, y;
 		SDL_GetMouseState(&x, &y);
 
-		//Check if mouse is in button
+		// Sprawdz czy mysz jest na przycisku
 		bool inside = true;
 
-		//Mouse is left of the button
+		// Mysz jest z lewej strony przycisku
 		if (x < mPosition.x)
 		{
 			inside = false;
 		}
-		//Mouse is right of the button
+		// Mysz jest z prawej strony przycisku
 		else if (x > mPosition.x + w)
 		{
 			inside = false;
 		}
-		//Mouse above the button
+		// Mysz jest ponad przyciskiem
 		else if (y < mPosition.y)
 		{
 			inside = false;
 		}
-		//Mouse below the button
+		// Mysz jest ponizej przycisku
 		else if (y > mPosition.y + h)
 		{
 			inside = false;
 		}
 
-		//Mouse is outside button
+		// Mysz jest poza przyciskiem
 		if (!inside)
 		{
 			mCurrentSprite = BUTTON_SPRITE_MOUSE_OUT;
 		}
-		//Mouse is inside button
+		// Mysz jest w przycisku
 		else
 		{
 			//Set mouse over sprite
@@ -421,22 +418,24 @@ void LButton::handleEvent(SDL_Event* e)
 
 			case SDL_MOUSEBUTTONDOWN:
 				mCurrentSprite = BUTTON_SPRITE_MOUSE_DOWN;
+				Mix_PlayChannel(-1, gClickSound, 0);
+				SDL_Delay(200);
+				operation(action);
 				break;
 
 			case SDL_MOUSEBUTTONUP:
 				mCurrentSprite = BUTTON_SPRITE_MOUSE_OVER_MOTION;
-				operation(action);
 				break;
 			}
 		}
 	}
 }
 
-void LButton::render()
+void LButton::setTexture()
 {
 	if (!gButtonSpriteSheetTexture.loadFromFile(img))
 	{
-		printf("Failed to load button sprite texture!\n");
+		printf("Nie mozna zaladowac tekstury przycisku!\n");
 	}
 	else
 	{
@@ -449,12 +448,11 @@ void LButton::render()
 			gSpriteClips[i].h = h;
 		}
 	}
-	gButtonSpriteSheetTexture.render(mPosition.x, mPosition.y, &gSpriteClips[mCurrentSprite]);
 }
 
-void LButton::del()
+void LButton::render()
 {
-	setPosition(-999, -999);
+	gButtonSpriteSheetTexture.render(mPosition.x, mPosition.y, &gSpriteClips[mCurrentSprite]);
 }
 
 void LButton::operation(Actions action)
@@ -466,17 +464,9 @@ void LButton::operation(Actions action)
 		gTexture = NULL;
 		gTexture = loadTexture("imgs/left.png");
 		screen = GAME;
-		new_game_button.del();
-		load_game_button.del();
-		save_game_button.del();
-		exit_game_button.del();
 		break;
 
 	case LOAD_GAME:
-		/*new_game_button.del();
-		load_game_button.del();
-		save_game_button.del();
-		exit_game_button.del();*/
 		SDL_DestroyTexture(gTexture);
 		gTexture = NULL;
 		gTexture = loadTexture("imgs/load_save.png");
@@ -488,10 +478,6 @@ void LButton::operation(Actions action)
 		gTexture = NULL;
 		gTexture = loadTexture("imgs/load_save.png");
 		screen = SAVE;
-		new_game_button.del();
-		load_game_button.del();
-		save_game_button.del();
-		exit_game_button.del();
 		break;
 
 	case MAIN_MENU:
@@ -507,13 +493,6 @@ void LButton::operation(Actions action)
 		}
 		gTexture = loadTexture("imgs/main.png");
 		screen = MAIN;
-		new_game_button.setPosition(624, 400);
-		load_game_button.setPosition(624, 480);
-		save_game_button.setPosition(624, 560);
-		SDL_Delay(40);
-		exit_game_button.setPosition(624, 660);
-		main_menu_button.del();
-
 		break;
 
 	case PLAY_GAME:
@@ -521,6 +500,27 @@ void LButton::operation(Actions action)
 		gTexture = NULL;
 		gTexture = loadTexture("imgs/left.png");
 		screen = GAME;
+		break;
+
+	case PUBLIC:
+		SDL_DestroyTexture(gTexture2);
+		gTexture2 = NULL;
+		gTexture2 = loadTexture("imgs/public.png");
+		screen = PUB;
+		break;
+
+	case INDUSTRIAL:
+		SDL_DestroyTexture(gTexture2);
+		gTexture2 = NULL;
+		gTexture2 = loadTexture("imgs/farms.png");
+		screen = IND;
+		break;
+
+	case PRODUCTION:
+		SDL_DestroyTexture(gTexture2);
+		gTexture2 = NULL;
+		gTexture2 = loadTexture("imgs/production.png");
+		screen = PROD;
 		break;
 
 	case EXIT_GAME:
@@ -531,9 +531,6 @@ void LButton::operation(Actions action)
 		break;
 
 	case DESTROY:
-		break;
-
-	default:
 		break;
 	}
 }
@@ -546,7 +543,7 @@ bool init()
 	// Inicjalizacja SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-		printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
+		printf("SDL nie zostal zainicjalizowany! SDL Error: %s\n", SDL_GetError());
 		success = false;
 	}
 	else
@@ -554,42 +551,49 @@ bool init()
 		// Ustawienie filtrowania tekstury na liniowe
 		if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
 		{
-			printf("Warning: Linear texture filtering not enabled!");
+			printf("Ostrze¿enie: Liniowe filtrowanie tekstury jest wylaczone!");
 		}
 
-		// Stworzenie okna
+		// Tworzenie okna
 		gWindow = SDL_CreateWindow("Kolonia", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		if (gWindow == NULL)
 		{
-			printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
+			printf("Okno nie zostalo utworzone! SDL Error: %s\n", SDL_GetError());
 			success = false;
 		}
 		else
 		{
-			// Create renderer for window
+			// Tworzenie renderera dla okna
 			gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
 			if (gRenderer == NULL)
 			{
-				printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
+				printf("Renderer nie zostal utworzony! SDL Error: %s\n", SDL_GetError());
 				success = false;
 			}
 			else
 			{
-				// Initialize renderer color
+				// Inicjalizacja kolorow renderera
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
-				//Initialize PNG loading
+				// Inicjalizacja ladowania PNG
 				int imgFlags = IMG_INIT_PNG;
 				if (!(IMG_Init(imgFlags) & imgFlags))
 				{
-					printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+					printf("SDL_image nie zostal zainicjalizowany! SDL_image Error: %s\n", IMG_GetError());
 					success = false;
 				}
 
-				//Initialize SDL_ttf
+				// Inicjalizacja SDL_ttf
 				if (TTF_Init() == -1)
 				{
-					printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+					printf("SDL_ttf nie zostal zainicjalizowany! SDL_ttf Error: %s\n", TTF_GetError());
+					success = false;
+				}
+
+				// Inicjalizacja SDL_mixer
+				if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+				{
+					printf("SDL_mixer nie zostal zainicjalizowany! SDL_mixer Error: %s\n", Mix_GetError());
 					success = false;
 				}
 			}
@@ -605,81 +609,66 @@ bool loadMedia()
 	bool success = true;
 
 	// Ladowanie tekstury
-	gTexture = loadTexture("imgs/main.png");/*
-											gTexture2 = loadTexture("imgs/load_save.png");
-											gTexture3 = loadTexture("imgs/left.png");
-											gTexture4 = loadTexture("imgs/public.png");
-											if (gTexture == NULL || gTexture2 == NULL)
-											{
-											printf("Nie mozna zaladowac obrazka!\n");
-											success = false;
-											}*/
+	gTexture = loadTexture("imgs/main.png");
+	if (gTexture == NULL)
+	{
+		printf("Nie mozna zaladowac obrazka!\n");
+		success = false;
+	}
 
-											// Load sprites
-											//if (!gButtonSpriteSheetTexture.loadFromFile("imgs/buttons/new_game.png"))
-											//{
-											//	printf("Failed to load button sprite texture!\n");
-											//	success = false;
-											//}
-											//else
-											//{
-											//	//Set sprites
-											//	for (int i = 0; i < BUTTON_SPRITE_TOTAL; ++i)
-											//	{
-											//		gSpriteClips[i].x = 0;
-											//		gSpriteClips[i].y = i * 43;
-											//		gSpriteClips[i].w = 193;
-											//		gSpriteClips[i].h = 43;
-											//	}
-											//}
-
-											//Open the font
+	// Ladowanie czcionki
 	gFont = TTF_OpenFont("fonts/Caladea-Regular.ttf", 19);
 	if (gFont == NULL)
 	{
-		printf("Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError());
+		printf("Nie mozna zaladowac czcionki! SDL_ttf Error: %s\n", TTF_GetError());
 		success = false;
 	}
 	else
 	{
-		//Render text
+		// Renderowanie tekstu
 		SDL_Color textColor = { 200, 200, 200 };
 		if (!gTextTexture.loadFromRenderedText("12", textColor))
 		{
-			printf("Failed to render text texture!\n");
+			printf("Nie mozna wyrenderowac tekstu!\n");
 			success = false;
 		}
 	}
 
-	//Nothing to load
+	// Ladowanie dzwieku klikniecia
+	gClickSound = Mix_LoadWAV("sounds/click.wav");
+	if (gClickSound == NULL)
+	{
+		std::cout << "Nie zaladowano dzwieku  SDL_mixer Error: " << Mix_GetError() << std::endl;
+		success = false;
+	}
+
 	return success;
 }
 
 void close()
 {
 	// Zwalnia zaladowany obrazek
-	if (gTexture)
+	if (gTexture != NULL)
 	{
 		SDL_DestroyTexture(gTexture);
 		gTexture = NULL;
 	}
-	if (gTexture2)
+	if (gTexture2 != NULL)
 	{
 		SDL_DestroyTexture(gTexture2);
 		gTexture2 = NULL;
 	}
-	if (gTexture)
-	{
-		SDL_DestroyTexture(gTexture);
-		gTexture = NULL;
-	}
 
-	//Free loaded images
+	// Zwalnia teksture tekstu
 	gTextTexture.free();
 
-	//Free global font
+	// Zwalnia czcionke
 	TTF_CloseFont(gFont);
 	gFont = NULL;
+
+	// Zwalnia dzwiek
+	Mix_FreeChunk(gClickSound);
+	gClickSound = NULL;
 
 	// Zamyka okno
 	SDL_DestroyRenderer(gRenderer);
@@ -687,7 +676,7 @@ void close()
 	gWindow = NULL;
 	gRenderer = NULL;
 
-	//Quit SDL subsystems
+	// Zamkniecie systemow SDL'a
 	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
@@ -695,7 +684,7 @@ void close()
 
 SDL_Texture* loadTexture(std::string path)
 {
-	//The final texture
+	// Finalna tekstura
 	SDL_Texture* newTexture = NULL;
 
 	// Wczytuje obrazek ze sciezki
@@ -722,8 +711,9 @@ SDL_Texture* loadTexture(std::string path)
 
 int main(int argc, char* args[])
 {
-	screen = MAIN;
 	SDL_Color textC = { 200, 200, 200 };
+	screen = MAIN;
+
 	// Wlaczenie SDL i stworzenie okna
 	if (!init())
 	{
@@ -741,14 +731,41 @@ int main(int argc, char* args[])
 			// Flaga glownej petli
 			bool quit = false;
 
-			//Event handler
 			SDL_Event e;
+			SDL_Rect LargeViewport;
+			LargeViewport.x = 0;
+			LargeViewport.y = 0;
+			LargeViewport.w = SCREEN_WIDTH;
+			LargeViewport.h = SCREEN_HEIGHT;
+
+			SDL_Rect LeftViewport;
+			LeftViewport.x = 0;
+			LeftViewport.y = 0;
+			LeftViewport.w = SCREEN_WIDTH / 3;
+			LeftViewport.h = SCREEN_HEIGHT;
+
+			SDL_Rect RightViewport;
+			RightViewport.x = SCREEN_WIDTH / 3;
+			RightViewport.y = 0;
+			RightViewport.w = 2 * SCREEN_WIDTH / 3;
+			RightViewport.h = SCREEN_HEIGHT;
+
 			gFont = TTF_OpenFont("fonts/Caladea-Regular.ttf", 48);
-			SDL_Rect MainViewport;
-			SDL_Rect LoadViewport;
-			SDL_Rect SaveViewport;
-			//SDL_Rect LeftViewport;
-			//SDL_Rect RightViewport;
+
+			// przycisk(akcja, szerokosc, wysokosc, pos_x, pos_y, nazwa_pliku)
+			LButton new_game_button(NEW_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 400, "new.png");
+			LButton load_game_button(LOAD_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 480, "load.png");
+			LButton save_game_button(SAVE_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 560, "save.png");
+			LButton exit_game_button(EXIT_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 660, "exit.png");
+			LButton main_menu_button(MAIN_MENU, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 660, "menu.png");
+			LButton back_button(PLAY_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 300, 730, "back.png");
+
+			LButton ind_button(INDUSTRIAL, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 0, "/buildings/ind.png");
+			LButton prod_button(PRODUCTION, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 256, "/buildings/prod.png");
+			LButton pub_button(PUBLIC, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 512, "/buildings/pub.png");
+			
+			LButton buy_button(BUY, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 270, "buy.png");
+			LButton sell_button(SELL, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 420, "sell.png");
 
 			// Glowna petla gry
 			while (!quit)
@@ -756,85 +773,148 @@ int main(int argc, char* args[])
 				//Handle events on queue
 				while (SDL_PollEvent(&e) != 0)
 				{
-					//User requests quit
+					// User requests quit
 					if (e.type == SDL_QUIT)
-					{
 						quit = true;
-					}
-					//Handle button events
-					new_game_button.handleEvent(&e);
-					load_game_button.handleEvent(&e);
-					save_game_button.handleEvent(&e);
-					exit_game_button.handleEvent(&e);
-					main_menu_button.handleEvent(&e);
-					pub_button.handleEvent(&e);
-					ind_button.handleEvent(&e);
-					prod_button.handleEvent(&e);
 				}
 
+				// Klawisz ESCAPE - wychodzenie do menu glownego
 				const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 				if (currentKeyStates[SDL_SCANCODE_ESCAPE])
-					screen = MAIN;
-				//Clear screen
+				{
+					if (screen != MAIN)
+					{
+						if (gTexture2 != NULL)
+						{
+							SDL_DestroyTexture(gTexture2);
+							gTexture2 = NULL;
+						}
+						SDL_DestroyTexture(gTexture);
+						gTexture = NULL;
+						gTexture = loadTexture("imgs/main.png");
+						screen = MAIN;
+					}
+				}
+				// Czyszczenie ekranu
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(gRenderer);
 
 				switch (screen)
 				{
+				// Ekran menu glownego
 				case MAIN:
-				{
-					MainViewport.x = 0;
-					MainViewport.y = 0;
-					MainViewport.w = SCREEN_WIDTH;
-					MainViewport.h = SCREEN_HEIGHT;
-					SDL_RenderSetViewport(gRenderer, &MainViewport);
+					SDL_RenderSetViewport(gRenderer, &LargeViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
 					new_game_button.render();
 					load_game_button.render();
 					save_game_button.render();
 					exit_game_button.render();
+					new_game_button.handleEvent(&e);
+					load_game_button.handleEvent(&e);
+					save_game_button.handleEvent(&e);
+					exit_game_button.handleEvent(&e);
 					break;
-				}
+
+				// Ekran wczytywania stanu gry
 				case LOAD:
-				{
-					LoadViewport.x = 0;
-					LoadViewport.y = 0;
-					LoadViewport.w = SCREEN_WIDTH;
-					LoadViewport.h = SCREEN_HEIGHT;
-					SDL_RenderSetViewport(gRenderer, &LoadViewport);
+					SDL_RenderSetViewport(gRenderer, &LargeViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
 					gTextTexture.loadFromRenderedText("Wczytaj", textC);
 					gTextTexture.render(600, 200);
+
+					main_menu_button.setPosition(624, 660);
 					main_menu_button.render();
+					main_menu_button.handleEvent(&e);
 					break;
-				}
+
+				// Ekran zapisu stanu gry
 				case SAVE:
-				{
-					SaveViewport.x = 0;
-					SaveViewport.y = 0;
-					SaveViewport.w = SCREEN_WIDTH;
-					SaveViewport.h = SCREEN_HEIGHT;
-					SDL_RenderSetViewport(gRenderer, &SaveViewport);
-					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
-					gTextTexture.loadFromRenderedText("Zapisz", textC);
-					gTextTexture.render(624, 200);
-					main_menu_button.render();
-					break;
-				}
-				case GAME:
-				{
-					MainViewport.x = 0;
-					MainViewport.y = 0;
-					MainViewport.w = SCREEN_WIDTH;
-					MainViewport.h = SCREEN_HEIGHT;
-					SDL_RenderSetViewport(gRenderer, &MainViewport);
+					SDL_RenderSetViewport(gRenderer, &LargeViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
 
-					pub_button.render();
+					gTextTexture.loadFromRenderedText("Zapisz", textC);
+					gTextTexture.render(624, 200);
+
+					main_menu_button.setPosition(624, 660);
+					main_menu_button.render();
+					main_menu_button.handleEvent(&e);
+					break;
+				
+				// Ekran rozgrywki
+				case GAME:
+					SDL_RenderSetViewport(gRenderer, &LeftViewport);
+					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
+					
+					buy_button.render();
+					sell_button.render();
+					buy_button.handleEvent(&e);
+					sell_button.handleEvent(&e);
+					
+					main_menu_button.setPosition(300, 730);
+					main_menu_button.render();
+					main_menu_button.handleEvent(&e);
+
+					SDL_RenderSetViewport(gRenderer, &RightViewport);
+
 					ind_button.render();
 					prod_button.render();
+					pub_button.render();
+					pub_button.handleEvent(&e);
+					ind_button.handleEvent(&e);
+					prod_button.handleEvent(&e);
 					break;
-				}
+
+				// Ekran rozgrywki - budynki publiczne
+				case PUB:
+					SDL_RenderSetViewport(gRenderer, &LeftViewport);
+					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
+
+					buy_button.render();
+					sell_button.render();
+					buy_button.handleEvent(&e);
+					sell_button.handleEvent(&e);
+					back_button.render();
+					back_button.handleEvent(&e);
+
+					SDL_RenderSetViewport(gRenderer, &RightViewport);
+					SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
+					break;
+
+				// Ekran rozgrywki - przetworstwo
+				case IND:
+					SDL_RenderSetViewport(gRenderer, &LeftViewport);
+					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
+
+					buy_button.render();
+					sell_button.render();
+					buy_button.handleEvent(&e);
+					sell_button.handleEvent(&e);
+					back_button.render();
+					back_button.handleEvent(&e);
+
+					SDL_RenderSetViewport(gRenderer, &RightViewport);
+					SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
+
+					break;
+
+				// Ekran rozgrywki - produkcja
+				case PROD:
+					SDL_RenderSetViewport(gRenderer, &LeftViewport);
+					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
+
+					buy_button.render();
+					sell_button.render();
+					buy_button.handleEvent(&e);
+					sell_button.handleEvent(&e);
+					back_button.render();
+					back_button.handleEvent(&e);
+
+					SDL_RenderSetViewport(gRenderer, &RightViewport);
+					SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
+
+					break;
+
+				// Wylaczenie gry
 				case QUIT:
 					quit = true;
 					break;
@@ -847,6 +927,5 @@ int main(int argc, char* args[])
 	}
 	// Zwalnianie zasobów i zamykanie SDL
 	close();
-	_getch();
 	return 0;
 }

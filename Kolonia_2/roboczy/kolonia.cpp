@@ -754,10 +754,6 @@ int main(int argc, char* args[])
 			// Poczatkowy czas
 			Uint32 startTime = 0;
 
-			//Set text to be rendered
-		//	timeText.str("");
-		//	timeText << "Milliseconds since start time " << SDL_GetTicks() - startTime;
-
 			SDL_Rect LargeViewport;
 			LargeViewport.x = 0;
 			LargeViewport.y = 0;
@@ -776,7 +772,7 @@ int main(int argc, char* args[])
 			RightViewport.w = 2 * SCREEN_WIDTH / 3;
 			RightViewport.h = SCREEN_HEIGHT;
 
-			gFont = TTF_OpenFont("fonts/Caladea-Regular.ttf", 48);
+			gFont = TTF_OpenFont("fonts/Caladea-Regular.ttf", 19);
 
 			// przycisk(akcja, szerokosc, wysokosc, pos_x, pos_y, nazwa_pliku)
 			LButton new_game_button(NEW_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 400, "new.png");

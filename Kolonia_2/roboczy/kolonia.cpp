@@ -1,7 +1,6 @@
 /*This source code copyrighted by Lazy Foo' Productions (2004-2015)
 and may not be redistributed without written permission.*/
 
-//Using SDL, SDL_image, standard IO, and strings
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
@@ -11,6 +10,8 @@ and may not be redistributed without written permission.*/
 #include <sstream>
 #include <string>
 #include <conio.h>
+
+using namespace std;
 
 // Rozmiar okna
 const int SCREEN_WIDTH = 1366;
@@ -37,7 +38,7 @@ enum LButtonSprite
 {
 	BUTTON_SPRITE_MOUSE_OUT,
 	BUTTON_SPRITE_MOUSE_OVER_MOTION,
-	BUTTON_SPRITE_MOUSE_DOWN ,
+	BUTTON_SPRITE_MOUSE_DOWN,
 	BUTTON_SPRITE_MOUSE_UP,
 	BUTTON_SPRITE_TOTAL
 };
@@ -53,7 +54,7 @@ enum Screen
 	IND,
 	PROD,
 	QUIT
-} screen;
+} screen, subScreen;
 
 // Akcje dla przyciskow
 enum Actions
@@ -165,7 +166,7 @@ bool LTexture::loadFromFile(std::string path)
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 	if (loadedSurface == NULL)
 	{
-		printf("Nie mozna zaladowac obrazka %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
+		cout << "Nie mozna zaladowac obrazka " << path.c_str() << "! SDL_image Error: " << IMG_GetError() << endl;
 	}
 	else
 	{
@@ -176,7 +177,7 @@ bool LTexture::loadFromFile(std::string path)
 		newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
 		if (newTexture == NULL)
 		{
-			printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
+			cout << "Nie mozna utworzyc tekstury z " << path.c_str() << "! SDL Error: " << SDL_GetError() << endl;
 		}
 		else
 		{
@@ -203,7 +204,7 @@ bool LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor
 	SDL_Surface* textSurface = TTF_RenderText_Solid(gFont, textureText.c_str(), textColor);
 	if (textSurface == NULL)
 	{
-		printf("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
+		cout << "Nie mozna wyrenderowac powierzchni tekstu! SDL_ttf Error: " << TTF_GetError() << endl;
 	}
 	else
 	{
@@ -211,7 +212,7 @@ bool LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor
 		mTexture = SDL_CreateTextureFromSurface(gRenderer, textSurface);
 		if (mTexture == NULL)
 		{
-			printf("Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError());
+			cout << "Nie mozna utworzyc tekstury z wyrenderowanego tekstu! SDL Error: " << SDL_GetError() << endl;
 		}
 		else
 		{
@@ -331,7 +332,7 @@ private:
 	SDL_Rect gSpriteClips[BUTTON_SPRITE_TOTAL];
 };
 
-LButton::LButton(Actions action, int width, int height, int pos_x, int pos_y, char *image) 
+LButton::LButton(Actions action, int width, int height, int pos_x, int pos_y, char *image)
 	: action(action), w(width), h(height), mCurrentSprite(BUTTON_SPRITE_MOUSE_OUT)
 {
 	img = new char[strlen(image) + strlen("imgs/buttons/") + 2];
@@ -342,17 +343,16 @@ LButton::LButton(Actions action, int width, int height, int pos_x, int pos_y, ch
 	setTexture();
 }
 
-LButton::LButton(int id, Actions action, int w, int h, int pos_x, int pos_y, char *image)
+
+LButton::LButton(int ident, Actions action, int width, int height, int pos_x, int pos_y, char *image)
+	: id(ident), action(action), w(width), h(height), mCurrentSprite(BUTTON_SPRITE_MOUSE_OUT)
 {
-	this->action = action;
-	this->w = w;
-	this->h = h;
-	img = new char[strlen(image) + strlen("imgs/buttons/")];
+	img = new char[strlen(image) + strlen("imgs/buttons/") + 2];
 	strcpy(img, "imgs/buttons/");
 	strcat(img, image);
 
 	setPosition(pos_x, pos_y);
-	mCurrentSprite = BUTTON_SPRITE_MOUSE_OUT;
+	setTexture();
 }
 
 LButton::~LButton()
@@ -360,6 +360,7 @@ LButton::~LButton()
 	this->w = NULL;
 	this->h = NULL;
 	delete[] img;
+	gButtonSpriteSheetTexture.free();
 }
 
 void LButton::setPosition(int x, int y)
@@ -435,7 +436,7 @@ void LButton::setTexture()
 {
 	if (!gButtonSpriteSheetTexture.loadFromFile(img))
 	{
-		printf("Nie mozna zaladowac tekstury przycisku!\n");
+		cout << "Nie mozna zaladowac tekstury przycisku!" << endl;
 	}
 	else
 	{
@@ -464,20 +465,23 @@ void LButton::operation(Actions action)
 		gTexture = NULL;
 		gTexture = loadTexture("imgs/left.png");
 		screen = GAME;
+		subScreen = GAME;
 		break;
 
 	case LOAD_GAME:
 		SDL_DestroyTexture(gTexture);
 		gTexture = NULL;
 		gTexture = loadTexture("imgs/load_save.png");
-		screen = LOAD;
+		screen = MAIN;
+		subScreen = LOAD;
 		break;
 
 	case SAVE_GAME:
 		SDL_DestroyTexture(gTexture);
 		gTexture = NULL;
 		gTexture = loadTexture("imgs/load_save.png");
-		screen = SAVE;
+		screen = MAIN;
+		subScreen = SAVE;
 		break;
 
 	case MAIN_MENU:
@@ -493,6 +497,7 @@ void LButton::operation(Actions action)
 		}
 		gTexture = loadTexture("imgs/main.png");
 		screen = MAIN;
+		subScreen = MAIN;
 		break;
 
 	case PLAY_GAME:
@@ -500,27 +505,31 @@ void LButton::operation(Actions action)
 		gTexture = NULL;
 		gTexture = loadTexture("imgs/left.png");
 		screen = GAME;
+		subScreen = GAME;
 		break;
 
 	case PUBLIC:
 		SDL_DestroyTexture(gTexture2);
 		gTexture2 = NULL;
 		gTexture2 = loadTexture("imgs/public.png");
-		screen = PUB;
+		screen = GAME;
+		subScreen = PUB;
 		break;
 
 	case INDUSTRIAL:
 		SDL_DestroyTexture(gTexture2);
 		gTexture2 = NULL;
 		gTexture2 = loadTexture("imgs/farms.png");
-		screen = IND;
+		screen = GAME;
+		subScreen = IND;
 		break;
 
 	case PRODUCTION:
 		SDL_DestroyTexture(gTexture2);
 		gTexture2 = NULL;
 		gTexture2 = loadTexture("imgs/production.png");
-		screen = PROD;
+		screen = GAME;
+		subScreen = PROD;
 		break;
 
 	case EXIT_GAME:
@@ -543,7 +552,7 @@ bool init()
 	// Inicjalizacja SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-		printf("SDL nie zostal zainicjalizowany! SDL Error: %s\n", SDL_GetError());
+		cout << "SDL nie zostal zainicjalizowany! SDL Error: " << SDL_GetError() << endl;
 		success = false;
 	}
 	else
@@ -551,14 +560,14 @@ bool init()
 		// Ustawienie filtrowania tekstury na liniowe
 		if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
 		{
-			printf("Ostrze¿enie: Liniowe filtrowanie tekstury jest wylaczone!");
+			printf("Ostrzezenie: Liniowe filtrowanie tekstury jest wylaczone!");
 		}
 
 		// Tworzenie okna
 		gWindow = SDL_CreateWindow("Kolonia", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		if (gWindow == NULL)
 		{
-			printf("Okno nie zostalo utworzone! SDL Error: %s\n", SDL_GetError());
+			cout << "Okno nie zostalo utworzone! SDL Error: " << SDL_GetError() << endl;
 			success = false;
 		}
 		else
@@ -567,7 +576,7 @@ bool init()
 			gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
 			if (gRenderer == NULL)
 			{
-				printf("Renderer nie zostal utworzony! SDL Error: %s\n", SDL_GetError());
+				cout << "Renderer nie zostal utworzony! SDL Error: " << SDL_GetError() << endl;
 				success = false;
 			}
 			else
@@ -579,21 +588,21 @@ bool init()
 				int imgFlags = IMG_INIT_PNG;
 				if (!(IMG_Init(imgFlags) & imgFlags))
 				{
-					printf("SDL_image nie zostal zainicjalizowany! SDL_image Error: %s\n", IMG_GetError());
+					cout << "SDL_image nie zostal zainicjalizowany! SDL_image Error: " << IMG_GetError() << endl;
 					success = false;
 				}
 
 				// Inicjalizacja SDL_ttf
 				if (TTF_Init() == -1)
 				{
-					printf("SDL_ttf nie zostal zainicjalizowany! SDL_ttf Error: %s\n", TTF_GetError());
+					cout << "SDL_ttf nie zostal zainicjalizowany! SDL_ttf Error: " << TTF_GetError() << endl;
 					success = false;
 				}
 
 				// Inicjalizacja SDL_mixer
 				if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
 				{
-					printf("SDL_mixer nie zostal zainicjalizowany! SDL_mixer Error: %s\n", Mix_GetError());
+					cout << "SDL_mixer nie zostal zainicjalizowany! SDL_mixer Error: " << Mix_GetError() << endl;
 					success = false;
 				}
 			}
@@ -606,9 +615,6 @@ bool init()
 SDL_Color textColor = { 255, 255, 255, 255 };
 std::stringstream timeText;
 
-//Current time start time
-Uint32 startTime = 0;
-
 bool loadMedia()
 {
 	// Flaga powodzenia ladowania
@@ -618,7 +624,7 @@ bool loadMedia()
 	gTexture = loadTexture("imgs/main.png");
 	if (gTexture == NULL)
 	{
-		printf("Nie mozna zaladowac obrazka!\n");
+		cout << "Nie mozna zaladowac obrazka!" << endl;
 		success = false;
 	}
 
@@ -626,7 +632,7 @@ bool loadMedia()
 	gFont = TTF_OpenFont("fonts/Caladea-Regular.ttf", 19);
 	if (gFont == NULL)
 	{
-		printf("Nie mozna zaladowac czcionki! SDL_ttf Error: %s\n", TTF_GetError());
+		cout << "Nie mozna zaladowac czcionki! SDL_ttf Error: " << TTF_GetError() << endl;
 		success = false;
 	}
 	else
@@ -635,7 +641,7 @@ bool loadMedia()
 		SDL_Color textColor = { 200, 200, 200 };
 		if (!gTextTexture.loadFromRenderedText("12", textColor))
 		{
-			printf("Nie mozna wyrenderowac tekstu!\n");
+			cout << "Nie mozna wyrenderowac tekstu!" << endl;
 			success = false;
 		}
 	}
@@ -644,15 +650,15 @@ bool loadMedia()
 	gClickSound = Mix_LoadWAV("sounds/click.wav");
 	if (gClickSound == NULL)
 	{
-		std::cout << "Nie zaladowano dzwieku  SDL_mixer Error: " << Mix_GetError() << std::endl;
+		cout << "Nie zaladowano dzwieku  SDL_mixer Error: " << Mix_GetError() << endl;
 		success = false;
 	}
 
-	//Load prompt texture
-	if( !gPromptTextTexture.loadFromRenderedText( "Press Enter to Reset Start Time.", textColor ) )
+	// Ladowanie tekstury
+	if (!gPromptTextTexture.loadFromRenderedText("Nacisnij ENTER, aby zresetowac czas.", textColor))
 	{
-		printf( "Unable to render prompt texture!\n" ); 
-		success = false; 
+		cout << "Nie mozna wyrenderowac tekstury!" << endl;
+		success = false;
 	}
 
 	return success;
@@ -704,7 +710,7 @@ SDL_Texture* loadTexture(std::string path)
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 	if (loadedSurface == NULL)
 	{
-		printf("Nie mozna wczytac obrazka: %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
+		cout << "Nie mozna wczytac obrazka: " << path.c_str() << "! SDL_image Error: " << IMG_GetError() << endl;
 	}
 	else
 	{
@@ -712,7 +718,7 @@ SDL_Texture* loadTexture(std::string path)
 		newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
 		if (newTexture == NULL)
 		{
-			printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
+			cout << "Nie mozna utworzyc tekstury z " << path.c_str() << "! SDL Error: " << path.c_str() << SDL_GetError() << endl;
 		}
 
 		//Get rid of old loaded surface
@@ -724,34 +730,33 @@ SDL_Texture* loadTexture(std::string path)
 
 int main(int argc, char* args[])
 {
-	SDL_Color textC = { 200, 200, 200 };
-	screen = MAIN;
-
 	// Wlaczenie SDL i stworzenie okna
 	if (!init())
-	{
-		printf("Failed to initialize!\n");
-	}
+		cout << "Blad inicjalizacji!" << endl;
 	else
 	{
 		// Ladowanie mediow
 		if (!loadMedia())
-		{
-			printf("Failed to load media!\n");
-		}
+			cout << "Nie mozna zaladowac mediow!" << endl;
 		else
 		{
 			// Flaga glownej petli
 			bool quit = false;
 
+			// Kolor tekstu
+			SDL_Color textC = { 200, 200, 200 };
+
+			// Ekran poczatkowy
+			screen = MAIN;
+
 			SDL_Event e;
 
-			//Current time start time 
+			// Poczatkowy czas
 			Uint32 startTime = 0;
 
 			//Set text to be rendered
-			timeText.str("");
-			timeText << "Milliseconds since start time " << SDL_GetTicks() - startTime;
+		//	timeText.str("");
+		//	timeText << "Milliseconds since start time " << SDL_GetTicks() - startTime;
 
 			SDL_Rect LargeViewport;
 			LargeViewport.x = 0;
@@ -775,6 +780,7 @@ int main(int argc, char* args[])
 
 			// przycisk(akcja, szerokosc, wysokosc, pos_x, pos_y, nazwa_pliku)
 			LButton new_game_button(NEW_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 400, "new.png");
+			LButton continue_button(PLAY_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 350, "back.png");
 			LButton load_game_button(LOAD_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 480, "load.png");
 			LButton save_game_button(SAVE_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 560, "save.png");
 			LButton exit_game_button(EXIT_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 660, "exit.png");
@@ -784,7 +790,7 @@ int main(int argc, char* args[])
 			LButton ind_button(INDUSTRIAL, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 0, "/buildings/ind.png");
 			LButton prod_button(PRODUCTION, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 256, "/buildings/prod.png");
 			LButton pub_button(PUBLIC, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 512, "/buildings/pub.png");
-			
+
 			LButton buy_button(BUY, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 270, "buy.png");
 			LButton sell_button(SELL, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 420, "sell.png");
 
@@ -797,10 +803,11 @@ int main(int argc, char* args[])
 					// User requests quit
 					if (e.type == SDL_QUIT)
 						quit = true;
-					//Reset start time on return keypress
-					else if( e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_RETURN )
-					{ 
-						startTime = SDL_GetTicks(); 
+
+					// Resetowanie czasu po nacisnieciu ENTER
+					else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_RETURN)
+					{
+						startTime = SDL_GetTicks();
 					}
 				}
 
@@ -808,7 +815,7 @@ int main(int argc, char* args[])
 				const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 				if (currentKeyStates[SDL_SCANCODE_ESCAPE])
 				{
-					if (screen != MAIN)
+					if (!(screen == MAIN && subScreen == MAIN))
 					{
 						if (gTexture2 != NULL)
 						{
@@ -819,71 +826,66 @@ int main(int argc, char* args[])
 						gTexture = NULL;
 						gTexture = loadTexture("imgs/main.png");
 						screen = MAIN;
+						subScreen = MAIN;
 					}
 				}
-
-				//Set text to be rendered
+				// Ustawianie tekst do renderowania
 				timeText.str("");
-				timeText << "Milliseconds since start time " << SDL_GetTicks() - startTime;
-				//Render text
+				timeText << "Czas w milisekundach: " << SDL_GetTicks() - startTime;
+
+				// Renderowanie tekstu
 				if (!gTimeTextTexture.loadFromRenderedText(timeText.str().c_str(), textColor))
 				{
-					printf( "Unable to render time texture!\n" );
+					cout << "Nie mozna wyrenderowac czasu!" << endl;
 				}
-
 				// Czyszczenie ekranu
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(gRenderer);
 
 				switch (screen)
 				{
-				// Ekran menu glownego
+					// Ekran menu glownego
 				case MAIN:
 					SDL_RenderSetViewport(gRenderer, &LargeViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
+					switch (subScreen)
+					{
+					case MAIN:
+						save_game_button.setPosition(624, 560);
+						new_game_button.render();
+						load_game_button.render();
+						save_game_button.render();
+						exit_game_button.render();
+						new_game_button.handleEvent(&e);
+						load_game_button.handleEvent(&e);
+						save_game_button.handleEvent(&e);
+						exit_game_button.handleEvent(&e);
 
-					new_game_button.render();
-					load_game_button.render();
-					save_game_button.render();
-					exit_game_button.render();
-					new_game_button.handleEvent(&e);
-					load_game_button.handleEvent(&e);
-					save_game_button.handleEvent(&e);
-					exit_game_button.handleEvent(&e);
+						gPromptTextTexture.render((SCREEN_WIDTH - gPromptTextTexture.getWidth()) / 2, SCREEN_HEIGHT - gPromptTextTexture.getHeight());
+						gTimeTextTexture.render((SCREEN_WIDTH - gTimeTextTexture.getWidth()) / 2, 0);
+						break;
+						// Ekran wczytywania stanu gry
+					case LOAD:
+						gTextTexture.loadFromRenderedText("Wczytaj", textC);
+						gTextTexture.render(600, 200);
 
-					gPromptTextTexture.render((SCREEN_WIDTH - gPromptTextTexture.getWidth()) / 3, 0);
-					gTimeTextTexture.render((SCREEN_WIDTH - gPromptTextTexture.getWidth()) / 3, (SCREEN_HEIGHT - gPromptTextTexture.getHeight()) / 2);
+						main_menu_button.setPosition(624, 660);
+						main_menu_button.render();
+						main_menu_button.handleEvent(&e);
+						break;
+						// Ekran zapisu stanu gry
+					case SAVE:
+						gTextTexture.loadFromRenderedText("Zapisz", textC);
+						gTextTexture.render(624, 200);
+
+						main_menu_button.setPosition(624, 660);
+						main_menu_button.render();
+						main_menu_button.handleEvent(&e);
+						break;
+					}
 					break;
-
-				// Ekran wczytywania stanu gry
-				case LOAD:
-					SDL_RenderSetViewport(gRenderer, &LargeViewport);
-					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
-
-					gTextTexture.loadFromRenderedText("Wczytaj", textC);
-					gTextTexture.render(600, 200);
-
-					main_menu_button.setPosition(624, 660);
-					main_menu_button.render();
-					main_menu_button.handleEvent(&e);
-					break;
-
-				// Ekran zapisu stanu gry
-				case SAVE:
-					SDL_RenderSetViewport(gRenderer, &LargeViewport);
-					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
-
-					gTextTexture.loadFromRenderedText("Zapisz", textC);
-					gTextTexture.render(624, 200);
-
-					main_menu_button.setPosition(624, 660);
-					main_menu_button.render();
-					main_menu_button.handleEvent(&e);
-					break;
-				
-				// Ekran rozgrywki
+					// Ekran rozgrywki
 				case GAME:
-				{
 					SDL_RenderSetViewport(gRenderer, &LeftViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
 
@@ -891,74 +893,53 @@ int main(int argc, char* args[])
 					sell_button.render();
 					buy_button.handleEvent(&e);
 					sell_button.handleEvent(&e);
-					main_menu_button.setPosition(300, 730);
-					main_menu_button.render();
-					main_menu_button.handleEvent(&e);
+					save_game_button.setPosition(100, 730);
+					save_game_button.render();
+					save_game_button.handleEvent(&e);
+					switch (subScreen)
+					{
+						// Ekran rozgrywki - wybor budynkow
+					case GAME:
+						main_menu_button.setPosition(300, 730);
+						main_menu_button.render();
+						main_menu_button.handleEvent(&e);
 
-					SDL_RenderSetViewport(gRenderer, &RightViewport);
-
-					ind_button.render();
-					prod_button.render();
-					pub_button.render();
-					pub_button.handleEvent(&e);
-					ind_button.handleEvent(&e);
-					prod_button.handleEvent(&e);
-					break;
-				}
-				// Ekran rozgrywki - budynki publiczne
-				case PUB:
-					SDL_RenderSetViewport(gRenderer, &LeftViewport);
-					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
-
-					buy_button.render();
-					sell_button.render();
-					buy_button.handleEvent(&e);
-					sell_button.handleEvent(&e);
-					back_button.render();
-					back_button.handleEvent(&e);
-
-					SDL_RenderSetViewport(gRenderer, &RightViewport);
-					SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
-					break;
-
-				// Ekran rozgrywki - przetworstwo
-				case IND:
-					SDL_RenderSetViewport(gRenderer, &LeftViewport);
-					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
-
-					buy_button.render();
-					sell_button.render();
-					buy_button.handleEvent(&e);
-					sell_button.handleEvent(&e);
-					back_button.render();
-					back_button.handleEvent(&e);
-
-					SDL_RenderSetViewport(gRenderer, &RightViewport);
-					SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
+						SDL_RenderSetViewport(gRenderer, &RightViewport);
+						ind_button.render();
+						prod_button.render();
+						pub_button.render();
+						ind_button.handleEvent(&e);
+						prod_button.handleEvent(&e);
+						pub_button.handleEvent(&e);
+						break;
+						// Ekran rozgrywki - budynki publiczne
+					case PUB:
+						back_button.render();
+						back_button.handleEvent(&e);
+						SDL_RenderSetViewport(gRenderer, &RightViewport);
+						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
+						break;
+						// Ekran rozgrywki - przetworstwo
+					case IND:
+						back_button.render();
+						back_button.handleEvent(&e);
+						SDL_RenderSetViewport(gRenderer, &RightViewport);
+						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
+						break;
+						// Ekran rozgrywki - produkcja
+					case PROD:
+						back_button.render();
+						back_button.handleEvent(&e);
+						SDL_RenderSetViewport(gRenderer, &RightViewport);
+						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
+						break;
+					}
 					break;
 
-				// Ekran rozgrywki - produkcja
-				case PROD:
-					SDL_RenderSetViewport(gRenderer, &LeftViewport);
-					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
-
-					buy_button.render();
-					sell_button.render();
-					buy_button.handleEvent(&e);
-					sell_button.handleEvent(&e);
-					back_button.render();
-					back_button.handleEvent(&e);
-
-					SDL_RenderSetViewport(gRenderer, &RightViewport);
-					SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
-					break;
-
-				// Wylaczenie gry
 				case QUIT:
 					quit = true;
 					break;
 				}
-
 				// Odswiezenie ekranu
 				SDL_RenderPresent(gRenderer);
 			}

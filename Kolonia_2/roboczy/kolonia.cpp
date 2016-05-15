@@ -931,7 +931,6 @@ int main(int argc, char* args[])
 						break;
 					}
 					break;
-
 				case QUIT:
 					quit = true;
 					break;

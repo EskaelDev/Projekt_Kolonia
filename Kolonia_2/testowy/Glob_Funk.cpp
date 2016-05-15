@@ -1,5 +1,4 @@
 #include "Glob_Funk.h"
-#include "T_LTexture.h"
 
 bool init()
 {
@@ -61,7 +60,6 @@ bool init()
 
 	return success;
 }
-T_LTexture gTextTexture;
 
 bool loadMedia()
 {

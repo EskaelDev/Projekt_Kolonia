@@ -435,9 +435,7 @@ void LButton::handleEvent(SDL_Event* e)
 void LButton::setTexture()
 {
 	if (!gButtonSpriteSheetTexture.loadFromFile(img))
-	{
 		cout << "Nie mozna zaladowac tekstury przycisku!" << endl;
-	}
 	else
 	{
 		//Set sprites

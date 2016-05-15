@@ -376,6 +376,8 @@ void LButton::handleEvent(SDL_Event* e)
 	// Jesli zdarzenie myszy zaszlo
 	if (e->type == SDL_MOUSEMOTION || e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP)
 	{
+
+
 		// Pobierz pozycje myszy
 		int x, y;
 		SDL_GetMouseState(&x, &y);
@@ -383,6 +385,38 @@ void LButton::handleEvent(SDL_Event* e)
 		// Sprawdz czy mysz jest na przycisku
 		bool inside = true;
 
+		// Czy na prawym panelu
+		bool RightPanelButton = false;
+		if (w > 500 && h > 100)
+			RightPanelButton = true;
+
+		// Czy na prawym panelu
+		if (RightPanelButton)
+		{
+			inside = true;
+			// Mysz jest z lewej strony splasha
+			if (x < mPosition.x + SCREEN_WIDTH / 3)
+			{
+				inside = false;
+			}
+			// Mysz jest z prawej strony splasha
+			else if (x > mPosition.x + w + SCREEN_WIDTH / 3)
+			{
+				inside = false;
+			}
+			// Mysz jest ponad przyciskiem
+			else if (y < mPosition.y)
+			{
+				inside = false;
+			}
+			// Mysz jest ponizej przycisku
+			else if (y > mPosition.y + h)
+			{
+				inside = false;
+			}
+
+		}
+		else
 		// Mysz jest z lewej strony przycisku
 		if (x < mPosition.x)
 		{
@@ -409,6 +443,7 @@ void LButton::handleEvent(SDL_Event* e)
 		{
 			mCurrentSprite = BUTTON_SPRITE_MOUSE_OUT;
 		}
+		
 		// Mysz jest w przycisku
 		else
 		{
@@ -437,7 +472,9 @@ void LButton::handleEvent(SDL_Event* e)
 void LButton::setTexture()
 {
 	if (!gButtonSpriteSheetTexture.loadFromFile(img))
+	{
 		cout << "Nie mozna zaladowac tekstury przycisku!" << endl;
+	}
 	else
 	{
 		//Set sprites

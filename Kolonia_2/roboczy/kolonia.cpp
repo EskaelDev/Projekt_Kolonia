@@ -12,7 +12,6 @@ and may not be redistributed without written permission.*/
 #include <conio.h>
 
 using namespace std;
-
 // Rozmiar okna
 const int SCREEN_WIDTH = 1366;
 const int SCREEN_HEIGHT = 768;
@@ -387,7 +386,7 @@ void LButton::handleEvent(SDL_Event* e)
 
 		// Czy na prawym panelu
 		bool RightPanelButton = false;
-		if (w > 500 && h > 100)
+		if ((w == BUILDINGS_BUTTON_WIDTH && h == BUILDINGS_BUTTON_HEIGHT) || (w == BUILD_BUTTON_WIDTH &&h == BUILD_BUTTON_HEIGHT))
 			RightPanelButton = true;
 
 		// Czy na prawym panelu

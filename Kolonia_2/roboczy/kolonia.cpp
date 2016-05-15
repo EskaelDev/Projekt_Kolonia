@@ -376,11 +376,6 @@ void LButton::handleEvent(SDL_Event* e)
 	// Jesli zdarzenie myszy zaszlo
 	if (e->type == SDL_MOUSEMOTION || e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP)
 	{
-		bool splash = false;
-		// Czy to splash
-		if (w > 500 && h > 100)
-			splash = true;
-
 		// Pobierz pozycje myszy
 		int x, y;
 		SDL_GetMouseState(&x, &y);
@@ -388,60 +383,6 @@ void LButton::handleEvent(SDL_Event* e)
 		// Sprawdz czy mysz jest na przycisku
 		bool inside = true;
 
-		if(splash)
-		{
-
-			// Mysz jest z lewej strony splasha
-			if (x < mPosition.x + SCREEN_WIDTH / 3)
-			{
-				inside = false;
-			}
-			// Mysz jest z prawej strony splasha
-			else if (x > mPosition.x + w + SCREEN_WIDTH / 3)
-			{
-				inside = false;
-			}
-			// Mysz jest ponad splashem
-			else if (y < mPosition.y)
-			{
-				inside = false;
-			}
-			// Mysz jest ponizej splasha
-			else if (y > mPosition.y + h)
-			{
-				inside = false;
-			}
-
-			// Mysz jest poza splashem
-			if (!inside)
-			{
-				mCurrentSprite = BUTTON_SPRITE_MOUSE_OUT;
-			}
-			// Mysz jest w splashu
-			else
-			{
-				//Set mouse over sprite
-				switch (e->type)
-				{
-				case SDL_MOUSEMOTION:
-					mCurrentSprite = BUTTON_SPRITE_MOUSE_OVER_MOTION;
-					break;
-
-				case SDL_MOUSEBUTTONDOWN:
-					mCurrentSprite = BUTTON_SPRITE_MOUSE_DOWN;
-					Mix_PlayChannel(-1, gClickSound, 0);
-					SDL_Delay(200);
-					operation(action);
-					break;
-
-				case SDL_MOUSEBUTTONUP:
-					mCurrentSprite = BUTTON_SPRITE_MOUSE_OVER_MOTION;
-					break;
-				}
-			}
-
-		}
-		else
 		// Mysz jest z lewej strony przycisku
 		if (x < mPosition.x)
 		{

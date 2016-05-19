@@ -1,5 +1,3 @@
-/*This source code copyrighted by Lazy Foo' Productions (2004-2015)
-and may not be redistributed without written permission.*/
 
 #include <SDL.h>
 #include <SDL_image.h>
@@ -35,6 +33,12 @@ const int BUY_BUTTON_HEIGHT = 70;
 // Rozmiary przyciskow (zasoby)
 const int RESOURCES_BUTTON_HEIGHT = 52;
 const int RESOURCES_BUTTON_WIDTH = 56;
+
+// Wspolrzedne przyiskow build, destroy
+int C_1 = 17, C_2 = 204, C_3 = 402, C_4 = 596, C_5 = 770;
+int W_1 = 252, W_2 = 488, W_3 = 723;
+int R_R = 66;
+
 
 // Sprity stanow przycisku
 enum LButtonSprite
@@ -76,7 +80,8 @@ enum Actions
 	INDUSTRIAL,
 	PRODUCTION,
 	BUILD,
-	DESTROY
+	DESTROY,
+	BLANK
 };
 
 // Ladowanie obrazka jako tekstury
@@ -99,6 +104,7 @@ TTF_Font *gFont = NULL;
 
 // Dzwiek klikania
 Mix_Chunk *gClickSound = NULL;
+Mix_Music *gBackgroundMusic = NULL;
 
 // Wlaczenie SDL i stworzenie okna
 bool init();
@@ -425,33 +431,33 @@ void LButton::handleEvent(SDL_Event* e)
 
 		}
 		else
-		// Mysz jest z lewej strony przycisku
-		if (x < mPosition.x)
-		{
-			inside = false;
-		}
+			// Mysz jest z lewej strony przycisku
+			if (x < mPosition.x)
+			{
+				inside = false;
+			}
 		// Mysz jest z prawej strony przycisku
-		else if (x > mPosition.x + w)
-		{
-			inside = false;
-		}
+			else if (x > mPosition.x + w)
+			{
+				inside = false;
+			}
 		// Mysz jest ponad przyciskiem
-		else if (y < mPosition.y)
-		{
-			inside = false;
-		}
+			else if (y < mPosition.y)
+			{
+				inside = false;
+			}
 		// Mysz jest ponizej przycisku
-		else if (y > mPosition.y + h)
-		{
-			inside = false;
-		}
+			else if (y > mPosition.y + h)
+			{
+				inside = false;
+			}
 
 		// Mysz jest poza przyciskiem
 		if (!inside)
 		{
 			mCurrentSprite = BUTTON_SPRITE_MOUSE_OUT;
 		}
-		
+
 		// Mysz jest w przycisku
 		else
 		{
@@ -568,7 +574,7 @@ void LButton::operation(Actions action)
 	case INDUSTRIAL:
 		SDL_DestroyTexture(gTexture2);
 		gTexture2 = NULL;
-		gTexture2 = loadTexture("imgs/farms.png");
+		gTexture2 = loadTexture("imgs/production.png");
 		screen = GAME;
 		subScreen = IND;
 		break;
@@ -576,7 +582,7 @@ void LButton::operation(Actions action)
 	case PRODUCTION:
 		SDL_DestroyTexture(gTexture2);
 		gTexture2 = NULL;
-		gTexture2 = loadTexture("imgs/production.png");
+		gTexture2 = loadTexture("imgs/farms.png");
 		screen = GAME;
 		subScreen = PROD;
 		break;
@@ -717,6 +723,14 @@ bool loadMedia()
 		success = false;
 	}
 
+	// Ladowanie tla muzycznego
+	gBackgroundMusic = Mix_LoadMUS("sounds/background.wav");
+	if (gBackgroundMusic == NULL)
+	{
+		cout << "Nie zaladowano dzwieku tla SDL_mixer Error: " << Mix_GetError() << endl;
+		success = false;
+	}
+
 	// Ladowanie tekstury
 	if (!gPromptTextTexture.loadFromRenderedText("Nacisnij ENTER, aby zresetowac czas.", textColor))
 	{
@@ -751,6 +765,10 @@ void close()
 	// Zwalnia dzwiek
 	Mix_FreeChunk(gClickSound);
 	gClickSound = NULL;
+
+	// Zwalnia muzyke
+	Mix_FreeMusic(gBackgroundMusic);
+	gBackgroundMusic = NULL;
 
 	// Zamyka okno
 	SDL_DestroyRenderer(gRenderer);
@@ -869,13 +887,13 @@ int main(int argc, char* args[])
 			LButton buy_grain_button(7, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 135, 318, "/resources/grain.png");
 			LButton buy_flour_button(8, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 199, 318, "/resources/flour.png");
 			LButton buy_alcohol_button(14, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 263, 318, "/resources/alcohol.png");
-			
+
 			LButton buy_spices_button(12, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 5, 387, "/resources/spices.png");
 			LButton buy_textiles_button(15, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 70, 387, "/resources/textiles.png");
 			LButton buy_clothes_button(16, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 135, 387, "/resources/clothes.png");
 			LButton buy_cigarettes_button(11, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 199, 387, "/resources/cigarettes.png");
 			LButton buy_jewelry_button(17, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 263, 387, "/resources/jewelry.png");
-			
+
 			LButton buy_tools_button(18, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 5, 456, "/resources/tools.png");
 			LButton buy_wood_button(19, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 70, 456, "/resources/wood.png");
 			LButton buy_bricks_button(20, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 135, 456, "/resources/bricks.png");
@@ -909,10 +927,82 @@ int main(int argc, char* args[])
 			LButton sell_cocoa_button(13, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 263, 456, "/resources/cocoa.png");
 
 			// Przyciski Buduj i Zburz
-			LButton build_chatka_drwala(1, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, 17, 252,"/build.png" );
-			LButton destroy_chatka_drwala(1, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, 83, 252, "/destroy.png");
+			// przycisk(id, akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)
 
-
+			// Production
+			// CottonPlantation
+			LButton build_NAV_CottonPlantation(19, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_3, "/build_nav.png");
+			LButton destroy_NAV_CottonPlantation(19, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_3, "/destroy_nav.png");
+			LButton build_AV_CottonPlantation(19, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_3, "/build_av.png");
+			LButton destroy_AV_CottonPlantation(19, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_3, "/destroy_av.png");
+			// ForestersLodge
+			LButton build_AV_ForestersLodge(20, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "/build_av.png");
+			LButton destroy_AV_ForestersLodge(20, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "/destroy_av.png");
+			// GrainFarm
+			LButton build_NAV_GrainFarm(21, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_2, "/build_nav.png");
+			LButton destroy_NAV_GrainFarm(21, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_2, "/destroy_nav.png");
+			LButton build_AV_GrainFarm(21, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_2, "/build_av.png");
+			LButton destroy_AV_GrainFarm(21, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_2, "/destroy_av.png");
+			// SpiceFarm
+			LButton build_NAV_SpiceFarm(22, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "/build_nav.png");
+			LButton destroy_NAV_SpiceFarm(22, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "/destroy_nav.png");
+			LButton build_AV_SpiceFarm(22, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "/build_av.png");
+			LButton destroy_AV_SpiceFarm(22, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "/destroy_av.png");
+			// HuntersHut
+			LButton build_NAV_HuntersHut(23, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "/build_nav.png");
+			LButton destroy_NAV_HuntersHut(23, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "/destroy_nav.png");
+			LButton build_AV_HuntersHut(23, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "/build_av.png");
+			LButton destroy_AV_HuntersHut(23, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "/destroy_av.png");
+			// CocoaPlantation
+			LButton build_NAV_CocoaPlantation(24, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_3, "/build_nav.png");
+			LButton destroy_NAV_CocoaPlantation(24, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_3, "/destroy_nav.png");
+			LButton build_AV_CocoaPlantation(24, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_3, "/build_av.png");
+			LButton destroy_AV_CocoaPlantation(24, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_3, "/destroy_av.png");
+			// CattleFarm
+			LButton build_NAV_CattleFarm(25, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "/build_nav.png");
+			LButton destroy_NAV_CattleFarm(25, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "/destroy_nav.png");
+			LButton build_AV_CattleFarm(25, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "/build_av.png");
+			LButton destroy_AV_CattleFarm(25, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "/destroy_av.png");
+			// SheepFarm
+			LButton build_NAV_SheepFarm(26, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "/build_nav.png");
+			LButton destroy_NAV_SheepFarm(26, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "/destroy_nav.png");
+			LButton build_AV_SheepFarm(26, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "/build_av.png");
+			LButton destroy_AV_SheepFarm(26, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "/destroy_av.png");
+			// Winery
+			LButton build_NAV_Winery(27, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "/build_nav.png");
+			LButton destroy_NAV_Winery(27, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "/destroy_nav.png");
+			LButton build_AV_Winery(27, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "/build_av.png");
+			LButton destroy_AV_Winery(27, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "/destroy_av.png");
+			// TobaccoPlantation
+			LButton build_NAV_TobaccoPlantation(28, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "/build_nav.png");
+			LButton destroy_NAV_TobaccoPlantation(28, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "/destroy_nav.png");
+			LButton build_AV_TobaccoPlantation(28, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "/build_av.png");
+			LButton destroy_AV_TobaccoPlantation(28, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "/destroy_av.png");
+			// SugarcanePlantation
+			LButton build_NAV_SugarcanePlantation(29, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "/build_nav.png");
+			LButton destroy_NAV_SugarcanePlantation(29, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "/destroy_nav.png");
+			LButton build_AV_SugarcanePlantation(29, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "/build_av.png");
+			LButton destroy_AV_SugarcanePlantation(29, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "/destroy_av.png");
+			// IronMine
+			LButton build_NAV_IronMine(30, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_3, "/build_nav.png");
+			LButton destroy_NAV_IronMine(30, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_3, "/destroy_nav.png");
+			LButton build_AV_IronMine(30, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_3, "/build_av.png");
+			LButton destroy_AV_IronMine(30, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_3, "/destroy_av.png");
+			// DeepIronMine
+			LButton build_NAV_DeepIronMine(31, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_3, "/build_nav.png");
+			LButton destroy_NAV_DeepIronMine(31, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_3, "/destroy_nav.png");
+			LButton build_AV_DeepIronMine(31, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_3, "/build_av.png");
+			LButton destroy_AV_DeepIronMine(31, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_3, "/destroy_av.png");
+			// GoldMine
+			LButton build_NAV_GoldMine(32, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_3, "/build_nav.png");
+			LButton destroy_NAV_GoldMine(32, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_3, "/destroy_nav.png");
+			LButton build_AV_GoldMine(32, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_3, "/build_av.png");
+			LButton destroy_AV_GoldMine(32, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_3, "/destroy_av.png");
+			// FishersHut
+			LButton build_NAV_FishersHut(33, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "/build_nav.png");
+			LButton destroy_NAV_FishersHut(33, BLANK, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "/destroy_nav.png");
+			LButton build_AV_FishersHut(33, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "/build_av.png");
+			LButton destroy_AV_FishersHut(33, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "/destroy_av.png");
 
 			// Glowna petla gry
 			while (!quit)
@@ -929,6 +1019,11 @@ int main(int argc, char* args[])
 					{
 						startTime = SDL_GetTicks();
 					}
+				}
+				//If there is no music playing 
+				if (Mix_PlayingMusic() == 0)
+				{ //Play the music 
+					Mix_PlayMusic(gBackgroundMusic, -1);
 				}
 
 				// Klawisz ESCAPE - wychodzenie do menu glownego
@@ -1142,10 +1237,7 @@ int main(int argc, char* args[])
 						back_button.handleEvent(&e);
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
-						build_chatka_drwala.render();
-						build_chatka_drwala.handleEvent(&e);
-						destroy_chatka_drwala.render();
-						destroy_chatka_drwala.handleEvent(&e);
+
 						break;
 						// Ekran rozgrywki - produkcja
 					case PROD:
@@ -1153,6 +1245,56 @@ int main(int argc, char* args[])
 						back_button.handleEvent(&e);
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
+
+
+						// Obiekty przyciskow
+						// BUILD								// DESTROY
+						build_AV_ForestersLodge.render();		build_AV_ForestersLodge.handleEvent(&e);
+						destroy_AV_ForestersLodge.render();		destroy_AV_ForestersLodge.handleEvent(&e);
+
+						build_NAV_CottonPlantation.render();	build_NAV_CottonPlantation.handleEvent(&e);
+						destroy_NAV_CottonPlantation.render();	destroy_NAV_CottonPlantation.handleEvent(&e);
+
+						build_NAV_GrainFarm.render();			build_NAV_GrainFarm.handleEvent(&e);
+						destroy_NAV_GrainFarm.render();			destroy_NAV_GrainFarm.handleEvent(&e);
+
+						build_NAV_SpiceFarm.render();			build_NAV_SpiceFarm.handleEvent(&e);
+						destroy_NAV_SpiceFarm.render();			destroy_NAV_SpiceFarm.handleEvent(&e);
+
+						build_AV_HuntersHut.render();			build_AV_HuntersHut.handleEvent(&e);
+						destroy_AV_HuntersHut.render();			destroy_AV_HuntersHut.handleEvent(&e);
+
+						build_NAV_CocoaPlantation.render();		build_NAV_CocoaPlantation.handleEvent(&e);
+						destroy_NAV_CocoaPlantation.render();	destroy_NAV_CocoaPlantation.handleEvent(&e);
+
+						build_NAV_CattleFarm.render();			build_NAV_CattleFarm.handleEvent(&e);
+						destroy_NAV_CattleFarm.render();		destroy_NAV_CattleFarm.handleEvent(&e);
+
+						build_AV_SheepFarm.render();			build_AV_SheepFarm.handleEvent(&e);
+						destroy_AV_SheepFarm.render();			destroy_AV_SheepFarm.handleEvent(&e);
+
+						build_NAV_Winery.render();				build_NAV_Winery.handleEvent(&e);
+						destroy_NAV_Winery.render();			destroy_NAV_Winery.handleEvent(&e);
+						// BUILD								// DESTROY
+						build_NAV_TobaccoPlantation.render();	build_NAV_TobaccoPlantation.handleEvent(&e);
+						destroy_NAV_TobaccoPlantation.render();	destroy_NAV_TobaccoPlantation.handleEvent(&e);
+
+						build_NAV_SugarcanePlantation.render();	build_NAV_SugarcanePlantation.handleEvent(&e);
+						destroy_NAV_SugarcanePlantation.render(); destroy_NAV_SugarcanePlantation.handleEvent(&e);
+
+						build_NAV_IronMine.render();			build_NAV_IronMine.handleEvent(&e);
+						destroy_NAV_IronMine.render();			destroy_NAV_IronMine.handleEvent(&e);
+
+						build_NAV_DeepIronMine.render();		build_NAV_DeepIronMine.handleEvent(&e);
+						destroy_NAV_DeepIronMine.render();		destroy_NAV_DeepIronMine.handleEvent(&e);
+
+						build_NAV_GoldMine.render();			build_NAV_GoldMine.handleEvent(&e);
+						destroy_NAV_GoldMine.render();			destroy_NAV_GoldMine.handleEvent(&e);
+
+						build_AV_FishersHut.render();			build_AV_FishersHut.handleEvent(&e);
+						destroy_AV_FishersHut.render();			destroy_AV_FishersHut.handleEvent(&e);
+
+
 						break;
 					}
 					break;
@@ -1165,6 +1307,8 @@ int main(int argc, char* args[])
 			}
 		}
 	}
+	// getch do testowania
+	//_getch();
 	// Zwalnianie zasobów i zamykanie SDL
 	close();
 	return 0;

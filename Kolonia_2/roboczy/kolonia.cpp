@@ -908,6 +908,12 @@ int main(int argc, char* args[])
 			LButton sell_iron_button(9, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 199, 456, "/resources/iron.png");
 			LButton sell_cocoa_button(13, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 263, 456, "/resources/cocoa.png");
 
+			// Przyciski Buduj i Zburz
+			LButton build_chatka_drwala(1, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, 17, 252,"/build.png" );
+			LButton destroy_chatka_drwala(1, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, 83, 252, "/build.png");
+
+
+
 			// Glowna petla gry
 			while (!quit)
 			{
@@ -1136,6 +1142,10 @@ int main(int argc, char* args[])
 						back_button.handleEvent(&e);
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
+						build_chatka_drwala.render();
+						build_chatka_drwala.handleEvent(&e);
+						destroy_chatka_drwala.render();
+						destroy_chatka_drwala.handleEvent(&e);
 						break;
 						// Ekran rozgrywki - produkcja
 					case PROD:

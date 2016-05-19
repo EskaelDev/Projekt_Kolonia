@@ -32,6 +32,10 @@ const int BUILD_BUTTON_HEIGHT = 20;
 const int BUY_BUTTON_WIDTH = 90;
 const int BUY_BUTTON_HEIGHT = 70;
 
+// Rozmiary przyciskow (zasoby)
+const int RESOURCES_BUTTON_HEIGHT = 52;
+const int RESOURCES_BUTTON_WIDTH = 56;
+
 // Sprity stanow przycisku
 enum LButtonSprite
 {
@@ -65,7 +69,9 @@ enum Actions
 	MAIN_MENU,
 	EXIT_GAME,
 	BUY,
+	BUY_RESOURCE,
 	SELL,
+	SELL_RESOURCE,
 	PUBLIC,
 	INDUSTRIAL,
 	PRODUCTION,
@@ -102,6 +108,9 @@ bool loadMedia();
 
 // Zwalnianie mediow i zamykanie SDL
 void close();
+
+bool buy = false;
+bool sell = false;
 
 class LTexture
 {
@@ -494,6 +503,10 @@ void LButton::render()
 
 void LButton::operation(Actions action)
 {
+	if (buy == true)
+		buy = false;
+	if (sell == true)
+		sell = false;
 	switch (action)
 	{
 	case NEW_GAME:
@@ -566,6 +579,20 @@ void LButton::operation(Actions action)
 		gTexture2 = loadTexture("imgs/production.png");
 		screen = GAME;
 		subScreen = PROD;
+		break;
+
+	case BUY:
+		buy = true;
+		break;
+
+	case BUY_RESOURCE:
+		break;
+
+	case SELL:
+		sell = true;
+		break;
+
+	case SELL_RESOURCE:
 		break;
 
 	case EXIT_GAME:
@@ -810,7 +837,8 @@ int main(int argc, char* args[])
 
 			gFont = TTF_OpenFont("fonts/Caladea-Regular.ttf", 19);
 
-			// przycisk(akcja, szerokosc, wysokosc, pos_x, pos_y, nazwa_pliku)
+			// Przyciski menu
+			// przycisk(akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)
 			LButton new_game_button(NEW_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 400, "new.png");
 			LButton continue_button(PLAY_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 350, "back.png");
 			LButton load_game_button(LOAD_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 480, "load.png");
@@ -819,12 +847,66 @@ int main(int argc, char* args[])
 			LButton main_menu_button(MAIN_MENU, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 660, "menu.png");
 			LButton back_button(PLAY_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 300, 730, "back.png");
 
+			// Przyciski splashy
 			LButton ind_button(INDUSTRIAL, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 0, "/buildings/ind.png");
 			LButton prod_button(PRODUCTION, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 256, "/buildings/prod.png");
 			LButton pub_button(PUBLIC, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 512, "/buildings/pub.png");
 
+			// Przyciski: kup, sprzedaj
 			LButton buy_button(BUY, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 270, "buy.png");
 			LButton sell_button(SELL, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 420, "sell.png");
+
+			// Przyciski kupowania zasobow
+			// przycisk(id, akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)
+			LButton buy_iron_ore_button(1, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 5, 244, "/resources/iron_ore.png");
+			LButton buy_gold_button(2, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 70, 244, "/resources/gold.png");
+			LButton buy_cottom_button(3, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 135, 244, "/resources/cottom.png");
+			LButton buy_sugarcane_button(4, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 199, 244, "/resources/sugarcane.png");
+			LButton buy_food_button(10, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 263, 244, "/resources/food.png");
+
+			LButton buy_tobacco_button(5, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 5, 318, "/resources/tobacco.png");
+			LButton buy_cattle_button(6, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 70, 318, "/resources/cattle.png");
+			LButton buy_grain_button(7, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 135, 318, "/resources/grain.png");
+			LButton buy_flour_button(8, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 199, 318, "/resources/flour.png");
+			LButton buy_alcohol_button(14, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 263, 318, "/resources/alcohol.png");
+			
+			LButton buy_spices_button(12, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 5, 387, "/resources/spices.png");
+			LButton buy_textiles_button(15, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 70, 387, "/resources/textiles.png");
+			LButton buy_clothes_button(16, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 135, 387, "/resources/clothes.png");
+			LButton buy_cigarettes_button(11, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 199, 387, "/resources/cigarettes.png");
+			LButton buy_jewelry_button(17, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 263, 387, "/resources/jewelry.png");
+			
+			LButton buy_tools_button(18, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 5, 456, "/resources/tools.png");
+			LButton buy_wood_button(19, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 70, 456, "/resources/wood.png");
+			LButton buy_bricks_button(20, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 135, 456, "/resources/bricks.png");
+			LButton buy_iron_button(9, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 199, 456, "/resources/iron.png");
+			LButton buy_cocoa_button(13, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 263, 456, "/resources/cocoa.png");
+
+			// Przyciski sprzedazy zasobow
+			// przycisk(id, akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)
+			LButton sell_iron_ore_button(1, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 5, 244, "/resources/iron_ore.png");
+			LButton sell_gold_button(2, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 70, 244, "/resources/gold.png");
+			LButton sell_cottom_button(3, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 135, 244, "/resources/cottom.png");
+			LButton sell_sugarcane_button(4, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 199, 244, "/resources/sugarcane.png");
+			LButton sell_food_button(10, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 263, 244, "/resources/food.png");
+
+			LButton sell_tobacco_button(5, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 5, 318, "/resources/tobacco.png");
+			LButton sell_cattle_button(6, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 70, 318, "/resources/cattle.png");
+			LButton sell_grain_button(7, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 135, 318, "/resources/grain.png");
+			LButton sell_flour_button(8, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 199, 318, "/resources/flour.png");
+			LButton sell_alcohol_button(14, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 263, 318, "/resources/alcohol.png");
+
+			LButton sell_spices_button(12, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 5, 387, "/resources/spices.png");
+			LButton sell_textiles_button(15, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 70, 387, "/resources/textiles.png");
+			LButton sell_clothes_button(16, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 135, 387, "/resources/clothes.png");
+			LButton sell_cigarettes_button(11, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 199, 387, "/resources/cigarettes.png");
+			LButton sell_jewelry_button(17, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 263, 387, "/resources/jewelry.png");
+
+			LButton sell_tools_button(18, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 5, 456, "/resources/tools.png");
+			LButton sell_wood_button(19, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 70, 456, "/resources/wood.png");
+			LButton sell_bricks_button(20, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 135, 456, "/resources/bricks.png");
+			LButton sell_iron_button(9, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 199, 456, "/resources/iron.png");
+			LButton sell_cocoa_button(13, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 263, 456, "/resources/cocoa.png");
 
 			// Glowna petla gry
 			while (!quit)
@@ -920,6 +1002,103 @@ int main(int argc, char* args[])
 				case GAME:
 					SDL_RenderSetViewport(gRenderer, &LeftViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
+
+					if (buy == true)
+					{
+						gTextTexture.loadFromRenderedText("Kup", textC);
+						gTextTexture.render(250, 210);
+						buy_iron_ore_button.render();
+						buy_iron_ore_button.handleEvent(&e);
+						buy_gold_button.render();
+						buy_gold_button.handleEvent(&e);
+						buy_cottom_button.render();
+						buy_cottom_button.handleEvent(&e);
+						buy_sugarcane_button.render();
+						buy_sugarcane_button.handleEvent(&e);
+						buy_food_button.render();
+						buy_food_button.handleEvent(&e);
+
+						buy_tobacco_button.render();
+						buy_tobacco_button.handleEvent(&e);
+						buy_cattle_button.render();
+						buy_cattle_button.handleEvent(&e);
+						buy_grain_button.render();
+						buy_grain_button.handleEvent(&e);
+						buy_flour_button.render();
+						buy_flour_button.handleEvent(&e);
+						buy_alcohol_button.render();
+						buy_alcohol_button.handleEvent(&e);
+
+						buy_spices_button.render();
+						buy_spices_button.handleEvent(&e);
+						buy_textiles_button.render();
+						buy_textiles_button.handleEvent(&e);
+						buy_clothes_button.render();
+						buy_clothes_button.handleEvent(&e);
+						buy_cigarettes_button.render();
+						buy_cigarettes_button.handleEvent(&e);
+						buy_jewelry_button.render();
+						buy_jewelry_button.handleEvent(&e);
+
+						buy_tools_button.render();
+						buy_tools_button.handleEvent(&e);
+						buy_wood_button.render();
+						buy_wood_button.handleEvent(&e);
+						buy_bricks_button.render();
+						buy_bricks_button.handleEvent(&e);
+						buy_iron_button.render();
+						buy_iron_button.handleEvent(&e);
+						buy_cocoa_button.render();
+						buy_cocoa_button.handleEvent(&e);
+					}
+					if (sell == true)
+					{
+						gTextTexture.loadFromRenderedText("Sprzedaj", textC);
+						gTextTexture.render(250, 210);
+						sell_iron_ore_button.render();
+						sell_iron_ore_button.handleEvent(&e);
+						sell_gold_button.render();
+						sell_gold_button.handleEvent(&e);
+						sell_cottom_button.render();
+						sell_cottom_button.handleEvent(&e);
+						sell_sugarcane_button.render();
+						sell_sugarcane_button.handleEvent(&e);
+						sell_food_button.render();
+						sell_food_button.handleEvent(&e);
+
+						sell_tobacco_button.render();
+						sell_tobacco_button.handleEvent(&e);
+						sell_cattle_button.render();
+						sell_cattle_button.handleEvent(&e);
+						sell_grain_button.render();
+						sell_grain_button.handleEvent(&e);
+						sell_flour_button.render();
+						sell_flour_button.handleEvent(&e);
+						sell_alcohol_button.render();
+						sell_alcohol_button.handleEvent(&e);
+
+						sell_spices_button.render();
+						sell_spices_button.handleEvent(&e);
+						sell_textiles_button.render();
+						sell_textiles_button.handleEvent(&e);
+						sell_clothes_button.render();
+						sell_clothes_button.handleEvent(&e);
+						sell_cigarettes_button.render();
+						sell_cigarettes_button.handleEvent(&e);
+						sell_jewelry_button.render();
+						sell_jewelry_button.handleEvent(&e);
+
+						sell_tools_button.render();
+						sell_tools_button.handleEvent(&e);
+						sell_wood_button.render();
+						sell_wood_button.handleEvent(&e);
+						sell_bricks_button.render();
+						sell_bricks_button.handleEvent(&e);
+						sell_iron_button.render();
+						sell_iron_button.handleEvent(&e);
+						sell_cocoa_button.render();
+						sell_cocoa_button.handleEvent(&e);
+					}
 
 					buy_button.render();
 					sell_button.render();

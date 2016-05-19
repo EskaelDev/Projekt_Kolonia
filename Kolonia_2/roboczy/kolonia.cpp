@@ -910,7 +910,7 @@ int main(int argc, char* args[])
 
 			// Przyciski Buduj i Zburz
 			LButton build_chatka_drwala(1, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, 17, 252,"/build.png" );
-			LButton destroy_chatka_drwala(1, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, 83, 252, "/build.png");
+			LButton destroy_chatka_drwala(1, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, 83, 252, "/destroy.png");
 
 
 

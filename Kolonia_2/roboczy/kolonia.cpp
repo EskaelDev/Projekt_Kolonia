@@ -1193,11 +1193,9 @@ int main(int argc, char* args[])
 						save_game_button.setPosition(624, 560);
 						new_game_button.render();
 						load_game_button.render();
-						save_game_button.render();
 						exit_game_button.render();
 						new_game_button.handleEvent(&e);
 						load_game_button.handleEvent(&e);
-						save_game_button.handleEvent(&e);
 						exit_game_button.handleEvent(&e);
 
 						gPromptTextTexture.render((SCREEN_WIDTH - gPromptTextTexture.getWidth()) / 2, SCREEN_HEIGHT - gPromptTextTexture.getHeight());
@@ -1217,9 +1215,9 @@ int main(int argc, char* args[])
 						gTextTexture.loadFromRenderedText("Zapisz", textC);
 						gTextTexture.render(624, 200);
 
-						main_menu_button.setPosition(624, 660);
-						main_menu_button.render();
-						main_menu_button.handleEvent(&e);
+						back_button.setPosition(624, 660);
+						back_button.render();
+						back_button.handleEvent(&e);
 						break;
 					}
 					break;

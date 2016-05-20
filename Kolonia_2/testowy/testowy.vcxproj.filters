@@ -27,18 +27,12 @@
     <ClInclude Include="Glob_Funk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PO_SDL.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="T_LButton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="T_LTexture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Glob_Funk.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="T_main.cpp">
+    <ClCompile Include="kolonia.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

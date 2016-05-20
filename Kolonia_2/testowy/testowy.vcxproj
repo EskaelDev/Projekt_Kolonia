@@ -120,14 +120,12 @@
   <ItemGroup>
     <ClInclude Include="Globalne.h" />
     <ClInclude Include="Glob_Funk.h" />
+    <ClInclude Include="PO_SDL.h" />
     <ClInclude Include="T_LButton.h" />
     <ClInclude Include="T_LTexture.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Glob_Funk.cpp" />
-    <ClCompile Include="T_main.cpp" />
-    <ClCompile Include="T_LButton.cpp" />
-    <ClCompile Include="T_LTexture.cpp" />
+    <ClCompile Include="kolonia.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

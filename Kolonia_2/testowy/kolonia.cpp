@@ -1,4 +1,4 @@
-
+/*
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
@@ -807,7 +807,8 @@ SDL_Texture* loadTexture(std::string path)
 	}
 
 	return newTexture;
-}
+}*/
+#include "PO_SDL.h"
 
 int main(int argc, char* args[])
 {

@@ -808,8 +808,8 @@ SDL_Texture* loadTexture(std::string path)
 
 	return newTexture;
 }*/
-#include "PO_SDL.h"
 #include "Obiekty_przyciskow.h"
+#include "PO_SDL.h"
 
 int main(int argc, char* args[])
 {

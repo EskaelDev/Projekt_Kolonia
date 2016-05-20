@@ -30,6 +30,9 @@
     <ClInclude Include="PO_SDL.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Obiekty_przyciskow.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kolonia.cpp">

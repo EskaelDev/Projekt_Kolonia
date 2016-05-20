@@ -809,6 +809,7 @@ SDL_Texture* loadTexture(std::string path)
 	return newTexture;
 }*/
 #include "PO_SDL.h"
+#include "Obiekty_przyciskow.h"
 
 int main(int argc, char* args[])
 {
@@ -856,6 +857,7 @@ int main(int argc, char* args[])
 
 			gFont = TTF_OpenFont("fonts/Caladea-Regular.ttf", 19);
 
+			/*
 			// Przyciski menu
 			// przycisk(akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)
 			LButton new_game_button(NEW_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 400, "new.png");
@@ -1125,7 +1127,7 @@ int main(int argc, char* args[])
 			LButton build_AV_Tavern(14, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "/build_av.png");
 			LButton destroy_AV_Tavern(14, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "/destroy_av.png");
 
-
+			*/
 
 
 

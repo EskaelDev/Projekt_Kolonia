@@ -120,6 +120,7 @@
   <ItemGroup>
     <ClInclude Include="Globalne.h" />
     <ClInclude Include="Glob_Funk.h" />
+    <ClInclude Include="Obiekty_przyciskow.h" />
     <ClInclude Include="PO_SDL.h" />
     <ClInclude Include="T_LButton.h" />
     <ClInclude Include="T_LTexture.h" />

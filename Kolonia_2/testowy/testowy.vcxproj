@@ -69,8 +69,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\SDL_2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SDL_2\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SDL_2\SDL2-2.0.4\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\SDL_2\SDL2-2.0.4\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -118,15 +118,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Globalne.h" />
-    <ClInclude Include="Glob_Funk.h" />
-    <ClInclude Include="Obiekty_przyciskow.h" />
-    <ClInclude Include="PO_SDL.h" />
-    <ClInclude Include="T_LButton.h" />
-    <ClInclude Include="T_LTexture.h" />
+    <ClInclude Include="const_variables.h" />
+    <ClInclude Include="Obiekty_przyciskow.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="PO_SDL.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="LTexture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="const_variables.cpp" />
     <ClCompile Include="kolonia.cpp" />
+    <ClCompile Include="LTexture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

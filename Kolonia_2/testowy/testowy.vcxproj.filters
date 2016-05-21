@@ -15,27 +15,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="T_LButton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Globalne.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="T_LTexture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Glob_Funk.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PO_SDL.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Obiekty_przyciskow.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="LTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="const_variables.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kolonia.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="const_variables.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

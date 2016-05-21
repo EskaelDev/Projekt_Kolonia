@@ -35,9 +35,13 @@ const int RESOURCES_BUTTON_HEIGHT = 52;
 const int RESOURCES_BUTTON_WIDTH = 56;
 
 // Wspolrzedne przyiskow build, destroy
-int C_1 = 17, C_2 = 204, C_3 = 402, C_4 = 596, C_5 = 770;
-int W_1 = 252, W_2 = 488, W_3 = 723;
-int R_R = 66;
+const int C_1 = 17, C_2 = 204, C_3 = 402, C_4 = 596, C_5 = 770;
+const int W_1 = 252, W_2 = 488, W_3 = 723;
+const int R_R = 66;
+
+// Wspolrzedne Build, Destroy Magazynow
+const int C_M_B = 242, C_M_D = 276,  W_M = 701;
+
 
 
 // Sprity stanow przycisku
@@ -103,7 +107,9 @@ SDL_Texture* gTexture2 = NULL;
 SDL_Texture* gWarehouse_left = NULL;
 SDL_Texture* gWarehouse_right = NULL;
 
-
+// Czworokaty magazynow
+SDL_Rect gWarehouse_rect_right;
+SDL_Rect gWarehouse_rect_left;
 
 // Czcionka
 TTF_Font *gFont = NULL;
@@ -556,13 +562,9 @@ void LButton::operation(Actions action)
 			SDL_DestroyTexture(gTexture2);
 			gTexture2 = NULL;
 		}
-		if(gWarehouse_left!=NULL)
-		{
-			SDL_DestroyTexture(gWarehouse_left);
-			gWarehouse_left = NULL;
-		}
+
 		gTexture = loadTexture("imgs/main.png");
-		gWarehouse_left=loadTexture()
+
 		screen = MAIN;
 		subScreen = MAIN;
 		break;
@@ -571,8 +573,15 @@ void LButton::operation(Actions action)
 		SDL_DestroyTexture(gTexture);
 		gTexture = NULL;
 		gTexture = loadTexture("imgs/left.png");
+
+		gWarehouse_left = NULL;
+		gWarehouse_left = loadTexture("/imgs/magazyn1.png");
+		gWarehouse_right = NULL;
+		gWarehouse_right = loadTexture("/imgs/magazyn2.png");
+
 		screen = GAME;
 		subScreen = GAME;
+
 		break;
 
 	case PUBLIC:
@@ -852,6 +861,21 @@ bool loadMedia()
 		success = false;
 	}
 
+	// Textury magazynow
+	gWarehouse_left = loadTexture("imgs/magazyn1.png");
+	if (gWarehouse_left == NULL)
+	{
+		cout << "Nie mozna zaladowac obrazka!" << endl;
+		success = false;
+	}
+	gWarehouse_right = loadTexture("imgs/magazyn2.png");
+	if (gWarehouse_right == NULL)
+	{
+		cout << "Nie mozna zaladowac obrazka!" << endl;
+		success = false;
+	}
+
+
 	// Ladowanie czcionki
 	gFont = TTF_OpenFont("fonts/Caladea-Regular.ttf", 19);
 	if (gFont == NULL)
@@ -908,6 +932,19 @@ void close()
 	{
 		SDL_DestroyTexture(gTexture2);
 		gTexture2 = NULL;
+	}
+
+
+
+	if (gWarehouse_right != NULL)
+	{
+		SDL_DestroyTexture(gWarehouse_right);
+		gWarehouse_right = NULL;
+	}
+	if (gWarehouse_left != NULL)
+	{
+		SDL_DestroyTexture(gWarehouse_left);
+		gWarehouse_left = NULL;
 	}
 
 	// Zwalnia teksture tekstu
@@ -1280,7 +1317,23 @@ int main(int argc, char* args[])
 			LButton build_AV_Tavern(14, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_av.png");
 			LButton destroy_AV_Tavern(14, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_av.png");
 
-
+			//  M	A	G	A	Z	Y	N	Y
+			// WarehouseI
+			LButton build_NAV_WarehouseII(15, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_M_B, W_M, "build_nav.png");
+			LButton destroy_NAV_WarehouseII(15, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_M_D + R_R, W_M, "destroy_nav.png");
+			LButton build_AV_WarehouseII(15, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_M_B, W_M, "build_av.png");
+			LButton destroy_AV_WarehouseII(15, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_M_D + R_R, W_M, "destroy_av.png");
+		
+			/////////////////////////////////////////   T	Y	M	C	Z	A	S	O	W	O	\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ 
+			gWarehouse_rect_left.x = 9;
+			gWarehouse_rect_left.y = 558;
+			gWarehouse_rect_left.h = 162;
+			gWarehouse_rect_left.w = 197;
+			/////////////////////////////////////////   T	Y	M	C	Z	A	S	O	W	O	\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ 
+			gWarehouse_rect_right.x = 223;
+			gWarehouse_rect_right.y = 558;
+			gWarehouse_rect_right.h = 162;
+			gWarehouse_rect_right.w = 197;
 
 			// Glowna petla gry
 			while (!quit)
@@ -1376,6 +1429,34 @@ int main(int argc, char* args[])
 				case GAME:
 					SDL_RenderSetViewport(gRenderer, &LeftViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
+
+
+					// Magazyny
+					// LEWY
+					if (gWarehouse_right != NULL)
+					{
+						SDL_DestroyTexture(gWarehouse_right);
+						gWarehouse_right = NULL;
+					}
+					SDL_DestroyTexture(gWarehouse_right);
+					gWarehouse_right = NULL;
+					gWarehouse_right = loadTexture("imgs/magazyn1.png");
+					SDL_RenderCopy(gRenderer, gWarehouse_right, NULL, &gWarehouse_rect_left);
+					// PRAWY
+					if (gWarehouse_right != NULL)
+					{
+						SDL_DestroyTexture(gWarehouse_right);
+						gWarehouse_right = NULL;
+					}
+					SDL_DestroyTexture(gWarehouse_right);
+					gWarehouse_right = NULL;
+					gWarehouse_right = loadTexture("imgs/magazyn2.png");
+					SDL_RenderCopy(gRenderer, gWarehouse_right, NULL, &gWarehouse_rect_right);
+					// BUILD DESTROY
+					build_NAV_WarehouseII.render();
+					build_NAV_WarehouseII.handleEvent(&e);
+					destroy_NAV_WarehouseII.render();
+					destroy_NAV_WarehouseII.handleEvent(&e);
 
 					if (buy == true)
 					{

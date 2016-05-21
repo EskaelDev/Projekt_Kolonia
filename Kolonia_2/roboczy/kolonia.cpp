@@ -100,6 +100,10 @@ SDL_Renderer* gRenderer2 = NULL;
 // Wyswietlane tekstury
 SDL_Texture* gTexture = NULL;
 SDL_Texture* gTexture2 = NULL;
+SDL_Texture* gWarehouse_left = NULL;
+SDL_Texture* gWarehouse_right = NULL;
+
+
 
 // Czcionka
 TTF_Font *gFont = NULL;
@@ -552,7 +556,13 @@ void LButton::operation(Actions action)
 			SDL_DestroyTexture(gTexture2);
 			gTexture2 = NULL;
 		}
+		if(gWarehouse_left!=NULL)
+		{
+			SDL_DestroyTexture(gWarehouse_left);
+			gWarehouse_left = NULL;
+		}
 		gTexture = loadTexture("imgs/main.png");
+		gWarehouse_left=loadTexture()
 		screen = MAIN;
 		subScreen = MAIN;
 		break;
@@ -1001,7 +1011,7 @@ int main(int argc, char* args[])
 			gFont = TTF_OpenFont("fonts/Caladea-Regular.ttf", 19);
 
 			// Przyciski menu
-			// przycisk(akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)
+			// przycisk(akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)	
 			LButton new_game_button(NEW_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 400, "new.png");
 			LButton continue_button(PLAY_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 350, "back.png");
 			LButton load_game_button(LOAD_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 480, "load.png");
@@ -1269,6 +1279,8 @@ int main(int argc, char* args[])
 			LButton destroy_NAV_Tavern(14, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_nav.png");
 			LButton build_AV_Tavern(14, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_av.png");
 			LButton destroy_AV_Tavern(14, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_av.png");
+
+
 
 			// Glowna petla gry
 			while (!quit)

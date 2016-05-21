@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "roboczy", "roboczy\roboczy.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testowy", "testowy\testowy.vcxproj", "{4FDC8A83-3046-46C7-8EDD-82B6D82B92D4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Projekt Kolonia", "..\Anno 1.2\ConsoleApplication5\ConsoleApplication5.vcxproj", "{F1E543F8-9289-462C-A182-ABF546015C48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,12 @@ Global
 		{4FDC8A83-3046-46C7-8EDD-82B6D82B92D4}.Release|x64.Build.0 = Release|x64
 		{4FDC8A83-3046-46C7-8EDD-82B6D82B92D4}.Release|x86.ActiveCfg = Release|Win32
 		{4FDC8A83-3046-46C7-8EDD-82B6D82B92D4}.Release|x86.Build.0 = Release|Win32
+		{F1E543F8-9289-462C-A182-ABF546015C48}.Debug|x64.ActiveCfg = Debug|Win32
+		{F1E543F8-9289-462C-A182-ABF546015C48}.Debug|x86.ActiveCfg = Debug|Win32
+		{F1E543F8-9289-462C-A182-ABF546015C48}.Debug|x86.Build.0 = Debug|Win32
+		{F1E543F8-9289-462C-A182-ABF546015C48}.Release|x64.ActiveCfg = Release|Win32
+		{F1E543F8-9289-462C-A182-ABF546015C48}.Release|x86.ActiveCfg = Release|Win32
+		{F1E543F8-9289-462C-A182-ABF546015C48}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

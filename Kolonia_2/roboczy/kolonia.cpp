@@ -58,6 +58,11 @@ const int gWarehouse_rect_right_y = 558;
 const int gWarehouse_rect_right_h = 162;
 const int gWarehouse_rect_right_w = 197;
 
+const int gWarehouse_rect_centre_x = 115;
+const int gWarehouse_rect_centre_y = 558;
+const int gWarehouse_rect_centre_h = 162;
+const int gWarehouse_rect_centre_w = 197;
+
 // Char buffor Ludzie i Pieniadze
 char People_char_buffor[4];				int People_int = 1;
 char Money_char_buffor[7];				int Money_int = 50000;
@@ -128,12 +133,20 @@ SDL_Renderer* gRenderer2 = NULL;
 // Wyswietlane tekstury
 SDL_Texture* gTexture = NULL;
 SDL_Texture* gTexture2 = NULL;
-SDL_Texture* gWarehouse_left = NULL;
-SDL_Texture* gWarehouse_right = NULL;
+
+// Tekstury magazyow
+//SDL_Texture* gWarehouse_left = NULL;
+//SDL_Texture* gWarehouse_right = NULL;
+SDL_Texture* Warehouse_I_texture = NULL;
+SDL_Texture* Warehouse_II_texture = NULL;
+SDL_Texture* Warehouse_III_texture = NULL;
+SDL_Texture* Warehouse_IV_texture = NULL;
+
 
 // Czworokaty magazynow
 SDL_Rect gWarehouse_rect_right;
 SDL_Rect gWarehouse_rect_left;
+SDL_Rect gWarehouse_rect_centre;
 
 // Czcionka
 TTF_Font *gFont = NULL;
@@ -598,11 +611,6 @@ void LButton::operation(Actions action)
 		gTexture = NULL;
 		gTexture = loadTexture("imgs/left.png");
 
-		gWarehouse_left = NULL;
-		gWarehouse_left = loadTexture("/imgs/magazyn1.png");
-		gWarehouse_right = NULL;
-		gWarehouse_right = loadTexture("/imgs/magazyn2.png");
-
 		screen = GAME;
 		subScreen = GAME;
 
@@ -886,14 +894,26 @@ bool loadMedia()
 	}
 
 	// Textury magazynow
-	gWarehouse_left = loadTexture("imgs/magazyn1.png");
-	if (gWarehouse_left == NULL)
+	Warehouse_I_texture = loadTexture("imgs/magazyn1.png");
+	if (Warehouse_I_texture == NULL)
 	{
 		cout << "Nie mozna zaladowac obrazka!" << endl;
 		success = false;
 	}
-	gWarehouse_right = loadTexture("imgs/magazyn2.png");
-	if (gWarehouse_right == NULL)
+	Warehouse_II_texture = loadTexture("imgs/magazyn2.png");
+	if (Warehouse_II_texture == NULL)
+	{
+		cout << "Nie mozna zaladowac obrazka!" << endl;
+		success = false;
+	}
+	Warehouse_III_texture = loadTexture("imgs/magazyn3.png");
+	if (Warehouse_III_texture == NULL)
+	{
+		cout << "Nie mozna zaladowac obrazka!" << endl;
+		success = false;
+	}
+	Warehouse_IV_texture = loadTexture("imgs/magazyn4.png");
+	if (Warehouse_IV_texture == NULL)
 	{
 		cout << "Nie mozna zaladowac obrazka!" << endl;
 		success = false;
@@ -960,15 +980,25 @@ void close()
 
 
 
-	if (gWarehouse_right != NULL)
+	if (Warehouse_I_texture != NULL)
 	{
-		SDL_DestroyTexture(gWarehouse_right);
-		gWarehouse_right = NULL;
+		SDL_DestroyTexture(Warehouse_I_texture);
+		Warehouse_I_texture = NULL;
 	}
-	if (gWarehouse_left != NULL)
+	if (Warehouse_II_texture != NULL)
 	{
-		SDL_DestroyTexture(gWarehouse_left);
-		gWarehouse_left = NULL;
+		SDL_DestroyTexture(Warehouse_II_texture);
+		Warehouse_II_texture = NULL;
+	}
+	if (Warehouse_III_texture != NULL)
+	{
+		SDL_DestroyTexture(Warehouse_III_texture);
+		Warehouse_III_texture = NULL;
+	}
+	if (Warehouse_IV_texture != NULL)
+	{
+		SDL_DestroyTexture(Warehouse_IV_texture);
+		Warehouse_IV_texture = NULL;
 	}
 
 	// Zwalnia teksture tekstu
@@ -1360,6 +1390,10 @@ int main(int argc, char* args[])
 			gWarehouse_rect_right.h = gWarehouse_rect_right_h;
 			gWarehouse_rect_right.w = gWarehouse_rect_right_w;
 
+			gWarehouse_rect_centre.x = gWarehouse_rect_centre_h;
+			gWarehouse_rect_centre.y = gWarehouse_rect_centre_y;
+			gWarehouse_rect_centre.h = gWarehouse_rect_centre_h;
+			gWarehouse_rect_centre.w = gWarehouse_rect_centre_w;
 			// Glowna petla gry
 			while (!quit)
 			{
@@ -1465,26 +1499,43 @@ int main(int argc, char* args[])
 					// Ludnosc
 
 					// Magazyny
-					// LEWY
-					if (gWarehouse_right != NULL)
+					// LVL1
 					{
-						SDL_DestroyTexture(gWarehouse_right);
-						gWarehouse_right = NULL;
+						SDL_RenderCopy(gRenderer, Warehouse_I_texture, NULL, &gWarehouse_rect_left);
+						SDL_RenderCopy(gRenderer, Warehouse_II_texture, NULL, &gWarehouse_rect_right);
 					}
-					SDL_DestroyTexture(gWarehouse_right);
-					gWarehouse_right = NULL;
-					gWarehouse_right = loadTexture("imgs/magazyn1.png");
-					SDL_RenderCopy(gRenderer, gWarehouse_right, NULL, &gWarehouse_rect_left);
-					// PRAWY
-					if (gWarehouse_right != NULL)
+					// LVL2
+					/*
 					{
-						SDL_DestroyTexture(gWarehouse_right);
-						gWarehouse_right = NULL;
+						if (Warehouse_I_texture != NULL)
+						{
+							SDL_DestroyTexture(Warehouse_I_texture);
+							Warehouse_I_texture = NULL;
+						{
+						SDL_RenderCopy(gRenderer, Warehouse_I_texture, NULL, &gWarehouse_rect_left);
+						SDL_RenderCopy(gRenderer, Warehouse_III_texture, NULL, &gWarehouse_rect_right);
 					}
-					SDL_DestroyTexture(gWarehouse_right);
-					gWarehouse_right = NULL;
-					gWarehouse_right = loadTexture("imgs/magazyn2.png");
-					SDL_RenderCopy(gRenderer, gWarehouse_right, NULL, &gWarehouse_rect_right);
+					// LVL3
+					{
+						if (Warehouse_I_texture != NULL)
+						{
+							SDL_DestroyTexture(Warehouse_II_texture);
+							Warehouse_I_texture = NULL;
+						{
+						SDL_RenderCopy(gRenderer, Warehouse_III_texture, NULL, &gWarehouse_rect_left);
+						SDL_RenderCopy(gRenderer, Warehouse_IV_texture, NULL, &gWarehouse_rect_right);
+					}
+					// LVL4
+					{
+						if (Warehouse_I_texture != NULL)
+						{
+							SDL_DestroyTexture(Warehouse_III_texture);
+							Warehouse_I_texture = NULL;
+						{
+						SDL_RenderCopy(gRenderer, Warehouse_IV_texture, NULL, &gWarehouse_rect_centre);
+					}
+					*/
+					
 					// UPGRADE
 					upgrade_NAV_Warehouse.render();
 					upgrade_NAV_Warehouse.handleEvent(&e);

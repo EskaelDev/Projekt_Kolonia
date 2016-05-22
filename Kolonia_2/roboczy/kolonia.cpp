@@ -70,7 +70,8 @@ char Money_char_buffor[7];				int Money_int = 50000;
 // Wspolrzedne Build, Destroy Magazynow
 const int C_M_B = 242, C_M_D = 276,  W_M = 701;
 
-
+// Kolor renderowanego tekstu
+SDL_Color textColor = { 255, 255, 255, 255 };
 
 // Sprity stanow przycisku
 enum LButtonSprite
@@ -675,17 +676,18 @@ void LButton::operation(Actions action)
 }
 
 //The application time based timer
-class LTimer
+class Timer
 {
 public:
-	//Initializes variables
-	LTimer();
+	Timer();
 
 	//The various clock actions
 	void start();
 	void stop();
 	void pause();
 	void unpause();
+
+	void render();
 
 	//Gets the timer's time
 	Uint32 getTicks();
@@ -706,17 +708,16 @@ private:
 	bool mStarted;
 };
 
-LTimer::LTimer()
+Timer::Timer()
 {
-	//Initialize the variables
 	mStartTicks = 0;
 	mPausedTicks = 0;
 
-	mPaused = false;
+	mPaused = true;
 	mStarted = false;
 }
 
-void LTimer::start()
+void Timer::start()
 {
 	//Start the timer
 	mStarted = true;
@@ -729,7 +730,7 @@ void LTimer::start()
 	mPausedTicks = 0;
 }
 
-void LTimer::stop()
+void Timer::stop()
 {
 	//Stop the timer
 	mStarted = false;
@@ -742,7 +743,7 @@ void LTimer::stop()
 	mPausedTicks = 0;
 }
 
-void LTimer::pause()
+void Timer::pause()
 {
 	//If the timer is running and isn't already paused
 	if (mStarted && !mPaused)
@@ -756,7 +757,7 @@ void LTimer::pause()
 	}
 }
 
-void LTimer::unpause()
+void Timer::unpause()
 {
 	//If the timer is running and paused
 	if (mStarted && mPaused)
@@ -772,7 +773,7 @@ void LTimer::unpause()
 	}
 }
 
-Uint32 LTimer::getTicks()
+Uint32 Timer::getTicks()
 {
 	//The actual timer time
 	Uint32 time = 0;
@@ -796,16 +797,32 @@ Uint32 LTimer::getTicks()
 	return time;
 }
 
-bool LTimer::isStarted()
+bool Timer::isStarted()
 {
 	//Timer is running and paused or unpaused
 	return mStarted;
 }
 
-bool LTimer::isPaused()
+bool Timer::isPaused()
 {
 	//Timer is running and paused
 	return mPaused && mStarted;
+}
+
+void Timer::render()
+{
+	std::stringstream timeText;
+	timeText.str("");
+	timeText << getTicks() / 1000 << " sekund";
+	// Renderowanie tekstu
+	if (!gTimeTextTexture.loadFromRenderedText(timeText.str().c_str(), textColor))
+	{
+		cout << "Nie mozna wyrenderowac czasu!" << endl;
+	}
+	else
+	{
+		gTimeTextTexture.render((350 - gTimeTextTexture.getWidth()), 310);
+	}
 }
 
 
@@ -876,9 +893,6 @@ bool init()
 
 	return success;
 }
-
-SDL_Color textColor = { 255, 255, 255, 255 };
-std::stringstream timeText;
 
 bool loadMedia()
 {
@@ -1078,8 +1092,8 @@ int main(int argc, char* args[])
 
 			SDL_Event e;
 
-			// Poczatkowy czas
-			Uint32 startTime = 0;
+			Timer timer;
+			timer.stop();
 
 			SDL_Rect LargeViewport;
 			LargeViewport.x = 0;
@@ -1404,11 +1418,6 @@ int main(int argc, char* args[])
 					if (e.type == SDL_QUIT)
 						quit = true;
 
-					// Resetowanie czasu po nacisnieciu ENTER
-					else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_RETURN)
-					{
-						startTime = SDL_GetTicks();
-					}
 				}
 				//If there is no music playing 
 				if (Mix_PlayingMusic() == 0)
@@ -1435,14 +1444,7 @@ int main(int argc, char* args[])
 					}
 				}
 				// Ustawianie tekst do renderowania
-				timeText.str("");
-				timeText << (SDL_GetTicks() - startTime) / 1000 << " sekund";
-
-				// Renderowanie tekstu
-				if (!gTimeTextTexture.loadFromRenderedText(timeText.str().c_str(), textColor))
-				{
-					cout << "Nie mozna wyrenderowac czasu!" << endl;
-				}
+			
 				// Czyszczenie ekranu
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(gRenderer);
@@ -1451,6 +1453,7 @@ int main(int argc, char* args[])
 				{
 					// Ekran menu glownego
 				case MAIN:
+					timer.stop();
 					SDL_RenderSetViewport(gRenderer, &LargeViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
 					switch (subScreen)
@@ -1653,6 +1656,7 @@ int main(int argc, char* args[])
 					{
 						// Ekran rozgrywki - wybor budynkow
 					case GAME:
+						timer.start();
 						main_menu_button.setPosition(300, 730);
 						main_menu_button.render();
 						main_menu_button.handleEvent(&e);
@@ -1675,7 +1679,7 @@ int main(int argc, char* args[])
 
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
-						gTimeTextTexture.render((300 - gTimeTextTexture.getWidth()), 310);
+						timer.render();
 						break;
 						// Ekran rozgrywki - budynki publiczne
 					case PUB:

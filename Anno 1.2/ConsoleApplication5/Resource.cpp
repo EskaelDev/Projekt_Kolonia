@@ -28,7 +28,12 @@ void Resource::sell()
 {
 }
 
-int Resource::get()
+void Resource::increase(int _Number)
+{
+	quantity += _Number;
+}
+
+int Resource::getNumber() const
 {
 	return quantity;
 }

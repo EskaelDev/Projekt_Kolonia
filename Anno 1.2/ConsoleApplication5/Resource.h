@@ -17,7 +17,8 @@ public:
 	~Resource();
 	void buy();
 	void sell();
-	int get();
+	void increase(int);
+	int getNumber() const;
 	int getTaxes(int, int, int, int, int);
 	void test();
 };

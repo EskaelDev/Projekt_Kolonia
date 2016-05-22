@@ -6,103 +6,9 @@
 #include <ctime>
 #include <string>
 
-#include "Building.h"
-#include "House.h"
-#include "Industrial.h"
-#include "Production.h"
-#include "Processing.h"
-#include "Resource.h"
-#include "People.h"
+#include "Objects.h"
 
 using namespace std;
-
-// TWORZENIE OBIEKTOW-------------------------------------------------------------------------------------------------------------------------------------------------------
-
-//House(bricksToBuild, toolsToBuild, woodToBuild, inhabitants)
-House hPioneers(0, 0, 3, 2);
-House hSettlers(0, 1, 3, 6);
-House hCitizens(6, 2, 2, 15);
-House hMerchants(9, 3, 3, 25);
-House hAristocrats(12, 3, 3, 40);
-
-//Industrial(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceCost, size, peopleToBuild, peopleClass)
-Industrial Doctor(450, 9, 4, 4, 30, 4, 50, 3);
-Industrial PublicBath(1200, 19, 6, 5, 60, 12, 210, 3);
-Industrial FireDepartment(150, 0, 3, 5, 15, 4, 15, 2);
-Industrial University(750, 19, 6, 5, 60, 9, 250, 4);
-Industrial Chapel(100, 0, 2, 5, 5, 2, 0, 0);
-Industrial Cathedral(7500, 70, 25, 25, 90, 24, 2500, 5);
-Industrial Church(1600, 25, 7, 7, 50, 12, 150, 3);
-Industrial MarketPlace(200, 0, 4, 10, 10, 12, 0, 0);
-Industrial Palace(5000, 50, 15, 20, 40, 35, 1500, 5);
-Industrial School(450, 9, 4, 4, 30, 4, 100, 2);
-Industrial Theatre(1200, 19, 2, 5, 80, 9, 300, 4);
-Industrial Tavern(250, 6, 3, 4, 15, 6, 50, 2);
-
-//Production(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, size, magazineCapacity, peopleToBuild, peopleClass)
-Production WarehouseI(100, 0, 3, 6, 15, 15, 6, 30, 0, 0);
-Production WarehouseII(180, 0, 3, 7, 15, 15, 6, 50, 30, 2);
-Production WarehouseIII(250, 6, 4, 4, 15, 15, 6, 75, 100, 3);
-Production WarehouseIV(250, 10, 5, 4, 15, 15, 6, 100, 250, 4);
-Production CottonPlantation(200, 6, 2, 3, 25, 10, 26, 9, 200, 3);
-Production ForestersLodge(50, 0, 2, 0, 5, 0, 4, 10, 0, 0);
-Production GrainFarm(100, 0, 2, 5, 5, 0, 11, 6, 75, 2);
-Production SpiceFarm(300, 8, 2, 3, 35, 15, 26, 4, 75, 2);
-Production HuntersHut(50, 0, 2, 2, 5, 0, 4, 3, 0, 0);
-Production CocoaPlantation(300, 8, 2, 3, 35, 15, 26, 6, 200, 3);
-Production CattleFarm(100, 0, 1, 4, 5, 0, 26, 4, 30, 1);
-Production SheepFarm(200, 0, 2, 4, 5, 0, 26, 8, 0, 0);
-Production Winery(300, 8, 2, 3, 35, 15, 26, 6, 40, 2);
-Production TobaccoPlantation(300, 8, 2, 3, 35, 15, 26, 6, 40, 2);
-Production SugarcanePlantation(300, 8, 2, 3, 25, 10, 26, 6, 40, 2);
-Production IronMine(1000, 5, 10, 20, 60, 20, 3, 4, 120, 2);
-Production DeepIronMine(1800, 7, 15, 30, 60, 20, 3, 4, 450, 3);
-Production GoldMine(1000, 5, 10, 20, 60, 20, 3, 4, 150, 3);
-Production FistersHut(100, 0, 3, 5, 5, 0, 1, 4, 0, 0);
-
-//Processing(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, magazineCapacity, peopleToBuild, peopleClass)
-Processing Bakery(150, 0, 2, 6, 5, 0, 4, 75, 2);
-Processing OreRefenery(200, 4, 3, 1, 25, 10, 5, 120, 2);
-Processing GoldSmith(1500, 10, 7, 2, 45, 20, 4, 250, 4);
-Processing ButchersShop(150, 10, 3, 4, 5, 0, 4, 30, 1);
-Processing RumDistillery(200, 5, 3, 2, 25, 7, 4, 40, 2);
-Processing Clothiers(150, 2, 3, 6, 10, 5, 4, 200, 3);
-Processing StoneMason(100, 0, 5, 5, 5, 0, 8, 15, 2);
-Processing TobaccoProduction(200, 5, 3, 2, 20, 10, 4, 40, 2);
-Processing WeavingMill(200, 7, 4, 3, 20, 10, 4, 75, 2);
-Processing WeavingHut(200, 0, 3, 6, 10, 5, 4, 0, 0);
-Processing ToolSmithy(150, 5, 3, 2, 25, 10, 4, 100, 2);
-Processing WindMill(100, 0, 3, 6, 5, 0, 6, 75, 2);
-
-//People(tax)
-People Pioneers(1);
-People Settlers(1);
-People Citizens(1);
-People Merchants(2);
-People Aristocrats(2);
-
-//Resource(quantity, price)
-Resource Money(50000, 1);
-Resource IronOre(0, 60);
-Resource Gold(0, 465);
-Resource Wool(0, 16);
-Resource Sugar(0, 19);
-Resource Tobacco(0, 23);
-Resource Cattle(0, 6);
-Resource Grain(0, 3);
-Resource Flour(0, 3);
-Resource Iron(0, 84);
-Resource Food(0, 17);
-Resource TobaccoProducts(0, 65);
-Resource Spices(0, 40);
-Resource Cocoa(0, 33);
-Resource Liquor(0, 52);
-Resource Cloth(0, 32);
-Resource Clothes(0, 130);
-Resource Jewelry(0, 590);
-Resource Tools(30, 80);
-Resource Wood(30, 20);
-Resource Bricks(30, 30);
 
 // FUNKCJE---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -195,6 +101,9 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	clock_t obecny = 0;
 	clock_t poprzedni = 0;
+	
+	int menu = 0;				// wybor dzialania z menu
+	int decyzja = 0;			// wybor numeru budynku z menu
 
 	while (1)	// petla gry
 	{
@@ -208,14 +117,59 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		// AKTUALIZACJA STANU SUROWCOW
 
+		for (int i = 4; i < 19; ++i)
+			for (int j = 1; j < 20; ++j)
+			{
+				if (tProduction[i]->getProduct() == j)
+					tResource[j]->increase(tProduction[i]->getNumber());
+			}
+
+		for (int i = 0; i < 12; ++i)
+			for (int j = 1; j < 21; ++j)
+			{
+				if (tProcessing[i]->getProduct() == j)
+					tResource[j]->increase(tProcessing[i]->getNumber());
+			}
+
+		// SPRAWDZENIE WARUNKU DOSTEPNOSCI BUDYNKOW
+		
+		for (int i = 0; i < 12; ++i)
+			for (int j = 0; j < 5; ++j)
+			{
+				if (tIndustrial[i]->getClass() == j)
+				{
+					tIndustrial[i]->checkStatus(*tPeople[j]);
+					break;
+				}
+			}
+
+		for (int i = 0; i < 19; ++i)
+			for (int j = 0; j < 5; ++j)
+			{
+				if (tProduction[i]->getClass() == j)
+				{
+					tProduction[i]->checkStatus(*tPeople[j]);
+					break;
+				}
+			}
+
+		for (int i = 0; i < 12; ++i)
+			for (int j = 0; j < 5; ++j)
+			{
+				if (tProduction[i]->getClass() == j)
+				{
+					tProduction[i]->checkStatus(*tPeople[j]);
+					break;
+				}
+			}
 
 		// MENU (TYMCZASOWE DLA KONSOLI)
 		// WYSWIETLANIE STANU SUROWCOW
 
-		cout << "Pieniadze: " << Money.get();
-		cout << "   Cegly: " << Bricks.get();
-		cout << "   Narzedzia : " << Tools.get();
-		cout << "   Drewno : " << Wood.get() << endl << endl;
+		cout << "Pieniadze: " << Money.getNumber();
+		cout << "   Cegly: " << Bricks.getNumber();
+		cout << "   Narzedzia : " << Tools.getNumber();
+		cout << "   Drewno : " << Wood.getNumber() << endl << endl;
 		
 		// PODEJMOWANIE DECYZJI
 
@@ -224,10 +178,11 @@ int _tmain(int argc, _TCHAR* argv[])
 		cout << "[2] - zburz budynek" << endl;
 		cout << "[3] - wyswietl stan zabudowy" << endl;
 		cout << "[4] - wyswietl parametry budynku" << endl;
+		cout << "[5] - wyswietl stan surowcow" << endl;
+		cout << "[6] - odswiez" << endl;
 		cout << "[0] - zakoncz program" << endl << endl;
 		cout << "Decyzja? ";
 		
-		int menu, decyzja;
 		cin >> menu;
 		switch(menu)
 		{
@@ -239,14 +194,26 @@ int _tmain(int argc, _TCHAR* argv[])
 				cin >> decyzja;
 
 				if (decyzja >= 0 && decyzja < 12)
-					Build(*tIndustrial[decyzja]);
-
-				else if(decyzja >= 12 && decyzja < 31)
-					Build(*tProduction[decyzja - 12]);
-
-				else if(decyzja >= 31 && decyzja < 43)
-					Build(*tProcessing[decyzja - 31]);
-
+				{
+					if (tIndustrial[decyzja]->getStatus() == true)
+						Build(*tIndustrial[decyzja]);
+					else
+						cout << "\n  Budynek niedostepny";
+				}
+				else if (decyzja >= 12 && decyzja < 31)
+				{
+					if (tProduction[decyzja - 12]->getStatus() == true)
+						Build(*tProduction[decyzja - 12]);
+					else
+						cout << "\n  Budynek niedostepny";
+				}
+				else if (decyzja >= 31 && decyzja < 43)
+				{
+					if (tProcessing[decyzja - 31]->getStatus() == true)
+						Build(*tProcessing[decyzja - 31]);
+					else
+						cout << "\n  Budynek niedostepny";
+				}
 				break;
 
     	//BURZENIE BUDYNKOW----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -271,17 +238,20 @@ int _tmain(int argc, _TCHAR* argv[])
 
 			case 3:
 				menuBuilding();
-				cout << "\n\nIndustrial: ";
+				cout << "\nIndustrial:\n\n";
 				for (int i = 0; i < 12; ++i)
-					cout << i << "-" << tIndustrial[i]->getNumber() << "  ";
+					cout << "[" << i << "]=" << tIndustrial[i]->getNumber() << "\t";
 				
-				cout << "\nProduction: ";
+				cout << "\n\nProduction:\n\n";
 				for (int i = 0; i < 19; ++i)
-					cout << i+12 << "-" << tProduction[i]->getNumber() << "  ";
+				{
+					cout << "[" << i + 12 << "]=" << tProduction[i]->getNumber() << "\t";
+					if (i == 11) cout << endl;
+				}
 
-				cout << "\nProcessing: ";
+				cout << "\n\nProcessing:\n\n";
 				for (int i = 0; i < 12; ++i)
-					cout << i+31 << "-" << tProcessing[i]->getNumber() << "  ";
+					cout << "[" << i+31 << "]=" << tProcessing[i]->getNumber() << "\t";
 
 				break;
 		
@@ -303,6 +273,28 @@ int _tmain(int argc, _TCHAR* argv[])
 
 				break;
 
+		//WYSWIETLANIE STANU WSZYSTKICH BUDYNKU--------------------------------------------------------------------------------------------------------------------------------
+			case 5:
+				cout << "\n  [0] - pieniadze\t[1] - ruda zelaza\t[2] - zloto" << endl;
+				cout << "  [3] - welna\t\t[4] - cukier\t\t[5] - tabaka" << endl;
+				cout << "  [6] - bydlo\t\t[7] - zboze\t\t[8] - maka" << endl;
+				cout << "  [9] - zelazo\t\t[10] - jedzenie\t\t[11] - cygara" << endl;
+				cout << "  [12] - przyprawy\t[13] - kakao\t\t[14] - trunek" << endl;
+				cout << "  [15] - plotno\t\t[16] - ubrania\t\t[17] - bizuteria" << endl;
+				cout << "  [18] - narzedzia\t[19] - drewno\t\t[20] - cegly" << endl << endl;
+
+				for (int i = 0; i < 21; ++i)
+				{
+					cout << "\t[" << i << "]=" << tResource[i]->getNumber();
+					if (i == 0 || i == 7 || i == 14) cout << endl;
+				}
+				break;
+			
+		//ODSWIEZANIE EKRANU
+			case 6:
+				break;
+
+		//WYJSCIE Z GRY
 			case 0:
 				exit(1);
 				break;
@@ -321,9 +313,9 @@ int _tmain(int argc, _TCHAR* argv[])
 
 void Build(Industrial & Name)
 {
-	if (Name.checkRequirements(Money.get(), Bricks.get(), Tools.get(), Wood.get()) == -1)
+	if (Name.checkRequirements(Money.getNumber(), Bricks.getNumber(), Tools.getNumber(), Wood.getNumber()) == -1)
 		cout << "\n    Budynek niedostepny." << endl;
-	else if (Name.checkRequirements(Money.get(), Bricks.get(), Tools.get(), Wood.get()) == 0)
+	else if (Name.checkRequirements(Money.getNumber(), Bricks.getNumber(), Tools.getNumber(), Wood.getNumber()) == 0)
 		cout << "\n    Nie masz wystarczajacej ilosci surowcow." << endl;
 	else
 	{
@@ -390,3 +382,4 @@ void menuBuilding()
 	cout << "  [41] - wytworca narzedzi\t";
 	cout << "  [42] - wiatrak" << endl << endl;
 }
+

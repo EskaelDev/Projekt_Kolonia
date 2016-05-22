@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Industrial.h"
 #include "People.h"
+
 using namespace std;
 
 Industrial::Industrial()
@@ -10,7 +11,8 @@ Industrial::Industrial()
 	maintenanceActiveCost = 0;
 	maintenancePassiveCost = 0;
 	peopleToBuild = 0;
-	peopleClass = 0;
+	peopleClass = -1;
+	status = true;
 }
 
 Industrial::Industrial(int _moneyToBuild, int _bricksToBuild, int _toolsToBuild, int _woodToBuild, int _maintenanceCost, int _size, int _peopleToBuild, int _peopleClass)
@@ -24,18 +26,19 @@ Industrial::Industrial(int _moneyToBuild, int _bricksToBuild, int _toolsToBuild,
 	size = _size;
 	peopleToBuild = _peopleToBuild;
 	peopleClass = _peopleClass;
+	status = true;
 }
 
 Industrial::~Industrial()
 {
 }
 
-int Industrial::checkStatus(Industrial & _nameB, People & _nameP) const
+void Industrial::checkStatus(People & _class) 
 {
-	if (peopleToBuild > _nameP.getNumber())
-		return 1;
+	if (peopleToBuild > _class.getNumber())
+		status = false;
 	else
-		return 0;
+		status = true;
 }
 
 int Industrial::checkRequirements(int money, int bricks, int tools, int wood) const
@@ -66,6 +69,16 @@ int Industrial::getMoney() const
 	return moneyToBuild;
 }
 
+int Industrial::getClass() const
+{
+	return peopleClass;
+}
+
+bool Industrial::getStatus() const
+{
+	return status;
+}
+
 void Industrial::test() const
 {
 	cout << "Liczba = " << number << endl;
@@ -76,5 +89,15 @@ void Industrial::test() const
 	cout << "Koszt aktywnej produkcji = " << maintenanceActiveCost << endl;
 	cout << "Koszt wstrzymanej produkcji = " << maintenancePassiveCost << endl;
 	cout << "Zajmowany obszar = " << size << endl;
-	cout << "Wymaga liczba ludzi do budowy = " << peopleToBuild << endl << endl;
+	cout << "Wymagana liczba ludzi do budowy = " << peopleToBuild << endl;
+	cout << "Wymagana klasa ludzi: ";
+	if (peopleClass == 0) cout << "Pioneers" << endl; 
+	else if (peopleClass == 1) cout << "Settlers" << endl;
+	else if (peopleClass == 2) cout << "Citizens" << endl;
+	else if (peopleClass == 3) cout << "Merchants" << endl;
+	else if (peopleClass == 4) cout << "Aristocrats" << endl;
+	else if (peopleClass == -1) cout << "-" << endl;
+	cout << "Status dostepnosci: ";
+	if (status == true) cout << "dostepny" << endl;
+	else cout << "niedostepny" << endl;
 }

@@ -70,6 +70,9 @@ char Money_char_buffor[7];				int Money_int = 50000;
 // Wspolrzedne Build, Destroy Magazynow
 const int C_M_B = 242, C_M_D = 276,  W_M = 701;
 
+// Zmienne do wyswietlania czasu
+int h = 0, m = 0, s = 0;
+
 // Kolor renderowanego tekstu
 SDL_Color textColor = { 255, 255, 255, 255 };
 
@@ -714,7 +717,7 @@ Timer::Timer()
 	mPausedTicks = 0;
 
 	mPaused = true;
-	mStarted = false;
+	mStarted = true;
 }
 
 void Timer::start()
@@ -811,9 +814,14 @@ bool Timer::isPaused()
 
 void Timer::render()
 {
+	s = (getTicks() / 1000) - m * 60;
+	if (s == 60)
+	{
+		m++;
+	}
 	std::stringstream timeText;
 	timeText.str("");
-	timeText << getTicks() / 1000 << " sekund";
+	timeText << m << " m " << s << " sekund";
 	// Renderowanie tekstu
 	if (!gTimeTextTexture.loadFromRenderedText(timeText.str().c_str(), textColor))
 	{
@@ -1093,7 +1101,6 @@ int main(int argc, char* args[])
 			SDL_Event e;
 
 			Timer timer;
-			timer.stop();
 
 			SDL_Rect LargeViewport;
 			LargeViewport.x = 0;
@@ -1120,11 +1127,11 @@ int main(int argc, char* args[])
 			LButton new_game_button(NEW_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 400, "new.png");
 			LButton continue_button(PLAY_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 350, "back.png");
 			LButton load_game_button(LOAD_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 480, "load.png");
-			LButton save_game_button(SAVE_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 560, "save.png");
 			LButton exit_game_button(EXIT_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 660, "exit.png");
 			LButton main_menu_button(MAIN_MENU, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 660, "menu.png");
-			LButton back_button(PLAY_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 300, 730, "back.png");
-			LButton stats_button(VIEW_STATS, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 0, 730, "stats.png");
+			LButton save_game_button(SAVE_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 150, 732, "save.png");
+			LButton back_button(PLAY_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 300, 732, "back.png");
+			LButton stats_button(VIEW_STATS, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 5, 732, "stats.png");
 
 			// Przyciski splashy
 			LButton ind_button(INDUSTRIAL, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 0, "/buildings/ind.png");
@@ -1453,13 +1460,12 @@ int main(int argc, char* args[])
 				{
 					// Ekran menu glownego
 				case MAIN:
-					timer.stop();
+					timer.pause();
 					SDL_RenderSetViewport(gRenderer, &LargeViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
 					switch (subScreen)
 					{
 					case MAIN:
-						save_game_button.setPosition(624, 560);
 						new_game_button.render();
 						load_game_button.render();
 						exit_game_button.render();
@@ -1489,21 +1495,66 @@ int main(int argc, char* args[])
 					break;
 					// Ekran rozgrywki
 				case GAME:
+					timer.unpause();
 					SDL_RenderSetViewport(gRenderer, &LeftViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
 
 					// Liczby
 					// test
-					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
-					Money_int++;
-					gTextTexture.render(90, 43);
 
 					// Pieniadze
+					// Podatki
+					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					Money_int++;
+					gTextTexture.render(90, 40);
+
+					// Koszty
+					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.render(90, 63);
+
+					// Sprzedaz
+					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.render(90, 90);
+
+					// Kupno
+					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.render(90, 113);
+
+					// Bilans
+					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.render(90, 140);
+
+					// Srodki
+					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.render(90, 170);
+
 
 					// Ludnosc
+					// Pionierzy
 					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.render(340, 38);
+
+					// Osadnicy
+					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.render(340, 62);
+
+					// Mieszczanie
+					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.render(340, 90);
+
+					// Kupcy
+					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.render(340, 117);
+
+					// Arystokraci
+					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.render(340, 145);
+
+					// Mieszkancy
+					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.render(340, 175);
 					People_int++;
-					gTextTexture.render(350, 160);
+
 					// Magazyny
 					// LVL1
 					{
@@ -1649,15 +1700,13 @@ int main(int argc, char* args[])
 					sell_button.handleEvent(&e);
 					stats_button.render();
 					stats_button.handleEvent(&e);
-					save_game_button.setPosition(150, 730);
 					save_game_button.render();
 					save_game_button.handleEvent(&e);
 					switch (subScreen)
 					{
 						// Ekran rozgrywki - wybor budynkow
 					case GAME:
-						timer.start();
-						main_menu_button.setPosition(300, 730);
+						main_menu_button.setPosition(300, 732);
 						main_menu_button.render();
 						main_menu_button.handleEvent(&e);
 
@@ -1673,7 +1722,7 @@ int main(int argc, char* args[])
 
 						// Ekran rozgrywki - statystyki
 					case STATS:
-
+						back_button.setPosition(300, 732);
 						back_button.render();
 						back_button.handleEvent(&e);
 
@@ -1683,6 +1732,7 @@ int main(int argc, char* args[])
 						break;
 						// Ekran rozgrywki - budynki publiczne
 					case PUB:
+						back_button.setPosition(300, 732);
 						back_button.render();
 						back_button.handleEvent(&e);
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
@@ -1722,6 +1772,7 @@ int main(int argc, char* args[])
 						break;
 						// Ekran rozgrywki - przetworstwo
 					case IND:
+						back_button.setPosition(300, 732);
 						back_button.render();
 						back_button.handleEvent(&e);
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
@@ -1768,6 +1819,7 @@ int main(int argc, char* args[])
 						break;
 						// Ekran rozgrywki - produkcja
 					case PROD:
+						back_button.setPosition(300, 732);
 						back_button.render();
 						back_button.handleEvent(&e);
 						SDL_RenderSetViewport(gRenderer, &RightViewport);

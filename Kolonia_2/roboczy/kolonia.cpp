@@ -1493,9 +1493,7 @@ int main(int argc, char* args[])
 					// test
 
 					// Pieniadze
-					gTextTexture.loadFromRenderedText(	itoa(Money_int, Money_char_buffor , 10), textC);
-					Money_int++;
-					gTextTexture.render(90, 43);
+
 					// Ludnosc
 
 					// Magazyny

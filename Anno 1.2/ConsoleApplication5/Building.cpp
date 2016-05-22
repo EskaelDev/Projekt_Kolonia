@@ -3,7 +3,6 @@
 
 Building::Building()
 {
-	id = 0;
 	number = 0;
 	bricksToBuild = 0;
 	toolsToBuild = 0;

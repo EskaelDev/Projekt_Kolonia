@@ -5,10 +5,9 @@ Processing::Processing()
 {
 }
 
-Processing::Processing(int _id, int _moneyToBuild, int _bricksToBuild, int _toolsToBuild,
-	int _woodToBuild, int _maintenanceActiveCost, int _maintenancePassiveCost, int _magazineCapacity, int _peopleToBuild)
+Processing::Processing(int _moneyToBuild, int _bricksToBuild, int _toolsToBuild, int _woodToBuild, int _maintenanceActiveCost, 
+	int _maintenancePassiveCost, int _magazineCapacity, int _peopleToBuild, int _peopleClass)
 {
-	id = _id;
 	moneyToBuild = _moneyToBuild;
 	bricksToBuild = _bricksToBuild;
 	toolsToBuild = _toolsToBuild;
@@ -17,6 +16,7 @@ Processing::Processing(int _id, int _moneyToBuild, int _bricksToBuild, int _tool
 	maintenancePassiveCost = _maintenancePassiveCost;
 	magazineCapacity = _magazineCapacity;
 	peopleToBuild = _peopleToBuild;
+	peopleClass = _peopleClass;
 }
 
 Processing::~Processing()

@@ -11,6 +11,7 @@ public:
 	People();
 	People(int);
 	~People();
+	int getNumber() const;
 	int getTax() const;
 	void test() const;
 };

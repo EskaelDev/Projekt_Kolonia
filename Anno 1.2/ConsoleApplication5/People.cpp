@@ -18,6 +18,11 @@ People::~People()
 {
 }
 
+int People::getNumber() const
+{
+	return number;
+}
+
 int People::getTax() const
 {
 	int taxes = tax*number;

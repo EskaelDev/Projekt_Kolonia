@@ -13,7 +13,7 @@ protected:
 
 public:
 	Resource();
-	Resource(int, int, int);
+	Resource(int, int);
 	~Resource();
 	void buy();
 	void sell();

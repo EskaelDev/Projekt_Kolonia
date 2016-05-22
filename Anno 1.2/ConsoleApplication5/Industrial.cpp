@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include <iostream>
 #include "Industrial.h"
+#include "People.h"
 using namespace std;
 
 Industrial::Industrial()
@@ -9,11 +10,11 @@ Industrial::Industrial()
 	maintenanceActiveCost = 0;
 	maintenancePassiveCost = 0;
 	peopleToBuild = 0;
+	peopleClass = 0;
 }
 
-Industrial::Industrial(int _id, int _moneyToBuild, int _bricksToBuild, int _toolsToBuild, int _woodToBuild, int _maintenanceCost, int _size, int _peopleToBuild)
+Industrial::Industrial(int _moneyToBuild, int _bricksToBuild, int _toolsToBuild, int _woodToBuild, int _maintenanceCost, int _size, int _peopleToBuild, int _peopleClass)
 {
-	id = _id;
 	moneyToBuild = _moneyToBuild;
 	bricksToBuild = _bricksToBuild;
 	toolsToBuild = _toolsToBuild;
@@ -22,17 +23,24 @@ Industrial::Industrial(int _id, int _moneyToBuild, int _bricksToBuild, int _tool
 	maintenancePassiveCost = _maintenanceCost;
 	size = _size;
 	peopleToBuild = _peopleToBuild;
+	peopleClass = _peopleClass;
 }
 
 Industrial::~Industrial()
 {
 }
 
+int Industrial::checkStatus(Industrial & _nameB, People & _nameP) const
+{
+	if (peopleToBuild > _nameP.getNumber())
+		return 1;
+	else
+		return 0;
+}
+
 int Industrial::checkRequirements(int money, int bricks, int tools, int wood) const
 {
-	if (false) // jakie wymagania?
-		return -1;
-	else if (moneyToBuild > money || bricksToBuild > bricks || toolsToBuild > tools || woodToBuild > wood)
+	if (moneyToBuild > money || bricksToBuild > bricks || toolsToBuild > tools || woodToBuild > wood)
 		return 0;
 	else
 		return 1;
@@ -49,12 +57,8 @@ void Industrial::Build(Resource & _Money, Resource & _Bricks, Resource & _Tools,
 
 void Industrial::Destroy()
 {
-	--number;
-}
-
-int Industrial::getId() const
-{
-	return id;
+	if(number > 0)
+		--number;
 }
 
 int Industrial::getMoney() const
@@ -64,7 +68,6 @@ int Industrial::getMoney() const
 
 void Industrial::test() const
 {
-	cout << "Id = " << id << endl;
 	cout << "Liczba = " << number << endl;
 	cout << "Pieniadze do budowy = " << moneyToBuild << endl;
 	cout << "Cegly do budowy = " << bricksToBuild << endl;

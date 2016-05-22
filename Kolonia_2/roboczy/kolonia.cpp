@@ -58,8 +58,9 @@ const int gWarehouse_rect_right_y = 558;
 const int gWarehouse_rect_right_h = 162;
 const int gWarehouse_rect_right_w = 197;
 
-
-// 
+// Char buffor Ludzie i Pieniadze
+char People_char_buffor[4];				int People_int = 1;
+char Money_char_buffor[7];				int Money_int = 50000;
 
 // Wspolrzedne Build, Destroy Magazynow
 const int C_M_B = 242, C_M_D = 276,  W_M = 701;
@@ -1454,6 +1455,14 @@ int main(int argc, char* args[])
 					SDL_RenderSetViewport(gRenderer, &LeftViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
 
+					// Liczby
+					// test
+
+					// Pieniadze
+					gTextTexture.loadFromRenderedText(	itoa(Money_int, Money_char_buffor , 10), textC);
+					Money_int++;
+					gTextTexture.render(90, 43);
+					// Ludnosc
 
 					// Magazyny
 					// LEWY

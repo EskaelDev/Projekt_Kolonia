@@ -34,10 +34,32 @@ const int BUY_BUTTON_HEIGHT = 70;
 const int RESOURCES_BUTTON_HEIGHT = 52;
 const int RESOURCES_BUTTON_WIDTH = 56;
 
+// Rozmiary przycisku Ulepsz
+const int UPGRADE_BUTTON_HEIGHT = 63;
+const int UPGRADE_BUTTON_WIDTH = 87;
+
+
 // Wspolrzedne przyiskow build, destroy
 const int C_1 = 17, C_2 = 204, C_3 = 402, C_4 = 596, C_5 = 770;
 const int W_1 = 252, W_2 = 488, W_3 = 723;
 const int R_R = 66;
+
+// Wspolrzedne ulepszenia
+const int U_X = 171, U_Y = 595;
+
+// Rozmiary rectow magazynow
+const int gWarehouse_rect_left_x = 9;
+const int gWarehouse_rect_left_y = 558;
+const int gWarehouse_rect_left_h = 162;
+const int gWarehouse_rect_left_w = 197;
+
+const int gWarehouse_rect_right_x = 223;
+const int gWarehouse_rect_right_y = 558;
+const int gWarehouse_rect_right_h = 162;
+const int gWarehouse_rect_right_w = 197;
+
+
+// 
 
 // Wspolrzedne Build, Destroy Magazynow
 const int C_M_B = 242, C_M_D = 276,  W_M = 701;
@@ -87,6 +109,7 @@ enum Actions
 	VIEW_STATS,
 	BUILD,
 	DESTROY,
+	UPGRADE,
 	NONE
 };
 
@@ -1318,22 +1341,23 @@ int main(int argc, char* args[])
 			LButton destroy_AV_Tavern(14, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_av.png");
 
 			//  M	A	G	A	Z	Y	N	Y
-			// WarehouseI
-			LButton build_NAV_WarehouseII(15, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_M_B, W_M, "build_nav.png");
-			LButton destroy_NAV_WarehouseII(15, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_M_D + R_R, W_M, "destroy_nav.png");
-			LButton build_AV_WarehouseII(15, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_M_B, W_M, "build_av.png");
-			LButton destroy_AV_WarehouseII(15, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_M_D + R_R, W_M, "destroy_av.png");
-		
-			/////////////////////////////////////////   T	Y	M	C	Z	A	S	O	W	O	\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ 
-			gWarehouse_rect_left.x = 9;
-			gWarehouse_rect_left.y = 558;
-			gWarehouse_rect_left.h = 162;
-			gWarehouse_rect_left.w = 197;
-			/////////////////////////////////////////   T	Y	M	C	Z	A	S	O	W	O	\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ 
-			gWarehouse_rect_right.x = 223;
-			gWarehouse_rect_right.y = 558;
-			gWarehouse_rect_right.h = 162;
-			gWarehouse_rect_right.w = 197;
+			// WarehouseIIUpgrade
+			LButton upgrade_NAV_Warehouse(15, NONE, UPGRADE_BUTTON_WIDTH, UPGRADE_BUTTON_HEIGHT, U_X, U_Y, "upgrade_nav.png");
+			LButton upgrade_AV_Warehouse(15, UPGRADE, UPGRADE_BUTTON_WIDTH, UPGRADE_BUTTON_HEIGHT, U_X, U_Y, "upgrade_av.png");
+
+			
+
+			// Wspolrzedne czworokatow magazynu 
+			// LEWY
+			gWarehouse_rect_left.x = gWarehouse_rect_left_x;
+			gWarehouse_rect_left.y = gWarehouse_rect_left_y;
+			gWarehouse_rect_left.h = gWarehouse_rect_left_h;
+			gWarehouse_rect_left.w = gWarehouse_rect_left_w;
+			// PRAWY
+			gWarehouse_rect_right.x = gWarehouse_rect_right_x;
+			gWarehouse_rect_right.y = gWarehouse_rect_right_y;
+			gWarehouse_rect_right.h = gWarehouse_rect_right_h;
+			gWarehouse_rect_right.w = gWarehouse_rect_right_w;
 
 			// Glowna petla gry
 			while (!quit)
@@ -1452,11 +1476,9 @@ int main(int argc, char* args[])
 					gWarehouse_right = NULL;
 					gWarehouse_right = loadTexture("imgs/magazyn2.png");
 					SDL_RenderCopy(gRenderer, gWarehouse_right, NULL, &gWarehouse_rect_right);
-					// BUILD DESTROY
-					build_NAV_WarehouseII.render();
-					build_NAV_WarehouseII.handleEvent(&e);
-					destroy_NAV_WarehouseII.render();
-					destroy_NAV_WarehouseII.handleEvent(&e);
+					// UPGRADE
+					upgrade_NAV_Warehouse.render();
+					upgrade_NAV_Warehouse.handleEvent(&e);
 
 					if (buy == true)
 					{

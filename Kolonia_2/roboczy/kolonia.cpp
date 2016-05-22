@@ -524,7 +524,7 @@ void LButton::handleEvent(SDL_Event* e)
 			case SDL_MOUSEBUTTONDOWN:
 				mCurrentSprite = BUTTON_SPRITE_MOUSE_DOWN;
 				Mix_PlayChannel(-1, gClickSound, 0);
-				SDL_Delay(200);
+				SDL_Delay(100);
 				operation(action);
 				break;
 

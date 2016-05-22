@@ -1137,10 +1137,13 @@ int main(int argc, char* args[])
 			LButton ind_button(INDUSTRIAL, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 0, "/buildings/ind.png");
 			LButton prod_button(PRODUCTION, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 256, "/buildings/prod.png");
 			LButton pub_button(PUBLIC, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 512, "/buildings/pub.png");
+			
 
 			// Przyciski: kup, sprzedaj
-			LButton buy_button(BUY, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 270, "buy.png");
-			LButton sell_button(SELL, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 420, "sell.png");
+			LButton buy_button(BUY, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 250, "buy.png");
+			LButton sell_button(SELL, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 345, "sell.png");
+			LButton cancel_NAV_button(NONE, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 440, "cancel_nav.png");
+			LButton cancel_AV_button(NONE, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 440, "cancel_av.png");
 
 			// Przyciski kupowania zasobow
 			// przycisk(id, akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)
@@ -1644,7 +1647,11 @@ int main(int argc, char* args[])
 						buy_iron_button.handleEvent(&e);
 						buy_cocoa_button.render();
 						buy_cocoa_button.handleEvent(&e);
+
+						cancel_AV_button.render();
+						cancel_AV_button.handleEvent(&e);
 					}
+					else
 					if (sell == true)
 					{
 						gTextTexture.loadFromRenderedText("Sprzedaj", textC);
@@ -1692,6 +1699,14 @@ int main(int argc, char* args[])
 						sell_iron_button.handleEvent(&e);
 						sell_cocoa_button.render();
 						sell_cocoa_button.handleEvent(&e);
+
+						cancel_AV_button.render();
+						cancel_AV_button.handleEvent(&e);
+					}
+					else
+					{
+						cancel_NAV_button.render();
+						cancel_NAV_button.handleEvent(&e);
 					}
 
 					buy_button.render();

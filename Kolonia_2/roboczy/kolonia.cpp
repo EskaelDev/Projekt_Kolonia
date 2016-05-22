@@ -1491,11 +1491,16 @@ int main(int argc, char* args[])
 
 					// Liczby
 					// test
+					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					Money_int++;
+					gTextTexture.render(90, 43);
 
 					// Pieniadze
 
 					// Ludnosc
-
+					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					People_int++;
+					gTextTexture.render(350, 160);
 					// Magazyny
 					// LVL1
 					{

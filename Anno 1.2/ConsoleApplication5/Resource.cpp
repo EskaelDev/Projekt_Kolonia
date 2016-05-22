@@ -10,9 +10,8 @@ Resource::Resource()
 	price = 0;
 }
 
-Resource::Resource(int _id, int _quantity, int _price)
+Resource::Resource(int _quantity, int _price)
 {
-	id = _id;
 	quantity = _quantity;
 	price = _price;
 }
@@ -23,12 +22,10 @@ Resource::~Resource()
 
 void Resource::buy()
 {
-
 }
 
 void Resource::sell()
 {
-
 }
 
 int Resource::get()

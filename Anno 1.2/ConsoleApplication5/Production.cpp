@@ -3,15 +3,11 @@
 #include "Production.h"
 using namespace std;
 
-Production::Production()
-{
-	magazineCapacity = 0;
-}
+Production::Production() : magazineCapacity(0) { }
 
-Production::Production(int _id, int _moneyToBuild, int _bricksToBuild, int _toolsToBuild, int _woodToBuild, int _maintenanceActiveCost,
-	int _maintenancePassiveCost, int _size, int _magazineCapacity, int _peopleToBuild)
+Production::Production(int _moneyToBuild, int _bricksToBuild, int _toolsToBuild, int _woodToBuild, int _maintenanceActiveCost,
+	int _maintenancePassiveCost, int _size, int _magazineCapacity, int _peopleToBuild, int _peopleClass)
 {
-	id = _id;
 	moneyToBuild = _moneyToBuild;
 	bricksToBuild = _bricksToBuild;
 	toolsToBuild = _toolsToBuild;
@@ -21,6 +17,7 @@ Production::Production(int _id, int _moneyToBuild, int _bricksToBuild, int _tool
 	size = _size;
 	magazineCapacity = _magazineCapacity;
 	peopleToBuild = _peopleToBuild;
+	peopleClass = _peopleToBuild;
 }
 
 Production::~Production()
@@ -39,7 +36,6 @@ bool Production::deactivate()
 
 void Production::test() const
 {
-	cout << "Id = " << id << endl;
 	cout << "Liczba = " << number << endl;
 	cout << "Pieniadze do budowy = " << moneyToBuild << endl;
 	cout << "Cegly do budowy = " << bricksToBuild << endl;

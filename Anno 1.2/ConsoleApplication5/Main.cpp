@@ -18,61 +18,61 @@ using namespace std;
 
 // TWORZENIE OBIEKTOW-------------------------------------------------------------------------------------------------------------------------------------------------------
 
-//House(id, bricksToBuild, toolsToBuild, woodToBuild, inhabitants, peopleToBuild)
-House hPioneers(1, 0, 0, 3, 2);
-House hSettlers(0, 0, 1, 3, 6);
-House hCitizens(0, 6, 2, 2, 15);
-House hMerchants(0, 9, 3, 3, 25);
-House hAristocrats(0, 12, 3, 3, 40);
+//House(bricksToBuild, toolsToBuild, woodToBuild, inhabitants)
+House hPioneers(0, 0, 3, 2);
+House hSettlers(0, 1, 3, 6);
+House hCitizens(6, 2, 2, 15);
+House hMerchants(9, 3, 3, 25);
+House hAristocrats(12, 3, 3, 40);
 
-//Industrial(id, goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceCost, size, peopleToBuild)
-Industrial Doctor(2, 450, 9, 4, 4, 30, 4, 50);
-Industrial PublicBath(3, 1200, 19, 6, 5, 60, 12, 210);
-Industrial FireDepartment(4, 150, 0, 3, 5, 15, 4, 15);
-Industrial University(5, 750, 19, 6, 5, 60, 9, 250);
-Industrial Chapel(6, 100, 0, 2, 5, 5, 2, 0);
-Industrial Cathedral(7, 7500, 70, 25, 25, 90, 24, 2500);
-Industrial Church(8, 1600, 25, 7, 7, 50, 12, 150);
-Industrial MarketPlace(9, 200, 0, 4, 10, 10, 12, 0);
-Industrial Palace(10, 5000, 50, 15, 20, 40, 35, 1500);
-Industrial School(11, 450, 9, 4, 4, 30, 4, 100);
-Industrial Theatre(12, 1200, 19, 2, 5, 80, 9, 300);
-Industrial Tavern(13, 250, 6, 3, 4, 15, 6, 50);
+//Industrial(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceCost, size, peopleToBuild, peopleClass)
+Industrial Doctor(450, 9, 4, 4, 30, 4, 50, 3);
+Industrial PublicBath(1200, 19, 6, 5, 60, 12, 210, 3);
+Industrial FireDepartment(150, 0, 3, 5, 15, 4, 15, 2);
+Industrial University(750, 19, 6, 5, 60, 9, 250, 4);
+Industrial Chapel(100, 0, 2, 5, 5, 2, 0, 0);
+Industrial Cathedral(7500, 70, 25, 25, 90, 24, 2500, 5);
+Industrial Church(1600, 25, 7, 7, 50, 12, 150, 3);
+Industrial MarketPlace(200, 0, 4, 10, 10, 12, 0, 0);
+Industrial Palace(5000, 50, 15, 20, 40, 35, 1500, 5);
+Industrial School(450, 9, 4, 4, 30, 4, 100, 2);
+Industrial Theatre(1200, 19, 2, 5, 80, 9, 300, 4);
+Industrial Tavern(250, 6, 3, 4, 15, 6, 50, 2);
 
-//Production(id, goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, size, magazineCapacity, peopleToBuild)
-Production WarehouseI(14, 100, 0, 3, 6, 15, 15, 6, 30, 0);
-Production WarehouseII(15, 180, 0, 3, 7, 15, 15, 6, 50, 30);
-Production WarehouseIII(16, 250, 6, 4, 4, 15, 15, 6, 75, 100);
-Production WarehouseIV(17, 250, 10, 5, 4, 15, 15, 6, 100, 250);
-Production CottonPlantation(18, 200, 6, 2, 3, 25, 10, 26, 9, 200);
-Production ForestersLodge(19, 50, 0, 2, 0, 5, 0, 4, 10, 0);
-Production GrainFarm(20, 100, 0, 2, 5, 5, 0, 11, 6, 75);
-Production SpiceFarm(21, 300, 8, 2, 3, 35, 15, 26, 4, 75);
-Production HuntersHut(22, 50, 0, 2, 2, 5, 0, 4, 3, 0);
-Production CocoaPlantation(23, 300, 8, 2, 3, 35, 15, 26, 6, 200);
-Production CattleFarm(24, 100, 0, 1, 4, 5, 0, 26, 4, 30);
-Production SheepFarm(25, 200, 0, 2, 4, 5, 0, 26, 8, 0);
-Production Winery(26, 300, 8, 2, 3, 35, 15, 26, 6, 40);
-Production TobaccoPlantation(27, 300, 8, 2, 3, 35, 15, 26, 6, 40);
-Production SugarcanePlantation(28, 300, 8, 2, 3, 25, 10, 26, 6, 40);
-Production IronMine(29, 1000, 5, 10, 20, 60, 20, 3, 4, 120);
-Production DeepIronMine(30, 1800, 7, 15, 30, 60, 20, 3, 4, 450);
-Production GoldMine(31, 1000, 5, 10, 20, 60, 20, 3, 4, 150);
-Production FistersHut(32, 100, 0, 3, 5, 5, 0, 1, 4, 0);
+//Production(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, size, magazineCapacity, peopleToBuild, peopleClass)
+Production WarehouseI(100, 0, 3, 6, 15, 15, 6, 30, 0, 0);
+Production WarehouseII(180, 0, 3, 7, 15, 15, 6, 50, 30, 2);
+Production WarehouseIII(250, 6, 4, 4, 15, 15, 6, 75, 100, 3);
+Production WarehouseIV(250, 10, 5, 4, 15, 15, 6, 100, 250, 4);
+Production CottonPlantation(200, 6, 2, 3, 25, 10, 26, 9, 200, 3);
+Production ForestersLodge(50, 0, 2, 0, 5, 0, 4, 10, 0, 0);
+Production GrainFarm(100, 0, 2, 5, 5, 0, 11, 6, 75, 2);
+Production SpiceFarm(300, 8, 2, 3, 35, 15, 26, 4, 75, 2);
+Production HuntersHut(50, 0, 2, 2, 5, 0, 4, 3, 0, 0);
+Production CocoaPlantation(300, 8, 2, 3, 35, 15, 26, 6, 200, 3);
+Production CattleFarm(100, 0, 1, 4, 5, 0, 26, 4, 30, 1);
+Production SheepFarm(200, 0, 2, 4, 5, 0, 26, 8, 0, 0);
+Production Winery(300, 8, 2, 3, 35, 15, 26, 6, 40, 2);
+Production TobaccoPlantation(300, 8, 2, 3, 35, 15, 26, 6, 40, 2);
+Production SugarcanePlantation(300, 8, 2, 3, 25, 10, 26, 6, 40, 2);
+Production IronMine(1000, 5, 10, 20, 60, 20, 3, 4, 120, 2);
+Production DeepIronMine(1800, 7, 15, 30, 60, 20, 3, 4, 450, 3);
+Production GoldMine(1000, 5, 10, 20, 60, 20, 3, 4, 150, 3);
+Production FistersHut(100, 0, 3, 5, 5, 0, 1, 4, 0, 0);
 
-//Processing(id, goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, magazineCapacity, peopleToBuild)
-Processing Bakery(33, 150, 0, 2, 6, 5, 0, 4, 75);
-Processing OreRefenery(34, 200, 4, 3, 1, 25, 10, 5, 120);
-Processing GoldSmith(35, 1500, 10, 7, 2, 45, 20, 4, 250);
-Processing ButchersShop(36, 150, 10, 3, 4, 5, 0, 4, 30);
-Processing RumDistillery(37, 200, 5, 3, 2, 25, 7, 4, 40);
-Processing Clothiers(38, 150, 2, 3, 6, 10, 5, 4, 200);
-Processing StoneMason(39, 100, 0, 5, 5, 5, 0, 8, 15);
-Processing TobaccoProduction(40, 200, 5, 3, 2, 20, 10, 4, 40);
-Processing WeavingMill(41, 200, 7, 4, 3, 20, 10, 4, 75);
-Processing WeavingHut(42, 200, 0, 3, 6, 10, 5, 4, 0);
-Processing ToolSmithy(43, 150, 5, 3, 2, 25, 10, 4, 100);
-Processing WindMill(44, 100, 0, 3, 6, 5, 0, 6, 75);
+//Processing(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, magazineCapacity, peopleToBuild, peopleClass)
+Processing Bakery(150, 0, 2, 6, 5, 0, 4, 75, 2);
+Processing OreRefenery(200, 4, 3, 1, 25, 10, 5, 120, 2);
+Processing GoldSmith(1500, 10, 7, 2, 45, 20, 4, 250, 4);
+Processing ButchersShop(150, 10, 3, 4, 5, 0, 4, 30, 1);
+Processing RumDistillery(200, 5, 3, 2, 25, 7, 4, 40, 2);
+Processing Clothiers(150, 2, 3, 6, 10, 5, 4, 200, 3);
+Processing StoneMason(100, 0, 5, 5, 5, 0, 8, 15, 2);
+Processing TobaccoProduction(200, 5, 3, 2, 20, 10, 4, 40, 2);
+Processing WeavingMill(200, 7, 4, 3, 20, 10, 4, 75, 2);
+Processing WeavingHut(200, 0, 3, 6, 10, 5, 4, 0, 0);
+Processing ToolSmithy(150, 5, 3, 2, 25, 10, 4, 100, 2);
+Processing WindMill(100, 0, 3, 6, 5, 0, 6, 75, 2);
 
 //People(tax)
 People Pioneers(1);
@@ -81,28 +81,28 @@ People Citizens(1);
 People Merchants(2);
 People Aristocrats(2);
 
-//Resource(id, price)
-Resource Money(0, 50000, 1);
-Resource IronOre(1, 0, 60);
-Resource Gold(2, 0, 465);
-Resource Wool(3, 0, 16);
-Resource Sugar(4, 0, 19);
-Resource Tobacco(5, 0, 23);
-Resource Cattle(6, 0, 6);
-Resource Grain(7, 0, 3);
-Resource Flour(8, 0, 3);
-Resource Iron(9, 0, 84);
-Resource Food(10, 0, 17);
-Resource TobaccoProducts(11, 0, 65);
-Resource Spices(12, 0, 40);
-Resource Cocoa(13, 0, 33);
-Resource Liquor(14, 0, 52);
-Resource Cloth(15, 0, 32);
-Resource Clothes(16, 0, 130);
-Resource Jewelry(17, 0, 590);
-Resource Tools(18, 30, 80);
-Resource Wood(19, 30, 20);
-Resource Bricks(20, 30, 30);
+//Resource(quantity, price)
+Resource Money(50000, 1);
+Resource IronOre(0, 60);
+Resource Gold(0, 465);
+Resource Wool(0, 16);
+Resource Sugar(0, 19);
+Resource Tobacco(0, 23);
+Resource Cattle(0, 6);
+Resource Grain(0, 3);
+Resource Flour(0, 3);
+Resource Iron(0, 84);
+Resource Food(0, 17);
+Resource TobaccoProducts(0, 65);
+Resource Spices(0, 40);
+Resource Cocoa(0, 33);
+Resource Liquor(0, 52);
+Resource Cloth(0, 32);
+Resource Clothes(0, 130);
+Resource Jewelry(0, 590);
+Resource Tools(30, 80);
+Resource Wood(30, 20);
+Resource Bricks(30, 30);
 
 // FUNKCJE---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -128,7 +128,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	tIndustrial[10] = &Theatre;
 	tIndustrial[11] = &Tavern;
 	
-	Production* tProduction[19];
+	Production* tProduction[19];					// tablica wskaznikow do obiektow Production
 	tProduction[0] = &WarehouseI;
 	tProduction[1] = &WarehouseII;
 	tProduction[2] = &WarehouseIII;
@@ -149,7 +149,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	tProduction[17] = &GoldMine;
 	tProduction[18] = &FistersHut;
 
-	Processing* tProcessing[12];					// tablica wskaznikow do obiektow Industrial
+	Processing* tProcessing[12];					// tablica wskaznikow do obiektow Processing
 	tProcessing[0] = &Bakery;
 	tProcessing[1] = &OreRefenery;
 	tProcessing[2] = &GoldSmith;
@@ -163,6 +163,36 @@ int _tmain(int argc, _TCHAR* argv[])
 	tProcessing[10] = &ToolSmithy;
 	tProcessing[11] = &WindMill;
 
+	People* tPeople[5];
+	tPeople[0] = &Pioneers;
+	tPeople[1] = &Settlers;
+	tPeople[2] = &Citizens;
+	tPeople[3] = &Merchants;
+	tPeople[4] = &Aristocrats;
+
+	Resource* tResource[21];
+	tResource[0] = &Money;
+	tResource[1] = &IronOre;
+	tResource[2] = &Gold;
+	tResource[3] = &Wool;
+	tResource[4] = &Sugar;
+	tResource[5] = &Tobacco;
+	tResource[6] = &Cattle;
+	tResource[7] = &Grain;
+	tResource[8] = &Flour;
+	tResource[9] = &Iron;
+	tResource[10] = &Food;
+	tResource[11] = &TobaccoProducts;
+	tResource[12] = &Spices;
+	tResource[13] = &Cocoa;
+	tResource[14] = &Liquor;
+	tResource[15] = &Cloth;
+	tResource[16] = &Clothes;
+	tResource[17] = &Jewelry;
+	tResource[18] = &Tools;
+	tResource[19] = &Wood;
+	tResource[20] = &Bricks;
+
 	clock_t obecny = 0;
 	clock_t poprzedni = 0;
 
@@ -175,6 +205,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		cout << "Od poczatku programu uplynelo " << obecny << " sekund " << endl;
 		cout << "Od ostatniej aktualizacji uplynelo " << obecny - poprzedni << endl << endl;
 		poprzedni = obecny;
+
+		// AKTUALIZACJA STANU SUROWCOW
+
 
 		// MENU (TYMCZASOWE DLA KONSOLI)
 		// WYSWIETLANIE STANU SUROWCOW
@@ -190,7 +223,8 @@ int _tmain(int argc, _TCHAR* argv[])
 		cout << "[1] - zbuduj budynek" << endl;
 		cout << "[2] - zburz budynek" << endl;
 		cout << "[3] - wyswietl stan zabudowy" << endl;
-		cout << "[4] - zakoncz program" << endl << endl;
+		cout << "[4] - wyswietl parametry budynku" << endl;
+		cout << "[0] - zakoncz program" << endl << endl;
 		cout << "Decyzja? ";
 		
 		int menu, decyzja;
@@ -201,6 +235,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 			case 1:
 				menuBuilding();
+				cout << "  Co chcesz zbudowac? ";
 				cin >> decyzja;
 
 				if (decyzja >= 0 && decyzja < 12)
@@ -209,7 +244,7 @@ int _tmain(int argc, _TCHAR* argv[])
 				else if(decyzja >= 12 && decyzja < 31)
 					Build(*tProduction[decyzja - 12]);
 
-				else if(decyzja >= 31 && decyzja < 45)
+				else if(decyzja >= 31 && decyzja < 43)
 					Build(*tProcessing[decyzja - 31]);
 
 				break;
@@ -218,59 +253,57 @@ int _tmain(int argc, _TCHAR* argv[])
 
 			case 2:
 				menuBuilding();
+				cout << "  Co chcesz zbudowac? ";
 				cin >> decyzja;
-				switch (decyzja)
-				{
-					case 0: cout << "\n  Anulowano burzenie."; break;
-					case 1: break;
-					case 2: Destroy(Doctor); break;
-					case 3: Destroy(PublicBath); break;
-					case 4: Destroy(FireDepartment); break;
-					case 5: Destroy(University); break;
-					case 6: Destroy(Chapel); break;
-					case 7: Destroy(Cathedral); break;
-					case 8: Destroy(Church); break;
-					case 9: Destroy(MarketPlace); break;
-					case 10: Destroy(Palace); break;
-					case 11: Destroy(School); break;
-					case 12: Destroy(Theatre); break;
-					case 13: Destroy(Tavern); break;
-					case 14: Destroy(WarehouseI); break;
-					case 15: Destroy(WarehouseII); break;
-					case 16: Destroy(WarehouseIII); break;
-					case 17: Destroy(WarehouseIV); break;
-					case 18: Destroy(CottonPlantation); break;
-					case 19: Destroy(ForestersLodge); break;
-					case 20: Destroy(GrainFarm); break;
-					case 21: Destroy(SpiceFarm); break;
-					case 22: Destroy(HuntersHut); break;
-					case 23: Destroy(CocoaPlantation); break;
-					case 24: Destroy(CattleFarm); break;
-					case 25: Destroy(SheepFarm); break;
-					case 26: Destroy(Winery); break;
-					case 27: Destroy(TobaccoPlantation); break;
-					case 28: Destroy(SugarcanePlantation); break;
-					case 29: Destroy(IronMine); break;
-					case 30: Destroy(DeepIronMine); break;
-					case 31: Destroy(GoldMine); break;
-					case 32: Destroy(FistersHut); break;
-					case 33: Destroy(Bakery); break;
-					case 34: Destroy(OreRefenery); break;
-					case 35: Destroy(GoldSmith); break;
-					case 36: Destroy(ButchersShop); break;
-					case 37: Destroy(RumDistillery); break;
-					case 38: Destroy(Clothiers); break;
-					case 39: Destroy(StoneMason); break;
-					case 40: Destroy(TobaccoProduction); break;
-					case 41: Destroy(WeavingMill); break;
-					case 42: Destroy(WeavingHut); break;
-					case 43: Destroy(ToolSmithy); break;
-					case 44: Destroy(WindMill); break;
-					default: cout << "\n  Podano bledny numer komendy."; break;
-				}
+				
+				if (decyzja >= 0 && decyzja < 12)
+					Destroy(*tIndustrial[decyzja]);
+
+				else if (decyzja >= 12 && decyzja < 31)
+					Destroy(*tProduction[decyzja - 12]);
+
+				else if (decyzja >= 31 && decyzja < 43)
+					Destroy(*tProcessing[decyzja - 31]);
+
+				break;
+			
+		//WYSWIETLANIE STANU ZABUDOWY------------------------------------------------------------------------------------------------------------------------------------------
+
+			case 3:
+				menuBuilding();
+				cout << "\n\nIndustrial: ";
+				for (int i = 0; i < 12; ++i)
+					cout << i << "-" << tIndustrial[i]->getNumber() << "  ";
+				
+				cout << "\nProduction: ";
+				for (int i = 0; i < 19; ++i)
+					cout << i+12 << "-" << tProduction[i]->getNumber() << "  ";
+
+				cout << "\nProcessing: ";
+				for (int i = 0; i < 12; ++i)
+					cout << i+31 << "-" << tProcessing[i]->getNumber() << "  ";
+
+				break;
+		
+		//WYSWIETLANIE PARAMETROW BUDYNKU--------------------------------------------------------------------------------------------------------------------------------------
+			case 4:
+				menuBuilding();
+				cout << "  Wybierz budynek ";
+				cin >> decyzja;
+				cout << endl;
+
+				if (decyzja >= 0 && decyzja < 12)
+					tIndustrial[decyzja]->test();
+
+				else if (decyzja >= 12 && decyzja < 31)
+					tProduction[decyzja - 12]->test();
+
+				else if (decyzja >= 31 && decyzja < 43)
+					tProcessing[decyzja - 31]->test();
+
 				break;
 
-			case 4:
+			case 0:
 				exit(1);
 				break;
 			
@@ -356,6 +389,4 @@ void menuBuilding()
 	cout << "  [40] - szwalnia duza\t\t";
 	cout << "  [41] - wytworca narzedzi\t";
 	cout << "  [42] - wiatrak" << endl << endl;
-
-	cout << "  Co chcesz zbudowac? ";
 }

@@ -4,8 +4,6 @@
 class Building
 {
 protected:
-
-	int id;
 	int number;					// liczba budynkow
 	int bricksToBuild;
 	int toolsToBuild;

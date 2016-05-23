@@ -10,10 +10,10 @@
 
 //House(bricksToBuild, toolsToBuild, woodToBuild, inhabitants)
 House hPioneers(0, 0, 3, 2);
-House hSettlers(0, 1, 3, 6);
-House hCitizens(6, 2, 2, 15);
-House hMerchants(9, 3, 3, 25);
-House hAristocrats(12, 3, 3, 40);
+//House hSettlers(0, 1, 3, 6);
+//House hCitizens(6, 2, 2, 15);
+//House hMerchants(9, 3, 3, 25);
+//House hAristocrats(12, 3, 3, 40);
 
 //Industrial(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceCost, size, peopleToBuild, peopleClass)
 Industrial Doctor(450, 9, 4, 4, 30, 4, 50, 2);
@@ -29,7 +29,7 @@ Industrial School(450, 9, 4, 4, 30, 4, 100, 1);
 Industrial Theatre(1200, 19, 2, 5, 80, 9, 300, 3);
 Industrial Tavern(250, 6, 3, 4, 15, 6, 50, 1);
 
-//Production(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, size, magazineCapacity, peopleToBuild, peopleClass, product)
+//Production(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, size, magazineCapacity, peopleToBuild, peopleClass, productID)
 Production WarehouseI(100, 0, 3, 6, 15, 15, 6, 30, 0, -1, -1);
 Production WarehouseII(180, 0, 3, 7, 15, 15, 6, 50, 30, 1, -1);
 Production WarehouseIII(250, 6, 4, 4, 15, 15, 6, 75, 100, 2, -1);
@@ -49,15 +49,15 @@ Production IronMine(1000, 5, 10, 20, 60, 20, 3, 4, 120, 1, 1);
 Production DeepIronMine(1800, 7, 15, 30, 60, 20, 3, 4, 450, 2, 1);
 Production GoldMine(1000, 5, 10, 20, 60, 20, 3, 4, 150, 2, 2);
 Production FistersHut(100, 0, 3, 5, 5, 0, 1, 4, 0, -1, 10);
+Production StoneMason(100, 0, 5, 5, 5, 0, 4, 8, 15, 1, 20);
 
-//Processing(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, magazineCapacity, peopleToBuild, peopleClass, product, material)
+//Processing(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, magazineCapacity, peopleToBuild, peopleClass, productID, materialID)
 Processing Bakery(150, 0, 2, 6, 5, 0, 4, 75, 1, 10, 8);
 Processing OreRefenery(200, 4, 3, 1, 25, 10, 5, 120, 1, 9, 1);
 Processing GoldSmith(1500, 10, 7, 2, 45, 20, 4, 250, 3, 17, 2);
 Processing ButchersShop(150, 10, 3, 4, 5, 0, 4, 30, 0, 10, 6);
 Processing RumDistillery(200, 5, 3, 2, 25, 7, 4, 40, 1, 14, 4);
 Processing Clothiers(150, 2, 3, 6, 10, 5, 4, 200, 2, 16, 15);
-Processing StoneMason(100, 0, 5, 5, 5, 0, 8, 15, 1, 20, 20);				// potem zmienic na production
 Processing TobaccoProduction(200, 5, 3, 2, 20, 10, 4, 40, 1, 11, 5);
 Processing WeavingMill(200, 7, 4, 3, 20, 10, 4, 75, 1, 15, 3);
 Processing WeavingHut(200, 0, 3, 6, 10, 5, 4, 0, -1, 15, 3);

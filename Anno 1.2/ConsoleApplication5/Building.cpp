@@ -1,14 +1,7 @@
 #include "stdafx.h"
 #include "Building.h"
 
-Building::Building()
-{
-	number = 0;
-	bricksToBuild = 0;
-	toolsToBuild = 0;
-	woodToBuild = 0;
-	size = 4;
-}
+Building::Building() {}
 
 int Building::getNumber() const
 {

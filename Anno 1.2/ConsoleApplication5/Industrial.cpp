@@ -29,10 +29,6 @@ Industrial::Industrial(int _moneyToBuild, int _bricksToBuild, int _toolsToBuild,
 	status = true;
 }
 
-Industrial::~Industrial()
-{
-}
-
 void Industrial::checkStatus(People & _class) 
 {
 	if (peopleToBuild > _class.getNumber())
@@ -41,27 +37,30 @@ void Industrial::checkStatus(People & _class)
 		status = true;
 }
 
-int Industrial::checkRequirements(int money, int bricks, int tools, int wood) const
+bool Industrial::Build(Resource & _Money, Resource & _Bricks, Resource & _Tools, Resource & _Wood)
 {
-	if (moneyToBuild > money || bricksToBuild > bricks || toolsToBuild > tools || woodToBuild > wood)
-		return 0;
+	if (moneyToBuild > _Money.quantity || bricksToBuild > _Bricks.quantity || toolsToBuild > _Tools.quantity || woodToBuild > _Wood.quantity)
+		return false;
 	else
-		return 1;
+	{
+		++number;
+		_Money.quantity -= moneyToBuild;
+		_Bricks.quantity -= bricksToBuild;
+		_Tools.quantity -= toolsToBuild;
+		_Wood.quantity -= woodToBuild;
+		return true;
+	}
 }
 
-void Industrial::Build(Resource & _Money, Resource & _Bricks, Resource & _Tools, Resource & _Wood)
+bool Industrial::Destroy()
 {
-	++number;
-	_Money.quantity -= moneyToBuild;
-	_Bricks.quantity -= bricksToBuild;
-	_Tools.quantity -= toolsToBuild;
-	_Wood.quantity -= woodToBuild;
-}
-
-void Industrial::Destroy()
-{
-	if(number > 0)
+	if (number > 0)
+	{
 		--number;
+		return true;
+	}
+	else
+		return false;
 }
 
 int Industrial::getMoney() const

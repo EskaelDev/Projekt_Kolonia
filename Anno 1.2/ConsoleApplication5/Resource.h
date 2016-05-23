@@ -4,22 +4,18 @@
 class Resource
 {
 	friend class Industrial;
+	friend class House;
 
 protected:
-	int id;
-	int quantity;		// czyli number
-	int price;
-	int allTaxes;
+	int quantity;		// ilosc/liczba surowca
+	int price;			// cena za jednostke surowca	
 
 public:
-	Resource();
 	Resource(int, int);
-	~Resource();
-	void buy();
-	void sell();
-	void increase(int);
+	void buy();				// funkcja kupna towaru
+	void sell();			// funkcja sprzedazy towaru
+	void increase(int);		// zwieksza ilosc/liczbe surowca o podana wartosc
 	int getNumber() const;
-	int getTaxes(int, int, int, int, int);
 	void test();
 };
 

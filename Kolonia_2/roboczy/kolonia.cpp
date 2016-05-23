@@ -40,6 +40,14 @@ const int RESOURCES_BUTTON_WIDTH = 56;
 const int UPGRADE_BUTTON_HEIGHT = 63;
 const int UPGRADE_BUTTON_WIDTH = 87;
 
+// Rozmiary przyciskow zakaz budowy
+const int ALLOW_BUILD_BUTTON_HEIGHT = 37;
+const int ALLOW_BUILD_BUTTON_WIDTH = 105;
+
+// Wspolrzedne przyciskow zakaz budowy
+const int A_B_X = 584;
+const int A_B_Y = 308;
+
 
 // Wspolrzedne przyiskow build, destroy
 const int C_1 = 17, C_2 = 204, C_3 = 402, C_4 = 596, C_5 = 770;
@@ -123,6 +131,8 @@ enum Actions
 	DESTROY,
 	UPGRADE,
 	CANCEL,
+	ALLOW_BUILD,
+	DENY_BUILD,
 	NONE
 };
 
@@ -173,6 +183,9 @@ void close();
 
 bool buy = false;
 bool sell = false;
+
+// Mozna budowac
+bool allow_build = true;
 
 class LTexture
 {
@@ -457,7 +470,7 @@ void LButton::handleEvent(SDL_Event* e)
 
 		// Czy na prawym panelu
 		bool RightPanelButton = false;
-		if ((w == BUILDINGS_BUTTON_WIDTH && h == BUILDINGS_BUTTON_HEIGHT) || (w == BUILD_BUTTON_WIDTH &&h == BUILD_BUTTON_HEIGHT))
+		if ((w == BUILDINGS_BUTTON_WIDTH && h == BUILDINGS_BUTTON_HEIGHT) || (w == BUILD_BUTTON_WIDTH && h == BUILD_BUTTON_HEIGHT) || (w == ALLOW_BUILD_BUTTON_WIDTH && h == ALLOW_BUILD_BUTTON_HEIGHT))
 			RightPanelButton = true;
 
 		// Czy na prawym panelu
@@ -679,6 +692,13 @@ void LButton::operation(Actions action)
 	case CANCEL:
 		sell = false;
 		buy = false;
+		break;
+	case ALLOW_BUILD:
+		allow_build = true;
+		break;
+	case DENY_BUILD:
+		allow_build = false;
+		break;
 	}
 }
 
@@ -1424,6 +1444,11 @@ int main(int argc, char* args[])
 			LButton destroy_NAV_House_L5(666, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_nav.png");
 			LButton destroy_AV_House_L5(666, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_av.png");
 
+			// Pozwol budowac
+			LButton Allow_Build(666, ALLOW_BUILD, ALLOW_BUILD_BUTTON_WIDTH, ALLOW_BUILD_BUTTON_HEIGHT, A_B_X, A_B_Y, "allow_build.png");
+			LButton Deny_Build(666, DENY_BUILD, ALLOW_BUILD_BUTTON_WIDTH, ALLOW_BUILD_BUTTON_HEIGHT, A_B_X, A_B_Y, "deny_build.png");
+			// Zabron budowac
+
 			//  MAGAZYNY
 			// WarehouseIIUpgrade
 			LButton upgrade_NAV_Warehouse(15, NONE, UPGRADE_BUTTON_WIDTH, UPGRADE_BUTTON_HEIGHT, U_X, U_Y, "upgrade_nav.png");
@@ -1774,6 +1799,17 @@ int main(int argc, char* args[])
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
 						timer.render();
 
+						// Pozwolenie i zakaz budowy
+						if (allow_build==true)
+						{
+							Deny_Build.render();
+							Deny_Build.handleEvent(&e);
+						}
+						else
+						{
+							Allow_Build.render();
+							Allow_Build.handleEvent(&e);
+						}
 						// Buduj zburz domy
 						// BUILD								DESTROY
 						build_AV_House_L1.render();				destroy_AV_House_L1.render();

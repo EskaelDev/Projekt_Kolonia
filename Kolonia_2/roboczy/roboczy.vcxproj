@@ -129,6 +129,9 @@
   <ItemGroup>
     <ClCompile Include="kolonia.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="imgs\icon.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

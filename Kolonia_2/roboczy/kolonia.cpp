@@ -8,7 +8,8 @@
 #include <sstream>
 #include <string>
 #include <conio.h>
-#include "core/Objects.h"
+//#include "core/Objects.h"
+#include <ctime>
 
 
 using namespace std;
@@ -860,6 +861,8 @@ bool init()
 		}
 		else
 		{
+			SDL_Surface* icon = IMG_Load("imgs/icon.png");
+			SDL_SetWindowIcon(gWindow, icon);
 			// Tworzenie renderera dla okna
 			gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
 			if (gRenderer == NULL)

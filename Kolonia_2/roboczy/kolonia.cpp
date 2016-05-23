@@ -8,6 +8,8 @@
 #include <sstream>
 #include <string>
 #include <conio.h>
+#include "core/Objects.h"
+
 
 using namespace std;
 // Rozmiar okna
@@ -562,10 +564,6 @@ void LButton::render()
 
 void LButton::operation(Actions action)
 {
-	if (buy == true)
-		buy = false;
-	if (sell == true)
-		sell = false;
 	switch (action)
 	{
 	case NEW_GAME:

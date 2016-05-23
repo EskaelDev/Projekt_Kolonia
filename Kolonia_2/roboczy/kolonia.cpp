@@ -11,7 +11,6 @@
 //#include "core/Objects.h"
 #include <ctime>
 
-
 using namespace std;
 // Rozmiar okna
 const int SCREEN_WIDTH = 1366;

@@ -122,6 +122,7 @@ enum Actions
 	BUILD,
 	DESTROY,
 	UPGRADE,
+	CANCEL,
 	NONE
 };
 
@@ -525,8 +526,9 @@ void LButton::handleEvent(SDL_Event* e)
 
 			case SDL_MOUSEBUTTONDOWN:
 				mCurrentSprite = BUTTON_SPRITE_MOUSE_DOWN;
+				if (action!=NONE)
 				Mix_PlayChannel(-1, gClickSound, 0);
-				SDL_Delay(100);
+				SDL_Delay(200);
 				operation(action);
 				break;
 
@@ -673,6 +675,10 @@ void LButton::operation(Actions action)
 
 	case DESTROY:
 		break;
+
+	case CANCEL:
+		sell = false;
+		buy = false;
 	}
 }
 
@@ -1143,7 +1149,7 @@ int main(int argc, char* args[])
 			LButton buy_button(BUY, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 250, "buy.png");
 			LButton sell_button(SELL, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 345, "sell.png");
 			LButton cancel_NAV_button(NONE, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 440, "cancel_nav.png");
-			LButton cancel_AV_button(NONE, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 440, "cancel_av.png");
+			LButton cancel_AV_button(CANCEL, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 440, "cancel_av.png");
 
 			// Przyciski kupowania zasobow
 			// przycisk(id, akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)

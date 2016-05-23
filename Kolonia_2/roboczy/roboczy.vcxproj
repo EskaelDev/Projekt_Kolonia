@@ -130,7 +130,11 @@
     <ClCompile Include="kolonia.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="imgs\icon.png" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="roboczy.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

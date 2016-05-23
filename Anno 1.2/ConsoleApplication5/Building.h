@@ -5,10 +5,10 @@ class Building
 {
 protected:
 	int number;					// liczba budynkow
-	int bricksToBuild;
-	int toolsToBuild;
-	int woodToBuild;
-	int size;
+	int bricksToBuild;			// liczba cegiel wymaganych do budowy
+	int toolsToBuild;			// liczba narzedzi wymaganych do budowy
+	int woodToBuild;			// liczba drewna wymaganych do budowy
+	int size;					// liczba pol zajmowana przez budynek
 
 public:
 	Building();

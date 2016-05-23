@@ -4,13 +4,11 @@
 class People
 {
 protected:
-	int number;
-	int tax;
+	int number;					// liczba mieszkancow
+	int tax;					// podatek od mieszkanca
 
 public:
-	People();
 	People(int);
-	~People();
 	int getNumber() const;
 	int getTax() const;
 	void test() const;

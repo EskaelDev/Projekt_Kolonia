@@ -34,7 +34,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	tIndustrial[10] = &Theatre;
 	tIndustrial[11] = &Tavern;
 	
-	Production* tProduction[19];					// tablica wskaznikow do obiektow Production
+	Production* tProduction[20];					// tablica wskaznikow do obiektow Production
 	tProduction[0] = &WarehouseI;
 	tProduction[1] = &WarehouseII;
 	tProduction[2] = &WarehouseIII;
@@ -54,20 +54,20 @@ int _tmain(int argc, _TCHAR* argv[])
 	tProduction[16] = &DeepIronMine;
 	tProduction[17] = &GoldMine;
 	tProduction[18] = &FistersHut;
+	tProduction[19] = &StoneMason;
 
-	Processing* tProcessing[12];					// tablica wskaznikow do obiektow Processing
+	Processing* tProcessing[11];					// tablica wskaznikow do obiektow Processing
 	tProcessing[0] = &Bakery;
 	tProcessing[1] = &OreRefenery;
 	tProcessing[2] = &GoldSmith;
 	tProcessing[3] = &ButchersShop;
 	tProcessing[4] = &RumDistillery;
 	tProcessing[5] = &Clothiers;
-	tProcessing[6] = &StoneMason;
-	tProcessing[7] = &TobaccoProduction;
-	tProcessing[8] = &WeavingMill;
-	tProcessing[9] = &WeavingHut;
-	tProcessing[10] = &ToolSmithy;
-	tProcessing[11] = &WindMill;
+	tProcessing[6] = &TobaccoProduction;
+	tProcessing[7] = &WeavingMill;
+	tProcessing[8] = &WeavingHut;
+	tProcessing[9] = &ToolSmithy;
+	tProcessing[10] = &WindMill;
 
 	People* tPeople[5];
 	tPeople[0] = &Pioneers;
@@ -117,17 +117,17 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		// AKTUALIZACJA STANU SUROWCOW
 
-		for (int i = 4; i < 19; ++i)
+		for (int i = 4; i < 20; ++i)			// nie sprawdzane dla i = 21 czyli bricks
 			for (int j = 1; j < 20; ++j)
 			{
-				if (tProduction[i]->getProduct() == j)
+				if (tProduction[i]->getProductID() == j)
 					tResource[j]->increase(tProduction[i]->getNumber());
 			}
 
-		for (int i = 0; i < 12; ++i)
+		for (int i = 0; i < 11; ++i)
 			for (int j = 1; j < 21; ++j)
 			{
-				if (tProcessing[i]->getProduct() == j)
+				if (tProcessing[i]->getProductID() == j)
 					tResource[j]->increase(tProcessing[i]->getNumber());
 			}
 
@@ -143,7 +143,7 @@ int _tmain(int argc, _TCHAR* argv[])
 				}
 			}
 
-		for (int i = 0; i < 19; ++i)
+		for (int i = 0; i < 20; ++i)
 			for (int j = 0; j < 5; ++j)
 			{
 				if (tProduction[i]->getClass() == j)
@@ -153,12 +153,12 @@ int _tmain(int argc, _TCHAR* argv[])
 				}
 			}
 
-		for (int i = 0; i < 12; ++i)
+		for (int i = 0; i < 11; ++i)
 			for (int j = 0; j < 5; ++j)
 			{
-				if (tProduction[i]->getClass() == j)
+				if (tProcessing[i]->getClass() == j)
 				{
-					tProduction[i]->checkStatus(*tPeople[j]);
+					tProcessing[i]->checkStatus(*tPeople[j]);
 					break;
 				}
 			}
@@ -194,43 +194,45 @@ int _tmain(int argc, _TCHAR* argv[])
 				cin >> decyzja;
 
 				if (decyzja >= 0 && decyzja < 12)
+					Build(*tIndustrial[decyzja]);
+
+				else if (decyzja >= 12 && decyzja < 32)
+					Build(*tProduction[decyzja - 12]);
+
+				else if (decyzja >= 32 && decyzja < 43)
+					Build(*tProcessing[decyzja - 32]);
+
+				else if (decyzja == 43)
 				{
-					if (tIndustrial[decyzja]->getStatus() == true)
-						Build(*tIndustrial[decyzja]);
+					if (hPioneers.Build(Bricks, Tools, Wood) == false)
+						cout << "\n    Nie masz wystarczajacej ilosci surowcow." << endl;
 					else
-						cout << "\n  Budynek niedostepny";
+						cout << "\n    Wybudowano budynek." << endl;
 				}
-				else if (decyzja >= 12 && decyzja < 31)
-				{
-					if (tProduction[decyzja - 12]->getStatus() == true)
-						Build(*tProduction[decyzja - 12]);
-					else
-						cout << "\n  Budynek niedostepny";
-				}
-				else if (decyzja >= 31 && decyzja < 43)
-				{
-					if (tProcessing[decyzja - 31]->getStatus() == true)
-						Build(*tProcessing[decyzja - 31]);
-					else
-						cout << "\n  Budynek niedostepny";
-				}
+				
 				break;
 
     	//BURZENIE BUDYNKOW----------------------------------------------------------------------------------------------------------------------------------------------------
 
 			case 2:
 				menuBuilding();
-				cout << "  Co chcesz zbudowac? ";
+				cout << "  Co chcesz zniszczyc? ";
 				cin >> decyzja;
 				
 				if (decyzja >= 0 && decyzja < 12)
 					Destroy(*tIndustrial[decyzja]);
 
-				else if (decyzja >= 12 && decyzja < 31)
+				else if (decyzja >= 12 && decyzja < 32)
 					Destroy(*tProduction[decyzja - 12]);
 
-				else if (decyzja >= 31 && decyzja < 43)
-					Destroy(*tProcessing[decyzja - 31]);
+				else if (decyzja >= 32 && decyzja < 43)
+					Destroy(*tProcessing[decyzja - 32]);
+
+				else if (decyzja == 43)
+					if (hPioneers.Destroy() == true)
+						cout << "Zburzono budynek";
+					else
+						cout << "Nie posiadasz takiego budynku";
 
 				break;
 			
@@ -243,19 +245,20 @@ int _tmain(int argc, _TCHAR* argv[])
 					cout << "[" << i << "]=" << tIndustrial[i]->getNumber() << "\t";
 				
 				cout << "\n\nProduction:\n\n";
-				for (int i = 0; i < 19; ++i)
+				for (int i = 0; i < 20; ++i)
 				{
 					cout << "[" << i + 12 << "]=" << tProduction[i]->getNumber() << "\t";
 					if (i == 11) cout << endl;
 				}
 
 				cout << "\n\nProcessing:\n\n";
-				for (int i = 0; i < 12; ++i)
-					cout << "[" << i+31 << "]=" << tProcessing[i]->getNumber() << "\t";
+				for (int i = 0; i < 11; ++i)
+					cout << "[" << i+32 << "]=" << tProcessing[i]->getNumber() << "\t";
 
 				break;
 		
 		//WYSWIETLANIE PARAMETROW BUDYNKU--------------------------------------------------------------------------------------------------------------------------------------
+		
 			case 4:
 				menuBuilding();
 				cout << "  Wybierz budynek ";
@@ -265,15 +268,16 @@ int _tmain(int argc, _TCHAR* argv[])
 				if (decyzja >= 0 && decyzja < 12)
 					tIndustrial[decyzja]->test();
 
-				else if (decyzja >= 12 && decyzja < 31)
+				else if (decyzja >= 12 && decyzja < 32)
 					tProduction[decyzja - 12]->test();
 
-				else if (decyzja >= 31 && decyzja < 43)
-					tProcessing[decyzja - 31]->test();
+				else if (decyzja >= 32 && decyzja < 43)
+					tProcessing[decyzja - 32]->test();
 
 				break;
 
 		//WYSWIETLANIE STANU WSZYSTKICH BUDYNKU--------------------------------------------------------------------------------------------------------------------------------
+		
 			case 5:
 				cout << "\n  [0] - pieniadze\t[1] - ruda zelaza\t[2] - zloto" << endl;
 				cout << "  [3] - welna\t\t[4] - cukier\t\t[5] - tabaka" << endl;
@@ -313,24 +317,18 @@ int _tmain(int argc, _TCHAR* argv[])
 
 void Build(Industrial & Name)
 {
-	if (Name.checkRequirements(Money.getNumber(), Bricks.getNumber(), Tools.getNumber(), Wood.getNumber()) == -1)
+	if(Name.getStatus() == false)
 		cout << "\n    Budynek niedostepny." << endl;
-	else if (Name.checkRequirements(Money.getNumber(), Bricks.getNumber(), Tools.getNumber(), Wood.getNumber()) == 0)
+	else if (Name.Build(Money, Bricks, Tools, Wood) == false)
 		cout << "\n    Nie masz wystarczajacej ilosci surowcow." << endl;
 	else
-	{
 		cout << "\n    Wybudowano budynek." << endl;
-		Name.Build(Money, Bricks, Tools, Wood);
-	}
 }
 
 void Destroy(Industrial & Name)
 {
-	if (Name.getNumber() > 0)
-	{
+	if(Name.Destroy() == true)
 		cout << "\n    Zburzono budynek." << endl;
-		Name.Destroy();
-	}
 	else
 		cout << "\n    Nie posiadasz takiego budynku." << endl;
 }
@@ -369,17 +367,18 @@ void menuBuilding()
 	cout << "  [28] - gleboka kopalnia zelaza";
 	cout << "  [29] - kopalnia zlota\t\t";
 	cout << "  [30] - chatka rybacka" << endl;
-	cout << "  [31] - piekarnia\t\t";
-	cout << "  [32] - kuznia zelaza\t\t";
-	cout << "  [33] - jubiler" << endl;
-	cout << "  [34] - rzeznik\t\t";
-	cout << "  [35] - gorzelnia\t\t";
-	cout << "  [36] - sklep odziezowy" << endl;
-	cout << "  [37] - kamieniarz\t\t";
+	cout << "  [31] - kamieniarz\t\t";
+	cout << "  [32] - piekarnia\t\t";
+	cout << "  [33] - kuznia zelaza" << endl;
+	cout << "  [34] - jubiler\t\t";
+	cout << "  [35] - rzeznik\t\t";
+	cout << "  [36] - gorzelnia" << endl;
+	cout << "  [37] - sklep odziezowy\t";
 	cout << "  [38] - wytwornia prod. tyton\t";
 	cout << "  [39] - szwalnia mala" << endl;
 	cout << "  [40] - szwalnia duza\t\t";
 	cout << "  [41] - wytworca narzedzi\t";
-	cout << "  [42] - wiatrak" << endl << endl;
+	cout << "  [42] - wiatrak" << endl;
+	cout << "  [43] - budynek mieszkalny" << endl << endl;
 }
 

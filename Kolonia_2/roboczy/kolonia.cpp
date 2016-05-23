@@ -8,6 +8,8 @@
 #include <sstream>
 #include <string>
 #include <conio.h>
+//#include "core/Objects.h"
+#include <ctime>
 
 using namespace std;
 // Rozmiar okna
@@ -58,6 +60,11 @@ const int gWarehouse_rect_right_y = 558;
 const int gWarehouse_rect_right_h = 162;
 const int gWarehouse_rect_right_w = 197;
 
+const int gWarehouse_rect_centre_x = 115;
+const int gWarehouse_rect_centre_y = 558;
+const int gWarehouse_rect_centre_h = 162;
+const int gWarehouse_rect_centre_w = 197;
+
 // Char buffor Ludzie i Pieniadze
 char People_char_buffor[4];				int People_int = 1;
 char Money_char_buffor[7];				int Money_int = 50000;
@@ -65,7 +72,11 @@ char Money_char_buffor[7];				int Money_int = 50000;
 // Wspolrzedne Build, Destroy Magazynow
 const int C_M_B = 242, C_M_D = 276,  W_M = 701;
 
+// Zmienne do wyswietlania czasu
+int h = 0, m = 0, s = 0;
 
+// Kolor renderowanego tekstu
+SDL_Color textColor = { 255, 255, 255, 255 };
 
 // Sprity stanow przycisku
 enum LButtonSprite
@@ -111,6 +122,7 @@ enum Actions
 	BUILD,
 	DESTROY,
 	UPGRADE,
+	CANCEL,
 	NONE
 };
 
@@ -128,12 +140,20 @@ SDL_Renderer* gRenderer2 = NULL;
 // Wyswietlane tekstury
 SDL_Texture* gTexture = NULL;
 SDL_Texture* gTexture2 = NULL;
-SDL_Texture* gWarehouse_left = NULL;
-SDL_Texture* gWarehouse_right = NULL;
+
+// Tekstury magazyow
+//SDL_Texture* gWarehouse_left = NULL;
+//SDL_Texture* gWarehouse_right = NULL;
+SDL_Texture* Warehouse_I_texture = NULL;
+SDL_Texture* Warehouse_II_texture = NULL;
+SDL_Texture* Warehouse_III_texture = NULL;
+SDL_Texture* Warehouse_IV_texture = NULL;
+
 
 // Czworokaty magazynow
 SDL_Rect gWarehouse_rect_right;
 SDL_Rect gWarehouse_rect_left;
+SDL_Rect gWarehouse_rect_centre;
 
 // Czcionka
 TTF_Font *gFont = NULL;
@@ -506,6 +526,7 @@ void LButton::handleEvent(SDL_Event* e)
 
 			case SDL_MOUSEBUTTONDOWN:
 				mCurrentSprite = BUTTON_SPRITE_MOUSE_DOWN;
+				if (action!=NONE)
 				Mix_PlayChannel(-1, gClickSound, 0);
 				SDL_Delay(200);
 				operation(action);
@@ -545,10 +566,6 @@ void LButton::render()
 
 void LButton::operation(Actions action)
 {
-	if (buy == true)
-		buy = false;
-	if (sell == true)
-		sell = false;
 	switch (action)
 	{
 	case NEW_GAME:
@@ -597,11 +614,6 @@ void LButton::operation(Actions action)
 		SDL_DestroyTexture(gTexture);
 		gTexture = NULL;
 		gTexture = loadTexture("imgs/left.png");
-
-		gWarehouse_left = NULL;
-		gWarehouse_left = loadTexture("/imgs/magazyn1.png");
-		gWarehouse_right = NULL;
-		gWarehouse_right = loadTexture("/imgs/magazyn2.png");
 
 		screen = GAME;
 		subScreen = GAME;
@@ -663,21 +675,26 @@ void LButton::operation(Actions action)
 
 	case DESTROY:
 		break;
+
+	case CANCEL:
+		sell = false;
+		buy = false;
 	}
 }
 
 //The application time based timer
-class LTimer
+class Timer
 {
 public:
-	//Initializes variables
-	LTimer();
+	Timer();
 
 	//The various clock actions
 	void start();
 	void stop();
 	void pause();
 	void unpause();
+
+	void render();
 
 	//Gets the timer's time
 	Uint32 getTicks();
@@ -698,17 +715,16 @@ private:
 	bool mStarted;
 };
 
-LTimer::LTimer()
+Timer::Timer()
 {
-	//Initialize the variables
 	mStartTicks = 0;
 	mPausedTicks = 0;
 
-	mPaused = false;
-	mStarted = false;
+	mPaused = true;
+	mStarted = true;
 }
 
-void LTimer::start()
+void Timer::start()
 {
 	//Start the timer
 	mStarted = true;
@@ -721,7 +737,7 @@ void LTimer::start()
 	mPausedTicks = 0;
 }
 
-void LTimer::stop()
+void Timer::stop()
 {
 	//Stop the timer
 	mStarted = false;
@@ -734,7 +750,7 @@ void LTimer::stop()
 	mPausedTicks = 0;
 }
 
-void LTimer::pause()
+void Timer::pause()
 {
 	//If the timer is running and isn't already paused
 	if (mStarted && !mPaused)
@@ -748,7 +764,7 @@ void LTimer::pause()
 	}
 }
 
-void LTimer::unpause()
+void Timer::unpause()
 {
 	//If the timer is running and paused
 	if (mStarted && mPaused)
@@ -764,7 +780,7 @@ void LTimer::unpause()
 	}
 }
 
-Uint32 LTimer::getTicks()
+Uint32 Timer::getTicks()
 {
 	//The actual timer time
 	Uint32 time = 0;
@@ -788,16 +804,37 @@ Uint32 LTimer::getTicks()
 	return time;
 }
 
-bool LTimer::isStarted()
+bool Timer::isStarted()
 {
 	//Timer is running and paused or unpaused
 	return mStarted;
 }
 
-bool LTimer::isPaused()
+bool Timer::isPaused()
 {
 	//Timer is running and paused
 	return mPaused && mStarted;
+}
+
+void Timer::render()
+{
+	s = (getTicks() / 1000) - m * 60;
+	if (s == 60)
+	{
+		m++;
+	}
+	std::stringstream timeText;
+	timeText.str("");
+	timeText << m << " m " << s << " sekund";
+	// Renderowanie tekstu
+	if (!gTimeTextTexture.loadFromRenderedText(timeText.str().c_str(), textColor))
+	{
+		cout << "Nie mozna wyrenderowac czasu!" << endl;
+	}
+	else
+	{
+		gTimeTextTexture.render((350 - gTimeTextTexture.getWidth()), 310);
+	}
 }
 
 
@@ -829,6 +866,8 @@ bool init()
 		}
 		else
 		{
+			SDL_Surface* icon = IMG_Load("imgs/icon.png");
+			SDL_SetWindowIcon(gWindow, icon);
 			// Tworzenie renderera dla okna
 			gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
 			if (gRenderer == NULL)
@@ -869,9 +908,6 @@ bool init()
 	return success;
 }
 
-SDL_Color textColor = { 255, 255, 255, 255 };
-std::stringstream timeText;
-
 bool loadMedia()
 {
 	// Flaga powodzenia ladowania
@@ -886,14 +922,26 @@ bool loadMedia()
 	}
 
 	// Textury magazynow
-	gWarehouse_left = loadTexture("imgs/magazyn1.png");
-	if (gWarehouse_left == NULL)
+	Warehouse_I_texture = loadTexture("imgs/magazyn1.png");
+	if (Warehouse_I_texture == NULL)
 	{
 		cout << "Nie mozna zaladowac obrazka!" << endl;
 		success = false;
 	}
-	gWarehouse_right = loadTexture("imgs/magazyn2.png");
-	if (gWarehouse_right == NULL)
+	Warehouse_II_texture = loadTexture("imgs/magazyn2.png");
+	if (Warehouse_II_texture == NULL)
+	{
+		cout << "Nie mozna zaladowac obrazka!" << endl;
+		success = false;
+	}
+	Warehouse_III_texture = loadTexture("imgs/magazyn3.png");
+	if (Warehouse_III_texture == NULL)
+	{
+		cout << "Nie mozna zaladowac obrazka!" << endl;
+		success = false;
+	}
+	Warehouse_IV_texture = loadTexture("imgs/magazyn4.png");
+	if (Warehouse_IV_texture == NULL)
 	{
 		cout << "Nie mozna zaladowac obrazka!" << endl;
 		success = false;
@@ -960,15 +1008,25 @@ void close()
 
 
 
-	if (gWarehouse_right != NULL)
+	if (Warehouse_I_texture != NULL)
 	{
-		SDL_DestroyTexture(gWarehouse_right);
-		gWarehouse_right = NULL;
+		SDL_DestroyTexture(Warehouse_I_texture);
+		Warehouse_I_texture = NULL;
 	}
-	if (gWarehouse_left != NULL)
+	if (Warehouse_II_texture != NULL)
 	{
-		SDL_DestroyTexture(gWarehouse_left);
-		gWarehouse_left = NULL;
+		SDL_DestroyTexture(Warehouse_II_texture);
+		Warehouse_II_texture = NULL;
+	}
+	if (Warehouse_III_texture != NULL)
+	{
+		SDL_DestroyTexture(Warehouse_III_texture);
+		Warehouse_III_texture = NULL;
+	}
+	if (Warehouse_IV_texture != NULL)
+	{
+		SDL_DestroyTexture(Warehouse_IV_texture);
+		Warehouse_IV_texture = NULL;
 	}
 
 	// Zwalnia teksture tekstu
@@ -1048,8 +1106,7 @@ int main(int argc, char* args[])
 
 			SDL_Event e;
 
-			// Poczatkowy czas
-			Uint32 startTime = 0;
+			Timer timer;
 
 			SDL_Rect LargeViewport;
 			LargeViewport.x = 0;
@@ -1076,20 +1133,23 @@ int main(int argc, char* args[])
 			LButton new_game_button(NEW_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 400, "new.png");
 			LButton continue_button(PLAY_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 350, "back.png");
 			LButton load_game_button(LOAD_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 480, "load.png");
-			LButton save_game_button(SAVE_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 560, "save.png");
 			LButton exit_game_button(EXIT_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 660, "exit.png");
 			LButton main_menu_button(MAIN_MENU, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 660, "menu.png");
-			LButton back_button(PLAY_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 300, 730, "back.png");
-			LButton stats_button(VIEW_STATS, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 0, 730, "stats.png");
+			LButton save_game_button(SAVE_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 150, 732, "save.png");
+			LButton back_button(PLAY_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 300, 732, "back.png");
+			LButton stats_button(VIEW_STATS, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 5, 732, "stats.png");
 
 			// Przyciski splashy
 			LButton ind_button(INDUSTRIAL, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 0, "/buildings/ind.png");
 			LButton prod_button(PRODUCTION, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 256, "/buildings/prod.png");
 			LButton pub_button(PUBLIC, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 512, "/buildings/pub.png");
+			
 
 			// Przyciski: kup, sprzedaj
-			LButton buy_button(BUY, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 270, "buy.png");
-			LButton sell_button(SELL, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 420, "sell.png");
+			LButton buy_button(BUY, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 250, "buy.png");
+			LButton sell_button(SELL, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 345, "sell.png");
+			LButton cancel_NAV_button(NONE, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 440, "cancel_nav.png");
+			LButton cancel_AV_button(CANCEL, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 440, "cancel_av.png");
 
 			// Przyciski kupowania zasobow
 			// przycisk(id, akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)
@@ -1360,6 +1420,10 @@ int main(int argc, char* args[])
 			gWarehouse_rect_right.h = gWarehouse_rect_right_h;
 			gWarehouse_rect_right.w = gWarehouse_rect_right_w;
 
+			gWarehouse_rect_centre.x = gWarehouse_rect_centre_h;
+			gWarehouse_rect_centre.y = gWarehouse_rect_centre_y;
+			gWarehouse_rect_centre.h = gWarehouse_rect_centre_h;
+			gWarehouse_rect_centre.w = gWarehouse_rect_centre_w;
 			// Glowna petla gry
 			while (!quit)
 			{
@@ -1370,11 +1434,6 @@ int main(int argc, char* args[])
 					if (e.type == SDL_QUIT)
 						quit = true;
 
-					// Resetowanie czasu po nacisnieciu ENTER
-					else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_RETURN)
-					{
-						startTime = SDL_GetTicks();
-					}
 				}
 				//If there is no music playing 
 				if (Mix_PlayingMusic() == 0)
@@ -1401,14 +1460,7 @@ int main(int argc, char* args[])
 					}
 				}
 				// Ustawianie tekst do renderowania
-				timeText.str("");
-				timeText << (SDL_GetTicks() - startTime) / 1000 << " sekund";
-
-				// Renderowanie tekstu
-				if (!gTimeTextTexture.loadFromRenderedText(timeText.str().c_str(), textColor))
-				{
-					cout << "Nie mozna wyrenderowac czasu!" << endl;
-				}
+			
 				// Czyszczenie ekranu
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(gRenderer);
@@ -1417,12 +1469,12 @@ int main(int argc, char* args[])
 				{
 					// Ekran menu glownego
 				case MAIN:
+					timer.pause();
 					SDL_RenderSetViewport(gRenderer, &LargeViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
 					switch (subScreen)
 					{
 					case MAIN:
-						save_game_button.setPosition(624, 560);
 						new_game_button.render();
 						load_game_button.render();
 						exit_game_button.render();
@@ -1452,6 +1504,7 @@ int main(int argc, char* args[])
 					break;
 					// Ekran rozgrywki
 				case GAME:
+					timer.unpause();
 					SDL_RenderSetViewport(gRenderer, &LeftViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
 
@@ -1459,32 +1512,96 @@ int main(int argc, char* args[])
 					// test
 
 					// Pieniadze
-					gTextTexture.loadFromRenderedText(	itoa(Money_int, Money_char_buffor , 10), textC);
+					// Podatki
+					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
 					Money_int++;
-					gTextTexture.render(90, 43);
+					gTextTexture.render(90, 40);
+
+					// Koszty
+					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.render(90, 63);
+
+					// Sprzedaz
+					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.render(90, 90);
+
+					// Kupno
+					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.render(90, 113);
+
+					// Bilans
+					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.render(90, 140);
+
+					// Srodki
+					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.render(90, 170);
+
+
 					// Ludnosc
+					// Pionierzy
+					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.render(340, 38);
+
+					// Osadnicy
+					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.render(340, 62);
+
+					// Mieszczanie
+					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.render(340, 90);
+
+					// Kupcy
+					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.render(340, 117);
+
+					// Arystokraci
+					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.render(340, 145);
+
+					// Mieszkancy
+					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.render(340, 175);
+					People_int++;
 
 					// Magazyny
-					// LEWY
-					if (gWarehouse_right != NULL)
+					// LVL1
 					{
-						SDL_DestroyTexture(gWarehouse_right);
-						gWarehouse_right = NULL;
+						SDL_RenderCopy(gRenderer, Warehouse_I_texture, NULL, &gWarehouse_rect_left);
+						SDL_RenderCopy(gRenderer, Warehouse_II_texture, NULL, &gWarehouse_rect_right);
 					}
-					SDL_DestroyTexture(gWarehouse_right);
-					gWarehouse_right = NULL;
-					gWarehouse_right = loadTexture("imgs/magazyn1.png");
-					SDL_RenderCopy(gRenderer, gWarehouse_right, NULL, &gWarehouse_rect_left);
-					// PRAWY
-					if (gWarehouse_right != NULL)
+					// LVL2
+					/*
 					{
-						SDL_DestroyTexture(gWarehouse_right);
-						gWarehouse_right = NULL;
+						if (Warehouse_I_texture != NULL)
+						{
+							SDL_DestroyTexture(Warehouse_I_texture);
+							Warehouse_I_texture = NULL;
+						{
+						SDL_RenderCopy(gRenderer, Warehouse_I_texture, NULL, &gWarehouse_rect_left);
+						SDL_RenderCopy(gRenderer, Warehouse_III_texture, NULL, &gWarehouse_rect_right);
 					}
-					SDL_DestroyTexture(gWarehouse_right);
-					gWarehouse_right = NULL;
-					gWarehouse_right = loadTexture("imgs/magazyn2.png");
-					SDL_RenderCopy(gRenderer, gWarehouse_right, NULL, &gWarehouse_rect_right);
+					// LVL3
+					{
+						if (Warehouse_I_texture != NULL)
+						{
+							SDL_DestroyTexture(Warehouse_II_texture);
+							Warehouse_I_texture = NULL;
+						{
+						SDL_RenderCopy(gRenderer, Warehouse_III_texture, NULL, &gWarehouse_rect_left);
+						SDL_RenderCopy(gRenderer, Warehouse_IV_texture, NULL, &gWarehouse_rect_right);
+					}
+					// LVL4
+					{
+						if (Warehouse_I_texture != NULL)
+						{
+							SDL_DestroyTexture(Warehouse_III_texture);
+							Warehouse_I_texture = NULL;
+						{
+						SDL_RenderCopy(gRenderer, Warehouse_IV_texture, NULL, &gWarehouse_rect_centre);
+					}
+					*/
+					
 					// UPGRADE
 					upgrade_NAV_Warehouse.render();
 					upgrade_NAV_Warehouse.handleEvent(&e);
@@ -1536,7 +1653,11 @@ int main(int argc, char* args[])
 						buy_iron_button.handleEvent(&e);
 						buy_cocoa_button.render();
 						buy_cocoa_button.handleEvent(&e);
+
+						cancel_AV_button.render();
+						cancel_AV_button.handleEvent(&e);
 					}
+					else
 					if (sell == true)
 					{
 						gTextTexture.loadFromRenderedText("Sprzedaj", textC);
@@ -1584,6 +1705,14 @@ int main(int argc, char* args[])
 						sell_iron_button.handleEvent(&e);
 						sell_cocoa_button.render();
 						sell_cocoa_button.handleEvent(&e);
+
+						cancel_AV_button.render();
+						cancel_AV_button.handleEvent(&e);
+					}
+					else
+					{
+						cancel_NAV_button.render();
+						cancel_NAV_button.handleEvent(&e);
 					}
 
 					buy_button.render();
@@ -1592,14 +1721,13 @@ int main(int argc, char* args[])
 					sell_button.handleEvent(&e);
 					stats_button.render();
 					stats_button.handleEvent(&e);
-					save_game_button.setPosition(150, 730);
 					save_game_button.render();
 					save_game_button.handleEvent(&e);
 					switch (subScreen)
 					{
 						// Ekran rozgrywki - wybor budynkow
 					case GAME:
-						main_menu_button.setPosition(300, 730);
+						main_menu_button.setPosition(300, 732);
 						main_menu_button.render();
 						main_menu_button.handleEvent(&e);
 
@@ -1615,16 +1743,17 @@ int main(int argc, char* args[])
 
 						// Ekran rozgrywki - statystyki
 					case STATS:
-
+						back_button.setPosition(300, 732);
 						back_button.render();
 						back_button.handleEvent(&e);
 
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
-						gTimeTextTexture.render((300 - gTimeTextTexture.getWidth()), 310);
+						timer.render();
 						break;
 						// Ekran rozgrywki - budynki publiczne
 					case PUB:
+						back_button.setPosition(300, 732);
 						back_button.render();
 						back_button.handleEvent(&e);
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
@@ -1664,6 +1793,7 @@ int main(int argc, char* args[])
 						break;
 						// Ekran rozgrywki - przetworstwo
 					case IND:
+						back_button.setPosition(300, 732);
 						back_button.render();
 						back_button.handleEvent(&e);
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
@@ -1710,6 +1840,7 @@ int main(int argc, char* args[])
 						break;
 						// Ekran rozgrywki - produkcja
 					case PROD:
+						back_button.setPosition(300, 732);
 						back_button.render();
 						back_button.handleEvent(&e);
 						SDL_RenderSetViewport(gRenderer, &RightViewport);

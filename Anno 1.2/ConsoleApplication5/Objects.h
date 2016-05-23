@@ -51,18 +51,18 @@ Production GoldMine(1000, 5, 10, 20, 60, 20, 3, 4, 150, 2, 2);
 Production FistersHut(100, 0, 3, 5, 5, 0, 1, 4, 0, -1, 10);
 Production StoneMason(100, 0, 5, 5, 5, 0, 4, 8, 15, 1, 20);
 
-//Processing(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, magazineCapacity, peopleToBuild, peopleClass, productID, materialID)
-Processing Bakery(150, 0, 2, 6, 5, 0, 4, 75, 1, 10, 8);
-Processing OreRefenery(200, 4, 3, 1, 25, 10, 5, 120, 1, 9, 1);
-Processing GoldSmith(1500, 10, 7, 2, 45, 20, 4, 250, 3, 17, 2);
-Processing ButchersShop(150, 10, 3, 4, 5, 0, 4, 30, 0, 10, 6);
-Processing RumDistillery(200, 5, 3, 2, 25, 7, 4, 40, 1, 14, 4);
-Processing Clothiers(150, 2, 3, 6, 10, 5, 4, 200, 2, 16, 15);
-Processing TobaccoProduction(200, 5, 3, 2, 20, 10, 4, 40, 1, 11, 5);
-Processing WeavingMill(200, 7, 4, 3, 20, 10, 4, 75, 1, 15, 3);
-Processing WeavingHut(200, 0, 3, 6, 10, 5, 4, 0, -1, 15, 3);
-Processing ToolSmithy(150, 5, 3, 2, 25, 10, 4, 100, 1, 18, 9);
-Processing WindMill(100, 0, 3, 6, 5, 0, 6, 75, 1, 10, 7);
+//Processing(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, magazineCapacity, peopleToBuild, peopleClass, productID, materialID, productNumber, materialNumber)
+Processing Bakery(150, 0, 2, 6, 5, 0, 4, 75, 1, 10, 8, 1, 2);
+Processing OreRefenery(200, 4, 3, 1, 25, 10, 5, 120, 1, 9, 1, 1, 1);
+Processing GoldSmith(1500, 10, 7, 2, 45, 20, 4, 250, 3, 17, 2, 4, 2);
+Processing ButchersShop(150, 10, 3, 4, 5, 0, 4, 30, 0, 10, 6, 1, 2);
+Processing RumDistillery(200, 5, 3, 2, 25, 7, 4, 40, 1, 14, 4, 1, 2);
+Processing Clothiers(150, 2, 3, 6, 10, 5, 4, 200, 2, 16, 15, 1, 1);
+Processing TobaccoProduction(200, 5, 3, 2, 20, 10, 4, 40, 1, 11, 5, 1, 2);
+Processing WeavingMill(200, 7, 4, 3, 20, 10, 4, 75, 1, 15, 3, 1, 1);
+Processing WeavingHut(200, 0, 3, 6, 10, 5, 4, 0, -1, 15, 3, 1, 2);
+Processing ToolSmithy(150, 5, 3, 2, 25, 10, 4, 100, 1, 18, 9, 2, 1);
+Processing WindMill(100, 0, 3, 6, 5, 0, 6, 75, 1, 10, 7, 1, 2);
 
 //People(tax)
 People Pioneers(1);

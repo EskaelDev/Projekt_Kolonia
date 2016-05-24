@@ -838,12 +838,13 @@ bool Timer::isPaused()
 
 void Timer::render()
 {
-	s = (getTicks() / 1000) - m * 60;
 	if (s == 60)
 	{
 		m++;
 		s = 0;
 	}
+	s = (getTicks() / 1000) - (m * 60);
+
 	std::stringstream timeText;
 	timeText.str("");
 	timeText << m << " m " << s << " sekund";

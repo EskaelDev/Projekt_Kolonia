@@ -14,6 +14,7 @@ public:
 	int getMaterialID() const;
 	int getProductNumber() const;
 	int getMaterialNumber() const;
+	void test() const;
 };
 
 #endif 

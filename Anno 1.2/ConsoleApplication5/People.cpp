@@ -15,8 +15,12 @@ int People::getNumber() const
 
 int People::getTax() const
 {
-	int taxes = tax*number;
-	return taxes;
+	return (tax * number);
+}
+
+void People::increase(int _startPeople)
+{
+	number += _startPeople;
 }
 
 void People::test() const

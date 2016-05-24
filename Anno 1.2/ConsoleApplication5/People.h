@@ -9,8 +9,9 @@ protected:
 
 public:
 	People(int);
-	int getNumber() const;
-	int getTax() const;
+	int getNumber() const;		
+	int getTax() const;			// pobiera calkowita kwote podatku jaka placi dana klasa mieszkancow
+	void increase(int);			// zwieksza liczbe mieszkancow o podana wartosc
 	void test() const;
 };
 

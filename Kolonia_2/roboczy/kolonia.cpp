@@ -842,6 +842,7 @@ void Timer::render()
 	if (s == 60)
 	{
 		m++;
+		s = 0;
 	}
 	std::stringstream timeText;
 	timeText.str("");

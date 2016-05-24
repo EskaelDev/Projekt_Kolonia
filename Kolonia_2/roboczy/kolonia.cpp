@@ -153,6 +153,7 @@ enum Actions
 	CANCEL,
 	ALLOW_BUILD,
 	DENY_BUILD,
+	CHANGE_MUSIC,
 	NONE
 };
 
@@ -597,7 +598,7 @@ void LButton::render()
 	gButtonSpriteSheetTexture.render(mPosition.x, mPosition.y, &gSpriteClips[mCurrentSprite]);
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
-bool upgrade = true; int licze_magazyny = 0;
+bool upgrade = true; int licze_magazyny = 0; bool MUSIC_ON = true; int chatka_drwala = 0;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
 
 void LButton::operation(Actions action)
@@ -708,11 +709,16 @@ void LButton::operation(Actions action)
 		screen = QUIT;
 		break;
 
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
 	case BUILD:
+		chatka_drwala++;
 		break;
 
 	case DESTROY:
+		if(chatka_drwala>0)
+		chatka_drwala--;
 		break;
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
 
 	case CANCEL:
 		sell = false;
@@ -728,8 +734,10 @@ void LButton::operation(Actions action)
 		break;
 
 	case UPGRADE://///////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
-		SDL_DestroyTexture(gTexture2);
+		SDL_DestroyTexture(Warehouse_I_texture);
 		Warehouse_I_texture = NULL;
+		SDL_DestroyTexture(Warehouse_II_texture);
+		Warehouse_II_texture = NULL;
 		if (licze_magazyny == 0)
 		{
 
@@ -751,6 +759,12 @@ void LButton::operation(Actions action)
 		licze_magazyny++;
 		upgrade = false;
 				 /////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+	case CHANGE_MUSIC:
+		if (MUSIC_ON == true)
+			MUSIC_ON = false;
+		else
+			MUSIC_ON = true;
+
 
 	}
 }
@@ -1515,6 +1529,10 @@ int main(int argc, char* args[])
 			LButton upgrade_NAV_Warehouse(15, NONE, UPGRADE_BUTTON_WIDTH, UPGRADE_BUTTON_HEIGHT, U_X, U_Y, "upgrade_nav.png");
 			LButton upgrade_AV_Warehouse(15, UPGRADE, UPGRADE_BUTTON_WIDTH, UPGRADE_BUTTON_HEIGHT, U_X, U_Y, "upgrade_av.png");
 
+			// Muzyka i info
+			LButton Music_On(CHANGE_MUSIC, 45, 37, 1315, 725, "music_on.png");
+			LButton Music_Off(CHANGE_MUSIC, 45, 37, 1315, 725, "music_off.png");
+
 			
 
 			// Wspolrzedne czworokatow magazynu 
@@ -1590,6 +1608,22 @@ int main(int argc, char* args[])
 						new_game_button.handleEvent(&e);
 						load_game_button.handleEvent(&e);
 						exit_game_button.handleEvent(&e);
+						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+
+						if(MUSIC_ON==true)
+						{
+							Music_On.render();
+							Music_On.handleEvent(&e);
+							Mix_ResumeMusic();
+						}
+						else
+						{
+							Music_Off.render();
+							Music_Off.handleEvent(&e);
+							Mix_PauseMusic();
+						}
+						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+
 						break;
 						// Ekran wczytywania stanu gry
 					case LOAD:
@@ -1623,55 +1657,59 @@ int main(int argc, char* args[])
 					// test
 
 					// Pieniadze
+	//TAK		//	gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+	//BYLO		//	gTextTexture.render(90, 40);
 					// Podatki
-					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("50000", textC);
 					Money_int++;
 					gTextTexture.render(90, 40);
 
 					// Koszty
-					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(90, 63);
 
 					// Sprzedaz
-					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(90, 90);
 
 					// Kupno
-					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(90, 113);
 
 					// Bilans
-					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(90, 140);
 
 					// Srodki
-					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(90, 170);
 
 
 					// Ludnosc
+	//TAK		//	gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+	//BYLO		//	gTextTexture.render(340, 175);
 					// Pionierzy
-					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(340, 38);
 
 					// Osadnicy
-					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(340, 62);
 
 					// Mieszczanie
-					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(340, 90);
 
 					// Kupcy
-					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(340, 117);
 
 					// Arystokraci
-					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(340, 145);
 
 					// Mieszkancy
-					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(340, 175);
 					People_int++;
 
@@ -1865,6 +1903,22 @@ int main(int argc, char* args[])
 						back_button.setPosition(300, 732);
 						back_button.render();
 						back_button.handleEvent(&e);
+						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+						/*
+						if (MUSIC_ON == true)
+						{
+							Music_On.render();
+							Music_On.handleEvent(&e);
+							Mix_ResumeMusic();
+						}
+						else
+						{
+							Music_Off.render();
+							Music_Off.handleEvent(&e);
+							Mix_PauseMusic();
+						}
+						*/
+						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
 
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
@@ -2020,7 +2074,11 @@ int main(int argc, char* args[])
 						back_button.handleEvent(&e);
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
-
+				
+						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+						gTextTexture.loadFromRenderedText(_itoa(chatka_drwala, People_char_buffor, 10), textC);
+						gTextTexture.render(53, 228);
+						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
 
 						// Obiekty przyciskow
 						// RENDER								// HANDLE_EVENT

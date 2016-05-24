@@ -12,6 +12,26 @@
 #include <ctime>
 
 using namespace std;
+// DO WYJEBANIA////////////////////////////////////////////////////////////////////////////////////////
+int ruda = 0, tyton = 0, przyprawy = 0, narzedzia = 0, zloto = 0, bydlo = 0, tkaniny,
+drewno = 0, wena = 0, zboze = 0, ubrania = 0, cegla = 0, trzcina = 0, monka = 0, cygara = 0, igly = 0,
+jedzenie = 0, beczki = 0, sikor = 0, kakao = 0, s1 = 0, s2 = 0, s3 = 5, s4 = 0, s5 = 21;
+
+//pozycja
+int kolumna_stat_1 = 75-14;
+int kolumna_stat_2 = 236 - 14;
+int kolumna_stat_3 = kolumna_stat_2 +166;
+int kolumna_stat_4 = kolumna_stat_3 + 166;
+int kolumna_stat_5 = kolumna_stat_4 + 166;
+
+int wiersz_stat_1 = 427;
+int wiersz_stat_2 = 500;
+int wiersz_stat_3 = 570;
+int wiersz_stat_4 = 640;
+
+
+// DO WYJEBANIA////////////////////////////////////////////////////////////////////////////////////////
+
 // Rozmiar okna
 const int SCREEN_WIDTH = 1366;
 const int SCREEN_HEIGHT = 768;
@@ -133,6 +153,7 @@ enum Actions
 	CANCEL,
 	ALLOW_BUILD,
 	DENY_BUILD,
+	CHANGE_MUSIC,
 	NONE
 };
 
@@ -576,6 +597,9 @@ void LButton::render()
 {
 	gButtonSpriteSheetTexture.render(mPosition.x, mPosition.y, &gSpriteClips[mCurrentSprite]);
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+bool upgrade = true; int licze_magazyny = 0; bool MUSIC_ON = true; int chatka_drwala = 0;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
 
 void LButton::operation(Actions action)
 {
@@ -642,17 +666,24 @@ void LButton::operation(Actions action)
 		break;
 
 	case BUY:
+		sell = false;
 		buy = true;
 		break;
 
 	case BUY_RESOURCE:
+		s1++;
+		s1++;
+		s1++;
 		break;
 
 	case SELL:
+		buy = false;
 		sell = true;
 		break;
 
 	case SELL_RESOURCE:
+		s1--;
+		s1--;
 		break;
 
 	case INDUSTRIAL:
@@ -683,22 +714,63 @@ void LButton::operation(Actions action)
 		screen = QUIT;
 		break;
 
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
 	case BUILD:
+		chatka_drwala++;
 		break;
 
 	case DESTROY:
+		if(chatka_drwala>0)
+		chatka_drwala--;
 		break;
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
 
 	case CANCEL:
 		sell = false;
 		buy = false;
 		break;
+
 	case ALLOW_BUILD:
 		allow_build = true;
 		break;
+
 	case DENY_BUILD:
 		allow_build = false;
 		break;
+
+	case UPGRADE://///////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+		SDL_DestroyTexture(Warehouse_I_texture);
+		Warehouse_I_texture = NULL;
+		SDL_DestroyTexture(Warehouse_II_texture);
+		Warehouse_II_texture = NULL;
+		if (licze_magazyny == 0)
+		{
+
+			Warehouse_I_texture = loadTexture("imgs/magazyn2.png");
+			Warehouse_II_texture = loadTexture("imgs/magazyn3.png");
+		}
+		if (licze_magazyny == 1)
+		{
+
+			Warehouse_I_texture = loadTexture("imgs/magazyn3.png");
+			Warehouse_II_texture = loadTexture("imgs/magazyn4.png");
+		}
+		if (licze_magazyny == 2)
+		{
+
+			Warehouse_I_texture = loadTexture("imgs/magazyn4.png");
+			Warehouse_II_texture = loadTexture("imgs/magazyn5.png");
+		}
+		licze_magazyny++;
+		upgrade = false;
+				 /////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+	case CHANGE_MUSIC:
+		if (MUSIC_ON == true)
+			MUSIC_ON = false;
+		else
+			MUSIC_ON = true;
+
+
 	}
 }
 
@@ -714,6 +786,7 @@ public:
 	void pause();
 	void unpause();
 
+	void count();
 	void render();
 
 	//Gets the timer's time
@@ -733,6 +806,8 @@ private:
 	//The timer status
 	bool mPaused;
 	bool mStarted;
+
+	std::stringstream timeText;
 };
 
 Timer::Timer()
@@ -836,14 +911,37 @@ bool Timer::isPaused()
 	return mPaused && mStarted;
 }
 
-void Timer::render()
+void Timer::count()
 {
-	s = (getTicks() / 1000) - m * 60;
+	if (getTicks() % 130 == 0)
+		if (s1 != 56)
+			s1++;
+	if (getTicks() % 150 == 0)
+		if(s2 != 56)
+			s2++;
+	if (getTicks() % 200 == 0)
+		if (s3 != 56)
+			s3++;
+	if (getTicks() % 300 == 0)
+		if (s4 != 56)
+			s4++;
+	if (getTicks() % 200 == 0)
+		if (s5 != 56)
+			s5++;
+	if (getTicks() % 300 == 0)
+		if (s5 != 0)
+			s5--;
 	if (s == 60)
 	{
 		m++;
+		s = 0;
 	}
-	std::stringstream timeText;
+	s = (getTicks() / 1000) - (m * 60);
+}
+
+void Timer::render()
+{
+
 	timeText.str("");
 	timeText << m << " m " << s << " sekund";
 	// Renderowanie tekstu
@@ -1117,7 +1215,6 @@ int main(int argc, char* args[])
 		{
 			// Flaga glownej petli
 			bool quit = false;
-
 			// Kolor tekstu
 			SDL_Color textC = { 255, 255, 255 };
 
@@ -1127,7 +1224,8 @@ int main(int argc, char* args[])
 			SDL_Event e;
 
 			Timer timer;
-
+			
+		
 			SDL_Rect LargeViewport;
 			LargeViewport.x = 0;
 			LargeViewport.y = 0;
@@ -1454,6 +1552,10 @@ int main(int argc, char* args[])
 			LButton upgrade_NAV_Warehouse(15, NONE, UPGRADE_BUTTON_WIDTH, UPGRADE_BUTTON_HEIGHT, U_X, U_Y, "upgrade_nav.png");
 			LButton upgrade_AV_Warehouse(15, UPGRADE, UPGRADE_BUTTON_WIDTH, UPGRADE_BUTTON_HEIGHT, U_X, U_Y, "upgrade_av.png");
 
+			// Muzyka i info
+			LButton Music_On(CHANGE_MUSIC, 45, 37, 1315, 725, "music_on.png");
+			LButton Music_Off(CHANGE_MUSIC, 45, 37, 1315, 725, "music_off.png");
+
 			
 
 			// Wspolrzedne czworokatow magazynu 
@@ -1512,6 +1614,11 @@ int main(int argc, char* args[])
 				// Czyszczenie ekranu
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(gRenderer);
+				SDL_Rect fillRect = { 6, 295, s1, 5 };
+				SDL_Rect fillRect2 = { 71, 295, s2, 5 };
+				SDL_Rect fillRect3 = { 136, 295, s3, 5 };
+				SDL_Rect fillRect4 = { 201, 295, s4, 5 };
+				SDL_Rect fillRect5 = { 266, 295, s5, 5 };
 
 				switch (screen)
 				{
@@ -1529,6 +1636,22 @@ int main(int argc, char* args[])
 						new_game_button.handleEvent(&e);
 						load_game_button.handleEvent(&e);
 						exit_game_button.handleEvent(&e);
+						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+
+						if(MUSIC_ON==true)
+						{
+							Music_On.render();
+							Music_On.handleEvent(&e);
+							Mix_ResumeMusic();
+						}
+						else
+						{
+							Music_Off.render();
+							Music_Off.handleEvent(&e);
+							Mix_PauseMusic();
+						}
+						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+
 						break;
 						// Ekran wczytywania stanu gry
 					case LOAD:
@@ -1553,67 +1676,71 @@ int main(int argc, char* args[])
 					// Ekran rozgrywki
 				case GAME:
 					timer.unpause();
+					timer.count();
 					SDL_RenderSetViewport(gRenderer, &LeftViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
-
 					// Liczby
 					// test
 
 					// Pieniadze
+	//TAK		//	gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+	//BYLO		//	gTextTexture.render(90, 40);
 					// Podatki
-					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("50000", textC);
 					Money_int++;
 					gTextTexture.render(90, 40);
 
 					// Koszty
-					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(90, 63);
 
 					// Sprzedaz
-					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(90, 90);
 
 					// Kupno
-					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(90, 113);
 
 					// Bilans
-					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(90, 140);
 
 					// Srodki
-					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(90, 170);
 
 
 					// Ludnosc
+	//TAK		//	gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+	//BYLO		//	gTextTexture.render(340, 175);
 					// Pionierzy
-					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(340, 38);
 
 					// Osadnicy
-					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(340, 62);
 
 					// Mieszczanie
-					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(340, 90);
 
 					// Kupcy
-					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(340, 117);
 
 					// Arystokraci
-					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(340, 145);
 
 					// Mieszkancy
-					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(340, 175);
 					People_int++;
 
 					// Magazyny
-					// LVL1
+					// LVL1////////////////////////////////////////////////////////////////////////////////////////////////////// WWYWALIC (coœ z tym zrobic)
 					{
 						SDL_RenderCopy(gRenderer, Warehouse_I_texture, NULL, &gWarehouse_rect_left);
 						SDL_RenderCopy(gRenderer, Warehouse_II_texture, NULL, &gWarehouse_rect_right);
@@ -1651,8 +1778,16 @@ int main(int argc, char* args[])
 					*/
 					
 					// UPGRADE
-					upgrade_NAV_Warehouse.render();
-					upgrade_NAV_Warehouse.handleEvent(&e);
+					if (upgrade == false)
+					{
+						upgrade_NAV_Warehouse.render();
+						upgrade_NAV_Warehouse.handleEvent(&e);
+					}
+					else
+					{
+						upgrade_AV_Warehouse.render();
+						upgrade_AV_Warehouse.handleEvent(&e);
+					}
 
 					if (buy == true)
 					{
@@ -1762,6 +1897,12 @@ int main(int argc, char* args[])
 						cancel_NAV_button.render();
 						cancel_NAV_button.handleEvent(&e);
 					}
+					SDL_SetRenderDrawColor(gRenderer, 0xFF, 0x00, 0x00, 0xFF);
+					SDL_RenderFillRect(gRenderer, &fillRect);
+					SDL_RenderFillRect(gRenderer, &fillRect2);
+					SDL_RenderFillRect(gRenderer, &fillRect3);
+					SDL_RenderFillRect(gRenderer, &fillRect4);
+					SDL_RenderFillRect(gRenderer, &fillRect5);
 
 					buy_button.render();
 					buy_button.handleEvent(&e);
@@ -1794,10 +1935,53 @@ int main(int argc, char* args[])
 						back_button.setPosition(300, 732);
 						back_button.render();
 						back_button.handleEvent(&e);
+						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+						/*
+						if (MUSIC_ON == true)
+						{
+							Music_On.render();
+							Music_On.handleEvent(&e);
+							Mix_ResumeMusic();
+						}
+						else
+						{
+							Music_Off.render();
+							Music_Off.handleEvent(&e);
+							Mix_PauseMusic();
+						}
+						*/
+						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
 
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
 						timer.render();
+
+						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+						gTextTexture.loadFromRenderedText("13", textC);			gTextTexture.loadFromRenderedText("48", textC);
+						gTextTexture.render(kolumna_stat_1, wiersz_stat_1);		gTextTexture.render(kolumna_stat_3, wiersz_stat_3);
+						gTextTexture.loadFromRenderedText("7", textC);			gTextTexture.loadFromRenderedText("120", textC);
+						gTextTexture.render(kolumna_stat_1, wiersz_stat_2);		gTextTexture.render(kolumna_stat_3, wiersz_stat_4);
+						gTextTexture.loadFromRenderedText("8", textC);			gTextTexture.loadFromRenderedText("87", textC);
+						gTextTexture.render(kolumna_stat_1, wiersz_stat_3);		gTextTexture.render(kolumna_stat_4, wiersz_stat_1);
+						gTextTexture.loadFromRenderedText("25", textC);			gTextTexture.loadFromRenderedText("354", textC);
+						gTextTexture.render(kolumna_stat_1, wiersz_stat_4);		gTextTexture.render(kolumna_stat_4, wiersz_stat_2);
+						gTextTexture.loadFromRenderedText("65", textC);			gTextTexture.loadFromRenderedText("546", textC);
+						gTextTexture.render(kolumna_stat_2, wiersz_stat_1);		gTextTexture.render(kolumna_stat_4, wiersz_stat_3);
+						gTextTexture.loadFromRenderedText("84", textC);			gTextTexture.loadFromRenderedText("87", textC);
+						gTextTexture.render(kolumna_stat_2, wiersz_stat_2);		gTextTexture.render(kolumna_stat_4, wiersz_stat_4);
+						gTextTexture.loadFromRenderedText("15", textC);			gTextTexture.loadFromRenderedText("54", textC);
+						gTextTexture.render(kolumna_stat_2, wiersz_stat_3);		gTextTexture.render(kolumna_stat_5, wiersz_stat_1);
+						gTextTexture.loadFromRenderedText("68", textC);			gTextTexture.loadFromRenderedText("354", textC);
+						gTextTexture.render(kolumna_stat_2, wiersz_stat_4);		gTextTexture.render(kolumna_stat_5, wiersz_stat_2);
+						gTextTexture.loadFromRenderedText("48", textC);			gTextTexture.loadFromRenderedText("987", textC);
+						gTextTexture.render(kolumna_stat_3, wiersz_stat_1);		gTextTexture.render(kolumna_stat_5, wiersz_stat_3);
+						gTextTexture.loadFromRenderedText("38", textC);			gTextTexture.loadFromRenderedText("545", textC);
+						gTextTexture.render(kolumna_stat_3, wiersz_stat_2);		gTextTexture.render(kolumna_stat_5, wiersz_stat_4);
+						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+
+
+						//gTextTexture.loadFromRenderedText("Zapisz", textC);
+					//	gTextTexture.render(624, 200);
 
 						// Pozwolenie i zakaz budowy
 						if (allow_build==true)
@@ -1922,7 +2106,11 @@ int main(int argc, char* args[])
 						back_button.handleEvent(&e);
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
-
+				
+						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+						gTextTexture.loadFromRenderedText(_itoa(chatka_drwala, People_char_buffor, 10), textC);
+						gTextTexture.render(53, 228);
+						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
 
 						// Obiekty przyciskow
 						// RENDER								// HANDLE_EVENT

@@ -764,12 +764,14 @@ void LButton::operation(Actions action)
 		}
 		licze_magazyny++;
 		upgrade = false;
+		break;
 				 /////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
 	case CHANGE_MUSIC:
 		if (MUSIC_ON == true)
 			MUSIC_ON = false;
 		else
 			MUSIC_ON = true;
+		break;
 
 
 	}
@@ -916,53 +918,53 @@ void Timer::count()
 {
 	if (getTicks() % 130 == 0)
 	{
-		if (s1 != 56)
+		if (s1 < 56)
 		{
 			s1++;
 			s1++;
 			s15++;
 		}
-		if (s5 != 56)
+		if (s5 < 56)
 			s5++;
-		if (s18 != 56)
+		if (s18 < 56)
 			s18++;
 	}
 	if (getTicks() % 150 == 0)
 	{
-		if (s2 != 56)
+		if (s2 < 56)
 			s2++;
-		if (s6 != 56)
+		if (s6 < 56)
 			s6++;
-		if (s10 != 56)
+		if (s10 < 56)
 			s10++;
-		if (s11 != 56)
+		if (s11 < 56)
 			s11++;
-		if (s16 != 56)
+		if (s16 < 56)
 			s16++;
 	}
 	if (getTicks() % 200 == 0)
 	{
-		if (s3 != 56)
+		if (s3 < 56)
 			s3++;
-		if (s13 != 56)
+		if (s13 < 56)
 			s13++;
-		if (s19 != 56)
+		if (s19 < 56)
 			s19++;
-		if (s12 != 56)
+		if (s12 < 56)
 				s12++;
 	}
 	if (getTicks() % 300 == 0)
 	{
-		if (s4 != 56)
+		if (s4 < 56)
 			s4++;
-		if (s7 != 56)
+		if (s7 < 56)
 		{
 			s7++;
 			s7++;
 		}
-		if (s15 != 56)
+		if (s15 < 56)
 			s15++;
-		if (s20 != 56)
+		if (s20 < 56)
 		{
 			s20++;
 			s20++;
@@ -972,62 +974,62 @@ void Timer::count()
 	}
 	if (getTicks() % 200 == 0)
 	{
-		if (s8 != 56)
+		if (s8 < 56)
 			s8++;
-		if (s11 != 56)
+		if (s11 < 56)
 			s11++;
-		if (s14 != 56)
+		if (s14 < 56)
 		{
 
 			s14++;
 			s14++;
 			s14++;
 		}
-		if (s17 != 56)
+		if (s17 < 56)
 			s17++;
 	}
 	if (getTicks() % 300 == 0)
 	{
 		s9++;
-		if (s1 != 0)
+		if (s1 < 0)
 			s1--;
-		if (s2 != 0)
+		if (s2 < 0)
 			s2--;
-		if (s3 != 0)
+		if (s3 < 0)
 			s3--;
-		if (s4 != 0)
+		if (s4 < 0)
 			s4--;
-		if (s5 != 0)
+		if (s5 < 0)
 			s5--;
-		if (s6 != 0)
+		if (s6 < 0)
 			s6--;
-		if (s7 != 0)
+		if (s7 < 0)
 			s7--;
-		if (s8 != 0)
+		if (s8 < 0)
 			s8--;
-		if (s9 != 0)
+		if (s9 < 0)
 			s9--;
-		if (s10 != 0)
+		if (s10 < 0)
 			s10--;
-		if (s11 != 0)
+		if (s11 < 0)
 			s11--;
-		if (s12 != 0)
+		if (s12 < 0)
 			s12--;
-		if (s13 != 0)
+		if (s13 < 0)
 			s13--;
-		if (s14 != 0)
+		if (s14 < 0)
 			s14--;
-		if (s15 != 0)
+		if (s15 < 0)
 			s15--;
-		if (s16 != 0)
+		if (s16 < 0)
 			s16--;
-		if (s17 != 0)
+		if (s17 < 0)
 			s17--;
-		if (s18 != 0)
+		if (s18 < 0)
 			s18--;
-		if (s19 != 0)
+		if (s19 < 0)
 			s19--;
-		if (s20 != 0)
+		if (s20 < 0)
 			s20--;
 	}
 	if (s == 60)

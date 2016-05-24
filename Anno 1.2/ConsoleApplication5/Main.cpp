@@ -69,6 +69,13 @@ int _tmain(int argc, _TCHAR* argv[])
 	tProcessing[9] = &ToolSmithy;
 	tProcessing[10] = &WindMill;
 
+	House* tHouse[5];
+	tHouse[0] = &hPioneers;
+	tHouse[1] = &hSettlers;
+	tHouse[2] = &hCitizens;
+	tHouse[3] = &hMerchants;
+	tHouse[4] = &hAristocrats;
+
 	People* tPeople[5];
 	tPeople[0] = &Pioneers;
 	tPeople[1] = &Settlers;
@@ -121,11 +128,12 @@ int _tmain(int argc, _TCHAR* argv[])
 			tResource[tProduction[i]->getProductID()]->increase(tProduction[i]->getNumber());
 
 		for (int i = 0; i < 11; ++i)
-			if (tResource[tProcessing[i]->getMaterialID()]->getNumber() >= tProcessing[i]->getMaterialNumber())			
-			{
-				tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getNumber() * tProcessing[i]->getProductNumber());			
-				tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getNumber());					// NIEDOKONCZONE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			}
+			for (int j = 0; j < tProcessing[i]->getNumber(); ++j)
+				if (tResource[tProcessing[i]->getMaterialID()]->getNumber() >= tProcessing[i]->getMaterialNumber())
+				{
+					tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getProductNumber());
+					tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getMaterialNumber());	
+				}
 
 		// SPRAWDZENIE WARUNKU DOSTEPNOSCI BUDYNKOW
 		
@@ -148,7 +156,12 @@ int _tmain(int argc, _TCHAR* argv[])
 		cout << "   Cegly: " << Bricks.getNumber();
 		cout << "   Narzedzia : " << Tools.getNumber();
 		cout << "   Drewno : " << Wood.getNumber() << endl << endl;
-		
+		cout << "Pionierzy: " << Pioneers.getNumber();
+		cout << "   Osadnicy: " << Settlers.getNumber();
+		cout << "   Mieszczanie: " << Citizens.getNumber();
+		cout << "   Kupcy: " << Merchants.getNumber();
+		cout << "   Arystokraci: " << Aristocrats.getNumber() << endl << endl;
+
 		// PODEJMOWANIE DECYZJI
 
 		cout << "MENU:" << endl;
@@ -180,12 +193,15 @@ int _tmain(int argc, _TCHAR* argv[])
 				else if (decyzja >= 32 && decyzja < 43)
 					Build(*tProcessing[decyzja - 32]);
 
-				else if (decyzja == 43)
+				else if (decyzja >= 43 && decyzja < 48)
 				{
-					if (hPioneers.Build(Bricks, Tools, Wood) == false)
+					if(tHouse[decyzja - 43]->Build(Bricks, Tools, Wood) == false)
 						cout << "\n    Nie masz wystarczajacej ilosci surowcow." << endl;
 					else
+					{
 						cout << "\n    Wybudowano budynek." << endl;
+						tPeople[decyzja - 43]->increase(tHouse[decyzja - 43]->getStartPeople());
+					}
 				}
 				
 				break;
@@ -206,11 +222,13 @@ int _tmain(int argc, _TCHAR* argv[])
 				else if (decyzja >= 32 && decyzja < 43)
 					Destroy(*tProcessing[decyzja - 32]);
 
-				else if (decyzja == 43)
-					if (hPioneers.Destroy() == true)
-						cout << "Zburzono budynek";
+				else if (decyzja >= 43 && decyzja < 48)
+				{
+					if (tHouse[decyzja - 43]->Destroy() == true)
+						cout << "\n    Zburzono budynek";
 					else
-						cout << "Nie posiadasz takiego budynku";
+						cout << "\n    Nie posiadasz takiego budynku";
+				}
 
 				break;
 			
@@ -231,7 +249,11 @@ int _tmain(int argc, _TCHAR* argv[])
 
 				cout << "\n\nProcessing:\n\n";
 				for (int i = 0; i < 11; ++i)
-					cout << "[" << i+32 << "]=" << tProcessing[i]->getNumber() << "\t";
+					cout << "[" << i + 32 << "]=" << tProcessing[i]->getNumber() << "\t";
+
+				cout << "\n\nHouse:\n\n";
+				for (int i = 0; i < 5; ++i)
+					cout << "[" << i + 43 << "]=" << tHouse[i]->getNumber() << "\t";
 
 				break;
 		
@@ -251,6 +273,9 @@ int _tmain(int argc, _TCHAR* argv[])
 
 				else if (decyzja >= 32 && decyzja < 43)
 					tProcessing[decyzja - 32]->test();
+
+				else if (decyzja >= 43 && decyzja < 48)
+					tHouse[decyzja - 43]->test();
 
 				break;
 
@@ -311,7 +336,7 @@ void Destroy(Industrial & Name)
 		cout << "\n    Nie posiadasz takiego budynku." << endl;
 }
 
-void menuBuilding()
+void menuBuilding() 
 {
 	cout << "\n  MENU BUDYNEK:" << endl;
 	cout << "  [0] - przychodnia lekarska" << endl;
@@ -357,6 +382,10 @@ void menuBuilding()
 	cout << "  [40] - szwalnia mala\t\t";
 	cout << "  [41] - wytworca narzedzi\t";
 	cout << "  [42] - wiatrak" << endl;
-	cout << "  [43] - budynek mieszkalny" << endl << endl;
+	cout << "  [43] - dom Pionierow\t\t";
+	cout << "  [44] - dom Osadnikow\t\t"; 
+	cout << "  [45] - dom Mieszczan" << endl;
+	cout << "  [46] - dom Kupcow\t\t";
+	cout << "  [47] - dom Arytokratow" << endl << endl;
 }
 

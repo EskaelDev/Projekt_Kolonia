@@ -8,12 +8,12 @@
 #include "Resource.h"
 #include "People.h"
 
-//House(bricksToBuild, toolsToBuild, woodToBuild, inhabitants)
-House hPioneers(0, 0, 3, 2);
-//House hSettlers(0, 1, 3, 6);
-//House hCitizens(6, 2, 2, 15);
-//House hMerchants(9, 3, 3, 25);
-//House hAristocrats(12, 3, 3, 40);
+//House(bricksToBuild, toolsToBuild, woodToBuild, inhabitants, startPeople)
+House hPioneers(0, 0, 3, 2, 1);
+House hSettlers(0, 1, 3, 6, 2);
+House hCitizens(6, 2, 2, 15, 3);
+House hMerchants(9, 3, 3, 25, 4);
+House hAristocrats(12, 3, 3, 40, 5);
 
 //Industrial(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceCost, size, peopleToBuild, peopleClass)
 Industrial Doctor(450, 9, 4, 4, 30, 4, 50, 2);

@@ -642,6 +642,7 @@ void LButton::operation(Actions action)
 		break;
 
 	case BUY:
+		sell = false;
 		buy = true;
 		break;
 
@@ -649,6 +650,7 @@ void LButton::operation(Actions action)
 		break;
 
 	case SELL:
+		buy = false;
 		sell = true;
 		break;
 
@@ -714,6 +716,7 @@ public:
 	void pause();
 	void unpause();
 
+	void count();
 	void render();
 
 	//Gets the timer's time
@@ -733,6 +736,8 @@ private:
 	//The timer status
 	bool mPaused;
 	bool mStarted;
+
+	std::stringstream timeText;
 };
 
 Timer::Timer()
@@ -836,7 +841,7 @@ bool Timer::isPaused()
 	return mPaused && mStarted;
 }
 
-void Timer::render()
+void Timer::count()
 {
 	if (s == 60)
 	{
@@ -844,8 +849,11 @@ void Timer::render()
 		s = 0;
 	}
 	s = (getTicks() / 1000) - (m * 60);
+}
 
-	std::stringstream timeText;
+void Timer::render()
+{
+
 	timeText.str("");
 	timeText << m << " m " << s << " sekund";
 	// Renderowanie tekstu
@@ -1555,6 +1563,8 @@ int main(int argc, char* args[])
 					// Ekran rozgrywki
 				case GAME:
 					timer.unpause();
+					timer.count();
+
 					SDL_RenderSetViewport(gRenderer, &LeftViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
 

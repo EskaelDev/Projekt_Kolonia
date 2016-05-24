@@ -117,51 +117,29 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		// AKTUALIZACJA STANU SUROWCOW
 
-		for (int i = 4; i < 20; ++i)			// nie sprawdzane dla i = 21 czyli bricks
-			for (int j = 1; j < 20; ++j)
-			{
-				if (tProduction[i]->getProductID() == j)
-					tResource[j]->increase(tProduction[i]->getNumber());
-			}
+		for (int i = 4; i < 20; ++i)			
+			tResource[tProduction[i]->getProductID()]->increase(tProduction[i]->getNumber());
 
 		for (int i = 0; i < 11; ++i)
-			for (int j = 1; j < 21; ++j)
+			if (tResource[tProcessing[i]->getMaterialID()]->getNumber() >= tProcessing[i]->getMaterialNumber())			
 			{
-				if (tProcessing[i]->getProductID() == j)
-					tResource[j]->increase(tProcessing[i]->getNumber());
+				tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getNumber() * tProcessing[i]->getProductNumber());			
+				tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getNumber());					// NIEDOKONCZONE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			}
 
 		// SPRAWDZENIE WARUNKU DOSTEPNOSCI BUDYNKOW
 		
 		for (int i = 0; i < 12; ++i)
-			for (int j = 0; j < 5; ++j)
-			{
-				if (tIndustrial[i]->getClass() == j)
-				{
-					tIndustrial[i]->checkStatus(*tPeople[j]);
-					break;
-				}
-			}
+			if (tIndustrial[i]->getClass() > -1)		// wartosci klas zaczynaja sie od -1, a indeks moze przyjmowac wartosci od 0 do 4
+				tIndustrial[i]->checkStatus(*tPeople[tIndustrial[i]->getClass()]);
 
 		for (int i = 0; i < 20; ++i)
-			for (int j = 0; j < 5; ++j)
-			{
-				if (tProduction[i]->getClass() == j)
-				{
-					tProduction[i]->checkStatus(*tPeople[j]);
-					break;
-				}
-			}
+			if (tProduction[i]->getClass() > -1)
+				tProduction[i]->checkStatus(*tPeople[tProduction[i]->getClass()]);
 
 		for (int i = 0; i < 11; ++i)
-			for (int j = 0; j < 5; ++j)
-			{
-				if (tProcessing[i]->getClass() == j)
-				{
-					tProcessing[i]->checkStatus(*tPeople[j]);
-					break;
-				}
-			}
+			if (tProcessing[i]->getClass() > -1)
+				tProcessing[i]->checkStatus(*tPeople[tProcessing[i]->getClass()]);
 
 		// MENU (TYMCZASOWE DLA KONSOLI)
 		// WYSWIETLANIE STANU SUROWCOW
@@ -375,8 +353,8 @@ void menuBuilding()
 	cout << "  [36] - gorzelnia" << endl;
 	cout << "  [37] - sklep odziezowy\t";
 	cout << "  [38] - wytwornia prod. tyton\t";
-	cout << "  [39] - szwalnia mala" << endl;
-	cout << "  [40] - szwalnia duza\t\t";
+	cout << "  [39] - szwalnia duza" << endl;
+	cout << "  [40] - szwalnia mala\t\t";
 	cout << "  [41] - wytworca narzedzi\t";
 	cout << "  [42] - wiatrak" << endl;
 	cout << "  [43] - budynek mieszkalny" << endl << endl;

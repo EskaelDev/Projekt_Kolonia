@@ -14,14 +14,14 @@ House::House(int _bricksToBuild, int _toolsToBuild, int _woodToBuild, int _inhab
 
 bool House::Build(Resource & _Bricks, Resource & _Tools, Resource & _Wood)
 {
-	if (bricksToBuild > _Bricks.quantity || toolsToBuild > _Tools.quantity || woodToBuild > _Wood.quantity)
+	if (bricksToBuild > _Bricks.number || toolsToBuild > _Tools.number || woodToBuild > _Wood.number)
 		return false;
 	else
 	{
 		++number;
-		_Bricks.quantity -= bricksToBuild;
-		_Tools.quantity -= toolsToBuild;
-		_Wood.quantity -= woodToBuild;
+		_Bricks.number -= bricksToBuild;
+		_Tools.number -= toolsToBuild;
+		_Wood.number -= woodToBuild;
 		return true;
 	}
 }

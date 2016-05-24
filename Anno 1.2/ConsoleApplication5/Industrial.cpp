@@ -39,15 +39,15 @@ void Industrial::checkStatus(People & _class)
 
 bool Industrial::Build(Resource & _Money, Resource & _Bricks, Resource & _Tools, Resource & _Wood)
 {
-	if (moneyToBuild > _Money.quantity || bricksToBuild > _Bricks.quantity || toolsToBuild > _Tools.quantity || woodToBuild > _Wood.quantity)
+	if (moneyToBuild > _Money.number || bricksToBuild > _Bricks.number || toolsToBuild > _Tools.number || woodToBuild > _Wood.number)
 		return false;
 	else
 	{
 		++number;
-		_Money.quantity -= moneyToBuild;
-		_Bricks.quantity -= bricksToBuild;
-		_Tools.quantity -= toolsToBuild;
-		_Wood.quantity -= woodToBuild;
+		_Money.number -= moneyToBuild;
+		_Bricks.number -= bricksToBuild;
+		_Tools.number -= toolsToBuild;
+		_Wood.number -= woodToBuild;
 		return true;
 	}
 }

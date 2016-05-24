@@ -3,9 +3,9 @@
 #include "Resource.h"
 using namespace std;
 
-Resource::Resource(int _quantity, int _price)
+Resource::Resource(int _number, int _price)
 {
-	quantity = _quantity;
+	number = _number;
 	price = _price;
 }
 
@@ -17,18 +17,23 @@ void Resource::sell()
 {
 }
 
-void Resource::increase(int _Number)
+void Resource::increase(int _number)
 {
-	quantity += _Number;
+	number += _number;
+}
+
+void Resource::decrease(int _number)
+{
+	number -= _number;
 }
 
 int Resource::getNumber() const
 {
-	return quantity;
+	return number;
 }
 
 void Resource::test()
 {
-	cout << "Ilosc surowca = " << quantity << endl;
+	cout << "Ilosc surowca = " << number << endl;
 	cout << "Cena = " << price << endl;
 }

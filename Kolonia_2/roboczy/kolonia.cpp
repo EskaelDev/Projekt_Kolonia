@@ -15,7 +15,7 @@ using namespace std;
 // DO WYJEBANIA////////////////////////////////////////////////////////////////////////////////////////
 int ruda = 0, tyton = 0, przyprawy = 0, narzedzia = 0, zloto = 0, bydlo = 0, tkaniny,
 drewno = 0, wena = 0, zboze = 0, ubrania = 0, cegla = 0, trzcina = 0, monka = 0, cygara = 0, igly = 0,
-jedzenie = 0, beczki = 0, sikor = 0, kakao = 0;
+jedzenie = 0, beczki = 0, sikor = 0, kakao = 0, s1 = 0, s2 = 0, s3 = 5, s4 = 0, s5 = 21;
 
 //pozycja
 int kolumna_stat_1 = 75-14;
@@ -671,6 +671,9 @@ void LButton::operation(Actions action)
 		break;
 
 	case BUY_RESOURCE:
+		s1++;
+		s1++;
+		s1++;
 		break;
 
 	case SELL:
@@ -679,6 +682,8 @@ void LButton::operation(Actions action)
 		break;
 
 	case SELL_RESOURCE:
+		s1--;
+		s1--;
 		break;
 
 	case INDUSTRIAL:
@@ -908,6 +913,24 @@ bool Timer::isPaused()
 
 void Timer::count()
 {
+	if (getTicks() % 130 == 0)
+		if (s1 != 56)
+			s1++;
+	if (getTicks() % 150 == 0)
+		if(s2 != 56)
+			s2++;
+	if (getTicks() % 200 == 0)
+		if (s3 != 56)
+			s3++;
+	if (getTicks() % 300 == 0)
+		if (s4 != 56)
+			s4++;
+	if (getTicks() % 200 == 0)
+		if (s5 != 56)
+			s5++;
+	if (getTicks() % 300 == 0)
+		if (s5 != 0)
+			s5--;
 	if (s == 60)
 	{
 		m++;
@@ -1192,7 +1215,6 @@ int main(int argc, char* args[])
 		{
 			// Flaga glownej petli
 			bool quit = false;
-
 			// Kolor tekstu
 			SDL_Color textC = { 255, 255, 255 };
 
@@ -1202,7 +1224,8 @@ int main(int argc, char* args[])
 			SDL_Event e;
 
 			Timer timer;
-
+			
+		
 			SDL_Rect LargeViewport;
 			LargeViewport.x = 0;
 			LargeViewport.y = 0;
@@ -1591,6 +1614,11 @@ int main(int argc, char* args[])
 				// Czyszczenie ekranu
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(gRenderer);
+				SDL_Rect fillRect = { 6, 295, s1, 5 };
+				SDL_Rect fillRect2 = { 71, 295, s2, 5 };
+				SDL_Rect fillRect3 = { 136, 295, s3, 5 };
+				SDL_Rect fillRect4 = { 201, 295, s4, 5 };
+				SDL_Rect fillRect5 = { 266, 295, s5, 5 };
 
 				switch (screen)
 				{
@@ -1649,10 +1677,8 @@ int main(int argc, char* args[])
 				case GAME:
 					timer.unpause();
 					timer.count();
-
 					SDL_RenderSetViewport(gRenderer, &LeftViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
-
 					// Liczby
 					// test
 
@@ -1871,6 +1897,12 @@ int main(int argc, char* args[])
 						cancel_NAV_button.render();
 						cancel_NAV_button.handleEvent(&e);
 					}
+					SDL_SetRenderDrawColor(gRenderer, 0xFF, 0x00, 0x00, 0xFF);
+					SDL_RenderFillRect(gRenderer, &fillRect);
+					SDL_RenderFillRect(gRenderer, &fillRect2);
+					SDL_RenderFillRect(gRenderer, &fillRect3);
+					SDL_RenderFillRect(gRenderer, &fillRect4);
+					SDL_RenderFillRect(gRenderer, &fillRect5);
 
 					buy_button.render();
 					buy_button.handleEvent(&e);

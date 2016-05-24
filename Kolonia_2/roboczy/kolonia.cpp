@@ -12,6 +12,26 @@
 #include <ctime>
 
 using namespace std;
+// DO WYJEBANIA////////////////////////////////////////////////////////////////////////////////////////
+int ruda = 0, tyton = 0, przyprawy = 0, narzedzia = 0, zloto = 0, bydlo = 0, tkaniny,
+drewno = 0, wena = 0, zboze = 0, ubrania = 0, cegla = 0, trzcina = 0, monka = 0, cygara = 0, igly = 0,
+jedzenie = 0, beczki = 0, sikor = 0, kakao = 0;
+
+//pozycja
+int kolumna_stat_1 = 75-14;
+int kolumna_stat_2 = 236 - 14;
+int kolumna_stat_3 = kolumna_stat_2 +166;
+int kolumna_stat_4 = kolumna_stat_3 + 166;
+int kolumna_stat_5 = kolumna_stat_4 + 166;
+
+int wiersz_stat_1 = 427;
+int wiersz_stat_2 = 500;
+int wiersz_stat_3 = 570;
+int wiersz_stat_4 = 640;
+
+
+// DO WYJEBANIA////////////////////////////////////////////////////////////////////////////////////////
+
 // Rozmiar okna
 const int SCREEN_WIDTH = 1366;
 const int SCREEN_HEIGHT = 768;
@@ -576,6 +596,9 @@ void LButton::render()
 {
 	gButtonSpriteSheetTexture.render(mPosition.x, mPosition.y, &gSpriteClips[mCurrentSprite]);
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+bool upgrade = true; int licze_magazyny = 0;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
 
 void LButton::operation(Actions action)
 {
@@ -695,12 +718,40 @@ void LButton::operation(Actions action)
 		sell = false;
 		buy = false;
 		break;
+
 	case ALLOW_BUILD:
 		allow_build = true;
 		break;
+
 	case DENY_BUILD:
 		allow_build = false;
 		break;
+
+	case UPGRADE://///////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+		SDL_DestroyTexture(gTexture2);
+		Warehouse_I_texture = NULL;
+		if (licze_magazyny == 0)
+		{
+
+			Warehouse_I_texture = loadTexture("imgs/magazyn2.png");
+			Warehouse_II_texture = loadTexture("imgs/magazyn3.png");
+		}
+		if (licze_magazyny == 1)
+		{
+
+			Warehouse_I_texture = loadTexture("imgs/magazyn3.png");
+			Warehouse_II_texture = loadTexture("imgs/magazyn4.png");
+		}
+		if (licze_magazyny == 2)
+		{
+
+			Warehouse_I_texture = loadTexture("imgs/magazyn4.png");
+			Warehouse_II_texture = loadTexture("imgs/magazyn5.png");
+		}
+		licze_magazyny++;
+		upgrade = false;
+				 /////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+
 	}
 }
 
@@ -1625,7 +1676,7 @@ int main(int argc, char* args[])
 					People_int++;
 
 					// Magazyny
-					// LVL1
+					// LVL1////////////////////////////////////////////////////////////////////////////////////////////////////// WWYWALIC (coœ z tym zrobic)
 					{
 						SDL_RenderCopy(gRenderer, Warehouse_I_texture, NULL, &gWarehouse_rect_left);
 						SDL_RenderCopy(gRenderer, Warehouse_II_texture, NULL, &gWarehouse_rect_right);
@@ -1663,8 +1714,16 @@ int main(int argc, char* args[])
 					*/
 					
 					// UPGRADE
-					upgrade_NAV_Warehouse.render();
-					upgrade_NAV_Warehouse.handleEvent(&e);
+					if (upgrade == false)
+					{
+						upgrade_NAV_Warehouse.render();
+						upgrade_NAV_Warehouse.handleEvent(&e);
+					}
+					else
+					{
+						upgrade_AV_Warehouse.render();
+						upgrade_AV_Warehouse.handleEvent(&e);
+					}
 
 					if (buy == true)
 					{
@@ -1810,6 +1869,33 @@ int main(int argc, char* args[])
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
 						timer.render();
+
+						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+						gTextTexture.loadFromRenderedText("13", textC);			gTextTexture.loadFromRenderedText("48", textC);
+						gTextTexture.render(kolumna_stat_1, wiersz_stat_1);		gTextTexture.render(kolumna_stat_3, wiersz_stat_3);
+						gTextTexture.loadFromRenderedText("7", textC);			gTextTexture.loadFromRenderedText("120", textC);
+						gTextTexture.render(kolumna_stat_1, wiersz_stat_2);		gTextTexture.render(kolumna_stat_3, wiersz_stat_4);
+						gTextTexture.loadFromRenderedText("8", textC);			gTextTexture.loadFromRenderedText("87", textC);
+						gTextTexture.render(kolumna_stat_1, wiersz_stat_3);		gTextTexture.render(kolumna_stat_4, wiersz_stat_1);
+						gTextTexture.loadFromRenderedText("25", textC);			gTextTexture.loadFromRenderedText("354", textC);
+						gTextTexture.render(kolumna_stat_1, wiersz_stat_4);		gTextTexture.render(kolumna_stat_4, wiersz_stat_2);
+						gTextTexture.loadFromRenderedText("65", textC);			gTextTexture.loadFromRenderedText("546", textC);
+						gTextTexture.render(kolumna_stat_2, wiersz_stat_1);		gTextTexture.render(kolumna_stat_4, wiersz_stat_3);
+						gTextTexture.loadFromRenderedText("84", textC);			gTextTexture.loadFromRenderedText("87", textC);
+						gTextTexture.render(kolumna_stat_2, wiersz_stat_2);		gTextTexture.render(kolumna_stat_4, wiersz_stat_4);
+						gTextTexture.loadFromRenderedText("15", textC);			gTextTexture.loadFromRenderedText("54", textC);
+						gTextTexture.render(kolumna_stat_2, wiersz_stat_3);		gTextTexture.render(kolumna_stat_5, wiersz_stat_1);
+						gTextTexture.loadFromRenderedText("68", textC);			gTextTexture.loadFromRenderedText("354", textC);
+						gTextTexture.render(kolumna_stat_2, wiersz_stat_4);		gTextTexture.render(kolumna_stat_5, wiersz_stat_2);
+						gTextTexture.loadFromRenderedText("48", textC);			gTextTexture.loadFromRenderedText("987", textC);
+						gTextTexture.render(kolumna_stat_3, wiersz_stat_1);		gTextTexture.render(kolumna_stat_5, wiersz_stat_3);
+						gTextTexture.loadFromRenderedText("38", textC);			gTextTexture.loadFromRenderedText("545", textC);
+						gTextTexture.render(kolumna_stat_3, wiersz_stat_2);		gTextTexture.render(kolumna_stat_5, wiersz_stat_4);
+						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+
+
+						//gTextTexture.loadFromRenderedText("Zapisz", textC);
+					//	gTextTexture.render(624, 200);
 
 						// Pozwolenie i zakaz budowy
 						if (allow_build==true)

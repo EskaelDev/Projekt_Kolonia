@@ -47,8 +47,14 @@ metod i pol z klasy Industrial, bedzie natomist miala kilka innych pol i metod w
 
 /*
 05.26 18:43
-Potrzeba stworzenia klasy Magazine zainicjowala stworzenie klasy public bedacej lacznikiem miedzy klasa Industrial a klasa Production. Klasa Magazine rowinez wywodzi sie z klasy Industrial
+Potrzeba stworzenia klasy Magazine zainicjowala stworzenie klasy Public bedacej lacznikiem miedzy klasa Industrial a klasa Production. Klasa Magazine rowinez wywodzi sie z klasy Industrial
 ale z innej galezi, niz klasa Producton.
+*/
+
+
+/*
+05.26 22:43
+Konieczne jest ustalenie priorytetu w momencie nadprodukcji surowcow i zapelnienia magazynu, ktore produkty maja w pierwszej kolejnosci zapelniac magazyn.
 */
 
 

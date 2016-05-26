@@ -13,7 +13,9 @@ protected:
 
 public:
 	Magazine();
-	Magazine(int, int, int, int, int, int, int, int);
+	bool Build(Resource &, Resource &, Resource &, Resource &);
+	int getmagazineCapacity() const;
+	int getLevel() const;
 	void test() const;
 };
 

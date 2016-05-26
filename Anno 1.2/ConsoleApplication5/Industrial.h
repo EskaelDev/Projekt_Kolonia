@@ -15,8 +15,8 @@ protected:
 	bool status;				// true - dostepny do budowy, false - niedostepny
 
 public:
-	void checkStatus(People &);																// aktualizuje pole status w oparciu o spelnienie warunku wymaganej liczby ludzi  											
-	bool Build(Resource & _Money, Resource & _Bricks, Resource & _Tools, Resource & _Wood);	// aktualizuje stan surowcow po budowie i parametry budynku, zwraca false jesli brakuje surowcowow, true jesli sa dostepne surowce 
+	void checkStatus(People &);												// aktualizuje pole status w oparciu o spelnienie warunku wymaganej liczby ludzi  											
+	virtual bool Build(Resource &, Resource &, Resource &, Resource &) = 0;	// aktualizuje stan surowcow po budowie i parametry budynku, zwraca false jesli brakuje surowcowow, true jesli sa dostepne surowce 
 	int getMoney() const;
 	int getClass() const;
 	bool getStatus() const;

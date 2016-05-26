@@ -15,24 +15,73 @@ Magazine::Magazine()
 	maintenanceActiveCost = 15;
 	peopleToBuild = 0;
 	peopleClass = -1;
-	status;
+	status = true;
 	level = 0;
-	magazineCapacity = 30;
+	magazineCapacity = 0;
 }
 
-Magazine::Magazine(int _moneyToBuild, int _bricksToBuild, int _toolsToBuild, int _woodToBuild, int _maintenanceActiveCost, int _peopleToBuild, int _peopleClass, int _magazineCapacity)
+bool Magazine::Build(Resource & _Money, Resource & _Bricks, Resource & _Tools, Resource & _Wood)
 {
-	level = 1;
-	moneyToBuild = _moneyToBuild;
-	bricksToBuild = _bricksToBuild;
-	toolsToBuild = _toolsToBuild;
-	woodToBuild = _woodToBuild;
-	maintenanceActiveCost = _maintenanceActiveCost;
-	size = 4;
-	peopleToBuild = _peopleToBuild;
-	peopleClass = _peopleClass;
-	status = true;
-	magazineCapacity = _magazineCapacity;
+	if (level < 4)
+	{
+		if (moneyToBuild > _Money.number || bricksToBuild > _Bricks.number || toolsToBuild > _Tools.number || woodToBuild > _Wood.number)
+			return false;
+		
+		else
+		{
+			_Money.number -= moneyToBuild;
+			_Bricks.number -= bricksToBuild;
+			_Tools.number -= toolsToBuild;
+			_Wood.number -= woodToBuild;
+			++level;
+			if (0 == level)
+			{
+				magazineCapacity = 30;
+				moneyToBuild = 180;
+				woodToBuild = 7;
+				peopleToBuild = 30;
+				peopleClass = 1;
+			}
+
+			else if (1 == level)
+			{
+				magazineCapacity = 50;
+				moneyToBuild = 250;
+				bricksToBuild = 6;
+				toolsToBuild = 4;
+				woodToBuild = 4;
+				peopleToBuild = 100;
+				peopleClass = 2;
+			}
+
+			else if (2 == level)
+			{
+				magazineCapacity = 75;
+				bricksToBuild = 10;
+				toolsToBuild = 5;
+				peopleToBuild = 250;
+				peopleClass = 3;
+			}
+			else if (3 == level)
+			{
+				magazineCapacity = 100;
+			}
+
+			return true;
+		}
+	}
+
+	return false;
+}
+
+int Magazine::getmagazineCapacity() const
+{
+	return magazineCapacity;
+}
+
+int Magazine::getLevel() const
+{
+	return level;
 }
 
 void Magazine::test() const

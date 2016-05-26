@@ -18,18 +18,28 @@ void menuBuilding();			// Funkcja wyswietla menu: spis budynkow
 
 // STALE I ZMIENNE-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-int menu;					// wybor dzialania z menu
-int decyzja;				// wybor numeru budynku z menu
-const int islandSize = 200;	// liczba dostepnych pol na wyspie
-int usedFields = 0;			// wykorzystane pola przez budynki
+int menu;						// wybor dzialania z menu
+int decyzja;					// wybor numeru budynku z menu
+const int islandSize = 200;		// liczba dostepnych pol na wyspie
+int usedFields = 0;				// wykorzystane pola przez budynki
 clock_t obecny = 0;
 clock_t poprzedni = 0;
+Building* wskBuilding = 0;		
+Industrial* wskIndustrial = 0;
+Production* wskProduction = 0;
 
 // GLOWNY PROGRAM--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	Public* tPublic[12];					// tablica wskaznikow do obiektow Public
+	House* tHouse[5];
+	tHouse[0] = &hPioneers;
+	tHouse[1] = &hSettlers;
+	tHouse[2] = &hCitizens;
+	tHouse[3] = &hMerchants;
+	tHouse[4] = &hAristocrats;
+
+	Public* tPublic[12];							// tablica wskaznikow do obiektow Public
 	tPublic[0] = &Doctor;
 	tPublic[1] = &PublicBath;		
 	tPublic[2] = &FireDepartment;	
@@ -43,27 +53,23 @@ int _tmain(int argc, _TCHAR* argv[])
 	tPublic[10] = &Theatre;			
 	tPublic[11] = &Tavern;			
 	
-	Production* tProduction[20];					// tablica wskaznikow do obiektow Production
-	tProduction[0] = &WarehouseI;
-	tProduction[1] = &WarehouseII;
-	tProduction[2] = &WarehouseIII;
-	tProduction[3] = &WarehouseIV;
-	tProduction[4] = &CottonPlantation;
-	tProduction[5] = &ForestersLodge;
-	tProduction[6] = &GrainFarm;
-	tProduction[7] = &SpiceFarm;
-	tProduction[8] = &HuntersHut;
-	tProduction[9] = &CocoaPlantation;
-	tProduction[10] = &CattleFarm;
-	tProduction[11] = &SheepFarm;
-	tProduction[12] = &Winery;
-	tProduction[13] = &TobaccoPlantation;
-	tProduction[14] = &SugarcanePlantation;
-	tProduction[15] = &IronMine;
-	tProduction[16] = &DeepIronMine;
-	tProduction[17] = &GoldMine;
-	tProduction[18] = &FistersHut;
-	tProduction[19] = &StoneMason;
+	Production* tProduction[16];					// tablica wskaznikow do obiektow Production
+	tProduction[0] = &CottonPlantation;
+	tProduction[1] = &ForestersLodge;
+	tProduction[2] = &GrainFarm;
+	tProduction[3] = &SpiceFarm;
+	tProduction[4] = &HuntersHut;
+	tProduction[5] = &CocoaPlantation;
+	tProduction[6] = &CattleFarm;
+	tProduction[7] = &SheepFarm;
+	tProduction[8] = &Winery;
+	tProduction[9] = &TobaccoPlantation;
+	tProduction[10] = &SugarcanePlantation;
+	tProduction[11] = &IronMine;
+	tProduction[12] = &DeepIronMine;
+	tProduction[13] = &GoldMine;
+	tProduction[14] = &FistersHut;
+	tProduction[15] = &StoneMason;
 
 	Processing* tProcessing[11];					
 	tProcessing[0] = &Bakery;
@@ -77,13 +83,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	tProcessing[8] = &WeavingHut;
 	tProcessing[9] = &ToolSmithy;
 	tProcessing[10] = &WindMill;
-
-	House* tHouse[5];
-	tHouse[0] = &hPioneers;
-	tHouse[1] = &hSettlers;
-	tHouse[2] = &hCitizens;
-	tHouse[3] = &hMerchants;
-	tHouse[4] = &hAristocrats;
 
 	People* tPeople[5];
 	tPeople[0] = &Pioneers;
@@ -117,18 +116,11 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	while (1)	// petla gry
 	{
-		// ZLICZANIE CZASU
-
 		system("CLS");
-		obecny = clock() / CLOCKS_PER_SEC;
-		cout << "Od poczatku programu uplynelo " << obecny << " sekund " << endl;
-		cout << "Od ostatniej aktualizacji uplynelo " << obecny - poprzedni << endl << endl;
-		cout << "Wykorzystane pola wyspy: " << usedFields << "    Dostepne pola: " << islandSize - usedFields << endl;
-		poprzedni = obecny;
 
 		// AKTUALIZACJA STANU SUROWCOW
 
-		for (int i = 4; i < 20; ++i)			
+		for (int i = 0; i < 15; ++i)			
 			tResource[tProduction[i]->getProductID()]->increase(tProduction[i]->getNumber());
 
 		for (int i = 0; i < 11; ++i)
@@ -145,7 +137,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			if (tPublic[i]->getClass() > -1)		
 				tPublic[i]->checkStatus(*tPeople[tPublic[i]->getClass()]);
 
-		for (int i = 0; i < 20; ++i)
+		for (int i = 0; i < 16; ++i)
 			if (tProduction[i]->getClass() > -1)
 				tProduction[i]->checkStatus(*tPeople[tProduction[i]->getClass()]);
 
@@ -153,7 +145,20 @@ int _tmain(int argc, _TCHAR* argv[])
 			if (tProcessing[i]->getClass() > -1)
 				tProcessing[i]->checkStatus(*tPeople[tProcessing[i]->getClass()]);
 
+		if (WareHouse.getClass() > -1)
+			WareHouse.checkStatus(*tPeople[WareHouse.getClass()]);
+
 		// MENU (TYMCZASOWE DLA KONSOLI)
+
+		// ZLICZANIE CZASU
+
+		obecny = clock() / CLOCKS_PER_SEC;
+		cout << "Od poczatku programu uplynelo " << obecny << " sekund " << endl;
+		cout << "Od ostatniej aktualizacji uplynelo " << obecny - poprzedni << endl << endl;
+		cout << "Wykorzystane pola wyspy: " << usedFields << "    Dostepne pola: " << islandSize - usedFields << endl;
+		cout << "Pojemnosc magazynu: " << WareHouse.getmagazineCapacity() << "    Dostepne miejsce: " << endl;
+		poprzedni = obecny;
+
 		// WYSWIETLANIE STANU SUROWCOW
 
 		cout << "Pieniadze: " << Money.getNumber();
@@ -185,58 +190,81 @@ int _tmain(int argc, _TCHAR* argv[])
 
 			case 1:
 				menuBuilding();
+				if (0 == WareHouse.getLevel())
+					cout << "  [44] - Magazyn" << endl << endl;
+				else if (0 < WareHouse.getLevel() < 4)
+					cout << "  [44] - Ulepsz magazyn" << endl << endl;
 				cout << "  Co chcesz zbudowac? ";
 				cin >> decyzja;
 
 				if (decyzja >= 0 && decyzja < 12)
 					Build(*tPublic[decyzja]);
 
-				else if (decyzja >= 12 && decyzja < 32)
+				else if (decyzja >= 12 && decyzja < 28)
 					Build(*tProduction[decyzja - 12]);
 
-				else if (decyzja >= 32 && decyzja < 43)
+				else if (decyzja >= 28 && decyzja < 39)
 					Build(*tProcessing[decyzja - 32]);
 
-				else if (decyzja >= 43 && decyzja < 48)
+				else if (decyzja >= 39 && decyzja < 44)
 				{
-					if (usedFields + tHouse[decyzja - 43]->getSize() > islandSize)
+					if (usedFields + tHouse[decyzja - 39]->getSize() > islandSize)
 						cout << "\n    Brakuje dostepnych pol na wyspie." << endl;
 
-					else if(tHouse[decyzja - 43]->Build(Bricks, Tools, Wood) == false)
+					else if (tHouse[decyzja - 39]->Build(Bricks, Tools, Wood) == false)
 						cout << "\n    Nie masz wystarczajacej ilosci surowcow." << endl;
 
 					else
 					{
 						cout << "\n    Wybudowano budynek." << endl;
-						tPeople[decyzja - 43]->increase(tHouse[decyzja - 43]->getStartPeople());
-						usedFields += tHouse[decyzja - 43]->getSize();
+						tPeople[decyzja - 39]->increase(tHouse[decyzja - 39]->getStartPeople());
+						usedFields += tHouse[decyzja - 39]->getSize();
 					}
 				}
-				
+
+				else if (44 == decyzja)
+				{
+					if (WareHouse.getStatus() == false)
+						cout << "\n    Budynek niedostepny." << endl;
+
+					else if (usedFields + WareHouse.getSize() > islandSize)
+						cout << "\n    Brakuje dostepnych pol na wyspie." << endl;
+
+					else if (WareHouse.Build(Money, Bricks, Tools, Wood) == true)
+					{
+						cout << "\n    Wybudowano budynek." << endl;
+						if(1 == WareHouse.getLevel())
+							usedFields += WareHouse.getSize();
+					}
+
+					else
+						cout << "\n    Nie masz wystarczajacej ilosci surowcow." << endl;
+				}
+
 				break;
 
     	//BURZENIE BUDYNKOW----------------------------------------------------------------------------------------------------------------------------------------------------
 
 			case 2:
 				menuBuilding();
-				cout << "  Co chcesz zniszczyc? ";
+				cout << "\n  Co chcesz zniszczyc? ";
 				cin >> decyzja;
 				
 				if (decyzja >= 0 && decyzja < 12)
 					Destroy(*tPublic[decyzja]);
 
-				else if (decyzja >= 12 && decyzja < 32)
+				else if (decyzja >= 12 && decyzja < 28)
 					Destroy(*tProduction[decyzja - 12]);
 
-				else if (decyzja >= 32 && decyzja < 43)
+				else if (decyzja >= 28 && decyzja < 39)
 					Destroy(*tProcessing[decyzja - 32]);
 
-				else if (decyzja >= 43 && decyzja < 48)
+				else if (decyzja >= 39 && decyzja < 44)
 				{
-					if (tHouse[decyzja - 43]->Destroy() == true)
+					if (tHouse[decyzja - 39]->Destroy() == true)
 					{
 						cout << "\n    Zburzono budynek";
-						usedFields -= tHouse[decyzja - 43]->getSize();
+						usedFields -= tHouse[decyzja - 39]->getSize();
 					}
 					else
 						cout << "\n    Nie posiadasz takiego budynku";
@@ -248,12 +276,13 @@ int _tmain(int argc, _TCHAR* argv[])
 
 			case 3:
 				menuBuilding();
+				cout << "  [44] - Magazyn" << endl;
 				cout << "\nPublic:\n\n";
 				for (int i = 0; i < 12; ++i)
 					cout << "[" << i << "]=" << tPublic[i]->getNumber() << "\t";
 				
 				cout << "\n\nProduction:\n\n";
-				for (int i = 0; i < 20; ++i)
+				for (int i = 0; i < 16; ++i)
 				{
 					cout << "[" << i + 12 << "]=" << tProduction[i]->getNumber() << "\t";
 					if (i == 11) cout << endl;
@@ -261,11 +290,13 @@ int _tmain(int argc, _TCHAR* argv[])
 
 				cout << "\n\nProcessing:\n\n";
 				for (int i = 0; i < 11; ++i)
-					cout << "[" << i + 32 << "]=" << tProcessing[i]->getNumber() << "\t";
+					cout << "[" << i + 28 << "]=" << tProcessing[i]->getNumber() << "\t";
 
 				cout << "\n\nHouse:\n\n";
 				for (int i = 0; i < 5; ++i)
-					cout << "[" << i + 43 << "]=" << tHouse[i]->getNumber() << "\t";
+					cout << "[" << i + 39 << "]=" << tHouse[i]->getNumber() << "\t";
+
+				cout << "[44]=" << WareHouse.getLevel() << " poziom" << endl;
 
 				break;
 		
@@ -273,6 +304,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		
 			case 4:
 				menuBuilding();
+				cout << "  [44] - Magazyn" << endl << endl;
 				cout << "  Wybierz budynek ";
 				cin >> decyzja;
 				cout << endl;
@@ -280,18 +312,21 @@ int _tmain(int argc, _TCHAR* argv[])
 				if (decyzja >= 0 && decyzja < 12)
 					tPublic[decyzja]->test();
 
-				else if (decyzja >= 12 && decyzja < 32)
+				else if (decyzja >= 12 && decyzja < 28)
 					tProduction[decyzja - 12]->test();
 
-				else if (decyzja >= 32 && decyzja < 43)
+				else if (decyzja >= 28 && decyzja < 39)
 					tProcessing[decyzja - 32]->test();
 
-				else if (decyzja >= 43 && decyzja < 48)
-					tHouse[decyzja - 43]->test();
+				else if (decyzja >= 39 && decyzja < 44)
+					tHouse[decyzja - 39]->test();
+
+				else if (44 == decyzja)
+					WareHouse.test();
 
 				break;
 
-		//WYSWIETLANIE STANU WSZYSTKICH BUDYNKU--------------------------------------------------------------------------------------------------------------------------------
+		//WYSWIETLANIE STANU WSZYSTKICH SUROWCOW------------------------------------------------------------------------------------------------------------------------------
 		
 			case 5:
 				cout << "\n  [0] - pieniadze\t[1] - ruda zelaza\t[2] - zloto" << endl;
@@ -363,53 +398,49 @@ void Destroy(Public & Name)
 void menuBuilding() 
 {
 	cout << "\n  MENU BUDYNEK:" << endl;
-	cout << "  [0] - przychodnia lekarska" << endl;
+	cout << "  [0] - przychodnia lekarska\t";
 	cout << "  [1] - laznia publiczna\t";
-	cout << "  [2] - straz ogniowa\t\t";
-	cout << "  [3] - uniwersytet" << endl;
+	cout << "  [2] - straz ogniowa" << endl;
+	cout << "  [3] - uniwersytet\t\t";
 	cout << "  [4] - kaplica\t\t\t";
-	cout << "  [5] - katedra\t\t\t";
-	cout << "  [6] - kosciol" << endl;
+	cout << "  [5] - katedra" << endl;
+	cout << "  [6] - kosciol\t\t\t";
 	cout << "  [7] - plac targowy\t\t";
-	cout << "  [8] - palac\t\t\t";
-	cout << "  [9] - szkola" << endl;
+	cout << "  [8] - palac" << endl;
+	cout << "  [9] - szkola\t\t\t";
 	cout << "  [10] - teatr\t\t\t";
-	cout << "  [11] - tawerna\t\t";
-	cout << "  [12] - magazyn I" << endl;
-	cout << "  [13] - magazyn II\t\t";
-	cout << "  [14] - magazyn III\t\t";
-	cout << "  [15] - magazyn IV" << endl;
-	cout << "  [16] - plantacja bawelny\t";
-	cout << "  [17] - chata drwala\t\t";
-	cout << "  [18] - plantacja zboza" << endl;
-	cout << "  [19] - plantacja przypraw\t";
-	cout << "  [20] - domek mysliwski\t";
-	cout << "  [21] - plantacja koki" << endl;
-	cout << "  [22] - farma krow\t\t";
-	cout << "  [23] - farma owiec\t\t";
-	cout << "  [24] - winiarnia" << endl;
-	cout << "  [25] - plantacja tytoniu\t";
-	cout << "  [26] - plantacja trzciny cukr.";
-	cout << "  [27] - kopalnia zelaza" << endl;
-	cout << "  [28] - gleboka kopalnia zelaza";
-	cout << "  [29] - kopalnia zlota\t\t";
-	cout << "  [30] - chatka rybacka" << endl;
-	cout << "  [31] - kamieniarz\t\t";
-	cout << "  [32] - piekarnia\t\t";
-	cout << "  [33] - kuznia zelaza" << endl;
-	cout << "  [34] - jubiler\t\t";
-	cout << "  [35] - rzeznik\t\t";
-	cout << "  [36] - gorzelnia" << endl;
-	cout << "  [37] - sklep odziezowy\t";
-	cout << "  [38] - wytwornia prod. tyton\t";
-	cout << "  [39] - szwalnia duza" << endl;
-	cout << "  [40] - szwalnia mala\t\t";
-	cout << "  [41] - wytworca narzedzi\t";
-	cout << "  [42] - wiatrak" << endl;
-	cout << "  [43] - dom Pionierow\t\t";
-	cout << "  [44] - dom Osadnikow\t\t"; 
-	cout << "  [45] - dom Mieszczan" << endl;
-	cout << "  [46] - dom Kupcow\t\t";
-	cout << "  [47] - dom Arytokratow" << endl << endl;
+	cout << "  [11] - tawerna" << endl;
+	cout << "  [12] - plantacja bawelny\t";
+	cout << "  [13] - chata drwala" << endl;
+	cout << "  [14] - plantacja zboza\t";
+	cout << "  [15] - plantacja przypraw\t";
+	cout << "  [16] - domek mysliwski" << endl;
+	cout << "  [17] - plantacja koki\t\t";
+	cout << "  [18] - farma krow\t\t";
+	cout << "  [19] - farma owiec" << endl;
+	cout << "  [20] - winiarnia\t\t";
+	cout << "  [21] - plantacja tytoniu\t";
+	cout << "  [22] - plantacja trzciny cukr." << endl;
+	cout << "  [23] - kopalnia zelaza\t";
+	cout << "  [24] - gleboka kopalnia zelaza";
+	cout << "  [25] - kopalnia zlota" << endl;
+	cout << "  [26] - chatka rybacka\t\t";
+	cout << "  [27] - kamieniarz\t\t"; 
+	cout << "  [28] - piekarnia" << endl;
+	cout << "  [29] - kuznia zelaza\t\t";
+	cout << "  [30] - jubiler\t\t";
+	cout << "  [31] - rzeznik" << endl;
+	cout << "  [32] - gorzelnia\t\t";
+	cout << "  [33] - sklep odziezowy\t";
+	cout << "  [34] - wytwornia prod. tyton" << endl;
+	cout << "  [35] - szwalnia duza\t\t";
+	cout << "  [36] - szwalnia mala\t\t";
+	cout << "  [37] - wytworca narzedzi" << endl;
+	cout << "  [38] - wiatrak\t\t";
+	cout << "  [39] - dom Pionierow\t\t";
+	cout << "  [40] - dom Osadnikow" << endl;
+	cout << "  [41] - dom Mieszczan\t\t";
+	cout << "  [42] - dom Kupcow\t\t";
+	cout << "  [43] - dom Arytokratow" << endl;
 }
 

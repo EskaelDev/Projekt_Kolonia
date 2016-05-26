@@ -14,9 +14,9 @@ protected:
 public:
 	Public();
 	Public(int, int, int, int, int, int, int, int);
-	void checkStatus(People &);																// aktualizuje pole status w oparciu o spelnienie warunku wymaganej liczby ludzi  											
-	bool Build(Resource & _Money, Resource & _Bricks, Resource & _Tools, Resource & _Wood);	// aktualizuje stan surowcow po budowie i parametry budynku, zwraca false jesli brakuje surowcowow, true jesli sa dostepne surowce 
-	bool Destroy();																			// niszczy budynek jesli istnieje, w przypadku powodzenia zwraca true, w przypadku niepowodzenia false
+	void checkStatus(People &);									// aktualizuje pole status w oparciu o spelnienie warunku wymaganej liczby ludzi  											
+	bool Build(Resource &, Resource &, Resource &, Resource &);	// aktualizuje stan surowcow po budowie i parametry budynku, zwraca false jesli brakuje surowcowow, true jesli sa dostepne surowce 
+	bool Destroy();												// niszczy budynek jesli istnieje, w przypadku powodzenia zwraca true, w przypadku niepowodzenia false
 	int getNumber() const;
 	int getMoney() const;
 	int getClass() const;

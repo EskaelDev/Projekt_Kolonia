@@ -14,6 +14,8 @@ public:
 	int getTools() const;
 	int getWood() const;
 	int getSize() const;
+	virtual void test() const = 0;
+	
 };
 
 #endif

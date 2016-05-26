@@ -3,6 +3,7 @@
 
 #include "House.h"
 #include "Industrial.h"
+#include "Magazine.h"
 #include "Public.h"
 #include "Production.h"
 #include "Processing.h"
@@ -16,7 +17,7 @@ House hCitizens(6, 2, 2, 15, 3);
 House hMerchants(9, 3, 3, 25, 4);
 House hAristocrats(12, 3, 3, 40, 5);
 
-Magazine WareHouse();
+Magazine WareHouse;
 
 //"Public(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, size, peopleToBuild, peopleClass)
 Public Doctor(450, 9, 4, 4, 30, 4, 50, 2);
@@ -33,11 +34,6 @@ Public Theatre(1200, 19, 2, 5, 80, 9, 300, 3);
 Public Tavern(250, 6, 3, 4, 15, 6, 50, 1);
 
 //Production(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, size, magazineCapacity, peopleToBuild, peopleClass, productID)
-Production WarehouseI(100, 0, 3, 6, 15, 15, 6, 30, 0, -1, -1);
-Production WarehouseII(180, 0, 3, 7, 15, 15, 6, 50, 30, 1, -1);
-Production WarehouseIII(250, 6, 4, 4, 15, 15, 6, 75, 100, 2, -1);
-Production WarehouseIV(250, 10, 5, 4, 15, 15, 6, 100, 250, 3, -1);
-
 Production CottonPlantation(200, 6, 2, 3, 25, 10, 16, 9, 200, 2, 3);
 Production ForestersLodge(50, 0, 2, 0, 5, 0, 4, 10, 0, -1, 19);
 Production GrainFarm(100, 0, 2, 5, 5, 0, 16, 6, 75, 1, 7);

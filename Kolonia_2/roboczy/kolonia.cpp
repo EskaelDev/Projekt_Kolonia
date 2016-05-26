@@ -15,7 +15,8 @@ using namespace std;
 // DO WYJEBANIA////////////////////////////////////////////////////////////////////////////////////////
 int ruda = 0, tyton = 0, przyprawy = 0, narzedzia = 0, zloto = 0, bydlo = 0, tkaniny,
 drewno = 0, wena = 0, zboze = 0, ubrania = 0, cegla = 0, trzcina = 0, monka = 0, cygara = 0, igly = 0,
-jedzenie = 0, beczki = 0, sikor = 0, kakao = 0, s1 = 0, s2 = 0, s3 = 5, s4 = 0, s5 = 21;
+jedzenie = 0, beczki = 0, sikor = 0, kakao = 0, s1 = 0, s2 = 0, s3 = 5, s4 = 0, s5 = 21, s6 = 7, s7 = 0,
+s8 = 5, s9 = 0, s10 = 21, s11, s12 = 0, s13 = 0, s14 = 5, s15 = 0, s16 = 21, s17 = 7, s18 = 0, s19 = 5, s20 = 0;
 
 //pozycja
 int kolumna_stat_1 = 75-14;
@@ -763,12 +764,14 @@ void LButton::operation(Actions action)
 		}
 		licze_magazyny++;
 		upgrade = false;
+		break;
 				 /////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
 	case CHANGE_MUSIC:
 		if (MUSIC_ON == true)
 			MUSIC_ON = false;
 		else
 			MUSIC_ON = true;
+		break;
 
 
 	}
@@ -914,23 +917,121 @@ bool Timer::isPaused()
 void Timer::count()
 {
 	if (getTicks() % 130 == 0)
-		if (s1 != 56)
+	{
+		if (s1 < 56)
+		{
 			s1++;
-	if (getTicks() % 150 == 0)
-		if(s2 != 56)
-			s2++;
-	if (getTicks() % 200 == 0)
-		if (s3 != 56)
-			s3++;
-	if (getTicks() % 300 == 0)
-		if (s4 != 56)
-			s4++;
-	if (getTicks() % 200 == 0)
-		if (s5 != 56)
+			s1++;
+			s15++;
+		}
+		if (s5 < 56)
 			s5++;
+		if (s18 < 56)
+			s18++;
+	}
+	if (getTicks() % 150 == 0)
+	{
+		if (s2 < 56)
+			s2++;
+		if (s6 < 56)
+			s6++;
+		if (s10 < 56)
+			s10++;
+		if (s11 < 56)
+			s11++;
+		if (s16 < 56)
+			s16++;
+	}
+	if (getTicks() % 200 == 0)
+	{
+		if (s3 < 56)
+			s3++;
+		if (s13 < 56)
+			s13++;
+		if (s19 < 56)
+			s19++;
+		if (s12 < 56)
+				s12++;
+	}
 	if (getTicks() % 300 == 0)
-		if (s5 != 0)
+	{
+		if (s4 < 56)
+			s4++;
+		if (s7 < 56)
+		{
+			s7++;
+			s7++;
+		}
+		if (s15 < 56)
+			s15++;
+		if (s20 < 56)
+		{
+			s20++;
+			s20++;
+			s20++;
+
+		}
+	}
+	if (getTicks() % 200 == 0)
+	{
+		if (s8 < 56)
+			s8++;
+		if (s11 < 56)
+			s11++;
+		if (s14 < 56)
+		{
+
+			s14++;
+			s14++;
+			s14++;
+		}
+		if (s17 < 56)
+			s17++;
+	}
+	if (getTicks() % 300 == 0)
+	{
+		s9++;
+		if (s1 < 0)
+			s1--;
+		if (s2 < 0)
+			s2--;
+		if (s3 < 0)
+			s3--;
+		if (s4 < 0)
+			s4--;
+		if (s5 < 0)
 			s5--;
+		if (s6 < 0)
+			s6--;
+		if (s7 < 0)
+			s7--;
+		if (s8 < 0)
+			s8--;
+		if (s9 < 0)
+			s9--;
+		if (s10 < 0)
+			s10--;
+		if (s11 < 0)
+			s11--;
+		if (s12 < 0)
+			s12--;
+		if (s13 < 0)
+			s13--;
+		if (s14 < 0)
+			s14--;
+		if (s15 < 0)
+			s15--;
+		if (s16 < 0)
+			s16--;
+		if (s17 < 0)
+			s17--;
+		if (s18 < 0)
+			s18--;
+		if (s19 < 0)
+			s19--;
+		if (s20 < 0)
+			s20--;
+	}
 	if (s == 60)
 	{
 		m++;
@@ -1620,6 +1721,24 @@ int main(int argc, char* args[])
 				SDL_Rect fillRect4 = { 201, 295, s4, 5 };
 				SDL_Rect fillRect5 = { 266, 295, s5, 5 };
 
+				SDL_Rect fillRect6 = { 6, 369, s6, 5 };
+				SDL_Rect fillRect7 = { 71, 369, s7, 5 };
+				SDL_Rect fillRect8 = { 136, 369, s8, 5 };
+				SDL_Rect fillRect9 = { 201, 369, s9, 5 };
+				SDL_Rect fillRect10 = { 266, 369, s10, 5 };
+
+				SDL_Rect fillRect11 = { 6, 437, s11, 5 };
+				SDL_Rect fillRect12 = { 71, 437, s12, 5 };
+				SDL_Rect fillRect13 = { 136, 437, s13, 5 };
+				SDL_Rect fillRect14 = { 201, 437, s14, 5 };
+				SDL_Rect fillRect15 = { 266, 437, s15, 5 };
+
+				SDL_Rect fillRect16 = { 6, 507, s16, 5 };
+				SDL_Rect fillRect17 = { 71, 507, s17, 5 };
+				SDL_Rect fillRect18 = { 136, 507, s18, 5 };
+				SDL_Rect fillRect19 = { 201, 507, s19, 5 };
+				SDL_Rect fillRect20 = { 266, 507, s20, 5 };
+
 				switch (screen)
 				{
 					// Ekran menu glownego
@@ -1904,6 +2023,24 @@ int main(int argc, char* args[])
 					SDL_RenderFillRect(gRenderer, &fillRect4);
 					SDL_RenderFillRect(gRenderer, &fillRect5);
 
+					SDL_RenderFillRect(gRenderer, &fillRect6);
+					SDL_RenderFillRect(gRenderer, &fillRect7);
+					SDL_RenderFillRect(gRenderer, &fillRect8);
+					SDL_RenderFillRect(gRenderer, &fillRect9);
+					SDL_RenderFillRect(gRenderer, &fillRect10);
+
+					SDL_RenderFillRect(gRenderer, &fillRect11);
+					SDL_RenderFillRect(gRenderer, &fillRect12);
+					SDL_RenderFillRect(gRenderer, &fillRect13);
+					SDL_RenderFillRect(gRenderer, &fillRect14);
+					SDL_RenderFillRect(gRenderer, &fillRect15);
+
+					SDL_RenderFillRect(gRenderer, &fillRect16);
+					SDL_RenderFillRect(gRenderer, &fillRect17);
+					SDL_RenderFillRect(gRenderer, &fillRect18);
+					SDL_RenderFillRect(gRenderer, &fillRect19);
+					SDL_RenderFillRect(gRenderer, &fillRect20);
+
 					buy_button.render();
 					buy_button.handleEvent(&e);
 					sell_button.render();
@@ -1957,26 +2094,26 @@ int main(int argc, char* args[])
 						timer.render();
 
 						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
-						gTextTexture.loadFromRenderedText("13", textC);			gTextTexture.loadFromRenderedText("48", textC);
-						gTextTexture.render(kolumna_stat_1, wiersz_stat_1);		gTextTexture.render(kolumna_stat_3, wiersz_stat_3);
-						gTextTexture.loadFromRenderedText("7", textC);			gTextTexture.loadFromRenderedText("120", textC);
-						gTextTexture.render(kolumna_stat_1, wiersz_stat_2);		gTextTexture.render(kolumna_stat_3, wiersz_stat_4);
-						gTextTexture.loadFromRenderedText("8", textC);			gTextTexture.loadFromRenderedText("87", textC);
-						gTextTexture.render(kolumna_stat_1, wiersz_stat_3);		gTextTexture.render(kolumna_stat_4, wiersz_stat_1);
-						gTextTexture.loadFromRenderedText("25", textC);			gTextTexture.loadFromRenderedText("354", textC);
-						gTextTexture.render(kolumna_stat_1, wiersz_stat_4);		gTextTexture.render(kolumna_stat_4, wiersz_stat_2);
-						gTextTexture.loadFromRenderedText("65", textC);			gTextTexture.loadFromRenderedText("546", textC);
-						gTextTexture.render(kolumna_stat_2, wiersz_stat_1);		gTextTexture.render(kolumna_stat_4, wiersz_stat_3);
-						gTextTexture.loadFromRenderedText("84", textC);			gTextTexture.loadFromRenderedText("87", textC);
-						gTextTexture.render(kolumna_stat_2, wiersz_stat_2);		gTextTexture.render(kolumna_stat_4, wiersz_stat_4);
-						gTextTexture.loadFromRenderedText("15", textC);			gTextTexture.loadFromRenderedText("54", textC);
-						gTextTexture.render(kolumna_stat_2, wiersz_stat_3);		gTextTexture.render(kolumna_stat_5, wiersz_stat_1);
-						gTextTexture.loadFromRenderedText("68", textC);			gTextTexture.loadFromRenderedText("354", textC);
-						gTextTexture.render(kolumna_stat_2, wiersz_stat_4);		gTextTexture.render(kolumna_stat_5, wiersz_stat_2);
-						gTextTexture.loadFromRenderedText("48", textC);			gTextTexture.loadFromRenderedText("987", textC);
-						gTextTexture.render(kolumna_stat_3, wiersz_stat_1);		gTextTexture.render(kolumna_stat_5, wiersz_stat_3);
-						gTextTexture.loadFromRenderedText("38", textC);			gTextTexture.loadFromRenderedText("545", textC);
-						gTextTexture.render(kolumna_stat_3, wiersz_stat_2);		gTextTexture.render(kolumna_stat_5, wiersz_stat_4);
+						gTextTexture.loadFromRenderedText(_itoa(s1, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s11, Money_char_buffor, 10), textC);
+						gTextTexture.render(kolumna_stat_1, wiersz_stat_1);									gTextTexture.render(kolumna_stat_3, wiersz_stat_3);
+						gTextTexture.loadFromRenderedText(_itoa(s2, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s12, Money_char_buffor, 10), textC);
+						gTextTexture.render(kolumna_stat_1, wiersz_stat_2);									gTextTexture.render(kolumna_stat_3, wiersz_stat_4);
+						gTextTexture.loadFromRenderedText(_itoa(s3, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s13, Money_char_buffor, 10), textC);
+						gTextTexture.render(kolumna_stat_1, wiersz_stat_3);									gTextTexture.render(kolumna_stat_4, wiersz_stat_1);
+						gTextTexture.loadFromRenderedText(_itoa(s4, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s14, Money_char_buffor, 10), textC);
+						gTextTexture.render(kolumna_stat_1, wiersz_stat_4);									gTextTexture.render(kolumna_stat_4, wiersz_stat_2);
+						gTextTexture.loadFromRenderedText(_itoa(s5, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s15, Money_char_buffor, 10), textC);
+						gTextTexture.render(kolumna_stat_2, wiersz_stat_1);									gTextTexture.render(kolumna_stat_4, wiersz_stat_3);
+						gTextTexture.loadFromRenderedText(_itoa(s6, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s16, Money_char_buffor, 10), textC);
+						gTextTexture.render(kolumna_stat_2, wiersz_stat_2);									gTextTexture.render(kolumna_stat_4, wiersz_stat_4);
+						gTextTexture.loadFromRenderedText(_itoa(s7, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s17, Money_char_buffor, 10), textC);
+						gTextTexture.render(kolumna_stat_2, wiersz_stat_3);									gTextTexture.render(kolumna_stat_5, wiersz_stat_1);
+						gTextTexture.loadFromRenderedText(_itoa(s8, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s18, Money_char_buffor, 10), textC);
+						gTextTexture.render(kolumna_stat_2, wiersz_stat_4);									gTextTexture.render(kolumna_stat_5, wiersz_stat_2);
+						gTextTexture.loadFromRenderedText(_itoa(s9, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s19, Money_char_buffor, 10), textC);
+						gTextTexture.render(kolumna_stat_3, wiersz_stat_1);									gTextTexture.render(kolumna_stat_5, wiersz_stat_3);
+						gTextTexture.loadFromRenderedText(_itoa(s10, Money_char_buffor, 10), textC);		gTextTexture.loadFromRenderedText(_itoa(s20, Money_char_buffor, 10), textC);
+						gTextTexture.render(kolumna_stat_3, wiersz_stat_2);									gTextTexture.render(kolumna_stat_5, wiersz_stat_4);
 						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
 
 

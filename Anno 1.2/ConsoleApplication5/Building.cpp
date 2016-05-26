@@ -1,13 +1,6 @@
 #include "stdafx.h"
 #include "Building.h"
 
-Building::Building() {}
-
-int Building::getNumber() const
-{
-	return number;
-}
-
 int Building::getBricks() const
 {
 	return bricksToBuild;
@@ -21,5 +14,10 @@ int Building::getTools() const
 int Building::getWood() const
 {
 	return woodToBuild;
+}
+
+int Building::getSize() const
+{
+	return size;
 }
 

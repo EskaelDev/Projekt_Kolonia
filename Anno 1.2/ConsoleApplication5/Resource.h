@@ -3,6 +3,8 @@
 
 class Resource
 {
+	friend class Magazine;
+	friend class Public;
 	friend class Industrial;
 	friend class House;
 

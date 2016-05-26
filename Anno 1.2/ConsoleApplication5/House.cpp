@@ -5,11 +5,12 @@ using namespace std;
 
 House::House(int _bricksToBuild, int _toolsToBuild, int _woodToBuild, int _inhabitants, int _startPeople)
 {
+	number = 0;
 	bricksToBuild = _bricksToBuild;
 	toolsToBuild = _toolsToBuild;
 	woodToBuild = _woodToBuild;
+	size = 4;
 	inhabitants = _inhabitants;
-	number = 0;
 	startPeople = _startPeople;
 }
 
@@ -36,6 +37,11 @@ bool House::Destroy()
 	}
 	else
 		return false;
+}
+
+int House::getNumber() const
+{
+	return number;
 }
 
 int House::getStartPeople() const

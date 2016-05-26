@@ -40,7 +40,8 @@ int Production::getProductID() const
 
 void Production::test() const
 {
-	Industrial::test();
+	Public::test();
+	cout << "Koszt wstrzymanej produkcji = " << maintenancePassiveCost << endl;
 	cout << "Pojemnosc magazynu = " << magazineCapacity << endl;
 	cout << "Indeks produkowanego towaru: " << productID << endl;
 }

@@ -12,27 +12,36 @@ using namespace std;
 
 // FUNKCJE---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-void Build(Industrial &);		// Funkcja do budowy budynkow.
-void Destroy(Industrial &);		// Funkcja do niszczenia budynkow.
+void Build(Public &);		// Funkcja do budowy budynkow.
+void Destroy(Public &);		// Funkcja do niszczenia budynkow.
 void menuBuilding();			// Funkcja wyswietla menu: spis budynkow
+
+// STALE I ZMIENNE-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+int menu;					// wybor dzialania z menu
+int decyzja;				// wybor numeru budynku z menu
+const int islandSize = 200;	// liczba dostepnych pol na wyspie
+int usedFields = 0;			// wykorzystane pola przez budynki
+clock_t obecny = 0;
+clock_t poprzedni = 0;
 
 // GLOWNY PROGRAM--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	Industrial* tIndustrial[12];					// tablica wskaznikow do obiektow Industrial
-	tIndustrial[0] = &Doctor;
-	tIndustrial[1] = &PublicBath;
-	tIndustrial[2] = &FireDepartment;
-	tIndustrial[3] = &University;
-	tIndustrial[4] = &Chapel;
-	tIndustrial[5] = &Cathedral;
-	tIndustrial[6] = &Church;
-	tIndustrial[7] = &MarketPlace;
-	tIndustrial[8] = &Palace;
-	tIndustrial[9] = &School;
-	tIndustrial[10] = &Theatre;
-	tIndustrial[11] = &Tavern;
+	Public* tPublic[12];					// tablica wskaznikow do obiektow Public
+	tPublic[0] = &Doctor;
+	tPublic[1] = &PublicBath;		
+	tPublic[2] = &FireDepartment;	
+	tPublic[3] = &University;	
+	tPublic[4] = &Chapel;		
+	tPublic[5] = &Cathedral;		
+	tPublic[6] = &Church;			
+	tPublic[7] = &MarketPlace;		
+	tPublic[8] = &Palace;
+	tPublic[9] = &School;			
+	tPublic[10] = &Theatre;			
+	tPublic[11] = &Tavern;			
 	
 	Production* tProduction[20];					// tablica wskaznikow do obiektow Production
 	tProduction[0] = &WarehouseI;
@@ -56,7 +65,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	tProduction[18] = &FistersHut;
 	tProduction[19] = &StoneMason;
 
-	Processing* tProcessing[11];					// tablica wskaznikow do obiektow Processing
+	Processing* tProcessing[11];					
 	tProcessing[0] = &Bakery;
 	tProcessing[1] = &OreRefenery;
 	tProcessing[2] = &GoldSmith;
@@ -89,28 +98,22 @@ int _tmain(int argc, _TCHAR* argv[])
 	tResource[2] = &Gold;
 	tResource[3] = &Wool;
 	tResource[4] = &Sugar;
-	tResource[5] = &Tobacco;
+	tResource[5] = &Tobacco;			
 	tResource[6] = &Cattle;
 	tResource[7] = &Grain;
 	tResource[8] = &Flour;
 	tResource[9] = &Iron;
 	tResource[10] = &Food;
-	tResource[11] = &TobaccoProducts;
-	tResource[12] = &Spices;
-	tResource[13] = &Cocoa;
-	tResource[14] = &Liquor;
-	tResource[15] = &Cloth;
-	tResource[16] = &Clothes;
-	tResource[17] = &Jewelry;
-	tResource[18] = &Tools;
-	tResource[19] = &Wood;
-	tResource[20] = &Bricks;
-
-	clock_t obecny = 0;
-	clock_t poprzedni = 0;
-	
-	int menu = 0;				// wybor dzialania z menu
-	int decyzja = 0;			// wybor numeru budynku z menu
+	tResource[11] = &TobaccoProducts;	
+	tResource[12] = &Spices;			
+	tResource[13] = &Cocoa;				
+	tResource[14] = &Liquor;			
+	tResource[15] = &Cloth;				
+	tResource[16] = &Clothes;			
+	tResource[17] = &Jewelry;			
+	tResource[18] = &Tools;				
+	tResource[19] = &Wood;				
+	tResource[20] = &Bricks;			
 
 	while (1)	// petla gry
 	{
@@ -120,6 +123,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		obecny = clock() / CLOCKS_PER_SEC;
 		cout << "Od poczatku programu uplynelo " << obecny << " sekund " << endl;
 		cout << "Od ostatniej aktualizacji uplynelo " << obecny - poprzedni << endl << endl;
+		cout << "Wykorzystane pola wyspy: " << usedFields << "    Dostepne pola: " << islandSize - usedFields << endl;
 		poprzedni = obecny;
 
 		// AKTUALIZACJA STANU SUROWCOW
@@ -138,8 +142,8 @@ int _tmain(int argc, _TCHAR* argv[])
 		// SPRAWDZENIE WARUNKU DOSTEPNOSCI BUDYNKOW
 		
 		for (int i = 0; i < 12; ++i)
-			if (tIndustrial[i]->getClass() > -1)		// wartosci klas zaczynaja sie od -1, a indeks moze przyjmowac wartosci od 0 do 4
-				tIndustrial[i]->checkStatus(*tPeople[tIndustrial[i]->getClass()]);
+			if (tPublic[i]->getClass() > -1)		
+				tPublic[i]->checkStatus(*tPeople[tPublic[i]->getClass()]);
 
 		for (int i = 0; i < 20; ++i)
 			if (tProduction[i]->getClass() > -1)
@@ -155,7 +159,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		cout << "Pieniadze: " << Money.getNumber();
 		cout << "   Cegly: " << Bricks.getNumber();
 		cout << "   Narzedzia : " << Tools.getNumber();
-		cout << "   Drewno : " << Wood.getNumber() << endl << endl;
+		cout << "   Drewno : " << Wood.getNumber() << endl;
 		cout << "Pionierzy: " << Pioneers.getNumber();
 		cout << "   Osadnicy: " << Settlers.getNumber();
 		cout << "   Mieszczanie: " << Citizens.getNumber();
@@ -185,7 +189,7 @@ int _tmain(int argc, _TCHAR* argv[])
 				cin >> decyzja;
 
 				if (decyzja >= 0 && decyzja < 12)
-					Build(*tIndustrial[decyzja]);
+					Build(*tPublic[decyzja]);
 
 				else if (decyzja >= 12 && decyzja < 32)
 					Build(*tProduction[decyzja - 12]);
@@ -195,12 +199,17 @@ int _tmain(int argc, _TCHAR* argv[])
 
 				else if (decyzja >= 43 && decyzja < 48)
 				{
-					if(tHouse[decyzja - 43]->Build(Bricks, Tools, Wood) == false)
+					if (usedFields + tHouse[decyzja - 43]->getSize() > islandSize)
+						cout << "\n    Brakuje dostepnych pol na wyspie." << endl;
+
+					else if(tHouse[decyzja - 43]->Build(Bricks, Tools, Wood) == false)
 						cout << "\n    Nie masz wystarczajacej ilosci surowcow." << endl;
+
 					else
 					{
 						cout << "\n    Wybudowano budynek." << endl;
 						tPeople[decyzja - 43]->increase(tHouse[decyzja - 43]->getStartPeople());
+						usedFields += tHouse[decyzja - 43]->getSize();
 					}
 				}
 				
@@ -214,7 +223,7 @@ int _tmain(int argc, _TCHAR* argv[])
 				cin >> decyzja;
 				
 				if (decyzja >= 0 && decyzja < 12)
-					Destroy(*tIndustrial[decyzja]);
+					Destroy(*tPublic[decyzja]);
 
 				else if (decyzja >= 12 && decyzja < 32)
 					Destroy(*tProduction[decyzja - 12]);
@@ -225,7 +234,10 @@ int _tmain(int argc, _TCHAR* argv[])
 				else if (decyzja >= 43 && decyzja < 48)
 				{
 					if (tHouse[decyzja - 43]->Destroy() == true)
+					{
 						cout << "\n    Zburzono budynek";
+						usedFields -= tHouse[decyzja - 43]->getSize();
+					}
 					else
 						cout << "\n    Nie posiadasz takiego budynku";
 				}
@@ -236,9 +248,9 @@ int _tmain(int argc, _TCHAR* argv[])
 
 			case 3:
 				menuBuilding();
-				cout << "\nIndustrial:\n\n";
+				cout << "\nPublic:\n\n";
 				for (int i = 0; i < 12; ++i)
-					cout << "[" << i << "]=" << tIndustrial[i]->getNumber() << "\t";
+					cout << "[" << i << "]=" << tPublic[i]->getNumber() << "\t";
 				
 				cout << "\n\nProduction:\n\n";
 				for (int i = 0; i < 20; ++i)
@@ -266,7 +278,7 @@ int _tmain(int argc, _TCHAR* argv[])
 				cout << endl;
 
 				if (decyzja >= 0 && decyzja < 12)
-					tIndustrial[decyzja]->test();
+					tPublic[decyzja]->test();
 
 				else if (decyzja >= 12 && decyzja < 32)
 					tProduction[decyzja - 12]->test();
@@ -318,20 +330,32 @@ int _tmain(int argc, _TCHAR* argv[])
 	return 0;
 }
 
-void Build(Industrial & Name)
+void Build(Public & Name)
 {
-	if(Name.getStatus() == false)
+	if (Name.getStatus() == false)
 		cout << "\n    Budynek niedostepny." << endl;
+	
+	else if (usedFields + Name.getSize() > islandSize)
+		cout << "\n    Brakuje dostepnych pol na wyspie." << endl;
+	
 	else if (Name.Build(Money, Bricks, Tools, Wood) == false)
 		cout << "\n    Nie masz wystarczajacej ilosci surowcow." << endl;
+	
 	else
+	{
 		cout << "\n    Wybudowano budynek." << endl;
+		usedFields += Name.getSize();
+	}
 }
 
-void Destroy(Industrial & Name)
+void Destroy(Public & Name)
 {
-	if(Name.Destroy() == true)
+	if (Name.Destroy() == true)
+	{
 		cout << "\n    Zburzono budynek." << endl;
+		usedFields -= Name.getSize();
+	}
+
 	else
 		cout << "\n    Nie posiadasz takiego budynku." << endl;
 }

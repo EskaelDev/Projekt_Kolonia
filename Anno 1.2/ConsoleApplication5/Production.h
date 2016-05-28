@@ -16,6 +16,7 @@ public:
 	bool activate();			// funkcja wznawia produkcje budynku
 	bool deactivate();			// funkcja wstrzymuje produkcje budynku
 	int getProductID() const;
+	int getMagazineCapacity() const;
 	void test() const;
 };
 

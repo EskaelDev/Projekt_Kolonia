@@ -3,6 +3,8 @@
 #include "Industrial.h"
 #include "People.h"
 
+Industrial::Industrial() {}
+
 void Industrial::checkStatus(People & _class) 
 {
 	if (peopleToBuild > _class.getNumber())

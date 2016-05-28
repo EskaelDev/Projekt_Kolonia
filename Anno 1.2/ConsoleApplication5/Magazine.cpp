@@ -33,7 +33,7 @@ bool Magazine::Build(Resource & _Money, Resource & _Bricks, Resource & _Tools, R
 			_Bricks.number -= bricksToBuild;
 			_Tools.number -= toolsToBuild;
 			_Wood.number -= woodToBuild;
-			++level;
+	
 			if (0 == level)
 			{
 				magazineCapacity = 30;
@@ -62,11 +62,13 @@ bool Magazine::Build(Resource & _Money, Resource & _Bricks, Resource & _Tools, R
 				peopleToBuild = 250;
 				peopleClass = 3;
 			}
+
 			else if (3 == level)
 			{
 				magazineCapacity = 100;
 			}
 
+			++level;
 			return true;
 		}
 	}

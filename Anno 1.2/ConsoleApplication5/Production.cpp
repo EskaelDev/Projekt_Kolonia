@@ -8,6 +8,7 @@ Production::Production() {}
 Production::Production(int _moneyToBuild, int _bricksToBuild, int _toolsToBuild, int _woodToBuild, int _maintenanceActiveCost,
 	int _maintenancePassiveCost, int _size, int _magazineCapacity, int _peopleToBuild, int _peopleClass, int _productID)
 {
+	number = 0;
 	moneyToBuild = _moneyToBuild;
 	bricksToBuild = _bricksToBuild;
 	toolsToBuild = _toolsToBuild;
@@ -36,6 +37,11 @@ bool Production::deactivate()
 int Production::getProductID() const
 {
 	return productID;
+}
+
+int Production::getMagazineCapacity() const
+{
+	return magazineCapacity;
 }
 
 void Production::test() const

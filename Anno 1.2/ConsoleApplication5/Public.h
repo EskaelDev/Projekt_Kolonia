@@ -9,18 +9,13 @@ class Public : public Industrial
 {
 protected:
 	int number;						// liczba budynkow
-	int maintenanceActiveCost;		// koszty utrzymania budynku
 
 public:
 	Public();
-	Public(int, int, int, int, int, int, int, int);
-	void checkStatus(People &);									// aktualizuje pole status w oparciu o spelnienie warunku wymaganej liczby ludzi  											
+	Public(int, int, int, int, int, int, int, int); 											
 	bool Build(Resource &, Resource &, Resource &, Resource &);	// aktualizuje stan surowcow po budowie i parametry budynku, zwraca false jesli brakuje surowcowow, true jesli sa dostepne surowce 
 	bool Destroy();												// niszczy budynek jesli istnieje, w przypadku powodzenia zwraca true, w przypadku niepowodzenia false
 	int getNumber() const;
-	int getMoney() const;
-	int getClass() const;
-	bool getStatus() const;
 	void test() const;
 };
 

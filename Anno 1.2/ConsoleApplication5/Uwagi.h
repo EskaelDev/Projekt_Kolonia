@@ -7,7 +7,7 @@ programu, co nalezy przekazac do funkcji jako argument, niz funkcja przyjmuja ty
 Przekazanie referencji do danej klasy zapewnia, ze przekazemy wylacznie zdefiniowane przez developera wczesniej wartosci.
 
 Dr Polomski twierdzi, ze developer rozwijajacy taki kod moze sie zastanawiac, czy metoda ktory przyjmuje referencje do obiektu klasy moze nie pobierac innych pol ale wydaje mi sie, ze to
-slabszy argument, niz w/w, wiec na razie zostawiam taki jak mam.
+slabszy argument, niz w/w, wiec na razie zostawiam tak jak mam.
 */
 
 
@@ -16,10 +16,10 @@ slabszy argument, niz w/w, wiec na razie zostawiam taki jak mam.
 Dla uproszczenia pisania kodu zrodlowego i wykorzystania wszystkich dostepnych surowcow i budynkow publicznych wprowadzam wymagania do budowania budynkow dla mieszkancow. W przypadku 
 budynkow publicznych wystarczy posiadanie jednego budynku aby umozliwic budowe budynku mieszkalnego, przy czym budynek dla Pioneerow nie wymaga zadnego budynku pulicznego:
 
-	Settlers - chapel, market place, tavern
-	Citizens - school, doctor, fire department
-	Merchants - church, public bath, theatre
-	Aristocratz - jevelry, university, cathedral
+	Settlers - chapel, market place
+	Citizens - school, doctor, tavern
+	Merchants - church, public bath, fire department
+	Aristocratz - theatre, university, cathedral
 
 Aby do naszej wyspy wprowadzali sie kolejni mieszancy nalezy ciagle zaspokajac ich potrzeby, ktore wzrastaja wraz z poziomem spolecznym. Mieszkancy wymagaja glownie surowcow przetworzonych, 
 tj. pochodzacych z budynkow typu Processing. Np. nikomu nie jest porzebna maka ale kazdy potrzebuje jedzenia wytwarzanego z maki. Kazda kolejna klasa spoleczna wymaga wlasnych surowcow oraz 
@@ -58,4 +58,29 @@ Konieczne jest ustalenie priorytetu w momencie nadprodukcji surowcow i zapelnien
 */
 
 
+/*
+05.27 23:31
+Dokonano zmiany wymagan klasy ludnosci wymaganej do budowy budynku Cathedral z Aristocrats na Merchants, tak aby budynek Cathedral mogl byc warunkiem budowy budynku dla Aristocrats.
+Aby wybudowac Cathedral wystarczy posiadac mieszkancow Merchants. Wymagania co do konkretnych budynkow i dostepni mieszkancy nie moga wzajemnie siebie wykluczac, zaktualizowano warunki:
 
+	Settlers - chapel, market place
+	Citizens - school, tavern, fire department
+	Merchants - doctor, church, public bath
+	Aristocratz - theatre, university, cathedral
+
+Zwiekszono rowniez koszt budowy bydunku Palace, ktory do tej pory byl tanszy od budynku Cathdral. Zamieniono wzajemnie wartosci pol Cathedral i Palace.
+*/
+
+
+/*
+05.28 13:44
+Jezeli dane pole reprezentuje indeks tablicy to przyjmowanie, ze -1 nie reprezentuje zadnego indeksu jest niebezpieczne, proba odwolania sie do takiego indeksu spowoduje oczywiscie
+blad krytyczny, dlatego zawsze nalezy uwzglednic warunek, ze przeszukujemy tablice o indeksach > -1.
+*/
+
+
+/*
+05.28 15:56
+Na naszym etapie zaawansowania mechaniki gry potrzbny jest tester, ktory nie tylko bedzie wykrywal bledy w prowadzeniu rozgrywki ale rowniez zajmowal sie optymalizacja zmiennych 
+zawartych w grze, tak aby rozgrywka byla w maksymalnym stopniu grywalna i przeprowadzana optymalizacje przestawial developerom do wdrozenia.
+*/

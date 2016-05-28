@@ -9,12 +9,28 @@ Resource::Resource(int _number, int _price)
 	price = _price;
 }
 
-void Resource::buy()
+bool Resource::buy(Resource & _Money)
 {
+	if (_Money.getNumber() >= price)
+	{
+		++number;
+		_Money.decrease(price);
+		return true;
+	}
+	else
+		return false;
 }
 
-void Resource::sell()
+bool Resource::sell(Resource & _Money)
 {
+	if (number > 0)
+	{
+		--number;
+		_Money.increase(price);
+		return true;
+	}
+	else
+		return false;
 }
 
 void Resource::increase(int _number)

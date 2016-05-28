@@ -15,6 +15,7 @@ protected:
 	bool status;				// true - dostepny do budowy, false - niedostepny
 
 public:
+	Industrial();
 	void checkStatus(People &);												// aktualizuje pole status w oparciu o spelnienie warunku wymaganej liczby ludzi  											
 	virtual bool Build(Resource &, Resource &, Resource &, Resource &) = 0;	// aktualizuje stan surowcow po budowie i parametry budynku, zwraca false jesli brakuje surowcowow, true jesli sa dostepne surowce 
 	int getMoney() const;

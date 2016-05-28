@@ -10,12 +10,12 @@
 #include "Resource.h"
 #include "People.h"
 
-//House(bricksToBuild, toolsToBuild, woodToBuild, inhabitants, startPeople)
-House hPioneers(0, 0, 3, 2, 1);
-House hSettlers(0, 1, 3, 6, 2);
-House hCitizens(6, 2, 2, 15, 3);
-House hMerchants(9, 3, 3, 25, 4);
-House hAristocrats(12, 3, 3, 40, 5);
+//House(bricksToBuild, toolsToBuild, woodToBuild, inhabitants, startPeople, buildingID0, buildingID1, buildingID2)
+House hPioneers(0, 0, 3, 3, 1, -1, -1, -1);
+House hSettlers(0, 1, 3, 7, 2, 4, 7, -1);
+House hCitizens(6, 2, 2, 15, 3, 2, 9, 11);
+House hMerchants(9, 3, 3, 25, 4, 0, 1, 6);
+House hAristocrats(12, 3, 3, 40, 5, 3, 5, 10);
 
 Magazine WareHouse;
 
@@ -24,11 +24,11 @@ Public Doctor(450, 9, 4, 4, 30, 4, 50, 2);
 Public PublicBath(1200, 19, 6, 5, 60, 12, 210, 2);
 Public FireDepartment(150, 0, 3, 5, 15, 4, 15, 1);
 Public University(750, 19, 6, 5, 60, 9, 250, 3);
-Public Chapel(100, 0, 2, 5, 5, 2, 0, -1);
-Public Cathedral(7500, 70, 25, 25, 90, 24, 2500, 4);
+Public Chapel(100, 0, 2, 5, 5, 2, 40, 0);
+Public Cathedral(5000, 50, 15, 20, 40, 24, 1500, 3);
 Public Church(1600, 25, 7, 7, 50, 12, 150, 2);
-Public MarketPlace(200, 0, 4, 10, 10, 12, 0, -1);
-Public Palace(5000, 50, 15, 20, 40, 35, 1500, 4);
+Public MarketPlace(200, 0, 4, 10, 10, 12, 75, 0);
+Public Palace(7500, 70, 25, 25, 90, 35, 2500, 4);
 Public School(450, 9, 4, 4, 30, 4, 100, 1);
 Public Theatre(1200, 19, 2, 5, 80, 9, 300, 3);
 Public Tavern(250, 6, 3, 4, 15, 6, 50, 1);
@@ -54,7 +54,7 @@ Production StoneMason(100, 0, 5, 5, 5, 0, 4, 8, 15, 1, 20);
 //Processing(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, magazineCapacity, peopleToBuild, peopleClass, productID, materialID, productNumber, materialNumber)
 Processing Bakery(150, 0, 2, 6, 5, 0, 4, 75, 1, 10, 8, 1, 2);
 Processing OreRefenery(200, 4, 3, 1, 25, 10, 5, 120, 1, 9, 1, 1, 1);
-Processing GoldSmith(1500, 10, 7, 2, 45, 20, 4, 250, 3, 17, 2, 4, 2);
+Processing GoldSmith(1500, 10, 7, 2, 45, 20, 4, 250, 3, 17, 2, 2, 1);
 Processing ButchersShop(150, 10, 3, 4, 5, 0, 4, 30, 0, 10, 6, 1, 2);
 Processing RumDistillery(200, 5, 3, 2, 25, 7, 4, 40, 1, 14, 4, 1, 2);
 Processing Clothiers(150, 2, 3, 6, 10, 5, 4, 200, 2, 16, 15, 1, 1);
@@ -72,7 +72,7 @@ People Merchants(2);
 People Aristocrats(2);
 
 //Resource(quantity, price)
-Resource Money(50000, 1);
+Resource Money(5000, 1);
 Resource IronOre(0, 60);
 Resource Gold(0, 465);
 Resource Wool(0, 16);
@@ -90,8 +90,8 @@ Resource Liquor(0, 52);
 Resource Cloth(0, 32);
 Resource Clothes(0, 130);
 Resource Jewelry(0, 590);
-Resource Tools(30, 80);
-Resource Wood(30, 20);
-Resource Bricks(30, 30);
+Resource Tools(0, 80);
+Resource Wood(0, 20);
+Resource Bricks(0, 30);
 
 #endif

@@ -21,14 +21,6 @@ Public::Public(int _moneyToBuild, int _bricksToBuild, int _toolsToBuild, int _wo
 	status = true;
 }
 
-void Public::checkStatus(People & _class)
-{
-	if (peopleToBuild > _class.getNumber())
-		status = false;
-	else
-		status = true;
-}
-
 bool Public::Build(Resource & _Money, Resource & _Bricks, Resource & _Tools, Resource & _Wood)
 {
 	if (moneyToBuild > _Money.number || bricksToBuild > _Bricks.number || toolsToBuild > _Tools.number || woodToBuild > _Wood.number)
@@ -58,21 +50,6 @@ bool Public::Destroy()
 int Public::getNumber() const
 {
 	return number;
-}
-
-int Public::getMoney() const
-{
-	return moneyToBuild;
-}
-
-int Public::getClass() const
-{
-	return peopleClass;
-}
-
-bool Public::getStatus() const
-{
-	return status;
 }
 
 void Public::test() const

@@ -5,9 +5,9 @@
 
 Industrial::Industrial() {}
 
-void Industrial::checkStatus(People & _class) 
+void Industrial::checkStatus(int peopleNumber) 
 {
-	if (peopleToBuild > _class.getNumber())
+	if (peopleToBuild > peopleNumber)
 		status = false;
 	else
 		status = true;
@@ -21,6 +21,11 @@ int Industrial::getMoney() const
 int Industrial::getClass() const
 {
 	return peopleClass;
+}
+
+int Industrial::getMaintenanceActiveCost() const
+{
+	return maintenanceActiveCost;
 }
 
 bool Industrial::getStatus() const

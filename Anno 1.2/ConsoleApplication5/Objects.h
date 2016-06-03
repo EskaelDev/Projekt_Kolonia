@@ -19,7 +19,7 @@ House hAristocrats(12, 3, 3, 40, 5, 3, 5, 10);
 
 Magazine WareHouse;
 
-//"Public(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, size, peopleToBuild, peopleClass)
+//Public(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, size, peopleToBuild, peopleClass)
 Public Doctor(450, 9, 4, 4, 30, 4, 50, 2);
 Public PublicBath(1200, 19, 6, 5, 60, 12, 210, 2);
 Public FireDepartment(150, 0, 3, 5, 15, 4, 15, 1);

@@ -16,10 +16,11 @@ protected:
 
 public:
 	Industrial();
-	void checkStatus(People &);												// aktualizuje pole status w oparciu o spelnienie warunku wymaganej liczby ludzi  											
+	void checkStatus(int);													// aktualizuje pole status w oparciu o spelnienie warunku wymaganej liczby ludzi										
 	virtual bool Build(Resource &, Resource &, Resource &, Resource &) = 0;	// aktualizuje stan surowcow po budowie i parametry budynku, zwraca false jesli brakuje surowcowow, true jesli sa dostepne surowce 
 	int getMoney() const;
 	int getClass() const;
+	int getMaintenanceActiveCost() const;
 	bool getStatus() const;
 };
 

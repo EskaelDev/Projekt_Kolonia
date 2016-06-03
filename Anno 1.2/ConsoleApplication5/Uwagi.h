@@ -1,17 +1,6 @@
 //Dziennik uwag do rozwiazan zastosowanych w kodzie zrodlowym programu:
 
 /*
-05.26 16:20
-Przez przekazanie do funkcji obiektu typu klasa zdefiniowana przez developera i wywolanie do niej metody latwiej wskazac innym programista, ktorzy w przyszlosci moga rozwijac kod zrodlowy 
-programu, co nalezy przekazac do funkcji jako argument, niz funkcja przyjmuja typ int, ktory moze byc dowolna liczba, ktora przekazana do funkcji moze nie miec kompletnie zadnego sensu.
-Przekazanie referencji do danej klasy zapewnia, ze przekazemy wylacznie zdefiniowane przez developera wczesniej wartosci.
-
-Dr Polomski twierdzi, ze developer rozwijajacy taki kod moze sie zastanawiac, czy metoda ktory przyjmuje referencje do obiektu klasy moze nie pobierac innych pol ale wydaje mi sie, ze to
-slabszy argument, niz w/w, wiec na razie zostawiam tak jak mam.
-*/
-
-
-/*
 05.26 16:45
 Dla uproszczenia pisania kodu zrodlowego i wykorzystania wszystkich dostepnych surowcow i budynkow publicznych wprowadzam wymagania do budowania budynkow dla mieszkancow. W przypadku 
 budynkow publicznych wystarczy posiadanie jednego budynku aby umozliwic budowe budynku mieszkalnego, przy czym budynek dla Pioneerow nie wymaga zadnego budynku pulicznego:

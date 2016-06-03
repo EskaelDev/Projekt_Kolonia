@@ -68,9 +68,9 @@ bool House::getStatus() const
 	return status;
 }
 
-void House::checkStatus(Public & _Building)
+void House::checkStatus(int buildingNumber)
 {
-	if (_Building.getNumber() > 0)
+	if (buildingNumber > 0)
 		status = true;
 	else
 		status = false;

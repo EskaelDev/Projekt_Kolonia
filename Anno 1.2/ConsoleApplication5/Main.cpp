@@ -16,6 +16,7 @@ void Build(Public &);		// Funkcja do budowy budynkow.
 void Destroy(Public &);		// Funkcja do niszczenia budynkow.
 void menuBuilding();		// Funkcja wyswietla menu: spis budynkow
 void menuResource();		// Funkcja wyswietla menu: spis surowcow
+void menuBuildingCost();	// Funkcja wyswietla menu: spis budynkow generujacych koszty
 
 // STALE I ZMIENNE-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -114,95 +115,143 @@ int _tmain(int argc, _TCHAR* argv[])
 	tResource[19] = &Wood;				
 	tResource[20] = &Bricks;			
 
+
 	while (1)	// petla gry
 	{
 		system("CLS");
 
 		// AKTUALIZACJA STANU SUROWCOW
+
+			// DLA BUDYNKOW TYPU PRODUCTION
+
+		int maxBuildingNumber = 0;					// okresla jakiego typu budynek posiada gracz w najwiekszej liczbie
+		int totalMagazinesCapacity = 0;				// calkowita pojemnosc magazynow budynkow
+		int usedMagazine = 0;						// wykorzystane miejsce w magazynie ogolnym
+		int totalResources = 0;						// suma wszystkich posiadanych surowcow
 		
-		int totalResources = 0;
-
-		for (int k = 1; k < 21; ++k)	// sumowanie liczby surowcow ktore posiada gracz
-		{
-			totalResources += tResource[k]->getNumber();
-		}
-
-			// NAJPIERW ZAPELNIAMY WEWNETRZNE MAGAZYNY BUDYNKOW
+		for (int i = 1; i < 21; ++i)									
+			totalResources += tResource[i]->getNumber();				// sumowanie liczby surowcow ktore posiada gracz
 
 		for (int i = 0; i < 15; ++i)
 		{
-			if (tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber() > tResource[tProduction[i]->getProductID()]->getNumber())
-			{
-				tResource[tProduction[i]->getProductID()]->increase(tProduction[i]->getNumber());
-				if (tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber() < tResource[tProduction[i]->getProductID()]->getNumber())
-					tResource[tProduction[i]->getProductID()]->decrease(tResource[tProduction[i]->getProductID()]->getNumber() 
-					- tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber());
-			}
-		}
-																 
-			
+			if (tProduction[i]->getNumber() > maxBuildingNumber)		// wyszukiwanie zmiennej maxBuldingNumber
+				maxBuildingNumber = tProduction[i]->getNumber();
 
+			totalMagazinesCapacity += tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber();		// sumowanie calkowitej pojemnosci magazynow budynkow
+		}
+
+		for (int i = 0; i < 11; ++i)
+			totalMagazinesCapacity += tProcessing[i]->getMagazineCapacity() * tProcessing[i]->getNumber();		// sumowanie calkowitej pojemnosci magazynow budynkow cd.
+			
+				// ZAPELNIANIE MAGAZYNU OGOLNEGO (w drugiej kolejnosci)
 		
-		//for (int i = 0; i < 15; ++i)
-		//	if (totalResources < WareHouse.getmagazineCapacity())															// jesli w magazynie jest miejsce 
-		//	{
-		//		tResource[tProduction[i]->getProductID()]->increase(tProduction[i]->getNumber());							// to dodaj dany surowiec
-		//		totalResources += tProduction[i]->getNumber();																// aktualizuj sume posiadanych surowcow
-		//		if (totalResources > WareHouse.getmagazineCapacity())														// jezeli magazyn zostal przepelniony 
-		//			tResource[tProduction[i]->getProductID()]->decrease(totalResources - WareHouse.getmagazineCapacity());	// to odejmij to co sie nie miesci
-		//	}
+		usedMagazine = totalResources - totalMagazinesCapacity;				// wykorzystanie magazynu glownego to dodatni wynik roznicy wszystkich surowcow od calkowitej pojemnosci wszystkich budynkow
+		if (usedMagazine < 0) usedMagazine = 0;								// wynik ujemny tej roznicy oznacza, ze magazyn w ogole nie jest wykorzystywany
+			
+		for (int j = 1; j <= maxBuildingNumber; ++j)																								// dodawaj po jednej jednostce surowca tyle razy ile wynosi najwieksza liczba posiadanego budynku
+			for (int i = 0; i < 15; ++i)
+				if (tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber() <= tResource[tProduction[i]->getProductID()]->getNumber())	// jezeli pojemnosc magazynu * liczba budynkow <= liczby posiadanych surowcow 
+					if (tProduction[i]->getNumber() != 0)																							// oraz liczba budynkow jest != 0
+						if (usedMagazine < WareHouse.getmagazineCapacity())																			// oraz dostepne jest jeszcze miejsce w magazynie glownym
+							if (tProduction[i]->getNumber() >= j)																					// oraz mamy liczbe j budynkow aby moc dodaj j-ty surowiec
+							{
+								tResource[tProduction[i]->getProductID()]->increase(1);																// dodaj jedna jednostke surowiec
+								++usedMagazine;																										// zwieksz zajetosc magazynu
+							}
+				
+				// ZAPELNIANIE MAGAZYNOW WEWNETRZNYCH BUDYNKOW DANEGO TYPU (w pierwszej kolejnosci)
+
+		for (int i = 0; i < 15; ++i)
+			if (tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber() > tResource[tProduction[i]->getProductID()]->getNumber())		// jezeli pojemnosc magazynu * liczba budynkow > liczby posiadanych surowcow to
+			{
+				tResource[tProduction[i]->getProductID()]->increase(tProduction[i]->getNumber());													// zwieksz liczbe surowca o liczbe posiadanych budynkow (kazdy budynek Production zwieksza o 1 jednostke surowca)
+
+				if (tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber() < tResource[tProduction[i]->getProductID()]->getNumber())	// jezeli po zwiekszeniu pojemnosc magazynu * liczba budynkow < liczby posiadanych surowcow to
+				{
+					int excess = tResource[tProduction[i]->getProductID()]->getNumber() - tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber();		// dodany nadmiar surowcow, ktory nie miesci sie w calkowitej pojemnosci magazynow danego typu budynku
+					tResource[tProduction[i]->getProductID()]->decrease(excess);		// TU JESZCZE DOKONCZ														// poziom surowcow zmniejsz do max dostepnej pojemnosci
+				}
+			}
+		
+				// DLA BUDYNKOW TYPU PROCESSING
 
 		for (int i = 0; i < 11; ++i)
 			for (int j = 0; j < tProcessing[i]->getNumber(); ++j)
-				if (totalResources < WareHouse.getmagazineCapacity())
-					if (tResource[tProcessing[i]->getMaterialID()]->getNumber() >= tProcessing[i]->getMaterialNumber())
+				if (tProcessing[i]->getMagazineCapacity() * tProcessing[i]->getNumber() > tResource[tProcessing[i]->getMaterialID()]->getNumber())	// jezeli pojemnosc magazynu * liczba budynkow > liczby posiadanych surowcow 
+					if (tResource[tProcessing[i]->getMaterialID()]->getNumber() >= tProcessing[i]->getMaterialNumber())								// oraz posiadamy przynamniej tyle surowca ile potrzeba do przetwarzania na inny to
 					{
-						tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getProductNumber());
-						tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getMaterialNumber());
-						totalResources += (tProcessing[i]->getProductNumber() - tProcessing[i]->getMaterialNumber());
+						tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getProductNumber());									// dodaj liczbe surowca, ktory zostal wyprodukowany
+						tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getMaterialNumber());									// zmniejsz liczbe liczbe surowca, ktory zostal przetworzony
 					}
+
+		//for (int i = 0; i < 11; ++i)
+		//	for (int j = 0; j < tProcessing[i]->getNumber(); ++j)
+		//		if (totalResources < WareHouse.getmagazineCapacity())
+		//			if (tResource[tProcessing[i]->getMaterialID()]->getNumber() >= tProcessing[i]->getMaterialNumber())
+		//			{
+		//				tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getProductNumber());
+		//				tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getMaterialNumber());
+		//				totalResources += (tProcessing[i]->getProductNumber() - tProcessing[i]->getMaterialNumber());
+		//			}
 		
 		// AKTUALIZACJA LICZBY MIESZKANCOW
 
 		for (int i = 0; i < 5; ++i)
 		{
-			if (tHouse[i]->getInhabitants() * tHouse[i]->getNumber() > tPeople[i]->getNumber())
-				tPeople[i]->increase(tHouse[i]->getNumber());
+			if (tHouse[i]->getInhabitants() * tHouse[i]->getNumber() > tPeople[i]->getNumber())			// jezeli liczba lokatorow jednego domu * liczba domow jest wieksza od liczby posiadanych mieszkancow
+				tPeople[i]->increase(tHouse[i]->getNumber());											// zwieksz liczbe mieszkancow o liczbe posiadanych budynkow mieszkalnych
 			
-			if (tHouse[i]->getInhabitants() * tHouse[i]->getNumber() < tPeople[i]->getNumber())
-				tPeople[i]->setNumber(tHouse[i]->getInhabitants() * tHouse[i]->getNumber());
+			if (tHouse[i]->getInhabitants() * tHouse[i]->getNumber() < tPeople[i]->getNumber())			// jezeli przekroczono limit mieszkancow jaki mozemy posiadac
+				tPeople[i]->setNumber(tHouse[i]->getInhabitants() * tHouse[i]->getNumber());			// ustaw liczbe mieszkancow na maksimum
 		}
+
+		// POBOR PODATKU OD MIESZKANCOW
+
+		for (int i = 0; i < 5; ++i)
+			tResource[0]->increase(tPeople[i]->getNumber());
+
+		// KOSZTY UTRZYMANIA POSIADANYCH BUDYNKOW
+
+		for (int i = 0; i < 12; ++i)
+			tResource[0]->decrease(tPublic[i]->getMaintenanceActiveCost() * tPublic[i]->getNumber());
+
+		for (int i = 0; i < 16; ++i)
+			tResource[0]->decrease(tProduction[i]->getMaintenanceActiveCost() * tProduction[i]->getActiveNumber() 
+				+ tProduction[i]->getMaintenancePassiveCost() * (tProduction[i]->getNumber() - tProduction[i]->getActiveNumber()));
+
+		for (int i = 0; i < 11; ++i)
+			tResource[0]->decrease(tProcessing[i]->getMaintenanceActiveCost() * tProcessing[i]->getActiveNumber()
+				+ tProcessing[i]->getMaintenancePassiveCost() * (tProcessing[i]->getNumber() - tProcessing[i]->getActiveNumber()));
 
 		// SPRAWDZENIE WARUNKU DOSTEPNOSCI BUDYNKOW:
 			// WYMAGANIA POSIADANIA KONKRETNEJ KLASY LUDNOSCI
 
 		for (int i = 0; i < 12; ++i)
 			if (tPublic[i]->getClass() > -1)		
-				tPublic[i]->checkStatus(*tPeople[tPublic[i]->getClass()]);
+				tPublic[i]->checkStatus(tPeople[tPublic[i]->getClass()]->getNumber());
 
 		for (int i = 0; i < 16; ++i)
+
 			if (tProduction[i]->getClass() > -1)
-				tProduction[i]->checkStatus(*tPeople[tProduction[i]->getClass()]);
+				tProduction[i]->checkStatus(tPeople[tProduction[i]->getClass()]->getNumber());
 
 		for (int i = 0; i < 11; ++i)
 			if (tProcessing[i]->getClass() > -1)
-				tProcessing[i]->checkStatus(*tPeople[tProcessing[i]->getClass()]);
+				tProcessing[i]->checkStatus(tPeople[tProcessing[i]->getClass()]->getNumber());
 
 		if (WareHouse.getClass() > -1)
-			WareHouse.checkStatus(*tPeople[WareHouse.getClass()]);
+			WareHouse.checkStatus(tPeople[WareHouse.getClass()]->getNumber());
 
 			// WYMAGANIA POSIADANIA KONRETNYCH BUDYNKOW 
 
 		for (int i = 1; i < 5; ++i)
 			for (int j = 0; j < 3; ++j)
-			{
 				if (tHouse[i]->getBuildingID(j) > -1)									// dla -1 warunek nie wystepuje
 				{ 
-					tHouse[i]->checkStatus(*tPublic[tHouse[i]->getBuildingID(j)]);
+					tHouse[i]->checkStatus(tPublic[tHouse[i]->getBuildingID(j)]->getNumber());
 					if (false == tHouse[i]->getStatus())								// wystarczy, ze nie posiadamy jednego budynku i budowa jest niedostepna
 						break;
 				}
-			}
 
 		// MENU (TYMCZASOWE DLA KONSOLI)
 
@@ -238,7 +287,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		cout << "[5] - wyswietl stan surowcow" << endl;
 		cout << "[6] - kupuj towary" << endl;
 		cout << "[7] - sprzedawaj towary" << endl;
-		cout << "[8] - zakoncz program" << endl << endl;
+		cout << "[8] - aktywuj produkcje" << endl;
+		cout << "[9] - wstrzymaj prokucje" << endl;
+		cout << "[10] - zakoncz program" << endl << endl;
 		cout << "Decyzja? ";
 		
 		cin >> menu;
@@ -311,7 +362,7 @@ int _tmain(int argc, _TCHAR* argv[])
 				cout << "\n  Co chcesz zniszczyc? ";
 				cin >> decision;
 				
-				if (decision >= 0 && decision < 12)
+				if (decision >= 0 && decision < 16)
 					Destroy(*tPublic[decision]);
 
 				else if (decision >= 12 && decision < 28)
@@ -405,7 +456,12 @@ int _tmain(int argc, _TCHAR* argv[])
 				menuResource();
 				cout << "  Ktory towar chcesz kupic? ";
 				cin >> decision;
-				tResource[decision]->buy(Money);
+				
+				if (true == tResource[decision]->buy(Money))
+					cout << "\n    Zakupiono towar.";
+				else
+					cout << "\n    Nie stac Cie na zakup tego towaru.";
+				
 				break;
 
 		//SPRZEDAWANIE TOWAROW-----------------------------------------------------------------------------------------------------------------------------------------------
@@ -414,11 +470,58 @@ int _tmain(int argc, _TCHAR* argv[])
 				menuResource();
 				cout << "  Ktory towar chcesz sprzedac? ";
 				cin >> decision;
-				tResource[decision]->sell(Money);
+				
+				if (true == tResource[decision]->sell(Money))
+					cout << "\n    Zakupiono towar.";
+				else
+					cout << "\n    Nie stac Cie na zakup tego towaru.";
+				
+				break;
+
+		//WSTRZYMANIE PRODUKCJI BUDYNKOW-------------------------------------------------------------------------------------------------------------------------------------
+
+			case 8:
+				menuBuildingCost();
+				cout << "  Wstrzymac produkcje dla jakiego budynku? ";
+				cin >> decision;
+
+				if (decision >= 0 && decision < 16)
+					if (true == tProduction[decision]->activate())
+						cout << endl << "    Aktywowano produkcje budynku." << endl;
+					else
+						cout << endl <<"    Nie posiadach aktualnie budynku, ktory ma wstrzymana produkcje." << endl;
+
+				else if (decision >= 16 && decision < 27)
+						if (true == tProcessing[decision - 16]->activate())
+							cout << endl << "    Aktywowano produkcje budynku." << endl;
+						else
+							cout << endl << "    Nie posiadach aktualnie budynku, ktory ma wstrzymana produkcje." << endl;
+
+				break;
+
+		//WZNOWIENIE PRODUKCJI BUDYNKOW--------------------------------------------------------------------------------------------------------------------------------------
+
+			case 9:
+				menuBuildingCost();
+				cout << "  Wznowic produkcje dla jakiego budynku? ";
+				cin >> decision;
+
+				if (decision >= 0 && decision < 16)
+					if (true == tProduction[decision]->deactivate())
+						cout << endl << "    Wstrzymano produkcje budynku." << endl;
+					else
+						cout << endl << "    Nie posiadach aktualnie budynku, ktory prowadzadzi produkcje." << endl;
+
+				else if (decision >= 16 && decision < 27)
+					if (true == tProcessing[decision - 16]->deactivate())
+						cout << endl << "    Wstrzymano produkcje budynku." << endl;
+					else
+						cout << endl << "    Nie posiadach aktualnie budynku, ktory prowadzadzi produkcje." << endl;
+
 				break;
 
 		//WYJSCIE Z GRY
-			case 8:
+			case 10:
 				exit(1);
 				break;
 			
@@ -526,4 +629,36 @@ void menuResource()
 	cout << "  [12] - przyprawy\t[13] - kakao\t\t[14] - trunek" << endl;
 	cout << "  [15] - plotno\t\t[16] - ubrania\t\t[17] - bizuteria" << endl;
 	cout << "  [18] - narzedzia\t[19] - drewno\t\t[20] - cegly" << endl << endl;
+}
+
+void menuBuildingCost()
+{
+	cout << "  [0] - plantacja bawelny\t";
+	cout << "  [1] - chata drwala" << endl;
+	cout << "  [2] - plantacja zboza\t\t";
+	cout << "  [3] - plantacja przypraw\t";
+	cout << "  [4] - domek mysliwski" << endl;
+	cout << "  [5] - plantacja koki\t\t";
+	cout << "  [6] - farma krow\t\t";
+	cout << "  [7] - farma owiec" << endl;
+	cout << "  [8] - winiarnia\t\t";
+	cout << "  [9] - plantacja tytoniu\t";
+	cout << "  [10] - plantacja trzciny cukr." << endl;
+	cout << "  [11] - kopalnia zelaza\t";
+	cout << "  [12] - gleboka kopalnia zelaza";
+	cout << "  [13] - kopalnia zlota" << endl;
+	cout << "  [14] - chatka rybacka\t\t";
+	cout << "  [15] - kamieniarz\t\t";
+	cout << "  [16] - piekarnia" << endl;
+	cout << "  [17] - kuznia zelaza\t\t";
+	cout << "  [18] - jubiler\t\t";
+	cout << "  [19] - rzeznik" << endl;
+	cout << "  [20] - gorzelnia\t\t";
+	cout << "  [21] - sklep odziezowy\t";
+	cout << "  [22] - wytwornia prod. tyton" << endl;
+	cout << "  [23] - szwalnia duza\t\t";
+	cout << "  [24] - szwalnia mala\t\t";
+	cout << "  [25] - wytworca narzedzi" << endl;
+	cout << "  [26] - wiatrak\t\t";
+	cout << "  [27] - anuluj\n\n";
 }

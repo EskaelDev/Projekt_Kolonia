@@ -23,7 +23,7 @@ public:
 	int getStartPeople() const;
 	int getBuildingID(int) const;											// argumentem jest indeks tablicy
 	bool getStatus() const;
-	void checkStatus(Public &);
+	void checkStatus(int);													// sprawdza czy posiadamy budynek i ustawia pole status
 	void test() const;
 };
 

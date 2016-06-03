@@ -277,7 +277,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		cout << "   Arystokraci: " << Aristocrats.getNumber() << endl << endl;
 
 		// PODEJMOWANIE DECYZJI
-
+		
 		cout << "MENU:" << endl;
 		cout << "[0] - odswiez" << endl;
 		cout << "[1] - zbuduj budynek" << endl;

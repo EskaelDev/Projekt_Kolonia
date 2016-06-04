@@ -1,6 +1,8 @@
 #pragma once
+#include "SDL_Headers.h"
+
 // Sprity stanow przycisku
-enum LButtonSprite
+enum SDL_ButtonSprite
 {
 	BUTTON_SPRITE_MOUSE_OUT,
 	BUTTON_SPRITE_MOUSE_OVER_MOTION,

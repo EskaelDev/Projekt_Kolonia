@@ -1,5 +1,5 @@
 #pragma once
-
+#include "SDL_Headers.h"
 class SDL_Timer
 	{
 	public:
@@ -32,5 +32,6 @@ class SDL_Timer
 		bool mPaused;
 		bool mStarted;
 
-		stringstream timeText;
+	std::stringstream timeText;
 	};
+SDL_Timer timer;

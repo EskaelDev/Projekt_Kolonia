@@ -1,4 +1,6 @@
 #pragma once
+#include "SDL_Headers.h"
+
 
 class SDL_Button
 {
@@ -24,7 +26,7 @@ public:
 
 private:
 	// Tekstura przycisku
-	LTexture gButtonSpriteSheetTexture;
+	SDL_Textur gButtonSpriteSheetTexture;
 
 	// id budynku, szerokosc, wysokosc
 	int id, w, h, w_b, h_b;
@@ -33,7 +35,7 @@ private:
 	char *img;
 
 	// Pozycja przycisku
-	SDL_Point mPosition;
+	struct SDL_Point mPosition;
 
 	// Warunek akcji przycisku
 	Actions action;

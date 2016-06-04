@@ -120,13 +120,17 @@
   <ItemGroup>
     <ClInclude Include="SDL_Button.h" />
     <ClInclude Include="SDL_Enums.h" />
+    <ClInclude Include="SDL_Functions.h" />
     <ClInclude Include="SDL_G_Const.h" />
     <ClInclude Include="SDL_G_Var.h" />
+    <ClInclude Include="SDL_Headers.h" />
     <ClInclude Include="SDL_Textur.h" />
     <ClInclude Include="SDL_Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Kolonia_Main.cpp" />
     <ClCompile Include="SDL_Button.cpp" />
+    <ClCompile Include="SDL_Functions.cpp" />
     <ClCompile Include="SDL_Textur.cpp" />
     <ClCompile Include="SDL_Timer.cpp" />
   </ItemGroup>

@@ -883,7 +883,10 @@ void LButton::render()
 	gButtonSpriteSheetTexture.render(mPosition.x, mPosition.y, &gSpriteClips[mCurrentSprite]);
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC !!!!!!!
-bool upgrade = true; int licze_magazyny = 0; bool MUSIC_ON = true; int chatka_drwala = 0;
+bool upgrade = true; //zastapion funkcja
+int licze_magazyny = 0; // ktory magazyn zbudowalismy
+bool MUSIC_ON = true; 
+int chatka_drwala = 0; // do wyœwietlania ile jest budynkow, zastopione prez funkcjie
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC !!!!!!!
 
 void LButton::operation(Actions action)

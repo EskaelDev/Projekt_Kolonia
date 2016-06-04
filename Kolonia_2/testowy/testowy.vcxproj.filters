@@ -33,6 +33,12 @@
     <ClInclude Include="SDL_G_Var.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SDL_Functions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL_Headers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SDL_Timer.cpp">
@@ -42,6 +48,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SDL_Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDL_Functions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Kolonia_Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

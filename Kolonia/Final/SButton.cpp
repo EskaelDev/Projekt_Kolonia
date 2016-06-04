@@ -11,7 +11,6 @@ SButton::SButton(Actions action, int width, int height, int pos_x, int pos_y, ch
 	setTexture();
 }
 
-
 SButton::SButton(int ident, Actions action, int width, int height, int pos_x, int pos_y, char *image)
 	: id(ident), action(action), w(width), h(height), mCurrentSprite(BUTTON_SPRITE_MOUSE_OUT)
 {
@@ -42,8 +41,6 @@ void SButton::handleEvent(SDL_Event* e)
 	// Jesli zdarzenie myszy zaszlo
 	if (e->type == SDL_MOUSEMOTION || e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP)
 	{
-
-
 		// Pobierz pozycje myszy
 		int x, y;
 		SDL_GetMouseState(&x, &y);
@@ -62,55 +59,35 @@ void SButton::handleEvent(SDL_Event* e)
 			inside = true;
 			// Mysz jest z lewej strony splasha
 			if (x < mPosition.x + SCREEN_WIDTH / 3)
-			{
 				inside = false;
-			}
 			// Mysz jest z prawej strony splasha
 			else if (x > mPosition.x + w + SCREEN_WIDTH / 3)
-			{
 				inside = false;
-			}
 			// Mysz jest ponad przyciskiem
 			else if (y < mPosition.y)
-			{
 				inside = false;
-			}
 			// Mysz jest ponizej przycisku
 			else if (y > mPosition.y + h)
-			{
 				inside = false;
-			}
-
 		}
 		else
 			// Mysz jest z lewej strony przycisku
 			if (x < mPosition.x)
-			{
 				inside = false;
-			}
-		// Mysz jest z prawej strony przycisku
+			// Mysz jest z prawej strony przycisku
 			else if (x > mPosition.x + w)
-			{
 				inside = false;
-			}
-		// Mysz jest ponad przyciskiem
+			// Mysz jest ponad przyciskiem
 			else if (y < mPosition.y)
-			{
 				inside = false;
-			}
-		// Mysz jest ponizej przycisku
+			// Mysz jest ponizej przycisku
 			else if (y > mPosition.y + h)
-			{
 				inside = false;
-			}
 
 		// Mysz jest poza przyciskiem
 		if (!inside)
-		{
 			mCurrentSprite = BUTTON_SPRITE_MOUSE_OUT;
-		}
-
-		// Mysz jest w przycisku
+		// Mysz jest na przycisku
 		else
 		{
 			//Set mouse over sprite
@@ -139,19 +116,15 @@ void SButton::handleEvent(SDL_Event* e)
 void SButton::setTexture()
 {
 	if (!gButtonSpriteSheetTexture.loadFromFile(img))
-	{
 		cout << "Nie mozna zaladowac tekstury przycisku!" << endl;
-	}
 	else
-	{
-		//Set sprites
+		// Ustawianie spritow
 		for (int i = 0; i < BUTTON_SPRITE_TOTAL; ++i)
 		{
 			gSpriteClips[i].x = 0;
 			gSpriteClips[i].y = i * h;
 			gSpriteClips[i].w = w;
 			gSpriteClips[i].h = h;
-		}
 	}
 }
 
@@ -165,8 +138,24 @@ void SButton::operation(Actions action)
 	switch (action)
 	{
 	case NEW_GAME:
-		SDL_DestroyTexture(gTexture);
-		gTexture = NULL;
+		timer.stop();
+		timer.start();
+		if (gTexture != NULL)
+		{
+			SDL_DestroyTexture(gTexture);
+			gTexture = NULL;
+		}
+		gTexture = loadTexture("imgs/left.png");
+		screen = GAME;
+		subScreen = GAME;
+		break;
+
+	case CONTINUE_GAME:
+		if (gTexture != NULL)
+		{
+			SDL_DestroyTexture(gTexture);
+			gTexture = NULL;
+		}
 		gTexture = loadTexture("imgs/left.png");
 		screen = GAME;
 		subScreen = GAME;
@@ -199,29 +188,13 @@ void SButton::operation(Actions action)
 			SDL_DestroyTexture(gTexture2);
 			gTexture2 = NULL;
 		}
-
 		gTexture = loadTexture("imgs/main.png");
-
 		screen = MAIN;
 		subScreen = MAIN;
 		break;
 
-	case PLAY_GAME:
-		SDL_DestroyTexture(gTexture);
-		gTexture = NULL;
-		gTexture = loadTexture("imgs/left.png");
-
-		screen = GAME;
-		subScreen = GAME;
-
-		break;
-
-	case PUBLIC:
-		SDL_DestroyTexture(gTexture2);
-		gTexture2 = NULL;
-		gTexture2 = loadTexture("imgs/public.png");
-		screen = GAME;
-		subScreen = PUB;
+	case EXIT_GAME:
+		screen = QUIT;
 		break;
 
 	case BUY:
@@ -238,6 +211,14 @@ void SButton::operation(Actions action)
 		break;
 
 	case SELL_RESOURCE:
+		break;
+
+	case PUBLIC:
+		SDL_DestroyTexture(gTexture2);
+		gTexture2 = NULL;
+		gTexture2 = loadTexture("imgs/public.png");
+		screen = GAME;
+		subScreen = PUB;
 		break;
 
 	case INDUSTRIAL:
@@ -264,30 +245,10 @@ void SButton::operation(Actions action)
 		subScreen = STATS;
 		break;
 
-	case EXIT_GAME:
-		screen = QUIT;
-		break;
-
-		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
 	case BUILD:
-		chatka_drwala++;
 		break;
 
 	case DESTROY:
-		break;
-		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
-
-	case CANCEL:
-		sell = false;
-		buy = false;
-		break;
-
-	case ALLOW_BUILD:
-		allow_build = true;
-		break;
-
-	case DENY_BUILD:
-		allow_build = false;
 		break;
 
 	case UPGRADE://///////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
@@ -314,13 +275,24 @@ void SButton::operation(Actions action)
 		upgrade = false;
 		break;
 
+	case CANCEL:
+		sell = false;
+		buy = false;
+		break;
+
+	case ALLOW_BUILD:
+		allow_build = true;
+		break;
+
+	case DENY_BUILD:
+		allow_build = false;
+		break;
+
 	case CHANGE_MUSIC:
 		if (MUSIC_ON == true)
 			MUSIC_ON = false;
 		else
 			MUSIC_ON = true;
 		break;
-
 	}
 }
-

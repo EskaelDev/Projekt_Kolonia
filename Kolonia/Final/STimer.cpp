@@ -128,3 +128,5 @@ void STimer::render()
 		gTimeTextTexture.render((350 - gTimeTextTexture.getWidth()), 310);
 	}
 }
+
+STimer timer;

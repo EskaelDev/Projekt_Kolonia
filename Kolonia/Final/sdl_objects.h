@@ -39,4 +39,5 @@ extern SDL_Color textColor;
 extern Mix_Chunk *gClickSound;
 extern Mix_Music *gBackgroundMusic;
 
+
 #endif

@@ -18,11 +18,10 @@ enum Screen
 extern Screen screen, subScreen;
 
 // Akcje na przycisk
-
 enum Actions
 {
 	NEW_GAME,
-	PLAY_GAME,
+	CONTINUE_GAME,
 	LOAD_GAME,
 	SAVE_GAME,
 	MAIN_MENU,

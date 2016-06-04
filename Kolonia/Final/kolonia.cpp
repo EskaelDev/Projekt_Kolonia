@@ -11,9 +11,9 @@
 #ifndef SDL_FUNCTIONS_H
 #include "sdl_functions.h"
 #endif
-//#ifndef SDL_OBJECTS_H
+#ifndef SDL_OBJECTS_H
 #include "sdl_objects.h"
-//#endif
+#endif
 #ifndef SDL_VARIABLES_H
 #include "sdl_variables.h"
 #endif
@@ -23,11 +23,6 @@
 #ifndef SDL_ENUMS_H
 #include "sdl_enums.h"
 #endif
-
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_ttf.h>
-#include <SDL_mixer.h>
 #include <stdio.h>
 #include <iostream>
 #include <sstream>
@@ -217,9 +212,6 @@ void close()
 		SDL_DestroyTexture(gTexture2);
 		gTexture2 = NULL;
 	}
-
-
-
 	if (Warehouse_I_texture != NULL)
 	{
 		SDL_DestroyTexture(Warehouse_I_texture);
@@ -287,10 +279,7 @@ int main(int argc, char* args[])
 			// Kolor tekstu
 			SDL_Color textC = { 255, 255, 255 };
 
-			SDL_Event e;
-
-			STimer timer;
-			
+			SDL_Event e;			
 		
 			SDL_Rect LargeViewport;
 			LargeViewport.x = 0;
@@ -315,12 +304,12 @@ int main(int argc, char* args[])
 			// Przyciski menu
 			// przycisk(akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)	
 			SButton new_game_button(NEW_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 400, "new.png");
-			SButton continue_button(PLAY_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 350, "back.png");
+			SButton continue_button(CONTINUE_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 350, "continue.png");
 			SButton load_game_button(LOAD_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 480, "load.png");
 			SButton exit_game_button(EXIT_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 660, "exit.png");
 			SButton main_menu_button(MAIN_MENU, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 660, "menu.png");
 			SButton save_game_button(SAVE_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 150, 732, "save.png");
-			SButton back_button(PLAY_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 300, 732, "back.png");
+			SButton back_button(CONTINUE_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 300, 732, "back.png");
 			SButton stats_button(VIEW_STATS, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 5, 732, "stats.png");
 
 			// Przyciski splashy
@@ -714,6 +703,11 @@ int main(int argc, char* args[])
 					switch (subScreen)
 					{
 					case MAIN:
+						if (timer.getTicks() > 0)
+						{
+							continue_button.render();
+							continue_button.handleEvent(&e);
+						}
 						new_game_button.render();
 						load_game_button.render();
 						exit_game_button.render();
@@ -1260,8 +1254,6 @@ int main(int argc, char* args[])
 
 						build_AV_FishersHut.render();			build_AV_FishersHut.handleEvent(&e);
 						destroy_AV_FishersHut.render();			destroy_AV_FishersHut.handleEvent(&e);
-
-
 						break;
 					}
 					break;
@@ -1275,7 +1267,7 @@ int main(int argc, char* args[])
 		}
 	}
 	// getch do testowania
-	_getch();
+	//_getch();
 	// Zwalnianie zasobów i zamykanie SDL
 	close();
 	return 0;

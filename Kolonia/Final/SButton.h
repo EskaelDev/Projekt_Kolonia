@@ -4,6 +4,9 @@
 #ifndef STEXTURE_H
 #include "STexture.h"
 #endif
+#ifndef STIMER_H
+#include "STimer.h"
+#endif
 #ifndef SDL_FUNCTIONS_H
 #include "sdl_functions.h"
 #endif

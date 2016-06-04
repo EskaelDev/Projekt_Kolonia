@@ -46,4 +46,6 @@ private:
 	int h = 0, m = 0, s = 0;
 };
 
+extern STimer timer;
+
 #endif

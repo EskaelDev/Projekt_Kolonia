@@ -13,6 +13,7 @@ Processing::Processing(int _moneyToBuild, int _bricksToBuild, int _toolsToBuild,
 	woodToBuild = _woodToBuild;
 	maintenanceActiveCost = _maintenanceActiveCost;
 	maintenancePassiveCost = _maintenancePassiveCost;
+	activeNumber = 0;
 	size = 4;													// jednakowa wartosc dla wszystkich budynkow processing
 	magazineCapacity = _magazineCapacity;
 	peopleToBuild = _peopleToBuild;

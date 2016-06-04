@@ -85,7 +85,6 @@
     <ClInclude Include="House.h" />
     <ClInclude Include="Industrial.h" />
     <ClInclude Include="Magazine.h" />
-    <ClInclude Include="Objects.h" />
     <ClInclude Include="People.h" />
     <ClInclude Include="Processing.h" />
     <ClInclude Include="Production.h" />

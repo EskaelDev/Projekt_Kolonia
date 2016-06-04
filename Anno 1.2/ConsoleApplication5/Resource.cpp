@@ -3,9 +3,10 @@
 #include "Resource.h"
 using namespace std;
 
-Resource::Resource(int _number, int _price)
+Resource::Resource(int _price)
 {
-	number = _number;
+	number = 0;
+
 	price = _price;
 }
 

@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include <iostream>
 #include "House.h"
+#include <conio.h>
 using namespace std;
 
-House::House(int _bricksToBuild, int _toolsToBuild, int _woodToBuild, int _inhabitants, int _startPeople, int buildingID0, int buildingID1, int buildingID2)
+House::House(int _bricksToBuild, int _toolsToBuild, int _woodToBuild, int _inhabitants, int _startPeople, int buildingID0, int buildingID1, int buildingID2, int tabBuildingId[], int tabSize)
 {
 	number = 0;
 	bricksToBuild = _bricksToBuild;
@@ -16,18 +17,24 @@ House::House(int _bricksToBuild, int _toolsToBuild, int _woodToBuild, int _inhab
 	buildingID[1] = buildingID1;
 	buildingID[2] = buildingID2;
 	status = true;
+	if (tabBuildingId[0] > -1)
+	{
+		buildingId = new int[tabSize / sizeof(int)];
+		for (int i = 0; i < tabSize / sizeof(int); ++i)	
+			buildingId[i] = tabBuildingId[i];
+	}
 }
 
-bool House::Build(Resource & _Bricks, Resource & _Tools, Resource & _Wood)
+bool House::Build(Resource & Bricks, Resource & Tools, Resource & Wood)
 {
-	if (bricksToBuild > _Bricks.number || toolsToBuild > _Tools.number || woodToBuild > _Wood.number)
+	if (bricksToBuild > Bricks.number || toolsToBuild > Tools.number || woodToBuild > Wood.number)
 		return false;
 	else
 	{
 		++number;
-		_Bricks.number -= bricksToBuild;
-		_Tools.number -= toolsToBuild;
-		_Wood.number -= woodToBuild;
+		Bricks.number -= bricksToBuild;
+		Tools.number -= toolsToBuild;
+		Wood.number -= woodToBuild;
 		return true;
 	}
 }
@@ -61,6 +68,11 @@ int House::getStartPeople() const
 int House::getBuildingID(int index) const
 {
 	return buildingID[index];
+}
+
+int House::getBuildingId(int index) const
+{
+	return buildingId[index];
 }
 
 bool House::getStatus() const

@@ -5,6 +5,7 @@ using namespace std;
 
 People::People(int _tax)
 {
+	number = 0;
 	tax = _tax;
 }
 

@@ -45,9 +45,6 @@
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Uwagi.h">
       <Filter>Header Files</Filter>
     </ClInclude>

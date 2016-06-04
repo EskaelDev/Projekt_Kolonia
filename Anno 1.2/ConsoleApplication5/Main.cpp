@@ -6,17 +6,24 @@
 #include <ctime>
 #include <string>
 
-#include "Objects.h"
+#include "House.h"
+#include "Industrial.h"
+#include "Magazine.h"
+#include "Public.h"
+#include "Production.h"
+#include "Processing.h"
+#include "Resource.h"
+#include "People.h"
 
 using namespace std;
 
 // FUNKCJE---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-void Build(Public &);		// Funkcja do budowy budynkow.
-void Destroy(Public &);		// Funkcja do niszczenia budynkow.
-void menuBuilding();		// Funkcja wyswietla menu: spis budynkow
-void menuResource();		// Funkcja wyswietla menu: spis surowcow
-void menuBuildingCost();	// Funkcja wyswietla menu: spis budynkow generujacych koszty
+void Build(Public &, Resource &, Resource &, Resource &, Resource &);	// Funkcja do budowy budynkow.
+void Destroy(Public &);													// Funkcja do niszczenia budynkow.
+void menuBuilding();													// Funkcja wyswietla menu: spis budynkow
+void menuResource();													// Funkcja wyswietla menu: spis surowcow
+void menuBuildingCost();												// Funkcja wyswietla menu: spis budynkow generujacych koszty
 
 // STALE I ZMIENNE-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -32,104 +39,113 @@ Production* wskProduction = 0;
 // GLOWNY PROGRAM--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 int _tmain(int argc, _TCHAR* argv[])
-{
-	House* tHouse[5];
-	tHouse[0] = &hPioneers;
-	tHouse[1] = &hSettlers;
-	tHouse[2] = &hCitizens;
-	tHouse[3] = &hMerchants;
-	tHouse[4] = &hAristocrats;
+{	
+	//House(bricksToBuild, toolsToBuild, woodToBuild, inhabitants, startPeople, buildingID0, buildingID1, buildingID2)
+	House* tHouse[5];																					 { int tab0[1] = { -1 };
+	tHouse[0] = new House(0, 0, 3, 3, 1, -1, -1, -1, tab0, sizeof(tab0)); } 	/* Pioneers House */	 { int tab1[2] = { 4, 7 };
+	tHouse[1] = new House(0, 1, 3, 7, 2, 4, 7, -1, tab1, sizeof(tab1)); }		/* Settlers House */	 { int tab2[3] = { 2, 9, 11 };
+	tHouse[2] = new House (6, 2, 2, 15, 3, 2, 9, 11, tab2, sizeof(tab2)); } 	/* Citizens House */	 { int tab3[3] = { 0, 1, 6 };
+	tHouse[3] = new House (9, 3, 3, 25, 4, 0, 1, 6, tab3, sizeof(tab3)); }		/* Merchansts House */	 { int tab4[3] = { 3, 5, 10 };
+	tHouse[4] = new House(12, 3, 3, 40, 5, 3, 5, 10, tab4, sizeof(tab4)); }		/* Aristorcats House */
 
-	Public* tPublic[12];							// tablica wskaznikow do obiektow Public
-	tPublic[0] = &Doctor;
-	tPublic[1] = &PublicBath;		
-	tPublic[2] = &FireDepartment;	
-	tPublic[3] = &University;	
-	tPublic[4] = &Chapel;		
-	tPublic[5] = &Cathedral;		
-	tPublic[6] = &Church;			
-	tPublic[7] = &MarketPlace;		
-	tPublic[8] = &Palace;
-	tPublic[9] = &School;			
-	tPublic[10] = &Theatre;			
-	tPublic[11] = &Tavern;			
-	
-	Production* tProduction[16];					// tablica wskaznikow do obiektow Production
-	tProduction[0] = &CottonPlantation;
-	tProduction[1] = &ForestersLodge;
-	tProduction[2] = &GrainFarm;
-	tProduction[3] = &SpiceFarm;
-	tProduction[4] = &HuntersHut;
-	tProduction[5] = &CocoaPlantation;
-	tProduction[6] = &CattleFarm;
-	tProduction[7] = &SheepFarm;
-	tProduction[8] = &Winery;
-	tProduction[9] = &TobaccoPlantation;
-	tProduction[10] = &SugarcanePlantation;
-	tProduction[11] = &IronMine;
-	tProduction[12] = &DeepIronMine;
-	tProduction[13] = &GoldMine;
-	tProduction[14] = &FistersHut;
-	tProduction[15] = &StoneMason;
+	Magazine WareHouse;
 
-	Processing* tProcessing[11];					
-	tProcessing[0] = &Bakery;
-	tProcessing[1] = &OreRefenery;
-	tProcessing[2] = &GoldSmith;
-	tProcessing[3] = &ButchersShop;
-	tProcessing[4] = &RumDistillery;
-	tProcessing[5] = &Clothiers;
-	tProcessing[6] = &TobaccoProduction;
-	tProcessing[7] = &WeavingMill;
-	tProcessing[8] = &WeavingHut;
-	tProcessing[9] = &ToolSmithy;
-	tProcessing[10] = &WindMill;
+	//Public(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, size, peopleToBuild, peopleClass)
+	Public* tPublic[12];
+	tPublic[0] = new Public (450, 9, 4, 4, 30, 4, 50, 2);			// Doctor
+	tPublic[1] = new Public (1200, 19, 6, 5, 60, 12, 210, 2);		// Public Bath	
+	tPublic[2] = new Public (150, 0, 3, 5, 15, 4, 15, 1);			// Fire Department
+	tPublic[3] = new Public (750, 19, 6, 5, 60, 9, 250, 3);			// University
+	tPublic[4] = new Public (100, 0, 2, 5, 5, 2, 40, 0);			// Chapel
+	tPublic[5] = new Public (5000, 50, 15, 20, 40, 24, 1500, 3);	// Cathedral
+	tPublic[6] = new Public (1600, 25, 7, 7, 50, 12, 150, 2);		// Church
+	tPublic[7] = new Public (200, 0, 4, 10, 10, 12, 75, 0);			// Marketplace
+	tPublic[8] = new Public (7500, 70, 25, 25, 90, 35, 2500, 4);	// Palace 
+	tPublic[9] = new Public (450, 9, 4, 4, 30, 4, 100, 1);			// School
+	tPublic[10] = new Public (1200, 19, 2, 5, 80, 9, 300, 3);		// Theatre
+	tPublic[11] = new Public (250, 6, 3, 4, 15, 6, 50, 1);			// Tavern
 
+	//Production(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, size, magazineCapacity, peopleToBuild, peopleClass, productID)
+	Production* tProduction[16];
+	tProduction[0] = new Production (200, 6, 2, 3, 25, 10, 16, 9, 200, 2, 3);		// Cotton Plantation		
+	tProduction[1] = new Production (50, 0, 2, 0, 5, 0, 4, 10, 0, -1, 19);			// Foresters Lodge
+	tProduction[2] = new Production (100, 0, 2, 5, 5, 0, 16, 6, 75, 1, 7);			// Grain Farm
+	tProduction[3] = new Production (300, 8, 2, 3, 35, 15, 16, 4, 75, 1, 12);		// Spice Farm
+	tProduction[4] = new Production (50, 0, 2, 2, 5, 0, 4, 3, 0, -1, 10);			// Hunters Hut
+	tProduction[5] = new Production (300, 8, 2, 3, 35, 15, 16, 6, 200, 2, 13);		// Cocoa Plantation	
+	tProduction[6] = new Production (100, 0, 1, 4, 5, 0, 16, 4, 30, 0, 6);			// Cattle Farm
+	tProduction[7] = new Production (200, 0, 2, 4, 5, 0, 16, 8, 0, -1, 3);			// Sheep Farm
+	tProduction[8] = new Production (300, 8, 2, 3, 35, 15, 16, 6, 40, 1, 14);		// Winery
+	tProduction[9] = new Production (300, 8, 2, 3, 35, 15, 16, 6, 40, 1, 5);		// Tobacco Plantation
+	tProduction[10] = new Production (300, 8, 2, 3, 25, 10, 16, 6, 40, 1, 4);		// Sugarcane Plantation
+	tProduction[11] = new Production (1000, 5, 10, 20, 60, 20, 3, 4, 120, 1, 1);	// Iron Mine
+	tProduction[12] = new Production (1800, 7, 15, 30, 60, 20, 3, 4, 450, 2, 1);	// Deep Iron Mine
+	tProduction[13] = new Production (1000, 5, 10, 20, 60, 20, 3, 4, 150, 2, 2);	// Gold Mine
+	tProduction[14] = new Production (100, 0, 3, 5, 5, 0, 1, 4, 0, -1, 10);			// Fisters Hut
+	tProduction[15] = new Production (100, 0, 5, 5, 5, 0, 4, 8, 15, 1, 20);			// Stone Mason
+
+	//Processing(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, magazineCapacity, peopleToBuild, peopleClass, productID, materialID, productNumber, materialNumber)
+	Processing* tProcessing[11];
+	tProcessing[0] = new Processing (150, 0, 2, 6, 5, 0, 4, 75, 1, 10, 8, 1, 2);		// Bakery
+	tProcessing[1] = new Processing (200, 4, 3, 1, 25, 10, 5, 120, 1, 9, 1, 1, 1);		// Ore Refenery
+	tProcessing[2] = new Processing (1500, 10, 7, 2, 45, 20, 4, 250, 3, 17, 2, 2, 1);	// Gold Smith
+	tProcessing[3] = new Processing (150, 10, 3, 4, 5, 0, 4, 30, 0, 10, 6, 1, 2);		// Butcher Shop
+	tProcessing[4] = new Processing (200, 5, 3, 2, 25, 7, 4, 40, 1, 14, 4, 1, 2);		// Rum Distillery
+	tProcessing[5] = new Processing (150, 2, 3, 6, 10, 5, 4, 200, 2, 16, 15, 1, 1);		// Clothiers
+	tProcessing[6] = new Processing (200, 5, 3, 2, 20, 10, 4, 40, 1, 11, 5, 1, 2);		// TobaccoProduction
+	tProcessing[7] = new Processing (200, 7, 4, 3, 20, 10, 4, 75, 1, 15, 3, 1, 1);		// WeavingMill
+	tProcessing[8] = new Processing (200, 0, 3, 6, 10, 5, 4, 0, -1, 15, 3, 1, 2);		// WeavingHut
+	tProcessing[9] = new Processing (150, 5, 3, 2, 25, 10, 4, 100, 1, 18, 9, 2, 1);		// ToolSmithy
+	tProcessing[10] = new Processing (100, 0, 3, 6, 5, 0, 6, 75, 1, 10, 7, 1, 2);		// WindMill
+
+	//People(tax)
 	People* tPeople[5];
-	tPeople[0] = &Pioneers;
-	tPeople[1] = &Settlers;
-	tPeople[2] = &Citizens;
-	tPeople[3] = &Merchants;
-	tPeople[4] = &Aristocrats;
+	tPeople[0] = new People (1);		// Pioneers
+	tPeople[1] = new People (1);		// Settlers
+	tPeople[2] = new People (1);		// Citizens
+	tPeople[3] = new People (2);		// Merchants
+	tPeople[4] = new People (2);		// Aristocrats
 
+	//Resource(price)
 	Resource* tResource[21];
-	tResource[0] = &Money;
-	tResource[1] = &IronOre;
-	tResource[2] = &Gold;
-	tResource[3] = &Wool;
-	tResource[4] = &Sugar;
-	tResource[5] = &Tobacco;			
-	tResource[6] = &Cattle;
-	tResource[7] = &Grain;
-	tResource[8] = &Flour;
-	tResource[9] = &Iron;
-	tResource[10] = &Food;
-	tResource[11] = &TobaccoProducts;	
-	tResource[12] = &Spices;			
-	tResource[13] = &Cocoa;				
-	tResource[14] = &Liquor;			
-	tResource[15] = &Cloth;				
-	tResource[16] = &Clothes;			
-	tResource[17] = &Jewelry;			
-	tResource[18] = &Tools;				
-	tResource[19] = &Wood;				
-	tResource[20] = &Bricks;			
-
+	tResource[0] = new Resource (1);		// Money
+	tResource[1] = new Resource (60);		// Iron Ore
+	tResource[2] = new Resource (465);		// Gold
+	tResource[3] = new Resource (16);		// Wool
+	tResource[4] = new Resource (19);		// Sugar
+	tResource[5] = new Resource (23);		// Tobacco
+	tResource[6] = new Resource (6);		// Cattle
+	tResource[7] = new Resource (3);		// Grain
+	tResource[8] = new Resource (3);		// Flour
+	tResource[9] = new Resource (84);		// Iron
+	tResource[10] = new Resource (17);		// Food
+	tResource[11] = new Resource (65);		// Tobacco Products
+	tResource[12] = new Resource (40);		// Spices
+	tResource[13] = new Resource (33);		// Cocoa
+	tResource[14] = new Resource (52);		// Liquor
+	tResource[15] = new Resource (32);		// Cloth
+	tResource[16] = new Resource (130);		// Clothes
+	tResource[17] = new Resource (590);		// Jewerly
+	tResource[18] = new Resource (80);		// Tools
+	tResource[19] = new Resource (20);		// Wood
+	tResource[20] = new Resource (30);		// Bricks
+	
+	tResource[0]->increase(5000);
 
 	while (1)	// petla gry
 	{
 		system("CLS");
-
+		
 		// AKTUALIZACJA STANU SUROWCOW
 
 			// DLA BUDYNKOW TYPU PRODUCTION
-
+		
 		int maxBuildingNumber = 0;					// okresla jakiego typu budynek posiada gracz w najwiekszej liczbie
 		int totalMagazinesCapacity = 0;				// calkowita pojemnosc magazynow budynkow
 		int usedMagazine = 0;						// wykorzystane miejsce w magazynie ogolnym
 		int totalResources = 0;						// suma wszystkich posiadanych surowcow
-		
-		for (int i = 1; i < 21; ++i)									
+
+		for (int i = 1; i < 21; ++i)
 			totalResources += tResource[i]->getNumber();				// sumowanie liczby surowcow ktore posiada gracz
 
 		for (int i = 0; i < 15; ++i)
@@ -142,12 +158,12 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		for (int i = 0; i < 11; ++i)
 			totalMagazinesCapacity += tProcessing[i]->getMagazineCapacity() * tProcessing[i]->getNumber();		// sumowanie calkowitej pojemnosci magazynow budynkow cd.
-			
-				// ZAPELNIANIE MAGAZYNU OGOLNEGO (w drugiej kolejnosci)
 		
+				// ZAPELNIANIE MAGAZYNU OGOLNEGO (w drugiej kolejnosci)
+
 		usedMagazine = totalResources - totalMagazinesCapacity;				// wykorzystanie magazynu glownego to dodatni wynik roznicy wszystkich surowcow od calkowitej pojemnosci wszystkich budynkow
 		if (usedMagazine < 0) usedMagazine = 0;								// wynik ujemny tej roznicy oznacza, ze magazyn w ogole nie jest wykorzystywany
-			
+
 		for (int j = 1; j <= maxBuildingNumber; ++j)																								// dodawaj po jednej jednostce surowca tyle razy ile wynosi najwieksza liczba posiadanego budynku
 			for (int i = 0; i < 15; ++i)
 				if (tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber() <= tResource[tProduction[i]->getProductID()]->getNumber())	// jezeli pojemnosc magazynu * liczba budynkow <= liczby posiadanych surowcow 
@@ -158,8 +174,8 @@ int _tmain(int argc, _TCHAR* argv[])
 								tResource[tProduction[i]->getProductID()]->increase(1);																// dodaj jedna jednostke surowiec
 								++usedMagazine;																										// zwieksz zajetosc magazynu
 							}
-				
-				// ZAPELNIANIE MAGAZYNOW WEWNETRZNYCH BUDYNKOW DANEGO TYPU (w pierwszej kolejnosci)
+
+		// ZAPELNIANIE MAGAZYNOW WEWNETRZNYCH BUDYNKOW DANEGO TYPU (w pierwszej kolejnosci)
 
 		for (int i = 0; i < 15; ++i)
 			if (tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber() > tResource[tProduction[i]->getProductID()]->getNumber())		// jezeli pojemnosc magazynu * liczba budynkow > liczby posiadanych surowcow to
@@ -172,8 +188,8 @@ int _tmain(int argc, _TCHAR* argv[])
 					tResource[tProduction[i]->getProductID()]->decrease(excess);		// TU JESZCZE DOKONCZ														// poziom surowcow zmniejsz do max dostepnej pojemnosci
 				}
 			}
-		
-				// DLA BUDYNKOW TYPU PROCESSING
+
+		// DLA BUDYNKOW TYPU PROCESSING
 
 		for (int i = 0; i < 11; ++i)
 			for (int j = 0; j < tProcessing[i]->getNumber(); ++j)
@@ -193,14 +209,14 @@ int _tmain(int argc, _TCHAR* argv[])
 		//				tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getMaterialNumber());
 		//				totalResources += (tProcessing[i]->getProductNumber() - tProcessing[i]->getMaterialNumber());
 		//			}
-		
+
 		// AKTUALIZACJA LICZBY MIESZKANCOW
 
 		for (int i = 0; i < 5; ++i)
 		{
 			if (tHouse[i]->getInhabitants() * tHouse[i]->getNumber() > tPeople[i]->getNumber())			// jezeli liczba lokatorow jednego domu * liczba domow jest wieksza od liczby posiadanych mieszkancow
 				tPeople[i]->increase(tHouse[i]->getNumber());											// zwieksz liczbe mieszkancow o liczbe posiadanych budynkow mieszkalnych
-			
+
 			if (tHouse[i]->getInhabitants() * tHouse[i]->getNumber() < tPeople[i]->getNumber())			// jezeli przekroczono limit mieszkancow jaki mozemy posiadac
 				tPeople[i]->setNumber(tHouse[i]->getInhabitants() * tHouse[i]->getNumber());			// ustaw liczbe mieszkancow na maksimum
 		}
@@ -216,18 +232,18 @@ int _tmain(int argc, _TCHAR* argv[])
 			tResource[0]->decrease(tPublic[i]->getMaintenanceActiveCost() * tPublic[i]->getNumber());
 
 		for (int i = 0; i < 16; ++i)
-			tResource[0]->decrease(tProduction[i]->getMaintenanceActiveCost() * tProduction[i]->getActiveNumber() 
+			tResource[0]->decrease(tProduction[i]->getMaintenanceActiveCost() * tProduction[i]->getActiveNumber()
 				+ tProduction[i]->getMaintenancePassiveCost() * (tProduction[i]->getNumber() - tProduction[i]->getActiveNumber()));
 
 		for (int i = 0; i < 11; ++i)
 			tResource[0]->decrease(tProcessing[i]->getMaintenanceActiveCost() * tProcessing[i]->getActiveNumber()
 				+ tProcessing[i]->getMaintenancePassiveCost() * (tProcessing[i]->getNumber() - tProcessing[i]->getActiveNumber()));
-
+		
 		// SPRAWDZENIE WARUNKU DOSTEPNOSCI BUDYNKOW:
 			// WYMAGANIA POSIADANIA KONKRETNEJ KLASY LUDNOSCI
 
 		for (int i = 0; i < 12; ++i)
-			if (tPublic[i]->getClass() > -1)		
+			if (tPublic[i]->getClass() > -1)
 				tPublic[i]->checkStatus(tPeople[tPublic[i]->getClass()]->getNumber());
 
 		for (int i = 0; i < 16; ++i)
@@ -242,12 +258,12 @@ int _tmain(int argc, _TCHAR* argv[])
 		if (WareHouse.getClass() > -1)
 			WareHouse.checkStatus(tPeople[WareHouse.getClass()]->getNumber());
 
-			// WYMAGANIA POSIADANIA KONRETNYCH BUDYNKOW 
+		// WYMAGANIA POSIADANIA KONRETNYCH BUDYNKOW 
 
 		for (int i = 1; i < 5; ++i)
 			for (int j = 0; j < 3; ++j)
 				if (tHouse[i]->getBuildingID(j) > -1)									// dla -1 warunek nie wystepuje
-				{ 
+				{
 					tHouse[i]->checkStatus(tPublic[tHouse[i]->getBuildingID(j)]->getNumber());
 					if (false == tHouse[i]->getStatus())								// wystarczy, ze nie posiadamy jednego budynku i budowa jest niedostepna
 						break;
@@ -266,15 +282,15 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		// WYSWIETLANIE STANU SUROWCOW
 
-		cout << "Pieniadze: " << Money.getNumber();
-		cout << "   Cegly: " << Bricks.getNumber();
-		cout << "   Narzedzia : " << Tools.getNumber();
-		cout << "   Drewno : " << Wood.getNumber() << endl;
-		cout << "Pionierzy: " << Pioneers.getNumber();
-		cout << "   Osadnicy: " << Settlers.getNumber();
-		cout << "   Mieszczanie: " << Citizens.getNumber();
-		cout << "   Kupcy: " << Merchants.getNumber();
-		cout << "   Arystokraci: " << Aristocrats.getNumber() << endl << endl;
+		cout << "Pieniadze: " << tResource[0]->getNumber();
+		cout << "   Cegly: " << tResource[20]->getNumber();
+		cout << "   Narzedzia : " << tResource[18]->getNumber();
+		cout << "   Drewno : " << tResource[19]->getNumber() << endl;
+		cout << "Pionierzy: " << tPeople[0]->getNumber();
+		cout << "   Osadnicy: " << tPeople[1]->getNumber();
+		cout << "   Mieszczanie: " << tPeople[2]->getNumber();
+		cout << "   Kupcy: " << tPeople[3]->getNumber();
+		cout << "   Arystokraci: " << tPeople[4]->getNumber() << endl << endl;
 
 		// PODEJMOWANIE DECYZJI
 
@@ -291,247 +307,247 @@ int _tmain(int argc, _TCHAR* argv[])
 		cout << "[9] - wstrzymaj prokucje" << endl;
 		cout << "[10] - zakoncz program" << endl << endl;
 		cout << "Decyzja? ";
-		
+
 		cin >> menu;
-		switch(menu)
+		switch (menu)
 		{
-		//BUDOWA BUDYNKOW----------------------------------------------------------------------------------------------------------------------------------------------------
+			//BUDOWA BUDYNKOW----------------------------------------------------------------------------------------------------------------------------------------------------
 
-			case 1:
-				menuBuilding();
-				if (0 == WareHouse.getLevel())
-					cout << "  [44] - Magazyn" << endl << endl;
-				else if (0 < WareHouse.getLevel() < 4)
-					cout << "  [44] - Ulepsz magazyn" << endl << endl;
-				cout << "  Co chcesz zbudowac? ";
-				cin >> decision;
-
-				if (decision >= 0 && decision < 12)
-					Build(*tPublic[decision]);
-
-				else if (decision >= 12 && decision < 28)
-					Build(*tProduction[decision - 12]);
-
-				else if (decision >= 28 && decision < 39)
-					Build(*tProcessing[decision - 32]);
-
-				else if (decision >= 39 && decision < 44)
-				{
-					if (false == tHouse[decision - 39]->getStatus())
-						cout << "\n    Budynek niedostepny." << endl;
-
-					else if (usedFields + tHouse[decision - 39]->getSize() > islandSize)
-						cout << "\n    Brakuje dostepnych pol na wyspie." << endl;
-
-					else if (tHouse[decision - 39]->Build(Bricks, Tools, Wood) == false)
-						cout << "\n    Nie masz wystarczajacej ilosci surowcow." << endl;
-
-					else
-					{
-						cout << "\n    Wybudowano budynek." << endl;
-						tPeople[decision - 39]->increase(tHouse[decision - 39]->getStartPeople());
-						usedFields += tHouse[decision - 39]->getSize();
-					}
-				}
-
-				else if (44 == decision)
-				{
-					if (WareHouse.getStatus() == false)
-						cout << "\n    Budynek niedostepny." << endl;
-
-					else if (usedFields + WareHouse.getSize() > islandSize)
-						cout << "\n    Brakuje dostepnych pol na wyspie." << endl;
-
-					else if (WareHouse.Build(Money, Bricks, Tools, Wood) == true)
-					{
-						cout << "\n    Wybudowano budynek." << endl;
-						if(1 == WareHouse.getLevel())
-							usedFields += WareHouse.getSize();
-					}
-
-					else
-						cout << "\n    Nie masz wystarczajacej ilosci surowcow." << endl;
-				}
-
-				break;
-
-    	//BURZENIE BUDYNKOW----------------------------------------------------------------------------------------------------------------------------------------------------
-
-			case 2:
-				menuBuilding();
-				cout << "\n  Co chcesz zniszczyc? ";
-				cin >> decision;
-				
-				if (decision >= 0 && decision < 16)
-					Destroy(*tPublic[decision]);
-
-				else if (decision >= 12 && decision < 28)
-					Destroy(*tProduction[decision - 12]);
-
-				else if (decision >= 28 && decision < 39)
-					Destroy(*tProcessing[decision - 32]);
-
-				else if (decision >= 39 && decision < 44)
-				{
-					if (tHouse[decision - 39]->Destroy() == true)
-					{
-						cout << "\n    Zburzono budynek";
-						usedFields -= tHouse[decision - 39]->getSize();
-					}
-					else
-						cout << "\n    Nie posiadasz takiego budynku";
-				}
-
-				break;
-			
-		//WYSWIETLANIE STANU ZABUDOWY------------------------------------------------------------------------------------------------------------------------------------------
-
-			case 3:
-				menuBuilding();
-				cout << "  [44] - Magazyn" << endl;
-				cout << "\nPublic:\n\n";
-				for (int i = 0; i < 12; ++i)
-					cout << "[" << i << "]=" << tPublic[i]->getNumber() << "\t";
-				
-				cout << "\n\nProduction:\n\n";
-				for (int i = 0; i < 16; ++i)
-				{
-					cout << "[" << i + 12 << "]=" << tProduction[i]->getNumber() << "\t";
-					if (i == 11) cout << endl;
-				}
-
-				cout << "\n\nProcessing:\n\n";
-				for (int i = 0; i < 11; ++i)
-					cout << "[" << i + 28 << "]=" << tProcessing[i]->getNumber() << "\t";
-
-				cout << "\n\nHouse:\n\n";
-				for (int i = 0; i < 5; ++i)
-					cout << "[" << i + 39 << "]=" << tHouse[i]->getNumber() << "\t";
-
-				cout << "[44]=" << WareHouse.getLevel() << " poziom" << endl;
-
-				break;
-		
-		//WYSWIETLANIE PARAMETROW BUDYNKU--------------------------------------------------------------------------------------------------------------------------------------
-		
-			case 4:
-				menuBuilding();
+		case 1:
+			menuBuilding();
+			if (0 == WareHouse.getLevel())
 				cout << "  [44] - Magazyn" << endl << endl;
-				cout << "  Wybierz budynek ";
-				cin >> decision;
-				cout << endl;
+			else if (0 < WareHouse.getLevel() < 4)
+				cout << "  [44] - Ulepsz magazyn" << endl << endl;
+			cout << "  Co chcesz zbudowac? ";
+			cin >> decision;
 
-				if (decision >= 0 && decision < 12)
-					tPublic[decision]->test();
+			if (decision >= 0 && decision < 12)
+				Build(*tPublic[decision], *tResource[0], *tResource[20], *tResource[18], *tResource[19]);
 
-				else if (decision >= 12 && decision < 28)
-					tProduction[decision - 12]->test();
+			else if (decision >= 12 && decision < 28)
+				Build(*tProduction[decision - 12], *tResource[0], *tResource[20], *tResource[18], *tResource[19]);
 
-				else if (decision >= 28 && decision < 39)
-					tProcessing[decision - 28]->test();
+			else if (decision >= 28 && decision < 39)
+				Build(*tProcessing[decision - 32], *tResource[0], *tResource[20], *tResource[18], *tResource[19]);
 
-				else if (decision >= 39 && decision < 44)
-					tHouse[decision - 39]->test();
+			else if (decision >= 39 && decision < 44)
+			{
+				if (false == tHouse[decision - 39]->getStatus())
+					cout << "\n    Budynek niedostepny." << endl;
 
-				else if (44 == decision)
-					WareHouse.test();
+				else if (usedFields + tHouse[decision - 39]->getSize() > islandSize)
+					cout << "\n    Brakuje dostepnych pol na wyspie." << endl;
 
-				break;
+				else if (tHouse[decision - 39]->Build(*tResource[20], *tResource[18], *tResource[19]) == false)
+					cout << "\n    Nie masz wystarczajacej ilosci surowcow." << endl;
 
-		//WYSWIETLANIE STANU WSZYSTKICH SUROWCOW------------------------------------------------------------------------------------------------------------------------------
-		
-			case 5:
-				menuResource();
-
-				for (int i = 0; i < 21; ++i)
+				else
 				{
-					cout << "\t[" << i << "]=" << tResource[i]->getNumber();
-					if (i == 0 || i == 7 || i == 14) cout << endl;
+					cout << "\n    Wybudowano budynek." << endl;
+					tPeople[decision - 39]->increase(tHouse[decision - 39]->getStartPeople());
+					usedFields += tHouse[decision - 39]->getSize();
 				}
-				break;
+			}
 
-		//KUPOWANIE TOWAROW--------------------------------------------------------------------------------------------------------------------------------------------------
+			else if (44 == decision)
+			{
+				if (WareHouse.getStatus() == false)
+					cout << "\n    Budynek niedostepny." << endl;
 
-			case 6:
-				menuResource();
-				cout << "  Ktory towar chcesz kupic? ";
-				cin >> decision;
-				
-				if (true == tResource[decision]->buy(Money))
-					cout << "\n    Zakupiono towar.";
+				else if (usedFields + WareHouse.getSize() > islandSize)
+					cout << "\n    Brakuje dostepnych pol na wyspie." << endl;
+
+				else if (WareHouse.Build(*tResource[0], *tResource[20], *tResource[18], *tResource[19]) == true)
+				{
+					cout << "\n    Wybudowano budynek." << endl;
+					if (1 == WareHouse.getLevel())
+						usedFields += WareHouse.getSize();
+				}
+
 				else
-					cout << "\n    Nie stac Cie na zakup tego towaru.";
-				
-				break;
+					cout << "\n    Nie masz wystarczajacej ilosci surowcow." << endl;
+			}
 
-		//SPRZEDAWANIE TOWAROW-----------------------------------------------------------------------------------------------------------------------------------------------
+			break;
 
-			case 7:
-				menuResource();
-				cout << "  Ktory towar chcesz sprzedac? ";
-				cin >> decision;
-				
-				if (true == tResource[decision]->sell(Money))
-					cout << "\n    Zakupiono towar.";
+			//BURZENIE BUDYNKOW----------------------------------------------------------------------------------------------------------------------------------------------------
+
+		case 2:
+			menuBuilding();
+			cout << "\n  Co chcesz zniszczyc? ";
+			cin >> decision;
+
+			if (decision >= 0 && decision < 16)
+				Destroy(*tPublic[decision]);
+
+			else if (decision >= 12 && decision < 28)
+				Destroy(*tProduction[decision - 12]);
+
+			else if (decision >= 28 && decision < 39)
+				Destroy(*tProcessing[decision - 32]);
+
+			else if (decision >= 39 && decision < 44)
+			{
+				if (tHouse[decision - 39]->Destroy() == true)
+				{
+					cout << "\n    Zburzono budynek";
+					usedFields -= tHouse[decision - 39]->getSize();
+				}
 				else
-					cout << "\n    Nie stac Cie na zakup tego towaru.";
-				
-				break;
+					cout << "\n    Nie posiadasz takiego budynku";
+			}
 
-		//WSTRZYMANIE PRODUKCJI BUDYNKOW-------------------------------------------------------------------------------------------------------------------------------------
+			break;
 
-			case 8:
-				menuBuildingCost();
-				cout << "  Wstrzymac produkcje dla jakiego budynku? ";
-				cin >> decision;
+			//WYSWIETLANIE STANU ZABUDOWY------------------------------------------------------------------------------------------------------------------------------------------
 
-				if (decision >= 0 && decision < 16)
-					if (true == tProduction[decision]->activate())
-						cout << endl << "    Aktywowano produkcje budynku." << endl;
-					else
-						cout << endl <<"    Nie posiadach aktualnie budynku, ktory ma wstrzymana produkcje." << endl;
+		case 3:
+			menuBuilding();
+			cout << "  [44] - Magazyn" << endl;
+			cout << "\nPublic:\n\n";
+			for (int i = 0; i < 12; ++i)
+				cout << "[" << i << "]=" << tPublic[i]->getNumber() << "\t";
 
-				else if (decision >= 16 && decision < 27)
-						if (true == tProcessing[decision - 16]->activate())
-							cout << endl << "    Aktywowano produkcje budynku." << endl;
-						else
-							cout << endl << "    Nie posiadach aktualnie budynku, ktory ma wstrzymana produkcje." << endl;
+			cout << "\n\nProduction:\n\n";
+			for (int i = 0; i < 16; ++i)
+			{
+				cout << "[" << i + 12 << "]=" << tProduction[i]->getNumber() << "\t";
+				if (i == 11) cout << endl;
+			}
 
-				break;
+			cout << "\n\nProcessing:\n\n";
+			for (int i = 0; i < 11; ++i)
+				cout << "[" << i + 28 << "]=" << tProcessing[i]->getNumber() << "\t";
 
-		//WZNOWIENIE PRODUKCJI BUDYNKOW--------------------------------------------------------------------------------------------------------------------------------------
+			cout << "\n\nHouse:\n\n";
+			for (int i = 0; i < 5; ++i)
+				cout << "[" << i + 39 << "]=" << tHouse[i]->getNumber() << "\t";
 
-			case 9:
-				menuBuildingCost();
-				cout << "  Wznowic produkcje dla jakiego budynku? ";
-				cin >> decision;
+			cout << "[44]=" << WareHouse.getLevel() << " poziom" << endl;
 
-				if (decision >= 0 && decision < 16)
-					if (true == tProduction[decision]->deactivate())
-						cout << endl << "    Wstrzymano produkcje budynku." << endl;
-					else
-						cout << endl << "    Nie posiadach aktualnie budynku, ktory prowadzadzi produkcje." << endl;
+			break;
 
-				else if (decision >= 16 && decision < 27)
-					if (true == tProcessing[decision - 16]->deactivate())
-						cout << endl << "    Wstrzymano produkcje budynku." << endl;
-					else
-						cout << endl << "    Nie posiadach aktualnie budynku, ktory prowadzadzi produkcje." << endl;
+			//WYSWIETLANIE PARAMETROW BUDYNKU--------------------------------------------------------------------------------------------------------------------------------------
 
-				break;
+		case 4:
+			menuBuilding();
+			cout << "  [44] - Magazyn" << endl << endl;
+			cout << "  Wybierz budynek ";
+			cin >> decision;
+			cout << endl;
 
-		//WYJSCIE Z GRY
-			case 10:
-				exit(1);
-				break;
-			
-		//ODSWIEZANIE EKRANU
-			case 0:
-				break;
+			if (decision >= 0 && decision < 12)
+				tPublic[decision]->test();
 
-			default:
-				cout << "\n  Podano bledny numer komendy.";
-				break;
+			else if (decision >= 12 && decision < 28)
+				tProduction[decision - 12]->test();
+
+			else if (decision >= 28 && decision < 39)
+				tProcessing[decision - 28]->test();
+
+			else if (decision >= 39 && decision < 44)
+				tHouse[decision - 39]->test();
+
+			else if (44 == decision)
+				WareHouse.test();
+
+			break;
+
+			//WYSWIETLANIE STANU WSZYSTKICH SUROWCOW------------------------------------------------------------------------------------------------------------------------------
+
+		case 5:
+			menuResource();
+
+			for (int i = 0; i < 21; ++i)
+			{
+				cout << "\t[" << i << "]=" << tResource[i]->getNumber();
+				if (i == 0 || i == 7 || i == 14) cout << endl;
+			}
+			break;
+
+			//KUPOWANIE TOWAROW--------------------------------------------------------------------------------------------------------------------------------------------------
+
+		case 6:
+			menuResource();
+			cout << "  Ktory towar chcesz kupic? ";
+			cin >> decision;
+
+			if (true == tResource[decision]->buy(*tResource[0]))
+				cout << "\n    Zakupiono towar.";
+			else
+				cout << "\n    Nie stac Cie na zakup tego towaru.";
+
+			break;
+
+			//SPRZEDAWANIE TOWAROW-----------------------------------------------------------------------------------------------------------------------------------------------
+
+		case 7:
+			menuResource();
+			cout << "  Ktory towar chcesz sprzedac? ";
+			cin >> decision;
+
+			if (true == tResource[decision]->sell(*tResource[0]))
+				cout << "\n    Zakupiono towar.";
+			else
+				cout << "\n    Nie stac Cie na zakup tego towaru.";
+
+			break;
+
+			//WSTRZYMANIE PRODUKCJI BUDYNKOW-------------------------------------------------------------------------------------------------------------------------------------
+
+		case 8:
+			menuBuildingCost();
+			cout << "  Wstrzymac produkcje dla jakiego budynku? ";
+			cin >> decision;
+
+			if (decision >= 0 && decision < 16)
+				if (true == tProduction[decision]->activate())
+					cout << endl << "    Aktywowano produkcje budynku." << endl;
+				else
+					cout << endl << "    Nie posiadach aktualnie budynku, ktory ma wstrzymana produkcje." << endl;
+
+			else if (decision >= 16 && decision < 27)
+				if (true == tProcessing[decision - 16]->activate())
+					cout << endl << "    Aktywowano produkcje budynku." << endl;
+				else
+					cout << endl << "    Nie posiadach aktualnie budynku, ktory ma wstrzymana produkcje." << endl;
+
+			break;
+
+			//WZNOWIENIE PRODUKCJI BUDYNKOW--------------------------------------------------------------------------------------------------------------------------------------
+
+		case 9:
+			menuBuildingCost();
+			cout << "  Wznowic produkcje dla jakiego budynku? ";
+			cin >> decision;
+
+			if (decision >= 0 && decision < 16)
+				if (true == tProduction[decision]->deactivate())
+					cout << endl << "    Wstrzymano produkcje budynku." << endl;
+				else
+					cout << endl << "    Nie posiadach aktualnie budynku, ktory prowadzadzi produkcje." << endl;
+
+			else if (decision >= 16 && decision < 27)
+				if (true == tProcessing[decision - 16]->deactivate())
+					cout << endl << "    Wstrzymano produkcje budynku." << endl;
+				else
+					cout << endl << "    Nie posiadach aktualnie budynku, ktory prowadzadzi produkcje." << endl;
+
+			break;
+
+			//WYJSCIE Z GRY
+		case 10:
+			exit(1);
+			break;
+
+			//ODSWIEZANIE EKRANU
+		case 0:
+			break;
+
+		default:
+			cout << "\n  Podano bledny numer komendy.";
+			break;
 		}
 
 		_getch();
@@ -541,7 +557,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	return 0;
 }
 
-void Build(Public & Name)
+void Build(Public & Name, Resource & Money, Resource & Bricks, Resource & Tools, Resource & Wood)
 {
 	if (Name.getStatus() == false)
 		cout << "\n    Budynek niedostepny." << endl;

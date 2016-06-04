@@ -24,10 +24,14 @@ extern SDL_Texture* Warehouse_II_texture;
 extern SDL_Texture* Warehouse_III_texture;
 extern SDL_Texture* Warehouse_IV_texture;
 
+extern SDL_Texture* popUpMsg_texture;
+
 // Czworokaty magazynow
 extern SDL_Rect gWarehouse_rect_right;
 extern SDL_Rect gWarehouse_rect_left;
 extern SDL_Rect gWarehouse_rect_centre;
+
+extern SDL_Rect popUpMsg;
 
 // Czcionka
 extern TTF_Font *gFont;

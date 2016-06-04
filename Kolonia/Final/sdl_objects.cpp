@@ -17,10 +17,14 @@ SDL_Texture* Warehouse_II_texture = NULL;
 SDL_Texture* Warehouse_III_texture = NULL;
 SDL_Texture* Warehouse_IV_texture = NULL;
 
+SDL_Texture* popUpMsg_texture = NULL;
+
 // Czworokaty magazynow
 SDL_Rect gWarehouse_rect_right;
 SDL_Rect gWarehouse_rect_left;
 SDL_Rect gWarehouse_rect_centre;
+
+SDL_Rect popUpMsg;
 
 // Czcionka
 TTF_Font *gFont = NULL;

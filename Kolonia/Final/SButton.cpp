@@ -138,6 +138,25 @@ void SButton::operation(Actions action)
 	switch (action)
 	{
 	case NEW_GAME:
+		if (popUp)
+		{
+			if (gTexture != NULL)
+			{
+				SDL_DestroyTexture(gTexture);
+				gTexture = NULL;
+			}
+			gTexture = loadTexture("imgs/load_save.png");
+			popUpMsg_texture = loadTexture("imgs/left.png");
+			screen = MAIN;
+			subScreen = POPUPMSG;
+			popUp = false;
+			if (popUpMsg_texture != NULL)
+			{
+				SDL_DestroyTexture(popUpMsg_texture);
+				popUpMsg_texture = NULL;
+			}
+			break;
+		}
 		timer.stop();
 		timer.start();
 		if (gTexture != NULL)
@@ -178,6 +197,10 @@ void SButton::operation(Actions action)
 		break;
 
 	case MAIN_MENU:
+		if (popUp)
+			popUp = false;
+		if (timer.getTicks() > 0)
+			popUp = true;
 		if (gTexture != NULL)
 		{
 			SDL_DestroyTexture(gTexture);

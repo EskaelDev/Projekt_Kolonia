@@ -8,6 +8,7 @@ enum Screen
 	LOAD,
 	SAVE,
 	GAME,
+	POPUPMSG,
 	PUB,
 	IND,
 	PROD,

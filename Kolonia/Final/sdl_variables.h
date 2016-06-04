@@ -9,6 +9,8 @@ extern int chatka_drwala;
 extern bool buy;
 extern bool sell;
 
+extern bool popUp;
+
 // Mozna budowac
 extern bool allow_build;
 

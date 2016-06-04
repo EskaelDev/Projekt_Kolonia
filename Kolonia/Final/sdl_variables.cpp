@@ -8,6 +8,8 @@ int chatka_drwala = 0;
 bool buy = false;
 bool sell = false;
 
+bool popUp = false;
+
 // Mozna budowac
 bool allow_build = true;
 

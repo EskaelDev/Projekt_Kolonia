@@ -618,6 +618,11 @@ int main(int argc, char* args[])
 			gWarehouse_rect_centre.y = gWarehouse_rect_centre_y;
 			gWarehouse_rect_centre.h = gWarehouse_rect_centre_h;
 			gWarehouse_rect_centre.w = gWarehouse_rect_centre_w;
+
+			popUpMsg.w = 550;
+			popUpMsg.h = 200;
+			popUpMsg.x = (SCREEN_WIDTH - popUpMsg.w) / 2;
+			popUpMsg.y = 2 * (SCREEN_HEIGHT - popUpMsg.h) / 3;
 			// Glowna petla gry
 			while (!quit)
 			{
@@ -646,6 +651,8 @@ int main(int argc, char* args[])
 						SDL_DestroyTexture(gTexture);
 						gTexture = NULL;
 						gTexture = loadTexture("imgs/main.png");
+						if (timer.getTicks() > 0)
+							popUp = true;
 						screen = MAIN;
 						subScreen = MAIN;
 					}
@@ -668,16 +675,16 @@ int main(int argc, char* args[])
 
 				SDL_Rect fillRect11 = { 6, 437, 30, 5 };
 				SDL_Rect fillRect12 = { 71, 437, 30, 5 };
-				SDL_Rect fillRect13 = { 136, 437, 303, 5 };
-				SDL_Rect fillRect14 = { 201, 437, 304, 5 };
-				SDL_Rect fillRect15 = { 266, 437, 305, 5 };
+				SDL_Rect fillRect13 = { 136, 437, 30, 5 };
+				SDL_Rect fillRect14 = { 201, 437, 30, 5 };
+				SDL_Rect fillRect15 = { 266, 437, 30, 5 };
 
 				SDL_Rect fillRect16 = { 6, 507, 30, 5 };
 				SDL_Rect fillRect17 = { 71, 507, 30, 5 };
 				SDL_Rect fillRect18 = { 136, 507, 30, 5 };
 				SDL_Rect fillRect19 = { 201, 507, 30, 5 };
 				SDL_Rect fillRect20 = { 266, 507, 30, 5 };
-
+				
 				switch (screen)
 				{
 					// Ekran menu glownego
@@ -693,6 +700,7 @@ int main(int argc, char* args[])
 							continue_button.render();
 							continue_button.handleEvent(&e);
 						}
+						new_game_button.setPosition(624, 400);
 						new_game_button.render();
 						load_game_button.render();
 						exit_game_button.render();
@@ -714,6 +722,17 @@ int main(int argc, char* args[])
 						}
 						break;
 						// Ekran wczytywania stanu gry
+					case POPUPMSG:
+						SDL_RenderCopy(gRenderer, popUpMsg_texture, NULL, &popUpMsg);
+						gTextTexture.loadFromRenderedText("Czy na pewno chcesz rozpoczac nowa gre?", textC);
+						gTextTexture.render((SCREEN_WIDTH - gTextTexture.getWidth()) / 2, 380);
+						new_game_button.setPosition(SCREEN_WIDTH - MAIN_BUTTON_WIDTH - 525, 520);
+						new_game_button.render();
+						new_game_button.handleEvent(&e);
+						main_menu_button.setPosition(525, 520);
+						main_menu_button.render();
+						main_menu_button.handleEvent(&e);
+						break;
 					case LOAD:
 						gTextTexture.loadFromRenderedText("Wczytaj", textC);
 						gTextTexture.render(600, 200);

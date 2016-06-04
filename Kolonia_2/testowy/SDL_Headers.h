@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SDL_HEADERS_H
+#define SDL_HEADERS_H
 
 #include <SDL.h>
 #include <SDL_image.h>
@@ -19,7 +20,8 @@
 #include "SDL_G_Const.h"
 #include "SDL_G_Var.h"
 #include "SDL_Textur.h"
-#include "SDL_Headers.h"
 #include "SDL_Timer.h"
 
 using namespace std;
+
+#endif

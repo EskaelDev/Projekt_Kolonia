@@ -104,7 +104,7 @@ bool SDL_Timer::isPaused()
 }
 
 void SDL_Timer::count()
-{
+{/*
 	if (getTicks() % 130 == 0)
 	{
 		if (s1 < 56)
@@ -227,6 +227,7 @@ void SDL_Timer::count()
 		s = 0;
 	}
 	s = (getTicks() / 1000) - (m * 60);
+	*/
 }
 
 void SDL_Timer::render()
@@ -244,9 +245,3 @@ void SDL_Timer::render()
 		gTimeTextTexture.render((350 - gTimeTextTexture.getWidth()), 310);
 	}
 }
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-SDL_SDL_Timer();
-~SDL_SDL_Timer();
-};
-

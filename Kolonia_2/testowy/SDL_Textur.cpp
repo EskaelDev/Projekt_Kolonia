@@ -1,18 +1,19 @@
-#include "LTexture.h"
+#include "SDL_Textur.h"
 
-LTexture::LTexture()
+
+SDL_Textur::SDL_Textur()
 {
 	mTexture = NULL;
 	mWidth = 0;
 	mHeight = 0;
 }
 
-LTexture::~LTexture()
+SDL_Textur::~SDL_Textur()
 {
 	free();
 }
 
-bool LTexture::loadFromFile(std::string path)
+bool SDL_Textur::loadFromFile(std::string path)
 {
 	// Usuniecie wczesniejszej tekstury
 	free();
@@ -53,7 +54,7 @@ bool LTexture::loadFromFile(std::string path)
 	return mTexture != NULL;
 }
 
-bool LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor)
+bool SDL_Textur::loadFromRenderedText(std::string textureText, SDL_Color textColor)
 {
 	// Usuniecie wczesniejszej tekstury
 	free();
@@ -87,7 +88,7 @@ bool LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor
 	return mTexture != NULL;
 }
 
-void LTexture::free()
+void SDL_Textur::free()
 {
 	// Zwalnianie tekstury, jesli istnieje
 	if (mTexture != NULL)
@@ -99,25 +100,25 @@ void LTexture::free()
 	}
 }
 
-void LTexture::setColor(Uint8 red, Uint8 green, Uint8 blue)
+void SDL_Textur::setColor(Uint8 red, Uint8 green, Uint8 blue)
 {
 	// Modulacja RGB tekstury
 	SDL_SetTextureColorMod(mTexture, red, green, blue);
 }
 
-void LTexture::setBlendMode(SDL_BlendMode blending)
+void SDL_Textur::setBlendMode(SDL_BlendMode blending)
 {
 	// Ustawienie funkcji mieszania
 	SDL_SetTextureBlendMode(mTexture, blending);
 }
 
-void LTexture::setAlpha(Uint8 alpha)
+void SDL_Textur::setAlpha(Uint8 alpha)
 {
 	// Modulacja przezroczystosci tekstury
 	SDL_SetTextureAlphaMod(mTexture, alpha);
 }
 
-void LTexture::render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip)
+void SDL_Textur::render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip)
 {
 	// Ustawienie miejsca renderowania i renderowanie na ekran
 	SDL_Rect renderQuad = { x, y, mWidth, mHeight };
@@ -133,12 +134,12 @@ void LTexture::render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* cen
 	SDL_RenderCopyEx(gRenderer, mTexture, clip, &renderQuad, angle, center, flip);
 }
 
-int LTexture::getWidth()
+int SDL_Textur::getWidth()
 {
 	return mWidth;
 }
 
-int LTexture::getHeight()
+int SDL_Textur::getHeight()
 {
 	return mHeight;
 }

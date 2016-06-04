@@ -118,19 +118,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="const_variables.h" />
-    <ClInclude Include="Obiekty_przyciskow.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="PO_SDL.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="LTexture.h" />
+    <ClInclude Include="SDL_Button.h" />
+    <ClInclude Include="SDL_Enums.h" />
+    <ClInclude Include="SDL_G_Const.h" />
+    <ClInclude Include="SDL_G_Var.h" />
+    <ClInclude Include="SDL_Textur.h" />
+    <ClInclude Include="SDL_Timer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="const_variables.cpp" />
-    <ClCompile Include="kolonia.cpp" />
-    <ClCompile Include="LTexture.cpp" />
+    <ClCompile Include="SDL_Button.cpp" />
+    <ClCompile Include="SDL_Textur.cpp" />
+    <ClCompile Include="SDL_Timer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

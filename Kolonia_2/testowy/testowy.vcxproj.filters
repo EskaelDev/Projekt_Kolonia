@@ -15,27 +15,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PO_SDL.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Obiekty_przyciskow.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LTexture.h">
+    <ClInclude Include="SDL_Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="const_variables.h">
+    <ClInclude Include="SDL_Textur.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL_Button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL_Enums.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL_G_Const.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL_G_Var.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="kolonia.cpp">
+    <ClCompile Include="SDL_Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LTexture.cpp">
+    <ClCompile Include="SDL_Textur.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="const_variables.cpp">
+    <ClCompile Include="SDL_Button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

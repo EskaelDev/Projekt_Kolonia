@@ -1,19 +1,10 @@
 #pragma once
-#include "const_variables.h"
 
-//The window renderer
-extern SDL_Renderer* gRenderer;
-
-// Czcionka
-extern TTF_Font *gFont;
-
-using namespace std;
-
-class LTexture
+class SDL_Textur
 {
 public:
-	LTexture();
-	~LTexture();
+	SDL_Textur();
+	~SDL_Textur();
 
 	// Ladowanie obrazka z podanej sciezki
 	bool loadFromFile(std::string path);
@@ -48,3 +39,6 @@ private:
 	int mWidth;
 	int mHeight;
 };
+SDL_Textur gTextTexture;
+SDL_Textur gPromptTextTexture;
+SDL_Textur gTimeTextTexture;

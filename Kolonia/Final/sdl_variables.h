@@ -9,6 +9,7 @@ extern int chatka_drwala;
 extern bool buy;
 extern bool sell;
 
+// Czy ma pojawic sie komunikat
 extern bool popUp;
 
 // Mozna budowac

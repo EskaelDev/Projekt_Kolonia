@@ -146,15 +146,9 @@ void SButton::operation(Actions action)
 				gTexture = NULL;
 			}
 			gTexture = loadTexture("imgs/load_save.png");
-			popUpMsg_texture = loadTexture("imgs/left.png");
 			screen = MAIN;
 			subScreen = POPUPMSG;
 			popUp = false;
-			if (popUpMsg_texture != NULL)
-			{
-				SDL_DestroyTexture(popUpMsg_texture);
-				popUpMsg_texture = NULL;
-			}
 			break;
 		}
 		timer.stop();

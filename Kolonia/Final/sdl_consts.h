@@ -34,19 +34,12 @@ const int ALLOW_BUILD_BUTTON_HEIGHT = 37;
 const int ALLOW_BUILD_BUTTON_WIDTH = 105;
 
 // Wspolrzedne przyciskow zakaz budowy
-const int A_B_X = 584;
-const int A_B_Y = 308;
+const int A_B_X = 584, A_B_Y = 308;
 
 // Wspolrzedne przyiskow build, destroy
-const int C_1 = 17;
-const int C_2 = 204;
-const int C_3 = 402;
-const int C_4 = 596;
-const int C_5 = 770;
-const int W_1 = 252;
-const int W_2 = 488;
-const int W_3 = 723;
-const int R_R = 66;;
+const int C_1 = 17,  C_2 = 204, C_3 = 402, C_4 = 596, C_5 = 770;
+const int W_1 = 252, W_2 = 488, W_3 = 723;
+const int R_R = 66;
 
 // Wspolrzedne ulepszenia
 const int U_X = 171, U_Y = 595;
@@ -80,5 +73,4 @@ const int wiersz_stat_3 = 570;
 const int wiersz_stat_4 = 640;
 
 const int C_M_B = 242, C_M_D = 276, W_M = 701;
-
 #endif

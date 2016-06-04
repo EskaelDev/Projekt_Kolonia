@@ -72,19 +72,13 @@ Uint32 STimer::getTicks()
 
 	// Jesli timer dziala
 	if (mStarted)
-	{
 		// Jesli timer jest zapauzowany
 		if (mPaused)
-		{
 			// Zwroc czas w momencie wlaczenie pauzy
 			time = mPausedTicks;
-		}
 		else
-		{
 			// Zwroc aktualny czas minus poczatkowy czas
 			time = SDL_GetTicks() - mStartTicks;
-		}
-	}
 	return time;
 }
 
@@ -120,13 +114,8 @@ void STimer::render()
 
 	// Renderowanie tekstu
 	if (!gTimeTextTexture.loadFromRenderedText(timeText.str().c_str(), textColor))
-	{
 		std::cout << "Nie mozna wyrenderowac czasu!" << std::endl;
-	}
 	else
-	{
 		gTimeTextTexture.render((350 - gTimeTextTexture.getWidth()), 310);
-	}
 }
-
 STimer timer;

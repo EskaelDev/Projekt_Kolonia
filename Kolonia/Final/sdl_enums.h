@@ -1,7 +1,7 @@
 #ifndef SDL_ENUMS_H
 #define SDL_ENUMS_H
 
-// Ekran gry
+// Typy ekranu gry
 enum Screen
 {
 	MAIN,
@@ -15,7 +15,6 @@ enum Screen
 	STATS,
 	QUIT
 };
-
 extern Screen screen, subScreen;
 
 // Akcje na przycisk
@@ -54,5 +53,4 @@ enum SButtonSprite
 	BUTTON_SPRITE_MOUSE_UP,
 	BUTTON_SPRITE_TOTAL
 };
-
 #endif

@@ -4,7 +4,7 @@ bool upgrade = true;
 int licze_magazyny = 0;
 bool MUSIC_ON = true;
 int chatka_drwala = 0;
-
+	
 bool buy = false;
 bool sell = false;
 

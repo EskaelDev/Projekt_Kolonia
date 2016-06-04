@@ -11,30 +11,28 @@ class STimer
 public:
 	STimer();
 
-	//The various clock actions
+	// Akcje dla timera
 	void start();
 	void stop();
 	void pause();
 	void unpause();
-
 	void count();
 	void render();
 
-	//Gets the timer's time
+	// Pobiera czas
 	Uint32 getTicks();
 
-	//Checks the status of the timer
+	// Sprawdza status timera
 	bool isStarted();
 	bool isPaused();
-
 private:
-	//The clock time when the timer started
+	// Czas timera kiedy jest wlaczony
 	Uint32 mStartTicks;
 
-	//The ticks stored when the timer was paused
+	// Czas timera podczas pauzy
 	Uint32 mPausedTicks;
 
-	//The timer status
+	// Status timera
 	bool mPaused;
 	bool mStarted;
 
@@ -45,7 +43,5 @@ private:
 	// Zmienne do wyswietlania czasu
 	int h = 0, m = 0, s = 0;
 };
-
 extern STimer timer;
-
 #endif

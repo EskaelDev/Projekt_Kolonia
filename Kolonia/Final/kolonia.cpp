@@ -7,7 +7,6 @@
 #ifndef STIMER_H
 #include "STimer.h"
 #endif
-
 #ifndef SDL_FUNCTIONS_H
 #include "sdl_functions.h"
 #endif
@@ -23,237 +22,9 @@
 #ifndef SDL_ENUMS_H
 #include "sdl_enums.h"
 #endif
-#include <stdio.h>
-#include <iostream>
-#include <sstream>
-#include <string>
 #include <conio.h>
-//#include "core/Objects.h"
-#include <ctime>
 
 using namespace std;
-
-// Wlaczenie SDL i stworzenie okna
-bool init();
-
-// Ladowanie mediow
-bool loadMedia();
-
-// Zwalnianie mediow i zamykanie SDL
-void close();
-
-STexture gTextTexture;
-STexture gPromptTextTexture;
-
-bool init()
-{
-	// Flaga inicjalizacji
-	bool success = true;
-
-	// Inicjalizacja SDL
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-	{
-		cout << "SDL nie zostal zainicjalizowany! SDL Error: " << SDL_GetError() << endl;
-		success = false;
-	}
-	else
-	{
-		// Ustawienie filtrowania tekstury na liniowe
-		if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
-			printf("Ostrzezenie: Liniowe filtrowanie tekstury jest wylaczone!");
-
-		// Tworzenie okna
-		gWindow = SDL_CreateWindow("Kolonia", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-		if (gWindow == NULL)
-		{
-			cout << "Okno nie zostalo utworzone! SDL Error: " << SDL_GetError() << endl;
-			success = false;
-		}
-		else
-		{
-			SDL_Surface* icon = IMG_Load("imgs/icon.png");
-			SDL_SetWindowIcon(gWindow, icon);
-			// Tworzenie renderera dla okna
-			gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
-			if (gRenderer == NULL)
-			{
-				cout << "Renderer nie zostal utworzony! SDL Error: " << SDL_GetError() << endl;
-				success = false;
-			}
-			else
-			{
-				// Inicjalizacja kolorow renderera
-				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-
-				// Inicjalizacja ladowania PNG
-				int imgFlags = IMG_INIT_PNG;
-				if (!(IMG_Init(imgFlags) & imgFlags))
-				{
-					cout << "SDL_image nie zostal zainicjalizowany! SDL_image Error: " << IMG_GetError() << endl;
-					success = false;
-				}
-
-				// Inicjalizacja SDL_ttf
-				if (TTF_Init() == -1)
-				{
-					cout << "SDL_ttf nie zostal zainicjalizowany! SDL_ttf Error: " << TTF_GetError() << endl;
-					success = false;
-				}
-
-				// Inicjalizacja SDL_mixer
-				if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
-				{
-					cout << "SDL_mixer nie zostal zainicjalizowany! SDL_mixer Error: " << Mix_GetError() << endl;
-					success = false;
-				}
-			}
-		}
-	}
-	return success;
-}
-
-bool loadMedia()
-{
-	// Flaga powodzenia ladowania
-	bool success = true;
-
-	// Ladowanie tekstury
-	gTexture = loadTexture("imgs/main.png");
-	if (gTexture == NULL)
-	{
-		cout << "Nie mozna zaladowac obrazka!" << endl;
-		success = false;
-	}
-
-	// Textury magazynow
-	Warehouse_I_texture = loadTexture("imgs/magazyn1.png");
-	if (Warehouse_I_texture == NULL)
-	{
-		cout << "Nie mozna zaladowac obrazka!" << endl;
-		success = false;
-	}
-	Warehouse_II_texture = loadTexture("imgs/magazyn2.png");
-	if (Warehouse_II_texture == NULL)
-	{
-		cout << "Nie mozna zaladowac obrazka!" << endl;
-		success = false;
-	}
-	Warehouse_III_texture = loadTexture("imgs/magazyn3.png");
-	if (Warehouse_III_texture == NULL)
-	{
-		cout << "Nie mozna zaladowac obrazka!" << endl;
-		success = false;
-	}
-	Warehouse_IV_texture = loadTexture("imgs/magazyn4.png");
-	if (Warehouse_IV_texture == NULL)
-	{
-		cout << "Nie mozna zaladowac obrazka!" << endl;
-		success = false;
-	}
-
-	// Ladowanie czcionki
-	gFont = TTF_OpenFont("fonts/Caladea-Regular.ttf", 19);
-	if (gFont == NULL)
-	{
-		cout << "Nie mozna zaladowac czcionki! SDL_ttf Error: " << TTF_GetError() << endl;
-		success = false;
-	}
-	else
-	{
-		// Renderowanie tekstu
-		SDL_Color textColor = { 200, 200, 200 };
-		if (!gTextTexture.loadFromRenderedText("12", textColor))
-		{
-			cout << "Nie mozna wyrenderowac tekstu!" << endl;
-			success = false;
-		}
-	}
-
-	// Ladowanie dzwieku klikniecia
-	gClickSound = Mix_LoadWAV("sounds/click.wav");
-	if (gClickSound == NULL)
-	{
-		cout << "Nie zaladowano dzwieku  SDL_mixer Error: " << Mix_GetError() << endl;
-		success = false;
-	}
-
-	// Ladowanie tla muzycznego
-	gBackgroundMusic = Mix_LoadMUS("sounds/background.ogg");
-	if (gBackgroundMusic == NULL)
-	{
-		cout << "Nie zaladowano dzwieku tla SDL_mixer Error: " << Mix_GetError() << endl;
-		success = false;
-	}
-
-	// Ladowanie tekstury
-	if (!gPromptTextTexture.loadFromRenderedText("Nacisnij ENTER, aby zresetowac czas.", textColor))
-	{
-		cout << "Nie mozna wyrenderowac tekstury!" << endl;
-		success = false;
-	}
-	return success;
-}
-
-void close()
-{
-	// Zwalnia zaladowany obrazek
-	if (gTexture != NULL)
-	{
-		SDL_DestroyTexture(gTexture);
-		gTexture = NULL;
-	}
-	if (gTexture2 != NULL)
-	{
-		SDL_DestroyTexture(gTexture2);
-		gTexture2 = NULL;
-	}
-	if (Warehouse_I_texture != NULL)
-	{
-		SDL_DestroyTexture(Warehouse_I_texture);
-		Warehouse_I_texture = NULL;
-	}
-	if (Warehouse_II_texture != NULL)
-	{
-		SDL_DestroyTexture(Warehouse_II_texture);
-		Warehouse_II_texture = NULL;
-	}
-	if (Warehouse_III_texture != NULL)
-	{
-		SDL_DestroyTexture(Warehouse_III_texture);
-		Warehouse_III_texture = NULL;
-	}
-	if (Warehouse_IV_texture != NULL)
-	{
-		SDL_DestroyTexture(Warehouse_IV_texture);
-		Warehouse_IV_texture = NULL;
-	}
-
-	// Zwalnia teksture tekstu
-	gTextTexture.free();
-
-	// Zwalnia czcionke
-	TTF_CloseFont(gFont);
-	gFont = NULL;
-
-	// Zwalnia dzwiek
-	Mix_FreeChunk(gClickSound);
-	gClickSound = NULL;
-
-	// Zwalnia muzyke
-	Mix_FreeMusic(gBackgroundMusic);
-	gBackgroundMusic = NULL;
-
-	// Zamyka okno
-	SDL_DestroyRenderer(gRenderer);
-	SDL_DestroyWindow(gWindow);
-	gWindow = NULL;
-	gRenderer = NULL;
-
-	// Zamkniecie systemow SDL'a
-	TTF_Quit();
-	IMG_Quit();
-	SDL_Quit();
-}
 
 int main(int argc, char* args[])
 {
@@ -269,24 +40,17 @@ int main(int argc, char* args[])
 		{
 			// Flaga glownej petli
 			bool quit = false;
-			// Kolor tekstu
-			SDL_Color textC = { 255, 255, 255 };
 
-			SDL_Event e;
-
-			SDL_Rect LargeViewport;
 			LargeViewport.x = 0;
 			LargeViewport.y = 0;
 			LargeViewport.w = SCREEN_WIDTH;
 			LargeViewport.h = SCREEN_HEIGHT;
 
-			SDL_Rect LeftViewport;
 			LeftViewport.x = 0;
 			LeftViewport.y = 0;
 			LeftViewport.w = SCREEN_WIDTH / 3;
 			LeftViewport.h = SCREEN_HEIGHT;
 
-			SDL_Rect RightViewport;
 			RightViewport.x = SCREEN_WIDTH / 3;
 			RightViewport.y = 0;
 			RightViewport.w = 2 * SCREEN_WIDTH / 3;
@@ -619,23 +383,19 @@ int main(int argc, char* args[])
 			gWarehouse_rect_centre.h = gWarehouse_rect_centre_h;
 			gWarehouse_rect_centre.w = gWarehouse_rect_centre_w;
 
-			popUpMsg.w = 550;
-			popUpMsg.h = 200;
-			popUpMsg.x = (SCREEN_WIDTH - popUpMsg.w) / 2;
-			popUpMsg.y = 2 * (SCREEN_HEIGHT - popUpMsg.h) / 3;
 			// Glowna petla gry
 			while (!quit)
 			{
-				//Handle events on queue
+				// Handle events on queue
 				while (SDL_PollEvent(&e) != 0)
 				{
-					// User requests quit
+					// Sprawdzenie zadania wyjscia
 					if (e.type == SDL_QUIT)
 						quit = true;
 				}
-				//If there is no music playing 
+				// Jesli muzyka sie nie odtwarza
 				if (Mix_PlayingMusic() == 0)
-					//Play the music 
+					// Odtworz muzyke
 					Mix_PlayMusic(gBackgroundMusic, -1);
 
 				// Klawisz ESCAPE - wychodzenie do menu glownego
@@ -656,44 +416,20 @@ int main(int argc, char* args[])
 						screen = MAIN;
 						subScreen = MAIN;
 					}
-				// Ustawianie tekst do renderowania
 
 				// Czyszczenie ekranu
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(gRenderer);
-				SDL_Rect fillRect = { 6, 295, 30, 5 };
-				SDL_Rect fillRect2 = { 71, 295, 30, 5 };
-				SDL_Rect fillRect3 = { 136, 295, 30, 5 };
-				SDL_Rect fillRect4 = { 201, 295, 30, 5 };
-				SDL_Rect fillRect5 = { 266, 295, 30, 5 };
 
-				SDL_Rect fillRect6 = { 6, 369, 30, 5 };
-				SDL_Rect fillRect7 = { 71, 369, 30, 5 };
-				SDL_Rect fillRect8 = { 136, 369, 30, 5 };
-				SDL_Rect fillRect9 = { 201, 369, 30, 5 };
-				SDL_Rect fillRect10 = { 266, 369, 30, 5 };
-
-				SDL_Rect fillRect11 = { 6, 437, 30, 5 };
-				SDL_Rect fillRect12 = { 71, 437, 30, 5 };
-				SDL_Rect fillRect13 = { 136, 437, 30, 5 };
-				SDL_Rect fillRect14 = { 201, 437, 30, 5 };
-				SDL_Rect fillRect15 = { 266, 437, 30, 5 };
-
-				SDL_Rect fillRect16 = { 6, 507, 30, 5 };
-				SDL_Rect fillRect17 = { 71, 507, 30, 5 };
-				SDL_Rect fillRect18 = { 136, 507, 30, 5 };
-				SDL_Rect fillRect19 = { 201, 507, 30, 5 };
-				SDL_Rect fillRect20 = { 266, 507, 30, 5 };
-				
 				switch (screen)
 				{
-					// Ekran menu glownego
 				case MAIN:
 					timer.pause();
 					SDL_RenderSetViewport(gRenderer, &LargeViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
 					switch (subScreen)
 					{
+					// Ekran menu glownego
 					case MAIN:
 						if (timer.getTicks() > 0)
 						{
@@ -701,13 +437,9 @@ int main(int argc, char* args[])
 							continue_button.handleEvent(&e);
 						}
 						new_game_button.setPosition(624, 400);
-						new_game_button.render();
-						load_game_button.render();
-						exit_game_button.render();
-						new_game_button.handleEvent(&e);
-						load_game_button.handleEvent(&e);
-						exit_game_button.handleEvent(&e);
-
+						new_game_button.handleEvent(&e);		new_game_button.render();					
+						load_game_button.render();				load_game_button.handleEvent(&e);
+						exit_game_button.render();				exit_game_button.handleEvent(&e);
 						if (MUSIC_ON == true)
 						{
 							Music_On.render();
@@ -721,34 +453,30 @@ int main(int argc, char* args[])
 							Mix_PauseMusic();
 						}
 						break;
-						// Ekran wczytywania stanu gry
+						// Komunikat - potwierdzenie nowej gry
 					case POPUPMSG:
-						SDL_RenderCopy(gRenderer, popUpMsg_texture, NULL, &popUpMsg);
 						gTextTexture.loadFromRenderedText("Czy na pewno chcesz rozpoczac nowa gre?", textC);
 						gTextTexture.render((SCREEN_WIDTH - gTextTexture.getWidth()) / 2, 380);
+
 						new_game_button.setPosition(SCREEN_WIDTH - MAIN_BUTTON_WIDTH - 525, 520);
-						new_game_button.render();
-						new_game_button.handleEvent(&e);
+						new_game_button.render();				new_game_button.handleEvent(&e);
+
 						main_menu_button.setPosition(525, 520);
-						main_menu_button.render();
-						main_menu_button.handleEvent(&e);
+						main_menu_button.render();				main_menu_button.handleEvent(&e);
 						break;
+						// Ekran wczytywania stanu gry
 					case LOAD:
 						gTextTexture.loadFromRenderedText("Wczytaj", textC);
 						gTextTexture.render(600, 200);
-
 						main_menu_button.setPosition(624, 660);
-						main_menu_button.render();
-						main_menu_button.handleEvent(&e);
+						main_menu_button.render();				main_menu_button.handleEvent(&e);
 						break;
 						// Ekran zapisu stanu gry
 					case SAVE:
 						gTextTexture.loadFromRenderedText("Zapisz", textC);
 						gTextTexture.render(624, 200);
-
 						back_button.setPosition(624, 660);
-						back_button.render();
-						back_button.handleEvent(&e);
+						back_button.render();					back_button.handleEvent(&e);
 						break;
 					}
 					break;
@@ -758,63 +486,46 @@ int main(int argc, char* args[])
 					timer.count();
 					SDL_RenderSetViewport(gRenderer, &LeftViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
-					// Liczby
-					// test
 
-					// Pieniadze
-	//TAK		//	gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
-	//BYLO		//	gTextTexture.render(90, 40);
+					// Skarbiec - wyswietlanie wartosci
 					// Podatki
-					gTextTexture.loadFromRenderedText("50000", textC);
-					Money_int++;
+					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
 					gTextTexture.render(90, 40);
-
+					Money_int++;
 					// Koszty
 					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(90, 63);
-
 					// Sprzedaz
 					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(90, 90);
-
 					// Kupno
 					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(90, 113);
-
 					// Bilans
 					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(90, 140);
-
 					// Srodki
 					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(90, 170);
 
-
-					// Ludnosc
-	//TAK		//	gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
-	//BYLO		//	gTextTexture.render(340, 175);
+					// Ludnosc - wyswietlanie wartosci
 					// Pionierzy
 					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(340, 38);
-
 					// Osadnicy
 					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(340, 62);
-
 					// Mieszczanie
 					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(340, 90);
-
 					// Kupcy
 					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(340, 117);
-
 					// Arystokraci
 					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(340, 145);
-
 					// Mieszkancy
-					gTextTexture.loadFromRenderedText("0", textC);
+					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
 					gTextTexture.render(340, 175);
 					People_int++;
 
@@ -867,115 +578,75 @@ int main(int argc, char* args[])
 						upgrade_AV_Warehouse.render();
 						upgrade_AV_Warehouse.handleEvent(&e);
 					}
-
 					if (buy == true)
 					{
 						gTextTexture.loadFromRenderedText("Kup", textC);
 						gTextTexture.render(250, 210);
-						buy_iron_ore_button.render();
-						buy_iron_ore_button.handleEvent(&e);
-						buy_gold_button.render();
-						buy_gold_button.handleEvent(&e);
-						buy_cottom_button.render();
-						buy_cottom_button.handleEvent(&e);
-						buy_sugarcane_button.render();
-						buy_sugarcane_button.handleEvent(&e);
-						buy_food_button.render();
-						buy_food_button.handleEvent(&e);
 
-						buy_tobacco_button.render();
-						buy_tobacco_button.handleEvent(&e);
-						buy_cattle_button.render();
-						buy_cattle_button.handleEvent(&e);
-						buy_grain_button.render();
-						buy_grain_button.handleEvent(&e);
-						buy_flour_button.render();
-						buy_flour_button.handleEvent(&e);
-						buy_alcohol_button.render();
-						buy_alcohol_button.handleEvent(&e);
+						buy_iron_ore_button.render();			buy_iron_ore_button.handleEvent(&e);
+						buy_gold_button.render();				buy_gold_button.handleEvent(&e);
+						buy_cottom_button.render();				buy_cottom_button.handleEvent(&e);
+						buy_sugarcane_button.render();			buy_sugarcane_button.handleEvent(&e);
+						buy_food_button.render();				buy_food_button.handleEvent(&e);
 
-						buy_spices_button.render();
-						buy_spices_button.handleEvent(&e);
-						buy_textiles_button.render();
-						buy_textiles_button.handleEvent(&e);
-						buy_clothes_button.render();
-						buy_clothes_button.handleEvent(&e);
-						buy_cigarettes_button.render();
-						buy_cigarettes_button.handleEvent(&e);
-						buy_jewelry_button.render();
-						buy_jewelry_button.handleEvent(&e);
+						buy_tobacco_button.render();			buy_tobacco_button.handleEvent(&e);
+						buy_cattle_button.render();				buy_cattle_button.handleEvent(&e);
+						buy_grain_button.render();				buy_grain_button.handleEvent(&e);
+						buy_flour_button.render();				buy_flour_button.handleEvent(&e);
+						buy_alcohol_button.render();			buy_alcohol_button.handleEvent(&e);
 
-						buy_tools_button.render();
-						buy_tools_button.handleEvent(&e);
-						buy_wood_button.render();
-						buy_wood_button.handleEvent(&e);
-						buy_bricks_button.render();
-						buy_bricks_button.handleEvent(&e);
-						buy_iron_button.render();
-						buy_iron_button.handleEvent(&e);
-						buy_cocoa_button.render();
-						buy_cocoa_button.handleEvent(&e);
+						buy_spices_button.render();				buy_spices_button.handleEvent(&e);
+						buy_textiles_button.render();			buy_textiles_button.handleEvent(&e);
+						buy_clothes_button.render();			buy_clothes_button.handleEvent(&e);
+						buy_cigarettes_button.render();			buy_cigarettes_button.handleEvent(&e);
+						buy_jewelry_button.render();			buy_jewelry_button.handleEvent(&e);
 
-						cancel_AV_button.render();
-						cancel_AV_button.handleEvent(&e);
+						buy_tools_button.render();				buy_tools_button.handleEvent(&e);
+						buy_wood_button.render();				buy_wood_button.handleEvent(&e);
+						buy_bricks_button.render();				buy_bricks_button.handleEvent(&e);
+						buy_iron_button.render();				buy_iron_button.handleEvent(&e);
+						buy_cocoa_button.render();				buy_cocoa_button.handleEvent(&e);
+
+						cancel_AV_button.render();				cancel_AV_button.handleEvent(&e);
 					}
 					else if (sell == true)
 					{
 						gTextTexture.loadFromRenderedText("Sprzedaj", textC);
 						gTextTexture.render(250, 210);
-						sell_iron_ore_button.render();
-						sell_iron_ore_button.handleEvent(&e);
-						sell_gold_button.render();
-						sell_gold_button.handleEvent(&e);
-						sell_cottom_button.render();
-						sell_cottom_button.handleEvent(&e);
-						sell_sugarcane_button.render();
-						sell_sugarcane_button.handleEvent(&e);
-						sell_food_button.render();
-						sell_food_button.handleEvent(&e);
 
-						sell_tobacco_button.render();
-						sell_tobacco_button.handleEvent(&e);
-						sell_cattle_button.render();
-						sell_cattle_button.handleEvent(&e);
-						sell_grain_button.render();
-						sell_grain_button.handleEvent(&e);
-						sell_flour_button.render();
-						sell_flour_button.handleEvent(&e);
-						sell_alcohol_button.render();
-						sell_alcohol_button.handleEvent(&e);
+						sell_iron_ore_button.render();			sell_iron_ore_button.handleEvent(&e);
+						sell_gold_button.render();				sell_gold_button.handleEvent(&e);
+						sell_cottom_button.render();			sell_cottom_button.handleEvent(&e);
+						sell_sugarcane_button.render();			sell_sugarcane_button.handleEvent(&e);
+						sell_food_button.render();				sell_food_button.handleEvent(&e);
 
-						sell_spices_button.render();
-						sell_spices_button.handleEvent(&e);
-						sell_textiles_button.render();
-						sell_textiles_button.handleEvent(&e);
-						sell_clothes_button.render();
-						sell_clothes_button.handleEvent(&e);
-						sell_cigarettes_button.render();
-						sell_cigarettes_button.handleEvent(&e);
-						sell_jewelry_button.render();
-						sell_jewelry_button.handleEvent(&e);
+						sell_tobacco_button.render();			sell_tobacco_button.handleEvent(&e);
+						sell_cattle_button.render();			sell_cattle_button.handleEvent(&e);
+						sell_grain_button.render();				sell_grain_button.handleEvent(&e);
+						sell_flour_button.render();				sell_flour_button.handleEvent(&e);
+						sell_alcohol_button.render();			sell_alcohol_button.handleEvent(&e);
 
-						sell_tools_button.render();
-						sell_tools_button.handleEvent(&e);
-						sell_wood_button.render();
-						sell_wood_button.handleEvent(&e);
-						sell_bricks_button.render();
-						sell_bricks_button.handleEvent(&e);
-						sell_iron_button.render();
-						sell_iron_button.handleEvent(&e);
-						sell_cocoa_button.render();
-						sell_cocoa_button.handleEvent(&e);
+						sell_spices_button.render();			sell_spices_button.handleEvent(&e);
+						sell_textiles_button.render();			sell_textiles_button.handleEvent(&e);
+						sell_clothes_button.render();			sell_clothes_button.handleEvent(&e);
+						sell_cigarettes_button.render();		sell_cigarettes_button.handleEvent(&e);
+						sell_jewelry_button.render();			sell_jewelry_button.handleEvent(&e);
 
-						cancel_AV_button.render();
-						cancel_AV_button.handleEvent(&e);
+						sell_tools_button.render();				sell_tools_button.handleEvent(&e);
+						sell_wood_button.render();				sell_wood_button.handleEvent(&e);
+						sell_bricks_button.render();			sell_bricks_button.handleEvent(&e);
+						sell_iron_button.render();				sell_iron_button.handleEvent(&e);
+						sell_cocoa_button.render();				sell_cocoa_button.handleEvent(&e);
+
+						cancel_AV_button.render();				cancel_AV_button.handleEvent(&e);
 					}
 					else
 					{
-						cancel_NAV_button.render();
-						cancel_NAV_button.handleEvent(&e);
+						cancel_NAV_button.render();				cancel_NAV_button.handleEvent(&e);
 					}
 					SDL_SetRenderDrawColor(gRenderer, 0xFF, 0x00, 0x00, 0xFF);
+
+					// Paski stanu zasobow
 					SDL_RenderFillRect(gRenderer, &fillRect);
 					SDL_RenderFillRect(gRenderer, &fillRect2);
 					SDL_RenderFillRect(gRenderer, &fillRect3);
@@ -1000,37 +671,27 @@ int main(int argc, char* args[])
 					SDL_RenderFillRect(gRenderer, &fillRect19);
 					SDL_RenderFillRect(gRenderer, &fillRect20);
 
-					buy_button.render();
-					buy_button.handleEvent(&e);
-					sell_button.render();
-					sell_button.handleEvent(&e);
-					stats_button.render();
-					stats_button.handleEvent(&e);
-					save_game_button.render();
-					save_game_button.handleEvent(&e);
+					buy_button.render();						buy_button.handleEvent(&e);
+					sell_button.render();						sell_button.handleEvent(&e);
+					stats_button.render();						stats_button.handleEvent(&e);
+					save_game_button.render();					save_game_button.handleEvent(&e);
 					switch (subScreen)
 					{
 						// Ekran rozgrywki - wybor budynkow
 					case GAME:
 						main_menu_button.setPosition(300, 732);
-						main_menu_button.render();
-						main_menu_button.handleEvent(&e);
+						main_menu_button.render();				main_menu_button.handleEvent(&e);
 
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
-						ind_button.render();
-						prod_button.render();
-						pub_button.render();
-						ind_button.handleEvent(&e);
-						prod_button.handleEvent(&e);
-						pub_button.handleEvent(&e);
-
+						ind_button.render();					ind_button.handleEvent(&e);
+						prod_button.render();					prod_button.handleEvent(&e);
+						pub_button.render();					pub_button.handleEvent(&e);
 						break;
 
 						// Ekran rozgrywki - statystyki
 					case STATS:
 						back_button.setPosition(300, 732);
-						back_button.render();
-						back_button.handleEvent(&e);
+						back_button.render();					back_button.handleEvent(&e);
 		
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
@@ -1066,13 +727,11 @@ int main(int argc, char* args[])
 						// Pozwolenie i zakaz budowy
 						if (allow_build == true)
 						{
-							Deny_Build.render();
-							Deny_Build.handleEvent(&e);
+							Deny_Build.render();				Deny_Build.handleEvent(&e);
 						}
 						else
 						{
-							Allow_Build.render();
-							Allow_Build.handleEvent(&e);
+							Allow_Build.render();				Allow_Build.handleEvent(&e);
 						}
 						// Buduj zburz domy
 						// BUILD								DESTROY
@@ -1095,48 +754,47 @@ int main(int argc, char* args[])
 						// Ekran rozgrywki - budynki publiczne
 					case PUB:
 						back_button.setPosition(300, 732);
-						back_button.render();
-						back_button.handleEvent(&e);
+						back_button.render();					back_button.handleEvent(&e);
+
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
 
 						// Obiekty przyciskow
 						// RENDER							//HANDLE_EVENT
-						build_NAV_Doctor.render();			build_NAV_Doctor.handleEvent(&e);
-						destroy_NAV_Doctor.render();		destroy_NAV_Doctor.handleEvent(&e);
+						build_NAV_Doctor.render();				build_NAV_Doctor.handleEvent(&e);
+						destroy_NAV_Doctor.render();			destroy_NAV_Doctor.handleEvent(&e);
 
-						build_NAV_PublicBath.render();		build_NAV_PublicBath.handleEvent(&e);
-						destroy_NAV_PublicBath.render();	destroy_NAV_PublicBath.handleEvent(&e);
+						build_NAV_PublicBath.render();			build_NAV_PublicBath.handleEvent(&e);
+						destroy_NAV_PublicBath.render();		destroy_NAV_PublicBath.handleEvent(&e);
 
-						build_NAV_FireDepartment.render();	build_NAV_FireDepartment.handleEvent(&e);
-						destroy_NAV_FireDepartment.render(); destroy_NAV_FireDepartment.handleEvent(&e);
+						build_NAV_FireDepartment.render();		build_NAV_FireDepartment.handleEvent(&e);
+						destroy_NAV_FireDepartment.render();	 destroy_NAV_FireDepartment.handleEvent(&e);
 
-						build_NAV_University.render();		build_NAV_University.handleEvent(&e);
-						destroy_NAV_University.render();	destroy_NAV_University.handleEvent(&e);
+						build_NAV_University.render();			build_NAV_University.handleEvent(&e);
+						destroy_NAV_University.render();		destroy_NAV_University.handleEvent(&e);
 
-						build_AV_Chapel.render();			build_AV_Chapel.handleEvent(&e);
-						destroy_AV_Chapel.render();			destroy_AV_Chapel.handleEvent(&e);
+						build_AV_Chapel.render();				build_AV_Chapel.handleEvent(&e);
+						destroy_AV_Chapel.render();				destroy_AV_Chapel.handleEvent(&e);
 
-						build_NAV_Church.render();			build_NAV_Church.handleEvent(&e);
-						destroy_NAV_Church.render();		destroy_NAV_Church.handleEvent(&e);
+						build_NAV_Church.render();				build_NAV_Church.handleEvent(&e);
+						destroy_NAV_Church.render();			destroy_NAV_Church.handleEvent(&e);
 
-						build_AV_MarketPlace.render();		build_AV_MarketPlace.handleEvent(&e);
-						destroy_AV_MarketPlace.render();	destroy_AV_MarketPlace.handleEvent(&e);
+						build_AV_MarketPlace.render();			build_AV_MarketPlace.handleEvent(&e);
+						destroy_AV_MarketPlace.render();		destroy_AV_MarketPlace.handleEvent(&e);
 
-						build_NAV_School.render();			build_NAV_School.handleEvent(&e);
-						destroy_NAV_School.render();		destroy_NAV_School.handleEvent(&e);
+						build_NAV_School.render();				build_NAV_School.handleEvent(&e);
+						destroy_NAV_School.render();			destroy_NAV_School.handleEvent(&e);
 
-						build_NAV_Theatre.render();			build_NAV_Theatre.handleEvent(&e);
-						destroy_NAV_Theatre.render();		destroy_NAV_Theatre.handleEvent(&e);
+						build_NAV_Theatre.render();				build_NAV_Theatre.handleEvent(&e);
+						destroy_NAV_Theatre.render();			destroy_NAV_Theatre.handleEvent(&e);
 
-						build_NAV_Tavern.render();			build_NAV_Tavern.handleEvent(&e);
-						destroy_NAV_Tavern.render();		destroy_NAV_Tavern.handleEvent(&e);
+						build_NAV_Tavern.render();				build_NAV_Tavern.handleEvent(&e);
+						destroy_NAV_Tavern.render();			destroy_NAV_Tavern.handleEvent(&e);
 						break;
 						// Ekran rozgrywki - przetworstwo
 					case IND:
 						back_button.setPosition(300, 732);
-						back_button.render();
-						back_button.handleEvent(&e);
+						back_button.render();					back_button.handleEvent(&e);
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
 
@@ -1177,20 +835,17 @@ int main(int argc, char* args[])
 
 						build_NAV_WindMill.render();			build_NAV_WindMill.handleEvent(&e);
 						destroy_NAV_WindMill.render();			destroy_NAV_WindMill.handleEvent(&e);
-
 						break;
 						// Ekran rozgrywki - produkcja
 					case PROD:
 						back_button.setPosition(300, 732);
-						back_button.render();
-						back_button.handleEvent(&e);
+						back_button.render();					back_button.handleEvent(&e);
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
 
 						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
 						gTextTexture.loadFromRenderedText(_itoa(chatka_drwala, People_char_buffor, 10), textC);
 						gTextTexture.render(53, 228);
-						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
 
 						// Obiekty przyciskow
 						// RENDER								// HANDLE_EVENT

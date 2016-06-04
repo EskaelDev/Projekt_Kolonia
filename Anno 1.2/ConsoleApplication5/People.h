@@ -6,6 +6,7 @@ class People
 protected:
 	int number;					// liczba mieszkancow
 	int tax;					// podatek od mieszkanca
+	// tutaj dynamiczna tablica z id surowcow pobieranych jako potrzeby
 
 public:
 	People(int);

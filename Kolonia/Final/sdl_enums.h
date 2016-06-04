@@ -1,0 +1,57 @@
+#ifndef SDL_ENUMS_H
+#define SDL_ENUMS_H
+
+// Ekran gry
+enum Screen
+{
+	MAIN,
+	LOAD,
+	SAVE,
+	GAME,
+	PUB,
+	IND,
+	PROD,
+	STATS,
+	QUIT
+};
+
+extern Screen screen, subScreen;
+
+// Akcje na przycisk
+enum Actions
+{
+	NEW_GAME,
+	CONTINUE_GAME,
+	LOAD_GAME,
+	SAVE_GAME,
+	MAIN_MENU,
+	EXIT_GAME,
+	BUY,
+	BUY_RESOURCE,
+	SELL,
+	SELL_RESOURCE,
+	PUBLIC,
+	INDUSTRIAL,
+	PRODUCTION,
+	VIEW_STATS,
+	BUILD,
+	DESTROY,
+	UPGRADE,
+	CANCEL,
+	ALLOW_BUILD,
+	DENY_BUILD,
+	CHANGE_MUSIC,
+	NONE
+};
+
+// Sprity przycisku
+enum SButtonSprite
+{
+	BUTTON_SPRITE_MOUSE_OUT,
+	BUTTON_SPRITE_MOUSE_OVER_MOTION,
+	BUTTON_SPRITE_MOUSE_DOWN,
+	BUTTON_SPRITE_MOUSE_UP,
+	BUTTON_SPRITE_TOTAL
+};
+
+#endif

@@ -107,6 +107,7 @@ int h = 0, m = 0, s = 0;
 // Kolor renderowanego tekstu
 SDL_Color textColor = { 255, 255, 255, 255 };
 
+
 // Sprity stanow przycisku
 enum LButtonSprite
 {
@@ -135,7 +136,7 @@ enum Screen
 enum Actions
 {
 	NEW_GAME,
-	PLAY_GAME,
+	CONTINUE_GAME,
 	LOAD_GAME,
 	SAVE_GAME,
 	MAIN_MENU,
@@ -396,6 +397,289 @@ LTexture gTextTexture;
 LTexture gPromptTextTexture;
 LTexture gTimeTextTexture;
 
+//The application time based timer
+class Timer
+{
+public:
+	Timer();
+
+	//The various clock actions
+	void start();
+	void stop();
+	void pause();
+	void unpause();
+
+	void count();
+	void render();
+
+	//Gets the timer's time
+	Uint32 getTicks();
+
+	//Checks the status of the timer
+	bool isStarted();
+	bool isPaused();
+
+private:
+	//The clock time when the timer started
+	Uint32 mStartTicks;
+
+	//The ticks stored when the timer was paused
+	Uint32 mPausedTicks;
+
+	//The timer status
+	bool mPaused;
+	bool mStarted;
+
+	std::stringstream timeText;
+};
+
+Timer::Timer()
+{
+	mStartTicks = 0;
+	mPausedTicks = 0;
+
+	mPaused = true;
+	mStarted = true;
+}
+
+void Timer::start()
+{
+	//Start the timer
+	mStarted = true;
+
+	//Unpause the timer
+	mPaused = false;
+
+	//Get the current clock time
+	mStartTicks = SDL_GetTicks();
+	mPausedTicks = 0;
+}
+
+void Timer::stop()
+{
+	//Stop the timer
+	mStarted = false;
+
+	//Unpause the timer
+	mPaused = false;
+
+	//Clear tick variables
+	mStartTicks = 0;
+	mPausedTicks = 0;
+}
+
+void Timer::pause()
+{
+	//If the timer is running and isn't already paused
+	if (mStarted && !mPaused)
+	{
+		//Pause the timer
+		mPaused = true;
+
+		//Calculate the paused ticks
+		mPausedTicks = SDL_GetTicks() - mStartTicks;
+		mStartTicks = 0;
+	}
+}
+
+void Timer::unpause()
+{
+	//If the timer is running and paused
+	if (mStarted && mPaused)
+	{
+		//Unpause the timer
+		mPaused = false;
+
+		//Reset the starting ticks
+		mStartTicks = SDL_GetTicks() - mPausedTicks;
+
+		//Reset the paused ticks
+		mPausedTicks = 0;
+	}
+}
+
+Uint32 Timer::getTicks()
+{
+	//The actual timer time
+	Uint32 time = 0;
+
+	//If the timer is running
+	if (mStarted)
+	{
+		//If the timer is paused
+		if (mPaused)
+		{
+			//Return the number of ticks when the timer was paused
+			time = mPausedTicks;
+		}
+		else
+		{
+			//Return the current time minus the start time
+			time = SDL_GetTicks() - mStartTicks;
+		}
+	}
+
+	return time;
+}
+
+bool Timer::isStarted()
+{
+	//Timer is running and paused or unpaused
+	return mStarted;
+}
+
+bool Timer::isPaused()
+{
+	//Timer is running and paused
+	return mPaused && mStarted;
+}
+
+void Timer::count()
+{
+	if (getTicks() % 130 == 0)
+	{
+		if (s1 < 56)
+		{
+			s1++;
+			s1++;
+			s15++;
+		}
+		if (s5 < 56)
+			s5++;
+		if (s18 < 56)
+			s18++;
+	}
+	if (getTicks() % 150 == 0)
+	{
+		if (s2 < 56)
+			s2++;
+		if (s6 < 56)
+			s6++;
+		if (s10 < 56)
+			s10++;
+		if (s11 < 56)
+			s11++;
+		if (s16 < 56)
+			s16++;
+	}
+	if (getTicks() % 200 == 0)
+	{
+		if (s3 < 56)
+			s3++;
+		if (s13 < 56)
+			s13++;
+		if (s19 < 56)
+			s19++;
+		if (s12 < 56)
+			s12++;
+	}
+	if (getTicks() % 300 == 0)
+	{
+		if (s4 < 56)
+			s4++;
+		if (s7 < 56)
+		{
+			s7++;
+			s7++;
+		}
+		if (s15 < 56)
+			s15++;
+		if (s20 < 56)
+		{
+			s20++;
+			s20++;
+			s20++;
+
+		}
+	}
+	if (getTicks() % 200 == 0)
+	{
+		if (s8 < 56)
+			s8++;
+		if (s11 < 56)
+			s11++;
+		if (s14 < 56)
+		{
+
+			s14++;
+			s14++;
+			s14++;
+		}
+		if (s17 < 56)
+			s17++;
+	}
+	if (getTicks() % 300 == 0)
+	{
+		s9++;
+		if (s1 < 0)
+			s1--;
+		if (s2 < 0)
+			s2--;
+		if (s3 < 0)
+			s3--;
+		if (s4 < 0)
+			s4--;
+		if (s5 < 0)
+			s5--;
+		if (s6 < 0)
+			s6--;
+		if (s7 < 0)
+			s7--;
+		if (s8 < 0)
+			s8--;
+		if (s9 < 0)
+			s9--;
+		if (s10 < 0)
+			s10--;
+		if (s11 < 0)
+			s11--;
+		if (s12 < 0)
+			s12--;
+		if (s13 < 0)
+			s13--;
+		if (s14 < 0)
+			s14--;
+		if (s15 < 0)
+			s15--;
+		if (s16 < 0)
+			s16--;
+		if (s17 < 0)
+			s17--;
+		if (s18 < 0)
+			s18--;
+		if (s19 < 0)
+			s19--;
+		if (s20 < 0)
+			s20--;
+	}
+	if (s == 60)
+	{
+		m++;
+		s = 0;
+	}
+	s = (getTicks() / 1000) - (m * 60);
+}
+
+void Timer::render()
+{
+
+	timeText.str("");
+	timeText << m << " m " << s << " sekund";
+	// Renderowanie tekstu
+	if (!gTimeTextTexture.loadFromRenderedText(timeText.str().c_str(), textColor))
+	{
+		cout << "Nie mozna wyrenderowac czasu!" << endl;
+	}
+	else
+	{
+		gTimeTextTexture.render((350 - gTimeTextTexture.getWidth()), 310);
+	}
+}
+
+// Czas
+Timer timer;
+
+
 class LButton
 {
 public:
@@ -598,9 +882,12 @@ void LButton::render()
 {
 	gButtonSpriteSheetTexture.render(mPosition.x, mPosition.y, &gSpriteClips[mCurrentSprite]);
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
-bool upgrade = true; int licze_magazyny = 0; bool MUSIC_ON = true; int chatka_drwala = 0;
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC !!!!!!!
+bool upgrade = true; //zastapion funkcja
+int licze_magazyny = 0; // ktory magazyn zbudowalismy
+bool MUSIC_ON = true; 
+int chatka_drwala = 0; // do wyœwietlania ile jest budynkow, zastopione prez funkcjie
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC !!!!!!!
 
 void LButton::operation(Actions action)
 {
@@ -612,6 +899,9 @@ void LButton::operation(Actions action)
 		gTexture = loadTexture("imgs/left.png");
 		screen = GAME;
 		subScreen = GAME;
+		timer.stop();
+		timer.start();
+		// Wyzerowanie wszustkiego !!!!!!!!!!
 		break;
 
 	case LOAD_GAME:
@@ -648,7 +938,7 @@ void LButton::operation(Actions action)
 		subScreen = MAIN;
 		break;
 
-	case PLAY_GAME:
+	case CONTINUE_GAME:
 		SDL_DestroyTexture(gTexture);
 		gTexture = NULL;
 		gTexture = loadTexture("imgs/left.png");
@@ -774,285 +1064,6 @@ void LButton::operation(Actions action)
 		break;
 
 
-	}
-}
-
-//The application time based timer
-class Timer
-{
-public:
-	Timer();
-
-	//The various clock actions
-	void start();
-	void stop();
-	void pause();
-	void unpause();
-
-	void count();
-	void render();
-
-	//Gets the timer's time
-	Uint32 getTicks();
-
-	//Checks the status of the timer
-	bool isStarted();
-	bool isPaused();
-
-private:
-	//The clock time when the timer started
-	Uint32 mStartTicks;
-
-	//The ticks stored when the timer was paused
-	Uint32 mPausedTicks;
-
-	//The timer status
-	bool mPaused;
-	bool mStarted;
-
-	std::stringstream timeText;
-};
-
-Timer::Timer()
-{
-	mStartTicks = 0;
-	mPausedTicks = 0;
-
-	mPaused = true;
-	mStarted = true;
-}
-
-void Timer::start()
-{
-	//Start the timer
-	mStarted = true;
-
-	//Unpause the timer
-	mPaused = false;
-
-	//Get the current clock time
-	mStartTicks = SDL_GetTicks();
-	mPausedTicks = 0;
-}
-
-void Timer::stop()
-{
-	//Stop the timer
-	mStarted = false;
-
-	//Unpause the timer
-	mPaused = false;
-
-	//Clear tick variables
-	mStartTicks = 0;
-	mPausedTicks = 0;
-}
-
-void Timer::pause()
-{
-	//If the timer is running and isn't already paused
-	if (mStarted && !mPaused)
-	{
-		//Pause the timer
-		mPaused = true;
-
-		//Calculate the paused ticks
-		mPausedTicks = SDL_GetTicks() - mStartTicks;
-		mStartTicks = 0;
-	}
-}
-
-void Timer::unpause()
-{
-	//If the timer is running and paused
-	if (mStarted && mPaused)
-	{
-		//Unpause the timer
-		mPaused = false;
-
-		//Reset the starting ticks
-		mStartTicks = SDL_GetTicks() - mPausedTicks;
-
-		//Reset the paused ticks
-		mPausedTicks = 0;
-	}
-}
-
-Uint32 Timer::getTicks()
-{
-	//The actual timer time
-	Uint32 time = 0;
-
-	//If the timer is running
-	if (mStarted)
-	{
-		//If the timer is paused
-		if (mPaused)
-		{
-			//Return the number of ticks when the timer was paused
-			time = mPausedTicks;
-		}
-		else
-		{
-			//Return the current time minus the start time
-			time = SDL_GetTicks() - mStartTicks;
-		}
-	}
-
-	return time;
-}
-
-bool Timer::isStarted()
-{
-	//Timer is running and paused or unpaused
-	return mStarted;
-}
-
-bool Timer::isPaused()
-{
-	//Timer is running and paused
-	return mPaused && mStarted;
-}
-
-void Timer::count()
-{
-	if (getTicks() % 130 == 0)
-	{
-		if (s1 < 56)
-		{
-			s1++;
-			s1++;
-			s15++;
-		}
-		if (s5 < 56)
-			s5++;
-		if (s18 < 56)
-			s18++;
-	}
-	if (getTicks() % 150 == 0)
-	{
-		if (s2 < 56)
-			s2++;
-		if (s6 < 56)
-			s6++;
-		if (s10 < 56)
-			s10++;
-		if (s11 < 56)
-			s11++;
-		if (s16 < 56)
-			s16++;
-	}
-	if (getTicks() % 200 == 0)
-	{
-		if (s3 < 56)
-			s3++;
-		if (s13 < 56)
-			s13++;
-		if (s19 < 56)
-			s19++;
-		if (s12 < 56)
-				s12++;
-	}
-	if (getTicks() % 300 == 0)
-	{
-		if (s4 < 56)
-			s4++;
-		if (s7 < 56)
-		{
-			s7++;
-			s7++;
-		}
-		if (s15 < 56)
-			s15++;
-		if (s20 < 56)
-		{
-			s20++;
-			s20++;
-			s20++;
-
-		}
-	}
-	if (getTicks() % 200 == 0)
-	{
-		if (s8 < 56)
-			s8++;
-		if (s11 < 56)
-			s11++;
-		if (s14 < 56)
-		{
-
-			s14++;
-			s14++;
-			s14++;
-		}
-		if (s17 < 56)
-			s17++;
-	}
-	if (getTicks() % 300 == 0)
-	{
-		s9++;
-		if (s1 < 0)
-			s1--;
-		if (s2 < 0)
-			s2--;
-		if (s3 < 0)
-			s3--;
-		if (s4 < 0)
-			s4--;
-		if (s5 < 0)
-			s5--;
-		if (s6 < 0)
-			s6--;
-		if (s7 < 0)
-			s7--;
-		if (s8 < 0)
-			s8--;
-		if (s9 < 0)
-			s9--;
-		if (s10 < 0)
-			s10--;
-		if (s11 < 0)
-			s11--;
-		if (s12 < 0)
-			s12--;
-		if (s13 < 0)
-			s13--;
-		if (s14 < 0)
-			s14--;
-		if (s15 < 0)
-			s15--;
-		if (s16 < 0)
-			s16--;
-		if (s17 < 0)
-			s17--;
-		if (s18 < 0)
-			s18--;
-		if (s19 < 0)
-			s19--;
-		if (s20 < 0)
-			s20--;
-	}
-	if (s == 60)
-	{
-		m++;
-		s = 0;
-	}
-	s = (getTicks() / 1000) - (m * 60);
-}
-
-void Timer::render()
-{
-
-	timeText.str("");
-	timeText << m << " m " << s << " sekund";
-	// Renderowanie tekstu
-	if (!gTimeTextTexture.loadFromRenderedText(timeText.str().c_str(), textColor))
-	{
-		cout << "Nie mozna wyrenderowac czasu!" << endl;
-	}
-	else
-	{
-		gTimeTextTexture.render((350 - gTimeTextTexture.getWidth()), 310);
 	}
 }
 
@@ -1324,9 +1335,6 @@ int main(int argc, char* args[])
 
 			SDL_Event e;
 
-			Timer timer;
-			
-		
 			SDL_Rect LargeViewport;
 			LargeViewport.x = 0;
 			LargeViewport.y = 0;
@@ -1350,12 +1358,12 @@ int main(int argc, char* args[])
 			// Przyciski menu
 			// przycisk(akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)	
 			LButton new_game_button(NEW_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 400, "new.png");
-			LButton continue_button(PLAY_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 350, "back.png");
+			LButton continue_button(CONTINUE_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 350, "continue.png");
 			LButton load_game_button(LOAD_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 480, "load.png");
 			LButton exit_game_button(EXIT_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 660, "exit.png");
 			LButton main_menu_button(MAIN_MENU, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 624, 660, "menu.png");
 			LButton save_game_button(SAVE_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 150, 732, "save.png");
-			LButton back_button(PLAY_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 300, 732, "back.png");
+			LButton back_button(CONTINUE_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 300, 732, "back.png");
 			LButton stats_button(VIEW_STATS, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 5, 732, "stats.png");
 
 			// Przyciski splashy
@@ -1749,6 +1757,11 @@ int main(int argc, char* args[])
 					switch (subScreen)
 					{
 					case MAIN:
+						if (timer.getTicks() > 0)
+						{
+							continue_button.render();
+							continue_button.handleEvent(&e);
+						}
 						new_game_button.render();
 						load_game_button.render();
 						exit_game_button.render();

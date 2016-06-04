@@ -1,4 +1,5 @@
 #include "SDL_Textur.h"
+#include "SDL_G_Var.h"
 
 
 SDL_Textur::SDL_Textur()

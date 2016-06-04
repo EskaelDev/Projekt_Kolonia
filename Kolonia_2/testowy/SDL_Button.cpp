@@ -1,5 +1,8 @@
 #include "SDL_Button.h"
-
+#include "SDL_G_Var.h"
+#include "SDL_Functions.h"
+#include "SDL_G_Const.h"
+#include "SDL_Timer.h"
 
 
 SDL_Button::SDL_Button(Actions action, int width, int height, int pos_x, int pos_y, char *image)

@@ -1,6 +1,7 @@
 #pragma once
 #include "SDL_Headers.h"
-
+#include "SDL_Enums.h"
+#include "SDL_Textur.h"
 
 class SDL_Button
 {

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "SDL_Headers.h"
 class SDL_Timer
 	{

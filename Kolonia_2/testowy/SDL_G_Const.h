@@ -1,6 +1,4 @@
 #pragma once
-#include "SDL_Headers.h"
-
 // Pozcja pieniedzy i ludnosci
 #define kolumna_stat_1 61
 #define kolumna_stat_2 222

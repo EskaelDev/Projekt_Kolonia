@@ -1,5 +1,4 @@
 #pragma once
-#include "SDL_Headers.h"
 
 // Sprity stanow przycisku
 enum SDL_ButtonSprite

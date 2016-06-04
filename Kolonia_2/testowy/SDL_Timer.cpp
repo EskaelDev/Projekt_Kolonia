@@ -1,5 +1,6 @@
 #include "SDL_Timer.h"
-
+#include "SDL_G_Var.h"
+#include "SDL_Textur.h"
 
 
 SDL_Timer::SDL_Timer()

@@ -1,6 +1,4 @@
 #pragma once
-#include "SDL_Headers.h"
-
 // Char buffor Ludzie i Pieniadze
 char People_char_buffor[4];				int People_int = 1;
 char Money_char_buffor[7];				int Money_int = 50000;

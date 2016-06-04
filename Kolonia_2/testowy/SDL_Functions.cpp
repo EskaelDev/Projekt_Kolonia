@@ -1,4 +1,8 @@
 #include "SDL_Functions.h"
+#include "SDL_G_Const.h"
+#include "SDL_G_Var.h"
+#include "SDL_Textur.h"
+
 bool init()
 {
 	// Flaga inicjalizacji

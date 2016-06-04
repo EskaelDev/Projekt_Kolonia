@@ -1,5 +1,13 @@
 #include "SDL_Headers.h"
 
+
+#include "SDL_Functions.h"
+#include "SDL_Button.h"
+#include "SDL_Enums.h"
+#include "SDL_G_Const.h"
+#include "SDL_G_Var.h"
+#include "SDL_Textur.h"
+#include "SDL_Timer.h"
 int main(int argc, char* args[])
 {
 	// Wlaczenie SDL i stworzenie okna

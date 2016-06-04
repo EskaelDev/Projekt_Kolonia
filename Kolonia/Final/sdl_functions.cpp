@@ -1,5 +1,6 @@
 #include "sdl_functions.h"
 
+
 SDL_Texture* loadTexture(std::string path)
 {
 	// Finalna tekstura
@@ -11,7 +12,6 @@ SDL_Texture* loadTexture(std::string path)
 		std::cout << "Nie mozna wczytac obrazka: " << path.c_str() << "! SDL_image Error: " << IMG_GetError() << std::endl;
 	else
 	{
-		SDL_Renderer *gRenderer = NULL;
 		// Wczytuje teksture z powierzchni pikseli
 		newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
 		if (newTexture == NULL)

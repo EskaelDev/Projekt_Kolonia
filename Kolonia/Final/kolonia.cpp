@@ -11,9 +11,9 @@
 #ifndef SDL_FUNCTIONS_H
 #include "sdl_functions.h"
 #endif
-#ifndef SDL_OBJECTS_H
+//#ifndef SDL_OBJECTS_H
 #include "sdl_objects.h"
-#endif
+//#endif
 #ifndef SDL_VARIABLES_H
 #include "sdl_variables.h"
 #endif
@@ -24,6 +24,10 @@
 #include "sdl_enums.h"
 #endif
 
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #include <stdio.h>
 #include <iostream>
 #include <sstream>

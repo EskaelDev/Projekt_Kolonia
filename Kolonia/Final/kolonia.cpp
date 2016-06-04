@@ -60,9 +60,7 @@ bool init()
 	{
 		// Ustawienie filtrowania tekstury na liniowe
 		if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
-		{
 			printf("Ostrzezenie: Liniowe filtrowanie tekstury jest wylaczone!");
-		}
 
 		// Tworzenie okna
 		gWindow = SDL_CreateWindow("Kolonia", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
@@ -111,7 +109,6 @@ bool init()
 			}
 		}
 	}
-
 	return success;
 }
 
@@ -154,7 +151,6 @@ bool loadMedia()
 		success = false;
 	}
 
-
 	// Ladowanie czcionki
 	gFont = TTF_OpenFont("fonts/Caladea-Regular.ttf", 19);
 	if (gFont == NULL)
@@ -195,7 +191,6 @@ bool loadMedia()
 		cout << "Nie mozna wyrenderowac tekstury!" << endl;
 		success = false;
 	}
-
 	return success;
 }
 
@@ -260,8 +255,6 @@ void close()
 	SDL_Quit();
 }
 
-
-
 int main(int argc, char* args[])
 {
 	// Wlaczenie SDL i stworzenie okna
@@ -279,8 +272,8 @@ int main(int argc, char* args[])
 			// Kolor tekstu
 			SDL_Color textC = { 255, 255, 255 };
 
-			SDL_Event e;			
-		
+			SDL_Event e;
+
 			SDL_Rect LargeViewport;
 			LargeViewport.x = 0;
 			LargeViewport.y = 0;
@@ -316,7 +309,6 @@ int main(int argc, char* args[])
 			SButton ind_button(INDUSTRIAL, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 0, "/buildings/ind.png");
 			SButton prod_button(PRODUCTION, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 256, "/buildings/prod.png");
 			SButton pub_button(PUBLIC, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 512, "/buildings/pub.png");
-			
 
 			// Przyciski: kup, sprzedaj
 			SButton buy_button(BUY, BUY_BUTTON_WIDTH, BUY_BUTTON_HEIGHT, 335, 250, "buy.png");
@@ -378,7 +370,6 @@ int main(int argc, char* args[])
 
 			// Przyciski Buduj i Zburz
 			// przycisk(id, akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)
-
 			// Production
 			// CottonPlantation
 			SButton build_NAV_CottonPlantation(19, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_3, "build_nav.png");
@@ -611,8 +602,6 @@ int main(int argc, char* args[])
 			SButton Music_On(CHANGE_MUSIC, 45, 37, 1315, 725, "music_on.png");
 			SButton Music_Off(CHANGE_MUSIC, 45, 37, 1315, 725, "music_off.png");
 
-			
-
 			// Wspolrzedne czworokatow magazynu 
 			// LEWY
 			gWarehouse_rect_left.x = gWarehouse_rect_left_x;
@@ -638,18 +627,15 @@ int main(int argc, char* args[])
 					// User requests quit
 					if (e.type == SDL_QUIT)
 						quit = true;
-
 				}
 				//If there is no music playing 
 				if (Mix_PlayingMusic() == 0)
-				{ //Play the music 
+					//Play the music 
 					Mix_PlayMusic(gBackgroundMusic, -1);
-				}
 
 				// Klawisz ESCAPE - wychodzenie do menu glownego
 				const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 				if (currentKeyStates[SDL_SCANCODE_ESCAPE])
-				{
 					if (!(screen == MAIN && subScreen == MAIN))
 					{
 						if (gTexture2 != NULL)
@@ -663,9 +649,8 @@ int main(int argc, char* args[])
 						screen = MAIN;
 						subScreen = MAIN;
 					}
-				}
 				// Ustawianie tekst do renderowania
-			
+
 				// Czyszczenie ekranu
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(gRenderer);
@@ -714,9 +699,8 @@ int main(int argc, char* args[])
 						new_game_button.handleEvent(&e);
 						load_game_button.handleEvent(&e);
 						exit_game_button.handleEvent(&e);
-						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
 
-						if(MUSIC_ON==true)
+						if (MUSIC_ON == true)
 						{
 							Music_On.render();
 							Music_On.handleEvent(&e);
@@ -728,8 +712,6 @@ int main(int argc, char* args[])
 							Music_Off.handleEvent(&e);
 							Mix_PauseMusic();
 						}
-						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
-
 						break;
 						// Ekran wczytywania stanu gry
 					case LOAD:
@@ -854,7 +836,7 @@ int main(int argc, char* args[])
 						SDL_RenderCopy(gRenderer, Warehouse_IV_texture, NULL, &gWarehouse_rect_centre);
 					}
 					*/
-					
+
 					// UPGRADE
 					if (upgrade == false)
 					{
@@ -918,8 +900,7 @@ int main(int argc, char* args[])
 						cancel_AV_button.render();
 						cancel_AV_button.handleEvent(&e);
 					}
-					else
-					if (sell == true)
+					else if (sell == true)
 					{
 						gTextTexture.loadFromRenderedText("Sprzedaj", textC);
 						gTextTexture.render(250, 210);
@@ -1031,23 +1012,7 @@ int main(int argc, char* args[])
 						back_button.setPosition(300, 732);
 						back_button.render();
 						back_button.handleEvent(&e);
-						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
-						/*
-						if (MUSIC_ON == true)
-						{
-							Music_On.render();
-							Music_On.handleEvent(&e);
-							Mix_ResumeMusic();
-						}
-						else
-						{
-							Music_Off.render();
-							Music_Off.handleEvent(&e);
-							Mix_PauseMusic();
-						}
-						*/
-						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
-
+		
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
 						timer.render();
@@ -1080,7 +1045,7 @@ int main(int argc, char* args[])
 					//	gTextTexture.render(624, 200);
 
 						// Pozwolenie i zakaz budowy
-						if (allow_build==true)
+						if (allow_build == true)
 						{
 							Deny_Build.render();
 							Deny_Build.handleEvent(&e);
@@ -1202,7 +1167,7 @@ int main(int argc, char* args[])
 						back_button.handleEvent(&e);
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
-				
+
 						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
 						gTextTexture.loadFromRenderedText(_itoa(chatka_drwala, People_char_buffor, 10), textC);
 						gTextTexture.render(53, 228);

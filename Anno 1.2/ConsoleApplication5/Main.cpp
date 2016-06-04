@@ -208,7 +208,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		// POBOR PODATKU OD MIESZKANCOW
 
 		for (int i = 0; i < 5; ++i)
-			tResource[0]->increase(tPeople[i]->getNumber());
+			tResource[0]->increase(tPeople[i]->getTax());
 
 		// KOSZTY UTRZYMANIA POSIADANYCH BUDYNKOW
 
@@ -222,6 +222,10 @@ int _tmain(int argc, _TCHAR* argv[])
 		for (int i = 0; i < 11; ++i)
 			tResource[0]->decrease(tProcessing[i]->getMaintenanceActiveCost() * tProcessing[i]->getActiveNumber()
 				+ tProcessing[i]->getMaintenancePassiveCost() * (tProcessing[i]->getNumber() - tProcessing[i]->getActiveNumber()));
+
+		// POBIERANIE SUROWCOW NA POTRZEBY MIESZKANCOW
+
+
 
 		// SPRAWDZENIE WARUNKU DOSTEPNOSCI BUDYNKOW:
 			// WYMAGANIA POSIADANIA KONKRETNEJ KLASY LUDNOSCI
@@ -313,7 +317,7 @@ int _tmain(int argc, _TCHAR* argv[])
 					Build(*tProduction[decision - 12]);
 
 				else if (decision >= 28 && decision < 39)
-					Build(*tProcessing[decision - 32]);
+					Build(*tProcessing[decision - 28]);
 
 				else if (decision >= 39 && decision < 44)
 				{

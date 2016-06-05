@@ -1,0 +1,29 @@
+#ifndef Industrial_h
+#define Industrial_h
+
+#include "Building.h"
+#include "Resource.h"
+#include "People.h"
+
+class Industrial : public Building
+{
+protected:
+	int moneyToBuild;			// liczba pieniedzy wymagana do budowy
+	int maintenanceActiveCost;	// koszty utrzymania budynku
+	int peopleToBuild;			// liczba ludzi klasy peopleClass wymaga do budowy budynku
+	int peopleClass;			// okresla jaka klasa ludnosci w liczbie peopleToBuild jest wymagana do spelnienia warunku dostepnosci budynku do budowy, 0 - Pioneers ... 4 - Aristocrats, dla -1 peopleToBuild = 0
+	bool status;				// true - dostepny do budowy, false - niedostepny
+
+public:
+	Industrial();
+	void checkStatus(int);													// aktualizuje pole status w oparciu o spelnienie warunku wymaganej liczby ludzi										
+	virtual bool Build(Resource &, Resource &, Resource &, Resource &) = 0;	// aktualizuje stan surowcow po budowie i parametry budynku, zwraca false jesli brakuje surowcowow, true jesli sa dostepne surowce 
+	int getMoney() const;
+	int getClass() const;
+	int getMaintenanceActiveCost() const;
+	bool getStatus() const;
+};
+
+#endif
+
+

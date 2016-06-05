@@ -148,6 +148,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="core\Building.cpp" />
+    <ClCompile Include="core\House.cpp" />
+    <ClCompile Include="core\Industrial.cpp" />
+    <ClCompile Include="core\Magazine.cpp" />
+    <ClCompile Include="core\People.cpp" />
+    <ClCompile Include="core\Processing.cpp" />
+    <ClCompile Include="core\Production.cpp" />
+    <ClCompile Include="core\Public.cpp" />
+    <ClCompile Include="core\Resource.cpp" />
     <ClCompile Include="kolonia.cpp" />
     <ClCompile Include="SButton.cpp" />
     <ClCompile Include="sdl_enums.cpp" />
@@ -176,6 +185,15 @@
     <None Include="zlib1.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="core\Building.h" />
+    <ClInclude Include="core\House.h" />
+    <ClInclude Include="core\Industrial.h" />
+    <ClInclude Include="core\Magazine.h" />
+    <ClInclude Include="core\People.h" />
+    <ClInclude Include="core\Processing.h" />
+    <ClInclude Include="core\Production.h" />
+    <ClInclude Include="core\Public.h" />
+    <ClInclude Include="core\Resource.h" />
     <ClInclude Include="SButton.h" />
     <ClInclude Include="sdl_consts.h" />
     <ClInclude Include="sdl_enums.h" />

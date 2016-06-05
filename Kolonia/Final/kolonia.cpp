@@ -22,12 +22,112 @@
 #ifndef SDL_ENUMS_H
 #include "sdl_enums.h"
 #endif
+#include "core/House.h"
+#include "core/Industrial.h"
+#include "core/Magazine.h"
+#include "core/Public.h"
+#include "core/Production.h"
+#include "core/Processing.h"
+#include "core/Resource.h"
+#include "core/People.h"
 #include <conio.h>
 
 using namespace std;
 
 int main(int argc, char* args[])
 {
+	// House(bricksToBuild, toolsToBuild, woodToBuild, inhabitants, startPeople, buildingID0, buildingID1, buildingID2)
+	House* tHouse[5]; { int tab0[1] = { -1 };
+	tHouse[0] = new House(0, 0, 3, 3, 1, -1, -1, -1, tab0, sizeof(tab0)); } 	/* Pioneers House */ { int tab1[2] = { 4, 7 };
+	tHouse[1] = new House(0, 1, 3, 7, 2, 4, 7, -1, tab1, sizeof(tab1)); }		/* Settlers House */ { int tab2[3] = { 2, 9, 11 };
+	tHouse[2] = new House(6, 2, 2, 15, 3, 2, 9, 11, tab2, sizeof(tab2)); } 	/* Citizens House */ { int tab3[3] = { 0, 1, 6 };
+	tHouse[3] = new House(9, 3, 3, 25, 4, 0, 1, 6, tab3, sizeof(tab3)); }		/* Merchansts House */ { int tab4[3] = { 3, 5, 10 };
+	tHouse[4] = new House(12, 3, 3, 40, 5, 3, 5, 10, tab4, sizeof(tab4)); }		/* Aristorcats House */
+
+	Magazine WareHouse;
+
+	// Public(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, size, peopleToBuild, peopleClass)
+	Public* tPublic[12];
+	tPublic[0] = new Public(450, 9, 4, 4, 30, 4, 50, 2);			// Doctor
+	tPublic[1] = new Public(1200, 19, 6, 5, 60, 12, 210, 2);		// Public Bath	
+	tPublic[2] = new Public(150, 0, 3, 5, 15, 4, 15, 1);			// Fire Department
+	tPublic[3] = new Public(750, 19, 6, 5, 60, 9, 250, 3);			// University
+	tPublic[4] = new Public(100, 0, 2, 5, 5, 2, 40, 0);				// Chapel
+	tPublic[5] = new Public(5000, 50, 15, 20, 40, 24, 1500, 3);		// Cathedral
+	tPublic[6] = new Public(1600, 25, 7, 7, 50, 12, 150, 2);		// Church
+	tPublic[7] = new Public(200, 0, 4, 10, 10, 12, 75, 0);			// Marketplace
+	tPublic[8] = new Public(7500, 70, 25, 25, 90, 35, 2500, 4);		// Palace 
+	tPublic[9] = new Public(450, 9, 4, 4, 30, 4, 100, 1);			// School
+	tPublic[10] = new Public(1200, 19, 2, 5, 80, 9, 300, 3);		// Theatre
+	tPublic[11] = new Public(250, 6, 3, 4, 15, 6, 50, 1);			// Tavern
+
+	// Production(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, size, magazineCapacity, peopleToBuild, peopleClass, productID)
+	Production* tProduction[16];
+	tProduction[0] = new Production(200, 6, 2, 3, 25, 10, 16, 9, 200, 2, 3);		// Cotton Plantation		
+	tProduction[1] = new Production(50, 0, 2, 0, 5, 0, 4, 10, 0, -1, 19);			// Foresters Lodge
+	tProduction[2] = new Production(100, 0, 2, 5, 5, 0, 16, 6, 75, 1, 7);			// Grain Farm
+	tProduction[3] = new Production(300, 8, 2, 3, 35, 15, 16, 4, 75, 1, 12);		// Spice Farm
+	tProduction[4] = new Production(50, 0, 2, 2, 5, 0, 4, 3, 0, -1, 10);			// Hunters Hut
+	tProduction[5] = new Production(300, 8, 2, 3, 35, 15, 16, 6, 200, 2, 13);		// Cocoa Plantation	
+	tProduction[6] = new Production(100, 0, 1, 4, 5, 0, 16, 4, 30, 0, 6);			// Cattle Farm
+	tProduction[7] = new Production(200, 0, 2, 4, 5, 0, 16, 8, 0, -1, 3);			// Sheep Farm
+	tProduction[8] = new Production(300, 8, 2, 3, 35, 15, 16, 6, 40, 1, 14);		// Winery
+	tProduction[9] = new Production(300, 8, 2, 3, 35, 15, 16, 6, 40, 1, 5);			// Tobacco Plantation
+	tProduction[10] = new Production(300, 8, 2, 3, 25, 10, 16, 6, 40, 1, 4);		// Sugarcane Plantation
+	tProduction[11] = new Production(1000, 5, 10, 20, 60, 20, 3, 4, 120, 1, 1);		// Iron Mine
+	tProduction[12] = new Production(1800, 7, 15, 30, 60, 20, 3, 4, 450, 2, 1);		// Deep Iron Mine
+	tProduction[13] = new Production(1000, 5, 10, 20, 60, 20, 3, 4, 150, 2, 2);		// Gold Mine
+	tProduction[14] = new Production(100, 0, 3, 5, 5, 0, 1, 4, 0, -1, 10);			// Fisters Hut
+	tProduction[15] = new Production(100, 0, 5, 5, 5, 0, 4, 8, 15, 1, 20);			// Stone Mason
+
+	// Processing(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, magazineCapacity, peopleToBuild, peopleClass, productID, materialID, productNumber, materialNumber)
+	Processing* tProcessing[11];
+	tProcessing[0] = new Processing(150, 0, 2, 6, 5, 0, 4, 75, 1, 10, 8, 1, 2);			// Bakery
+	tProcessing[1] = new Processing(200, 4, 3, 1, 25, 10, 5, 120, 1, 9, 1, 1, 1);		// Ore Refenery
+	tProcessing[2] = new Processing(1500, 10, 7, 2, 45, 20, 4, 250, 3, 17, 2, 2, 1);	// Gold Smith
+	tProcessing[3] = new Processing(150, 10, 3, 4, 5, 0, 4, 30, 0, 10, 6, 1, 2);		// Butcher Shop
+	tProcessing[4] = new Processing(200, 5, 3, 2, 25, 7, 4, 40, 1, 14, 4, 1, 2);		// Rum Distillery
+	tProcessing[5] = new Processing(150, 2, 3, 6, 10, 5, 4, 200, 2, 16, 15, 1, 1);		// Clothiers
+	tProcessing[6] = new Processing(200, 5, 3, 2, 20, 10, 4, 40, 1, 11, 5, 1, 2);		// TobaccoProduction
+	tProcessing[7] = new Processing(200, 7, 4, 3, 20, 10, 4, 75, 1, 15, 3, 1, 1);		// WeavingMill
+	tProcessing[8] = new Processing(200, 0, 3, 6, 10, 5, 4, 0, -1, 15, 3, 1, 2);		// WeavingHut
+	tProcessing[9] = new Processing(150, 5, 3, 2, 25, 10, 4, 100, 1, 18, 9, 2, 1);		// ToolSmithy
+	tProcessing[10] = new Processing(100, 0, 3, 6, 5, 0, 6, 75, 1, 10, 7, 1, 2);		// WindMill
+
+	// People(tax)
+	People* tPeople[5];
+	tPeople[0] = new People(1);		// Pioneers
+	tPeople[1] = new People(1);		// Settlers
+	tPeople[2] = new People(1);		// Citizens
+	tPeople[3] = new People(2);		// Merchants
+	tPeople[4] = new People(2);		// Aristocrats
+
+	// Resource(price)
+	Resource* tResource[21];
+	tResource[0] = new Resource(1);			// Money
+	tResource[1] = new Resource(60);		// Iron Ore
+	tResource[2] = new Resource(465);		// Gold
+	tResource[3] = new Resource(16);		// Wool
+	tResource[4] = new Resource(19);		// Sugar
+	tResource[5] = new Resource(23);		// Tobacco
+	tResource[6] = new Resource(6);			// Cattle
+	tResource[7] = new Resource(3);			// Grain
+	tResource[8] = new Resource(3);			// Flour
+	tResource[9] = new Resource(84);		// Iron
+	tResource[10] = new Resource(17);		// Food
+	tResource[11] = new Resource(65);		// Tobacco Products
+	tResource[12] = new Resource(40);		// Spices
+	tResource[13] = new Resource(33);		// Cocoa
+	tResource[14] = new Resource(52);		// Liquor
+	tResource[15] = new Resource(32);		// Cloth
+	tResource[16] = new Resource(130);		// Clothes
+	tResource[17] = new Resource(590);		// Jewerly
+	tResource[18] = new Resource(80);		// Tools
+	tResource[19] = new Resource(20);		// Wood
+	tResource[20] = new Resource(30);		// Bricks
+
+	tResource[0]->increase(5000);
+
 	// Wlaczenie SDL i stworzenie okna
 	if (!init())
 		cout << "Blad inicjalizacji!" << endl;
@@ -107,7 +207,7 @@ int main(int argc, char* args[])
 			SButton buy_cocoa_button(13, BUY_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 263, 456, "/resources/cocoa.png");
 
 			// Przyciski sprzedazy zasobow
-			// przycisk(id, akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)
+			// Przycisk(id, akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)
 			SButton sell_iron_ore_button(1, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 5, 244, "/resources/iron_ore.png");
 			SButton sell_gold_button(2, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 70, 244, "/resources/gold.png");
 			SButton sell_cottom_button(3, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 135, 244, "/resources/cottom.png");
@@ -133,7 +233,7 @@ int main(int argc, char* args[])
 			SButton sell_cocoa_button(13, SELL_RESOURCE, RESOURCES_BUTTON_WIDTH, RESOURCES_BUTTON_HEIGHT, 263, 456, "/resources/cocoa.png");
 
 			// Przyciski Buduj i Zburz
-			// przycisk(id, akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)
+			// Przycisk(id, akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)
 			// Production
 			// CottonPlantation
 			SButton build_NAV_CottonPlantation(19, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_3, "build_nav.png");
@@ -287,7 +387,6 @@ int main(int argc, char* args[])
 			SButton destroy_NAV_FireDepartment(4, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_nav.png");
 			SButton build_AV_FireDepartment(4, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "build_av.png");
 			SButton destroy_AV_FireDepartment(4, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_av.png");
-			// Gallows pojbalo?
 			// University
 			SButton build_NAV_University(6, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "build_nav.png");
 			SButton destroy_NAV_University(6, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_nav.png");
@@ -489,9 +588,8 @@ int main(int argc, char* args[])
 
 					// Skarbiec - wyswietlanie wartosci
 					// Podatki
-					gTextTexture.loadFromRenderedText(_itoa(Money_int, Money_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText(_itoa(0, Money_char_buffor, 10), textC);
 					gTextTexture.render(90, 40);
-					Money_int++;
 					// Koszty
 					gTextTexture.loadFromRenderedText("0", textC);
 					gTextTexture.render(90, 63);

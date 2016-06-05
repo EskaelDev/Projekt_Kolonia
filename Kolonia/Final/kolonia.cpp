@@ -156,7 +156,9 @@ int main(int argc, char* args[])
 			RightViewport.w = 2 * SCREEN_WIDTH / 3;
 			RightViewport.h = SCREEN_HEIGHT;
 
-			gFont = TTF_OpenFont("fonts/Caladea-Regular.ttf", 19);
+			gFont = TTF_OpenFont("fonts/times.ttf", 19);
+			gFont_12 = TTF_OpenFont("fonts/times.ttf", 12);
+
 
 			// Przyciski menu
 			// przycisk(akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)	
@@ -554,7 +556,7 @@ int main(int argc, char* args[])
 						break;
 						// Komunikat - potwierdzenie nowej gry
 					case POPUPMSG:
-						gTextTexture.loadFromRenderedText("Czy na pewno chcesz rozpoczac nowa gre?", textC);
+						gTextTexture.loadFromRenderedText("Czy na pewno chcesz rozpoczac nowa gre?", textC, gFont);
 						gTextTexture.render((SCREEN_WIDTH - gTextTexture.getWidth()) / 2, 380);
 
 						new_game_button.setPosition(SCREEN_WIDTH - MAIN_BUTTON_WIDTH - 525, 520);
@@ -565,14 +567,14 @@ int main(int argc, char* args[])
 						break;
 						// Ekran wczytywania stanu gry
 					case LOAD:
-						gTextTexture.loadFromRenderedText("Wczytaj", textC);
+						gTextTexture.loadFromRenderedText("Wczytaj", textC, gFont);
 						gTextTexture.render(600, 200);
 						main_menu_button.setPosition(624, 660);
 						main_menu_button.render();				main_menu_button.handleEvent(&e);
 						break;
 						// Ekran zapisu stanu gry
 					case SAVE:
-						gTextTexture.loadFromRenderedText("Zapisz", textC);
+						gTextTexture.loadFromRenderedText("Zapisz", textC, gFont);
 						gTextTexture.render(624, 200);
 						back_button.setPosition(624, 660);
 						back_button.render();					back_button.handleEvent(&e);
@@ -588,43 +590,43 @@ int main(int argc, char* args[])
 
 					// Skarbiec - wyswietlanie wartosci
 					// Podatki
-					gTextTexture.loadFromRenderedText(_itoa(0, Money_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText(_itoa(0, Money_char_buffor, 10), textC, gFont);
 					gTextTexture.render(155 - gTextTexture.getWidth(), 38);
 					// Koszty
-					gTextTexture.loadFromRenderedText("0", textC);
+					gTextTexture.loadFromRenderedText("0", textC, gFont);
 					gTextTexture.render(155 - gTextTexture.getWidth(), 61);
 					// Sprzedaz
-					gTextTexture.loadFromRenderedText("0", textC);
+					gTextTexture.loadFromRenderedText("0", textC, gFont);
 					gTextTexture.render(155 - gTextTexture.getWidth(), 89);
 					// Kupno
-					gTextTexture.loadFromRenderedText("0", textC);
+					gTextTexture.loadFromRenderedText("0", textC, gFont);
 					gTextTexture.render(155 - gTextTexture.getWidth(), 113);
 					// Bilans
-					gTextTexture.loadFromRenderedText("0", textC);
+					gTextTexture.loadFromRenderedText("0", textC, gFont);
 					gTextTexture.render(155 - gTextTexture.getWidth(), 139);
 					// Srodki
-					gTextTexture.loadFromRenderedText(_itoa(tResource[0]->getNumber(), Money_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText(_itoa(tResource[0]->getNumber(), Money_char_buffor, 10), textC, gFont);
 					gTextTexture.render(155 - gTextTexture.getWidth(), 168);
 
 					// Ludnosc - wyswietlanie wartosci
 					// Pionierzy
-					gTextTexture.loadFromRenderedText(_itoa(tPeople[0]->getNumber(), People_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText(_itoa(tPeople[0]->getNumber(), People_char_buffor, 10), textC, gFont);
 					gTextTexture.render(400 - gTextTexture.getWidth(), 38);
 					// Osadnicy
-					gTextTexture.loadFromRenderedText(_itoa(tPeople[1]->getNumber(), People_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText(_itoa(tPeople[1]->getNumber(), People_char_buffor, 10), textC, gFont);
 					gTextTexture.render(400 - gTextTexture.getWidth(), 62);
 					// Mieszczanie
-					gTextTexture.loadFromRenderedText(_itoa(tPeople[2]->getNumber(), People_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText(_itoa(tPeople[2]->getNumber(), People_char_buffor, 10), textC, gFont);
 					gTextTexture.render(400 - gTextTexture.getWidth(), 91);
 					// Kupcy
-					gTextTexture.loadFromRenderedText(_itoa(tPeople[3]->getNumber(), People_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText(_itoa(tPeople[3]->getNumber(), People_char_buffor, 10), textC, gFont);
 					gTextTexture.render(400 - gTextTexture.getWidth(), 118);
 					// Arystokraci
-					gTextTexture.loadFromRenderedText(_itoa(tPeople[4]->getNumber(), People_char_buffor, 10), textC);
+					gTextTexture.loadFromRenderedText(_itoa(tPeople[4]->getNumber(), People_char_buffor, 10), textC, gFont);
 					gTextTexture.render(400 - gTextTexture.getWidth(), 146);
 					// Mieszkancy
 					gTextTexture.loadFromRenderedText(_itoa(tPeople[0]->getNumber() + tPeople[1]->getNumber() + tPeople[2]->getNumber() 
-						+ tPeople[3]->getNumber() + tPeople[4]->getNumber(), People_char_buffor, 10), textC);
+						+ tPeople[3]->getNumber() + tPeople[4]->getNumber(), People_char_buffor, 10), textC, gFont);
 					gTextTexture.render(400 - gTextTexture.getWidth(), 175);
 
 					// Magazyny
@@ -678,7 +680,7 @@ int main(int argc, char* args[])
 					}
 					if (buy == true)
 					{
-						gTextTexture.loadFromRenderedText("Kup", textC);
+						gTextTexture.loadFromRenderedText("Kup", textC, gFont);
 						gTextTexture.render(250, 210);
 
 						buy_iron_ore_button.render();			buy_iron_ore_button.handleEvent(&e);
@@ -709,7 +711,7 @@ int main(int argc, char* args[])
 					}
 					else if (sell == true)
 					{
-						gTextTexture.loadFromRenderedText("Sprzedaj", textC);
+						gTextTexture.loadFromRenderedText("Sprzedaj", textC, gFont);
 						gTextTexture.render(250, 210);
 
 						sell_iron_ore_button.render();			sell_iron_ore_button.handleEvent(&e);
@@ -942,7 +944,7 @@ int main(int argc, char* args[])
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
 
 						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
-						gTextTexture.loadFromRenderedText(_itoa(chatka_drwala, People_char_buffor, 10), textC);
+						gTextTexture.loadFromRenderedText(_itoa(chatka_drwala, People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(53, 228);
 
 						// Obiekty przyciskow

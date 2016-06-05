@@ -21,7 +21,7 @@ public:
 	bool loadFromFile(std::string path);
 
 	// Tworzenie obrazka z tekstu
-	bool loadFromRenderedText(std::string textureText, SDL_Color textColor);
+	bool loadFromRenderedText(std::string textureText, SDL_Color textColor, TTF_Font *FONT);
 
 	// Zwalnianie tekstury
 	void free();

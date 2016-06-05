@@ -113,7 +113,7 @@ void STimer::render()
 	SDL_Color textColor = { 255, 255, 255, 255 };
 
 	// Renderowanie tekstu
-	if (!gTimeTextTexture.loadFromRenderedText(timeText.str().c_str(), textColor))
+	if (!gTimeTextTexture.loadFromRenderedText(timeText.str().c_str(), textColor, gFont))
 		std::cout << "Nie mozna wyrenderowac czasu!" << std::endl;
 	else
 		gTimeTextTexture.render((350 - gTimeTextTexture.getWidth()), 310);

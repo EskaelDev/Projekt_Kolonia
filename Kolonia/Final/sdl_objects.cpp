@@ -54,6 +54,7 @@ SDL_Rect RightViewport;
 
 // Czcionka
 TTF_Font *gFont = NULL;
+TTF_Font *gFont_12 = NULL;
 
 // Kolor tekstu
 SDL_Color textC = { 255, 255, 255 };

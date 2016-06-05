@@ -118,7 +118,7 @@ bool loadMedia()
 	{
 		// Renderowanie tekstu
 		SDL_Color textColor = { 200, 200, 200 };
-		if (!gTextTexture.loadFromRenderedText("12", textColor))
+		if (!gTextTexture.loadFromRenderedText("12", textColor, gFont))
 		{
 			cout << "Nie mozna wyrenderowac tekstu!" << endl;
 			success = false;

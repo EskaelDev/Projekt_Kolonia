@@ -63,6 +63,7 @@ extern SDL_Rect RightViewport;
 
 // Czcionka
 extern TTF_Font *gFont;
+extern TTF_Font *gFont_12;
 
 // Kolor tekstu
 extern SDL_Color textC;

@@ -46,13 +46,13 @@ bool STexture::loadFromFile(std::string path)
 	return mTexture != NULL;
 }
 
-bool STexture::loadFromRenderedText(std::string textureText, SDL_Color textColor)
+bool STexture::loadFromRenderedText(std::string textureText, SDL_Color textColor, TTF_Font *FONT)
 {
 	// Usuniecie wczesniejszej tekstury
 	free();
 
 	// Renderowanie powierzchni tekstu
-	SDL_Surface* textSurface = TTF_RenderText_Solid(gFont, textureText.c_str(), textColor);
+	SDL_Surface* textSurface = TTF_RenderText_Solid(FONT, textureText.c_str(), textColor);
 	if (textSurface == NULL)
 		cout << "Nie mozna wyrenderowac powierzchni tekstu! SDL_ttf Error: " << TTF_GetError() << endl;
 	else

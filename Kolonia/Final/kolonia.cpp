@@ -335,7 +335,7 @@ int main(int argc, char* args[])
 			Processing_build_NAV[4] = new SButton(4, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_nav.png");			// RumDistillery
 			Processing_build_NAV[5] = new SButton(5, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_3, "build_nav.png");			// Clothiers
 			Processing_build_NAV[6] = new SButton(6, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "build_nav.png");			// TobaccoProduction
-			Processing_build_NAV[7] = new SButton(7, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_nav.png");			// WeavingMill
+			Processing_build_NAV[7] = new SButton(7, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_nav.png");			// WeavingMill
 			Processing_build_NAV[8] = new SButton(8, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_nav.png");			// WeavingHut
 			Processing_build_NAV[9] = new SButton(9, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "build_nav.png");			// ToolSmith
 			Processing_build_NAV[10] = new SButton(10, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_nav.png");		// WindMill
@@ -350,7 +350,7 @@ int main(int argc, char* args[])
 			Processing_destroy_AV[4] = new SButton(4, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_av.png");			// RumDistillery
 			Processing_destroy_AV[5] = new SButton(5, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_3, "destroy_av.png");			// Clothiers
 			Processing_destroy_AV[6] = new SButton(6, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_av.png");			// TobaccoProduction
-			Processing_destroy_AV[7] = new SButton(7, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_av.png");			// WeavingMill
+			Processing_destroy_AV[7] = new SButton(7, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_av.png");			// WeavingMill
 			Processing_destroy_AV[8] = new SButton(8, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_av.png");			// WeavingHut
 			Processing_destroy_AV[9] = new SButton(9, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_av.png");			// ToolSmith
 			Processing_destroy_AV[10] = new SButton(10, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_av.png");		// WindMill
@@ -365,7 +365,7 @@ int main(int argc, char* args[])
 			Processing_destroy_NAV[4] = new SButton(4, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_nav.png");			// RumDistillery
 			Processing_destroy_NAV[5] = new SButton(5, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_3, "destroy_nav.png");			// Clothiers
 			Processing_destroy_NAV[6] = new SButton(6, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_nav.png");			// TobaccoProduction
-			Processing_destroy_NAV[7] = new SButton(7, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_nav.png");			// WeavingMill
+			Processing_destroy_NAV[7] = new SButton(7, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_nav.png");			// WeavingMill
 			Processing_destroy_NAV[8] = new SButton(8, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_nav.png");			// WeavingHut
 			Processing_destroy_NAV[9] = new SButton(9, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_nav.png");			// ToolSmith
 			Processing_destroy_NAV[10] = new SButton(10, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_nav.png");			// WindMill

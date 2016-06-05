@@ -40,7 +40,7 @@ int main(int argc, char* args[])
 	House* tHouse[5]; { int tab0[1] = { -1 };
 	tHouse[0] = new House(0, 0, 3, 3, 1, -1, -1, -1, tab0, sizeof(tab0)); } 	/* Pioneers House */ { int tab1[2] = { 4, 7 };
 	tHouse[1] = new House(0, 1, 3, 7, 2, 4, 7, -1, tab1, sizeof(tab1)); }		/* Settlers House */ { int tab2[3] = { 2, 9, 11 };
-	tHouse[2] = new House(6, 2, 2, 15, 3, 2, 9, 11, tab2, sizeof(tab2)); } 	/* Citizens House */ { int tab3[3] = { 0, 1, 6 };
+	tHouse[2] = new House(6, 2, 2, 15, 3, 2, 9, 11, tab2, sizeof(tab2)); }		/* Citizens House */ { int tab3[3] = { 0, 1, 6 };
 	tHouse[3] = new House(9, 3, 3, 25, 4, 0, 1, 6, tab3, sizeof(tab3)); }		/* Merchansts House */ { int tab4[3] = { 3, 5, 10 };
 	tHouse[4] = new House(12, 3, 3, 40, 5, 3, 5, 10, tab4, sizeof(tab4)); }		/* Aristorcats House */
 
@@ -236,199 +236,201 @@ int main(int argc, char* args[])
 
 			// Przyciski Buduj i Zburz
 			// Przycisk(id, akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)
-			// Production
-			// CottonPlantation
-			SButton build_NAV_CottonPlantation(19, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_3, "build_nav.png");
-			SButton destroy_NAV_CottonPlantation(19, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_3, "destroy_nav.png");
-			SButton build_AV_CottonPlantation(19, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_3, "build_av.png");
-			SButton destroy_AV_CottonPlantation(19, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_3, "destroy_av.png");
-			// ForestersLodge
-			SButton build_AV_ForestersLodge(20, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_av.png");
-			SButton destroy_AV_ForestersLodge(20, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_av.png");
-			// GrainFarm
-			SButton build_NAV_GrainFarm(21, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_2, "build_nav.png");
-			SButton destroy_NAV_GrainFarm(21, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_2, "destroy_nav.png");
-			SButton build_AV_GrainFarm(21, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_2, "build_av.png");
-			SButton destroy_AV_GrainFarm(21, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_2, "destroy_av.png");
-			// SpiceFarm
-			SButton build_NAV_SpiceFarm(22, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "build_nav.png");
-			SButton destroy_NAV_SpiceFarm(22, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_nav.png");
-			SButton build_AV_SpiceFarm(22, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "build_av.png");
-			SButton destroy_AV_SpiceFarm(22, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_av.png");
-			// HuntersHut
-			SButton build_NAV_HuntersHut(23, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "build_nav.png");
-			SButton destroy_NAV_HuntersHut(23, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_nav.png");
-			SButton build_AV_HuntersHut(23, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "build_av.png");
-			SButton destroy_AV_HuntersHut(23, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_av.png");
-			// CocoaPlantation
-			SButton build_NAV_CocoaPlantation(24, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_3, "build_nav.png");
-			SButton destroy_NAV_CocoaPlantation(24, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_3, "destroy_nav.png");
-			SButton build_AV_CocoaPlantation(24, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_3, "build_av.png");
-			SButton destroy_AV_CocoaPlantation(24, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_3, "destroy_av.png");
-			// CattleFarm
-			SButton build_NAV_CattleFarm(25, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_nav.png");
-			SButton destroy_NAV_CattleFarm(25, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_nav.png");
-			SButton build_AV_CattleFarm(25, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_av.png");
-			SButton destroy_AV_CattleFarm(25, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_av.png");
-			// SheepFarm
-			SButton build_NAV_SheepFarm(26, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_nav.png");
-			SButton destroy_NAV_SheepFarm(26, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_nav.png");
-			SButton build_AV_SheepFarm(26, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_av.png");
-			SButton destroy_AV_SheepFarm(26, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_av.png");
-			// Winery
-			SButton build_NAV_Winery(27, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_nav.png");
-			SButton destroy_NAV_Winery(27, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_nav.png");
-			SButton build_AV_Winery(27, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_av.png");
-			SButton destroy_AV_Winery(27, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_av.png");
-			// TobaccoPlantation
-			SButton build_NAV_TobaccoPlantation(28, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_nav.png");
-			SButton destroy_NAV_TobaccoPlantation(28, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_nav.png");
-			SButton build_AV_TobaccoPlantation(28, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_av.png");
-			SButton destroy_AV_TobaccoPlantation(28, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_av.png");
-			// SugarcanePlantation
-			SButton build_NAV_SugarcanePlantation(29, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_nav.png");
-			SButton destroy_NAV_SugarcanePlantation(29, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_nav.png");
-			SButton build_AV_SugarcanePlantation(29, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_av.png");
-			SButton destroy_AV_SugarcanePlantation(29, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_av.png");
-			// IronMine
-			SButton build_NAV_IronMine(30, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_3, "build_nav.png");
-			SButton destroy_NAV_IronMine(30, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_3, "destroy_nav.png");
-			SButton build_AV_IronMine(30, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_3, "build_av.png");
-			SButton destroy_AV_IronMine(30, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_3, "destroy_av.png");
-			// DeepIronMine
-			SButton build_NAV_DeepIronMine(31, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_3, "build_nav.png");
-			SButton destroy_NAV_DeepIronMine(31, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_3, "destroy_nav.png");
-			SButton build_AV_DeepIronMine(31, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_3, "build_av.png");
-			SButton destroy_AV_DeepIronMine(31, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_3, "destroy_av.png");
-			// GoldMine
-			SButton build_NAV_GoldMine(32, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_3, "build_nav.png");
-			SButton destroy_NAV_GoldMine(32, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_3, "destroy_nav.png");
-			SButton build_AV_GoldMine(32, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_3, "build_av.png");
-			SButton destroy_AV_GoldMine(32, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_3, "destroy_av.png");
-			// FishersHut
-			SButton build_NAV_FishersHut(33, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_nav.png");
-			SButton destroy_NAV_FishersHut(33, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_nav.png");
-			SButton build_AV_FishersHut(33, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_av.png");
-			SButton destroy_AV_FishersHut(33, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_av.png");
 
-			// Processing
-			// Bakery
-			SButton build_NAV_Bakery(34, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_nav.png");
-			SButton destroy_NAV_Bakery(34, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_nav.png");
-			SButton build_AV_Bakery(34, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_av.png");
-			SButton destroy_AV_Bakery(34, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_av.png");
-			// OreRafinery
-			SButton build_NAV_OreRafinery(35, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_2, "build_nav.png");
-			SButton destroy_NAV_OreRafinery(35, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_2, "destroy_nav.png");
-			SButton build_AV_OreRafinery(35, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_2, "build_av.png");
-			SButton destroy_AV_OreRafinery(35, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_2, "destroy_av.png");
-			// GoldSmith
-			SButton build_NAV_GoldSmith(36, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_3, "build_nav.png");
-			SButton destroy_NAV_GoldSmith(36, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_3, "destroy_nav.png");
-			SButton build_AV_GoldSmith(36, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_3, "build_av.png");
-			SButton destroy_AV_GoldSmith(36, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_3, "destroy_av.png");
-			// ButchersShop
-			SButton build_NAV_ButchersShop(37, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_nav.png");
-			SButton destroy_NAV_ButchersShop(37, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_nav.png");
-			SButton build_AV_ButchersShop(37, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_av.png");
-			SButton destroy_AV_ButchersShop(37, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_av.png");
-			// RumDistillery
-			SButton build_NAV_RumDistillery(38, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_nav.png");
-			SButton destroy_NAV_RumDistillery(38, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_nav.png");
-			SButton build_AV_RumDistillery(38, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_av.png");
-			SButton destroy_AV_RumDistillery(38, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_av.png");
-			// Clothiers
-			SButton build_NAV_Clothiers(39, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_3, "build_nav.png");
-			SButton destroy_NAV_Clothiers(39, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_3, "destroy_nav.png");
-			SButton build_AV_Clothiers(39, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_3, "build_av.png");
-			SButton destroy_AV_Clothiers(39, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_3, "destroy_av.png");
-			// StoneMason
-			SButton build_NAV_StoneMason(40, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_nav.png");
-			SButton destroy_NAV_StoneMason(40, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_nav.png");
-			SButton build_AV_StoneMason(40, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_av.png");
-			SButton destroy_AV_StoneMason(40, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_av.png");
-			// TobaccoProduction
-			SButton build_NAV_TobaccoProduction(41, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "build_nav.png");
-			SButton destroy_NAV_TobaccoProduction(41, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_nav.png");
-			SButton build_AV_TobaccoProduction(41, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "build_av.png");
-			SButton destroy_AV_TobaccoProduction(41, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_av.png");
-			// WeavingMill
-			SButton build_NAV_WeavingMill(42, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_nav.png");
-			SButton destroy_NAV_WeavingMill(42, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_nav.png");
-			SButton build_AV_WeavingMill(42, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_av.png");
-			SButton destroy_AV_WeavingMill(42, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_av.png");
-			// WeavingHut
-			SButton build_NAV_WeavingHut(43, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_nav.png");
-			SButton destroy_NAV_WeavingHut(43, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_nav.png");
-			SButton build_AV_WeavingHut(43, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_av.png");
-			SButton destroy_AV_WeavingHut(43, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_av.png");
-			// ToolSmith
-			SButton build_NAV_ToolSmith(44, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "build_nav.png");
-			SButton destroy_NAV_ToolSmith(44, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_nav.png");
-			SButton build_AV_ToolSmith(44, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "build_av.png");
-			SButton destroy_AV_ToolSmith(44, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_av.png");
-			// WindMill
-			SButton build_NAV_WindMill(45, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_nav.png");
-			SButton destroy_NAV_WindMill(45, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_nav.png");
-			SButton build_AV_WindMill(45, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_av.png");
-			SButton destroy_AV_WindMill(45, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_av.png");
+			// Tablica Production
+			// build_AV		Production
+			SButton* Production_build_AV[16];
+			Production_build_AV[0] = new SButton(0, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_3, "build_av.png");			// CottonPlantation
+			Production_build_AV[1] = new SButton(1, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_av.png");			// ForestersLodge
+			Production_build_AV[2] = new SButton(2, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_2, "build_av.png");			// GrainFarm
+			Production_build_AV[3] = new SButton(3, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "build_av.png");			// SpiceFarm
+			Production_build_AV[4] = new SButton(4, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "build_av.png");			// HuntersHut
+			Production_build_AV[5] = new SButton(5, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_3, "build_av.png");			// CocoaPlantation
+			Production_build_AV[6] = new SButton(6, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_av.png");			// CattleFarm
+			Production_build_AV[7] = new SButton(7, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_av.png");			// SheepFarm
+			Production_build_AV[8] = new SButton(8, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_av.png");			// Winery
+			Production_build_AV[9] = new SButton(9, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_av.png");			// TobaccoPlantation
+			Production_build_AV[10] = new SButton(10, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_av.png");		// SugarcanePlantation
+			Production_build_AV[11] = new SButton(11, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_3, "build_av.png");		// IronMine
+			Production_build_AV[12] = new SButton(12, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_3, "build_av.png");		// DeepIronMine
+			Production_build_AV[13] = new SButton(13, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_3, "build_av.png");		// GoldMine
+			Production_build_AV[14] = new SButton(14, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_av.png");		// FishersHut
+		
+			// build_NAV	Production
+			SButton* Production_build_NAV[16];
+			Production_build_NAV[0] = new SButton(0, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_3, "build_nav.png");		// CottonPlantation
+			Production_build_NAV[1] = new SButton(1, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_nav.png");		// ForestersLodge
+			Production_build_NAV[2] = new SButton(2, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_2, "build_nav.png");		// GrainFarm
+			Production_build_NAV[3] = new SButton(3, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "build_nav.png");		// SpiceFarm
+			Production_build_NAV[4] = new SButton(4, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "build_nav.png");		// HuntersHut
+			Production_build_NAV[5] = new SButton(5, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_3, "build_nav.png");		// CocoaPlantation
+			Production_build_NAV[6] = new SButton(6, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_nav.png");		// CattleFarm
+			Production_build_NAV[7] = new SButton(7, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_nav.png");		// SheepFarm
+			Production_build_NAV[8] = new SButton(8, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_nav.png");		// Winery
+			Production_build_NAV[9] = new SButton(9, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_nav.png");		// TobaccoPlantation
+			Production_build_NAV[10] = new SButton(10, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_nav.png");		// SugarcanePlantation
+			Production_build_NAV[11] = new SButton(11, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_3, "build_nav.png");		// IronMine
+			Production_build_NAV[12] = new SButton(12, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_3, "build_nav.png");		// DeepIronMine
+			Production_build_NAV[13] = new SButton(13, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_3, "build_nav.png");		// GoldMine
+			Production_build_NAV[14] = new SButton(14, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_nav.png");		// FishersHut
 
-			// Industrial
-			// Doctor
-			SButton build_NAV_Doctor(2, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_nav.png");
-			SButton destroy_NAV_Doctor(2, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_nav.png");
-			SButton build_AV_Doctor(2, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_av.png");
-			SButton destroy_AV_Doctor(2, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_av.png");
-			// PublicBath
-			SButton build_NAV_PublicBath(3, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_2, "build_nav.png");
-			SButton destroy_NAV_PublicBath(3, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_2, "destroy_nav.png");
-			SButton build_AV_PublicBath(3, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_2, "build_av.png");
-			SButton destroy_AV_PublicBath(3, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_2, "destroy_av.png");
-			// FireDepartment
-			SButton build_NAV_FireDepartment(4, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "build_nav.png");
-			SButton destroy_NAV_FireDepartment(4, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_nav.png");
-			SButton build_AV_FireDepartment(4, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "build_av.png");
-			SButton destroy_AV_FireDepartment(4, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_av.png");
-			// University
-			SButton build_NAV_University(6, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "build_nav.png");
-			SButton destroy_NAV_University(6, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_nav.png");
-			SButton build_AV_University(6, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "build_av.png");
-			SButton destroy_AV_University(6, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_av.png");
-			// Chapel
-			SButton build_NAV_Chapel(7, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_nav.png");
-			SButton destroy_NAV_Chapel(7, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_nav.png");
-			SButton build_AV_Chapel(7, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_av.png");
-			SButton destroy_AV_Chapel(7, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_av.png");
-			// Church
-			SButton build_NAV_Church(8, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_nav.png");
-			SButton destroy_NAV_Church(8, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_nav.png");
-			SButton build_AV_Church(8, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_av.png");
-			SButton destroy_AV_Church(8, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_av.png");
-			// MarketPlace
-			SButton build_NAV_MarketPlace(10, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_nav.png");
-			SButton destroy_NAV_MarketPlace(10, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_nav.png");
-			SButton build_AV_MarketPlace(10, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_av.png");
-			SButton destroy_AV_MarketPlace(10, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_av.png");
-			// Palace
-			SButton build_NAV_Palace(11, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_nav.png");
-			SButton destroy_NAV_Palace(11, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_nav.png");
-			SButton build_AV_Palace(11, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_av.png");
-			SButton destroy_AV_Palace(11, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_av.png");
-			// School
-			SButton build_NAV_School(12, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_nav.png");
-			SButton destroy_NAV_School(12, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_nav.png");
-			SButton build_AV_School(12, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_av.png");
-			SButton destroy_AV_School(12, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_av.png");
-			// Theatre
-			SButton build_NAV_Theatre(13, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_nav.png");
-			SButton destroy_NAV_Theatre(13, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_nav.png");
-			SButton build_AV_Theatre(13, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_av.png");
-			SButton destroy_AV_Theatre(13, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_av.png");
-			// Tavern
-			SButton build_NAV_Tavern(14, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_nav.png");
-			SButton destroy_NAV_Tavern(14, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_nav.png");
-			SButton build_AV_Tavern(14, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_av.png");
-			SButton destroy_AV_Tavern(14, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_av.png");
+			// destroy_AV	Production
+			SButton* Production_destroy_AV[16];
+			Production_destroy_AV[0] = new SButton(0, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_3, "destroy_av.png");		// CottonPlantation
+			Production_destroy_AV[1] = new SButton(1, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_av.png");		// ForestersLodge
+			Production_destroy_AV[2] = new SButton(2, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_2, "destroy_av.png");		// GrainFarm
+			Production_destroy_AV[3] = new SButton(3, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_av.png");		// SpiceFarm
+			Production_destroy_AV[4] = new SButton(4, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_av.png");		// HuntersHut
+			Production_destroy_AV[5] = new SButton(5, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_3, "destroy_av.png");		// CocoaPlantation
+			Production_destroy_AV[6] = new SButton(6, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_av.png");		// CattleFarm
+			Production_destroy_AV[7] = new SButton(7, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_av.png");		// SheepFarm
+			Production_destroy_AV[8] = new SButton(8, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_av.png");		// Winery
+			Production_destroy_AV[9] = new SButton(9, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_av.png");		// TobaccoPlantation
+			Production_destroy_AV[10] = new SButton(10, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_av.png");	// SugarcanePlantation
+			Production_destroy_AV[11] = new SButton(11, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_3, "destroy_av.png");	// IronMine
+			Production_destroy_AV[12] = new SButton(12, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_3, "destroy_av.png");	// DeepIronMine
+			Production_destroy_AV[13] = new SButton(13, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_3, "destroy_av.png");	// GoldMine
+			Production_destroy_AV[14] = new SButton(14, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_av.png");	// FishersHut
+
+			// destroy_NAV	Production
+			SButton* Production_destroy_NAV[16];
+			Production_destroy_NAV[0] = new SButton(0, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_3, "destroy_nav.png");		// CottonPlantation
+			Production_destroy_NAV[1] = new SButton(1, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_nav.png");		// ForestersLodge
+			Production_destroy_NAV[2] = new SButton(2, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_2, "destroy_nav.png");		// GrainFarm
+			Production_destroy_NAV[3] = new SButton(3, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_nav.png");		// SpiceFarm
+			Production_destroy_NAV[4] = new SButton(4, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_nav.png");		// HuntersHut
+			Production_destroy_NAV[5] = new SButton(5, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_3, "destroy_nav.png");		// CocoaPlantation
+			Production_destroy_NAV[6] = new SButton(6, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_nav.png");		// CattleFarm
+			Production_destroy_NAV[7] = new SButton(7, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_nav.png");		// SheepFarm
+			Production_destroy_NAV[8] = new SButton(8, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_nav.png");		// Winery
+			Production_destroy_NAV[9] = new SButton(9, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_nav.png");		// TobaccoPlantation
+			Production_destroy_NAV[10] = new SButton(10, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_nav.png");		// SugarcanePlantation
+			Production_destroy_NAV[11] = new SButton(11, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_3, "destroy_nav.png");		// IronMine
+			Production_destroy_NAV[12] = new SButton(12, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_3, "destroy_nav.png");		// DeepIronMine
+			Production_destroy_NAV[13] = new SButton(13, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_3, "destroy_nav.png");		// GoldMine
+			Production_destroy_NAV[14] = new SButton(14, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_nav.png");		// FishersHut
+
+			// Tablica Processing
+			// build_AV		Processing
+			SButton* Processing_build_AV[12];
+			Processing_build_AV[0] = new SButton(0, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_av.png");			// Bakery
+			Processing_build_AV[1] = new SButton(1, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_2, "build_av.png");			// OreRafinery
+			Processing_build_AV[2] = new SButton(2, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_3, "build_av.png");			// GoldSmith
+			Processing_build_AV[3] = new SButton(3, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_av.png");			// ButchersShop
+			Processing_build_AV[4] = new SButton(4, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_av.png");			// RumDistillery
+			Processing_build_AV[5] = new SButton(5, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_3, "build_av.png");			// Clothiers
+			Processing_build_AV[6] = new SButton(6, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "build_av.png");			// TobaccoProduction
+			Processing_build_AV[7] = new SButton(7, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_av.png");			// WeavingMill
+			Processing_build_AV[8] = new SButton(8, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_av.png");			// WeavingHut
+			Processing_build_AV[9] = new SButton(9, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "build_av.png");			// ToolSmith
+			Processing_build_AV[10] = new SButton(10, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_av.png");		// WindMill
+			Processing_build_AV[11] = new SButton(15, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_av.png");		// StoneMason
+
+			// build_NAV	Processing
+			SButton* Processing_build_NAV[12];
+			Processing_build_NAV[0] = new SButton(0, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_nav.png");			// Bakery
+			Processing_build_NAV[1] = new SButton(1, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_2, "build_nav.png");			// OreRafinery
+			Processing_build_NAV[2] = new SButton(2, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_3, "build_nav.png");			// GoldSmith
+			Processing_build_NAV[3] = new SButton(3, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_nav.png");			// ButchersShop
+			Processing_build_NAV[4] = new SButton(4, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_nav.png");			// RumDistillery
+			Processing_build_NAV[5] = new SButton(5, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_3, "build_nav.png");			// Clothiers
+			Processing_build_NAV[6] = new SButton(6, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "build_nav.png");			// TobaccoProduction
+			Processing_build_NAV[7] = new SButton(7, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_nav.png");			// WeavingMill
+			Processing_build_NAV[8] = new SButton(8, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_nav.png");			// WeavingHut
+			Processing_build_NAV[9] = new SButton(9, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "build_nav.png");			// ToolSmith
+			Processing_build_NAV[10] = new SButton(10, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_nav.png");		// WindMill
+			Processing_build_NAV[11] = new SButton(15, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_nav.png");		// StoneMason
+
+			// destroy_AV	Processing	
+			SButton* Processing_destroy_AV[12];
+			Processing_destroy_AV[0] = new SButton(0, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_av.png");			// Bakery
+			Processing_destroy_AV[1] = new SButton(1, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_2, "destroy_av.png");			// OreRafinery
+			Processing_destroy_AV[2] = new SButton(2, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_3, "destroy_av.png");			// GoldSmith
+			Processing_destroy_AV[3] = new SButton(3, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_av.png");			// ButchersShop
+			Processing_destroy_AV[4] = new SButton(4, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_av.png");			// RumDistillery
+			Processing_destroy_AV[5] = new SButton(5, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_3, "destroy_av.png");			// Clothiers
+			Processing_destroy_AV[6] = new SButton(6, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_av.png");			// TobaccoProduction
+			Processing_destroy_AV[7] = new SButton(7, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_av.png");			// WeavingMill
+			Processing_destroy_AV[8] = new SButton(8, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_av.png");			// WeavingHut
+			Processing_destroy_AV[9] = new SButton(9, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_av.png");			// ToolSmith
+			Processing_destroy_AV[10] = new SButton(10, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_av.png");		// WindMill
+			Processing_destroy_AV[11] = new SButton(15, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_av.png");		// StoneMason
+
+			// destroy_NAV	Processing
+			SButton* Processing_destroy_NAV[12];
+			Processing_destroy_NAV[0] = new SButton(0, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_nav.png");			// Bakery
+			Processing_destroy_NAV[1] = new SButton(1, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_2, "destroy_nav.png");			// OreRafinery
+			Processing_destroy_NAV[2] = new SButton(2, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_3, "destroy_nav.png");			// GoldSmith
+			Processing_destroy_NAV[3] = new SButton(3, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_nav.png");			// ButchersShop
+			Processing_destroy_NAV[4] = new SButton(4, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_nav.png");			// RumDistillery
+			Processing_destroy_NAV[5] = new SButton(5, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_3, "destroy_nav.png");			// Clothiers
+			Processing_destroy_NAV[6] = new SButton(6, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_nav.png");			// TobaccoProduction
+			Processing_destroy_NAV[7] = new SButton(7, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_nav.png");			// WeavingMill
+			Processing_destroy_NAV[8] = new SButton(8, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_nav.png");			// WeavingHut
+			Processing_destroy_NAV[9] = new SButton(9, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_nav.png");			// ToolSmith
+			Processing_destroy_NAV[10] = new SButton(10, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_nav.png");			// WindMill
+			Processing_destroy_NAV[11] = new SButton(15, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_nav.png");			// StoneMason
+
+			// Tablica Public
+			// build_AV		Public
+			SButton* Public_build_AV[12];
+			Public_build_AV[0] = new SButton(0, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_av.png");		// Doctor
+			Public_build_AV[1] = new SButton(1, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_2, "build_av.png");		// Public Bath	
+			Public_build_AV[2] = new SButton(2, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "build_av.png");		// Fire Department
+			Public_build_AV[3] = new SButton(3, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "build_av.png");		// University
+			Public_build_AV[4] = new SButton(4, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_av.png");		// Chapel
+			Public_build_AV[5] = new SButton(5, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_3, "build_av.png");		// Cathedral
+			Public_build_AV[6] = new SButton(6, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_av.png");		// Church
+			Public_build_AV[7] = new SButton(7, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_av.png");		// Marketplace
+			Public_build_AV[8] = new SButton(8, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_3, "build_av.png");		// Palace 
+			Public_build_AV[9] = new SButton(9, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_av.png");		// School
+			Public_build_AV[10] = new SButton(10, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_av.png");	// Theatre
+			Public_build_AV[11] = new SButton(11, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_av.png");	// Tavern
+
+			// build_NAV	Public
+			SButton* Public_build_NAV[12];
+			Public_build_NAV[0] = new SButton(0, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_nav.png");		// Doctor
+			Public_build_NAV[1] = new SButton(1, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_2, "build_nav.png");		// Public Bath	
+			Public_build_NAV[2] = new SButton(2, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "build_nav.png");		// Fire Department
+			Public_build_NAV[3] = new SButton(3, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "build_nav.png");		// University
+			Public_build_NAV[4] = new SButton(4, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_nav.png");		// Chapel
+			Public_build_NAV[5] = new SButton(5, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_3, "build_nav.png");		// Cathedral
+			Public_build_NAV[6] = new SButton(6, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_nav.png");		// Church
+			Public_build_NAV[7] = new SButton(7, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_nav.png");		// Marketplace
+			Public_build_NAV[8] = new SButton(8, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_3, "build_nav.png");		// Palace 
+			Public_build_NAV[9] = new SButton(9, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_nav.png");		// School
+			Public_build_NAV[10] = new SButton(10, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_nav.png");	// Theatre
+			Public_build_NAV[11] = new SButton(11, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1	, "build_nav.png");	// Tavern
+
+			// destroy_AV	Public
+			SButton* Public_destroy_AV[12];
+			Public_destroy_AV[0] = new SButton(0, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_av.png");		// Doctor
+			Public_destroy_AV[1] = new SButton(1, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_2, "destroy_av.png");		// Public Bath	
+			Public_destroy_AV[2] = new SButton(2, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_av.png");		// Fire Department
+			Public_destroy_AV[3] = new SButton(3, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_av.png");		// University
+			Public_destroy_AV[4] = new SButton(4, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_av.png");		// Chapel
+			Public_destroy_AV[5] = new SButton(5, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_3, "destroy_av.png");		// Cathedral
+			Public_destroy_AV[6] = new SButton(6, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_av.png");		// Church
+			Public_destroy_AV[7] = new SButton(7, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_av.png");		// Marketplace
+			Public_destroy_AV[8] = new SButton(8, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_3, "destroy_av.png");		// Palace 
+			Public_destroy_AV[9] = new SButton(9, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_av.png");		// School
+			Public_destroy_AV[10] = new SButton(10, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_av.png");	// Theatre
+			Public_destroy_AV[11] = new SButton(11, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_av.png");	// Tavern
+
+			// destroy_NAV	Public
+			SButton* Public_destroy_NAV[12];
+			Public_destroy_NAV[0] = new SButton(0, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_nav.png");		// Doctor
+			Public_destroy_NAV[1] = new SButton(1, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_2, "destroy_nav.png");		// Public Bath	
+			Public_destroy_NAV[2] = new SButton(2, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_nav.png");		// Fire Department
+			Public_destroy_NAV[3] = new SButton(3, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_nav.png");		// University
+			Public_destroy_NAV[4] = new SButton(4, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_nav.png");		// Chapel
+			Public_destroy_NAV[5] = new SButton(5, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_3, "destroy_nav.png");		// Cathedral
+			Public_destroy_NAV[6] = new SButton(6, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_nav.png");		// Church
+			Public_destroy_NAV[7] = new SButton(7, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_nav.png");		// Marketplace
+			Public_destroy_NAV[8] = new SButton(8, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_3, "destroy_nav.png");		// Palace 
+			Public_destroy_NAV[9] = new SButton(9, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_nav.png");		// School
+			Public_destroy_NAV[10] = new SButton(10, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_nav.png");		// Theatre
+			Public_destroy_NAV[11] = new SButton(11, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_nav.png");		// Tavern
 
 			// DOMY
 			// Pionerzy
@@ -859,37 +861,26 @@ int main(int argc, char* args[])
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
 
-						// Obiekty przyciskow
-						// RENDER							//HANDLE_EVENT
-						build_NAV_Doctor.render();				build_NAV_Doctor.handleEvent(&e);
-						destroy_NAV_Doctor.render();			destroy_NAV_Doctor.handleEvent(&e);
+						for (int i = 0; i < 12; i++)
+						{
+							//if(Warunek ¿e mo¿na od [i] budowac)
+							// {
+							Public_build_AV[i]->render();
+							Public_build_AV[i]->handleEvent(&e);
 
-						build_NAV_PublicBath.render();			build_NAV_PublicBath.handleEvent(&e);
-						destroy_NAV_PublicBath.render();		destroy_NAV_PublicBath.handleEvent(&e);
-
-						build_NAV_FireDepartment.render();		build_NAV_FireDepartment.handleEvent(&e);
-						destroy_NAV_FireDepartment.render();	 destroy_NAV_FireDepartment.handleEvent(&e);
-
-						build_NAV_University.render();			build_NAV_University.handleEvent(&e);
-						destroy_NAV_University.render();		destroy_NAV_University.handleEvent(&e);
-
-						build_AV_Chapel.render();				build_AV_Chapel.handleEvent(&e);
-						destroy_AV_Chapel.render();				destroy_AV_Chapel.handleEvent(&e);
-
-						build_NAV_Church.render();				build_NAV_Church.handleEvent(&e);
-						destroy_NAV_Church.render();			destroy_NAV_Church.handleEvent(&e);
-
-						build_AV_MarketPlace.render();			build_AV_MarketPlace.handleEvent(&e);
-						destroy_AV_MarketPlace.render();		destroy_AV_MarketPlace.handleEvent(&e);
-
-						build_NAV_School.render();				build_NAV_School.handleEvent(&e);
-						destroy_NAV_School.render();			destroy_NAV_School.handleEvent(&e);
-
-						build_NAV_Theatre.render();				build_NAV_Theatre.handleEvent(&e);
-						destroy_NAV_Theatre.render();			destroy_NAV_Theatre.handleEvent(&e);
-
-						build_NAV_Tavern.render();				build_NAV_Tavern.handleEvent(&e);
-						destroy_NAV_Tavern.render();			destroy_NAV_Tavern.handleEvent(&e);
+							Public_destroy_AV[i]->render();
+							Public_destroy_AV[i]->handleEvent(&e);
+							// }
+							/*
+							else
+							{
+								Public_build_NAV[i]->render;
+								Public_build_NAV[i]->handleEvent(&e);
+								Public_destroy_NAV[i]->render;
+								Public_destroy_NAV[i]->handleEvent(&e);
+							}
+							*/
+						}
 						break;
 						// Ekran rozgrywki - przetworstwo
 					case IND:
@@ -898,43 +889,27 @@ int main(int argc, char* args[])
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
 
-						// Obiekty przyciskow
-						// RENDER								// HANDLE_EVENT
-						build_NAV_Bakery.render();				build_NAV_Bakery.handleEvent(&e);
-						destroy_NAV_Bakery.render();			destroy_NAV_Bakery.handleEvent(&e);
+						for (int i = 0; i < 12; i++)
+						{
+							//if(Warunek ¿e mo¿na od [i] budowac)
+							// {
+							Processing_build_AV[i]->render();
+							Processing_build_AV[i]->handleEvent(&e);
 
-						build_NAV_OreRafinery.render();			build_NAV_OreRafinery.handleEvent(&e);
-						destroy_NAV_OreRafinery.render();		destroy_NAV_OreRafinery.handleEvent(&e);
+							Processing_destroy_AV[i]->render();
+							Processing_destroy_AV[i]->handleEvent(&e);
+							// }
+							/*
+							else
+							{
+							Processing_build_NAV[i]->render;
+							Processing_build_NAV[i]->handleEvent(&e);
+							Processing_destroy_NAV[i]->render;
+							Processing_destroy_NAV[i]->handleEvent(&e);
+							}
+							*/
+						}
 
-						build_NAV_GoldSmith.render();			build_NAV_GoldSmith.handleEvent(&e);
-						destroy_NAV_GoldSmith.render();			destroy_NAV_GoldSmith.handleEvent(&e);
-
-						build_NAV_ButchersShop.render();		build_NAV_ButchersShop.handleEvent(&e);
-						destroy_NAV_ButchersShop.render();		destroy_NAV_ButchersShop.handleEvent(&e);
-
-						build_NAV_RumDistillery.render();		build_NAV_RumDistillery.handleEvent(&e);
-						destroy_NAV_RumDistillery.render();		destroy_NAV_RumDistillery.handleEvent(&e);
-
-						build_NAV_Clothiers.render();			build_NAV_Clothiers.handleEvent(&e);
-						destroy_NAV_Clothiers.render();			destroy_NAV_Clothiers.handleEvent(&e);
-
-						build_NAV_StoneMason.render();			build_NAV_StoneMason.handleEvent(&e);
-						destroy_NAV_StoneMason.render();		destroy_NAV_StoneMason.handleEvent(&e);
-
-						build_NAV_TobaccoProduction.render();	build_NAV_TobaccoProduction.handleEvent(&e);
-						destroy_NAV_TobaccoProduction.render(); destroy_NAV_TobaccoProduction.handleEvent(&e);
-
-						build_NAV_WeavingMill.render();			build_NAV_WeavingMill.handleEvent(&e);
-						destroy_NAV_WeavingMill.render();		destroy_NAV_WeavingMill.handleEvent(&e);
-
-						build_AV_WeavingHut.render();			build_AV_WeavingHut.handleEvent(&e);
-						destroy_AV_WeavingHut.render();			destroy_AV_WeavingHut.handleEvent(&e);
-
-						build_NAV_ToolSmith.render();			build_NAV_ToolSmith.handleEvent(&e);
-						destroy_NAV_ToolSmith.render();			destroy_NAV_ToolSmith.handleEvent(&e);
-
-						build_NAV_WindMill.render();			build_NAV_WindMill.handleEvent(&e);
-						destroy_NAV_WindMill.render();			destroy_NAV_WindMill.handleEvent(&e);
 						break;
 						// Ekran rozgrywki - produkcja
 					case PROD:
@@ -943,56 +918,30 @@ int main(int argc, char* args[])
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
 
-						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
+						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC !!!!!
 						gTextTexture.loadFromRenderedText(_itoa(chatka_drwala, People_char_buffor, 10), textC, gFont_12);
-						gTextTexture.render(53, 228);
+						gTextTexture.render(57, 233);
 
-						// Obiekty przyciskow
-						// RENDER								// HANDLE_EVENT
-						build_AV_ForestersLodge.render();		build_AV_ForestersLodge.handleEvent(&e);
-						destroy_AV_ForestersLodge.render();		destroy_AV_ForestersLodge.handleEvent(&e);
+						for (int i = 0; i < 15; i++)
+						{
+							//if(Warunek ¿e mo¿na od [i] budowac)
+							// {
+							Production_build_AV[i]->render();
+							Production_build_AV[i]->handleEvent(&e);
 
-						build_NAV_CottonPlantation.render();	build_NAV_CottonPlantation.handleEvent(&e);
-						destroy_NAV_CottonPlantation.render();	destroy_NAV_CottonPlantation.handleEvent(&e);
-
-						build_NAV_GrainFarm.render();			build_NAV_GrainFarm.handleEvent(&e);
-						destroy_NAV_GrainFarm.render();			destroy_NAV_GrainFarm.handleEvent(&e);
-
-						build_NAV_SpiceFarm.render();			build_NAV_SpiceFarm.handleEvent(&e);
-						destroy_NAV_SpiceFarm.render();			destroy_NAV_SpiceFarm.handleEvent(&e);
-
-						build_AV_HuntersHut.render();			build_AV_HuntersHut.handleEvent(&e);
-						destroy_AV_HuntersHut.render();			destroy_AV_HuntersHut.handleEvent(&e);
-
-						build_NAV_CocoaPlantation.render();		build_NAV_CocoaPlantation.handleEvent(&e);
-						destroy_NAV_CocoaPlantation.render();	destroy_NAV_CocoaPlantation.handleEvent(&e);
-
-						build_NAV_CattleFarm.render();			build_NAV_CattleFarm.handleEvent(&e);
-						destroy_NAV_CattleFarm.render();		destroy_NAV_CattleFarm.handleEvent(&e);
-
-						build_AV_SheepFarm.render();			build_AV_SheepFarm.handleEvent(&e);
-						destroy_AV_SheepFarm.render();			destroy_AV_SheepFarm.handleEvent(&e);
-
-						build_NAV_Winery.render();				build_NAV_Winery.handleEvent(&e);
-						destroy_NAV_Winery.render();			destroy_NAV_Winery.handleEvent(&e);
-						// RENDER								// HANDLE_EVENT
-						build_NAV_TobaccoPlantation.render();	build_NAV_TobaccoPlantation.handleEvent(&e);
-						destroy_NAV_TobaccoPlantation.render();	destroy_NAV_TobaccoPlantation.handleEvent(&e);
-
-						build_NAV_SugarcanePlantation.render();	build_NAV_SugarcanePlantation.handleEvent(&e);
-						destroy_NAV_SugarcanePlantation.render(); destroy_NAV_SugarcanePlantation.handleEvent(&e);
-
-						build_NAV_IronMine.render();			build_NAV_IronMine.handleEvent(&e);
-						destroy_NAV_IronMine.render();			destroy_NAV_IronMine.handleEvent(&e);
-
-						build_NAV_DeepIronMine.render();		build_NAV_DeepIronMine.handleEvent(&e);
-						destroy_NAV_DeepIronMine.render();		destroy_NAV_DeepIronMine.handleEvent(&e);
-
-						build_NAV_GoldMine.render();			build_NAV_GoldMine.handleEvent(&e);
-						destroy_NAV_GoldMine.render();			destroy_NAV_GoldMine.handleEvent(&e);
-
-						build_AV_FishersHut.render();			build_AV_FishersHut.handleEvent(&e);
-						destroy_AV_FishersHut.render();			destroy_AV_FishersHut.handleEvent(&e);
+							Production_destroy_AV[i]->render();
+							Production_destroy_AV[i]->handleEvent(&e);
+							// }
+							/*
+							else
+							{
+							Production_build_NAV[i]->render;
+							Production_build_NAV[i]->handleEvent(&e);
+							Production_destroy_NAV[i]->render;
+							Production_destroy_NAV[i]->handleEvent(&e);
+							}
+							*/
+						}
 						break;
 					}
 					break;
@@ -1010,4 +959,9 @@ int main(int argc, char* args[])
 	// Zwalnianie zasobów i zamykanie SDL
 	close();
 	return 0;
+}
+
+void Render_Prod()
+{
+	
 }

@@ -140,13 +140,6 @@ bool loadMedia()
 		cout << "Nie zaladowano dzwieku tla SDL_mixer Error: " << Mix_GetError() << endl;
 		success = false;
 	}
-
-	// Ladowanie tekstury
-	if (!gPromptTextTexture.loadFromRenderedText("Nacisnij ENTER, aby zresetowac czas.", textColor))
-	{
-		cout << "Nie mozna wyrenderowac tekstury!" << endl;
-		success = false;
-	}
 	return success;
 }
 

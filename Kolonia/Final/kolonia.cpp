@@ -589,43 +589,43 @@ int main(int argc, char* args[])
 					// Skarbiec - wyswietlanie wartosci
 					// Podatki
 					gTextTexture.loadFromRenderedText(_itoa(0, Money_char_buffor, 10), textC);
-					gTextTexture.render(90, 40);
+					gTextTexture.render(155 - gTextTexture.getWidth(), 38);
 					// Koszty
 					gTextTexture.loadFromRenderedText("0", textC);
-					gTextTexture.render(90, 63);
+					gTextTexture.render(155 - gTextTexture.getWidth(), 61);
 					// Sprzedaz
 					gTextTexture.loadFromRenderedText("0", textC);
-					gTextTexture.render(90, 90);
+					gTextTexture.render(155 - gTextTexture.getWidth(), 89);
 					// Kupno
 					gTextTexture.loadFromRenderedText("0", textC);
-					gTextTexture.render(90, 113);
+					gTextTexture.render(155 - gTextTexture.getWidth(), 113);
 					// Bilans
 					gTextTexture.loadFromRenderedText("0", textC);
-					gTextTexture.render(90, 140);
+					gTextTexture.render(155 - gTextTexture.getWidth(), 139);
 					// Srodki
-					gTextTexture.loadFromRenderedText("0", textC);
-					gTextTexture.render(90, 170);
+					gTextTexture.loadFromRenderedText(_itoa(tResource[0]->getNumber(), Money_char_buffor, 10), textC);
+					gTextTexture.render(155 - gTextTexture.getWidth(), 168);
 
 					// Ludnosc - wyswietlanie wartosci
 					// Pionierzy
-					gTextTexture.loadFromRenderedText("0", textC);
-					gTextTexture.render(340, 38);
+					gTextTexture.loadFromRenderedText(_itoa(tPeople[0]->getNumber(), People_char_buffor, 10), textC);
+					gTextTexture.render(400 - gTextTexture.getWidth(), 38);
 					// Osadnicy
-					gTextTexture.loadFromRenderedText("0", textC);
-					gTextTexture.render(340, 62);
+					gTextTexture.loadFromRenderedText(_itoa(tPeople[1]->getNumber(), People_char_buffor, 10), textC);
+					gTextTexture.render(400 - gTextTexture.getWidth(), 62);
 					// Mieszczanie
-					gTextTexture.loadFromRenderedText("0", textC);
-					gTextTexture.render(340, 90);
+					gTextTexture.loadFromRenderedText(_itoa(tPeople[2]->getNumber(), People_char_buffor, 10), textC);
+					gTextTexture.render(400 - gTextTexture.getWidth(), 91);
 					// Kupcy
-					gTextTexture.loadFromRenderedText("0", textC);
-					gTextTexture.render(340, 117);
+					gTextTexture.loadFromRenderedText(_itoa(tPeople[3]->getNumber(), People_char_buffor, 10), textC);
+					gTextTexture.render(400 - gTextTexture.getWidth(), 118);
 					// Arystokraci
-					gTextTexture.loadFromRenderedText("0", textC);
-					gTextTexture.render(340, 145);
+					gTextTexture.loadFromRenderedText(_itoa(tPeople[4]->getNumber(), People_char_buffor, 10), textC);
+					gTextTexture.render(400 - gTextTexture.getWidth(), 146);
 					// Mieszkancy
-					gTextTexture.loadFromRenderedText(_itoa(People_int, People_char_buffor, 10), textC);
-					gTextTexture.render(340, 175);
-					People_int++;
+					gTextTexture.loadFromRenderedText(_itoa(tPeople[0]->getNumber() + tPeople[1]->getNumber() + tPeople[2]->getNumber() 
+						+ tPeople[3]->getNumber() + tPeople[4]->getNumber(), People_char_buffor, 10), textC);
+					gTextTexture.render(400 - gTextTexture.getWidth(), 175);
 
 					// Magazyny
 					// LVL1////////////////////////////////////////////////////////////////////////////////////////////////////// WWYWALIC (coœ z tym zrobic)

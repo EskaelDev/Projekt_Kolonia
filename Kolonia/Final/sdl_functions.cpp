@@ -227,7 +227,7 @@ SDL_Texture* loadTexture(std::string path)
 }
 
 
-bool Build(Public & Name, Resource & Money, Resource & Bricks, Resource & Tools, Resource & Wood)
+bool Build_Pub(Public & Name, Resource & Money, Resource & Bricks, Resource & Tools, Resource & Wood)
 {
 	if (Name.getStatus() == false)
 		return false;
@@ -244,7 +244,65 @@ bool Build(Public & Name, Resource & Money, Resource & Bricks, Resource & Tools,
 	}
 }
 
-bool Destroy(Public & Name)
+bool Destroy_Pub(Public & Name)
+{
+	if (Name.Destroy() == true)
+	{
+		usedFields -= Name.getSize();
+		return true;
+	}
+
+	else
+		return false;
+}
+
+bool Build_Proc(Processing & Name, Resource & Money, Resource & Bricks, Resource & Tools, Resource & Wood)
+{
+	if (Name.getStatus() == false)
+		return false;
+
+	else if (usedFields + Name.getSize() > islandSize)
+		return false;
+
+	else if (Name.Build(Money, Bricks, Tools, Wood) == false)
+		return false;
+	else
+	{
+		usedFields += Name.getSize();
+		return true;
+	}
+}
+
+bool Destroy_Proc(Processing & Name)
+{
+	if (Name.Destroy() == true)
+	{
+		usedFields -= Name.getSize();
+		return true;
+	}
+
+	else
+		return false;
+}
+
+bool Build_Prod(Production & Name, Resource & Money, Resource & Bricks, Resource & Tools, Resource & Wood)
+{
+	if (Name.getStatus() == false)
+		return false;
+
+	else if (usedFields + Name.getSize() > islandSize)
+		return false;
+
+	else if (Name.Build(Money, Bricks, Tools, Wood) == false)
+		return false;
+	else
+	{
+		usedFields += Name.getSize();
+		return true;
+	}
+}
+
+bool Destroy_Prod(Production & Name)
 {
 	if (Name.Destroy() == true)
 	{

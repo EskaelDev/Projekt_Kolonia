@@ -27,9 +27,20 @@ SDL_Texture* loadTexture(std::string path);
 // Tekstura tekstu
 extern STexture gTextTexture;
 
-// Buowanie budynków 
-bool Build(Public & Name, Resource & Money, Resource & Bricks, Resource & Tools, Resource & Wood);
-// Burzenie budynkow
-bool Destroy(Public & Name);
+// Buowanie budynków Publiczych
+bool Build_Pub(Public & Name, Resource & Money, Resource & Bricks, Resource & Tools, Resource & Wood);
+// Burzenie budynkow Publicznych
+bool Destroy_Pub(Public & Name);
+
+// Buowanie budynków Procesing
+bool Build_Proc(Processing & Name, Resource & Money, Resource & Bricks, Resource & Tools, Resource & Wood);
+// Burzenie budynkow Procesing
+bool Destroy_Proc(Processing & Name);
+
+// Buowanie budynków Production
+bool Build_Prod(Production & Name, Resource & Money, Resource & Bricks, Resource & Tools, Resource & Wood);
+// Burzenie budynkow Production
+bool Destroy_ProD(Production & Name);
+
 
 #endif

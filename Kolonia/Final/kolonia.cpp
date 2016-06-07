@@ -242,21 +242,21 @@ int main(int argc, char* args[])
 			// Tablica Production
 			// build_AV		Production
 			SButton* Production_build_AV[16];
-			Production_build_AV[0] = new SButton(0, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_3, "build_av.png");			// CottonPlantation
-			Production_build_AV[1] = new SButton(1, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_av.png");			// ForestersLodge
-			Production_build_AV[2] = new SButton(2, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_2, "build_av.png");			// GrainFarm
-			Production_build_AV[3] = new SButton(3, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "build_av.png");			// SpiceFarm
-			Production_build_AV[4] = new SButton(4, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "build_av.png");			// HuntersHut
-			Production_build_AV[5] = new SButton(5, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_3, "build_av.png");			// CocoaPlantation
-			Production_build_AV[6] = new SButton(6, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_av.png");			// CattleFarm
-			Production_build_AV[7] = new SButton(7, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_av.png");			// SheepFarm
-			Production_build_AV[8] = new SButton(8, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_av.png");			// Winery
-			Production_build_AV[9] = new SButton(9, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_av.png");			// TobaccoPlantation
-			Production_build_AV[10] = new SButton(10, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_av.png");		// SugarcanePlantation
-			Production_build_AV[11] = new SButton(11, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_3, "build_av.png");		// IronMine
-			Production_build_AV[12] = new SButton(12, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_3, "build_av.png");		// DeepIronMine
-			Production_build_AV[13] = new SButton(13, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_3, "build_av.png");		// GoldMine
-			Production_build_AV[14] = new SButton(14, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_av.png");		// FishersHut
+			Production_build_AV[0] = new SButton(0, BUILD_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_3, "build_av.png");			// CottonPlantation
+			Production_build_AV[1] = new SButton(1, BUILD_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_av.png");			// ForestersLodge
+			Production_build_AV[2] = new SButton(2, BUILD_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_2, "build_av.png");			// GrainFarm
+			Production_build_AV[3] = new SButton(3, BUILD_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "build_av.png");			// SpiceFarm
+			Production_build_AV[4] = new SButton(4, BUILD_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "build_av.png");			// HuntersHut
+			Production_build_AV[5] = new SButton(5, BUILD_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_3, "build_av.png");			// CocoaPlantation
+			Production_build_AV[6] = new SButton(6, BUILD_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_av.png");			// CattleFarm
+			Production_build_AV[7] = new SButton(7, BUILD_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_av.png");			// SheepFarm
+			Production_build_AV[8] = new SButton(8, BUILD_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_av.png");			// Winery
+			Production_build_AV[9] = new SButton(9, BUILD_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_av.png");			// TobaccoPlantation
+			Production_build_AV[10] = new SButton(10, BUILD_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_av.png");		// SugarcanePlantation
+			Production_build_AV[11] = new SButton(11, BUILD_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_3, "build_av.png");		// IronMine
+			Production_build_AV[12] = new SButton(12, BUILD_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_3, "build_av.png");		// DeepIronMine
+			Production_build_AV[13] = new SButton(13, BUILD_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_3, "build_av.png");		// GoldMine
+			Production_build_AV[14] = new SButton(14, BUILD_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_av.png");		// FishersHut
 		
 			// build_NAV	Production
 			SButton* Production_build_NAV[16];
@@ -278,21 +278,21 @@ int main(int argc, char* args[])
 
 			// destroy_AV	Production
 			SButton* Production_destroy_AV[16];
-			Production_destroy_AV[0] = new SButton(0, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_3, "destroy_av.png");		// CottonPlantation
-			Production_destroy_AV[1] = new SButton(1, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_av.png");		// ForestersLodge
-			Production_destroy_AV[2] = new SButton(2, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_2, "destroy_av.png");		// GrainFarm
-			Production_destroy_AV[3] = new SButton(3, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_av.png");		// SpiceFarm
-			Production_destroy_AV[4] = new SButton(4, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_av.png");		// HuntersHut
-			Production_destroy_AV[5] = new SButton(5, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_3, "destroy_av.png");		// CocoaPlantation
-			Production_destroy_AV[6] = new SButton(6, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_av.png");		// CattleFarm
-			Production_destroy_AV[7] = new SButton(7, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_av.png");		// SheepFarm
-			Production_destroy_AV[8] = new SButton(8, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_av.png");		// Winery
-			Production_destroy_AV[9] = new SButton(9, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_av.png");		// TobaccoPlantation
-			Production_destroy_AV[10] = new SButton(10, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_av.png");	// SugarcanePlantation
-			Production_destroy_AV[11] = new SButton(11, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_3, "destroy_av.png");	// IronMine
-			Production_destroy_AV[12] = new SButton(12, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_3, "destroy_av.png");	// DeepIronMine
-			Production_destroy_AV[13] = new SButton(13, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_3, "destroy_av.png");	// GoldMine
-			Production_destroy_AV[14] = new SButton(14, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_av.png");	// FishersHut
+			Production_destroy_AV[0] = new SButton(0, DESTROY_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_3, "destroy_av.png");		// CottonPlantation
+			Production_destroy_AV[1] = new SButton(1, DESTROY_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_av.png");		// ForestersLodge
+			Production_destroy_AV[2] = new SButton(2, DESTROY_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_2, "destroy_av.png");		// GrainFarm
+			Production_destroy_AV[3] = new SButton(3, DESTROY_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_av.png");		// SpiceFarm
+			Production_destroy_AV[4] = new SButton(4, DESTROY_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_av.png");		// HuntersHut
+			Production_destroy_AV[5] = new SButton(5, DESTROY_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_3, "destroy_av.png");		// CocoaPlantation
+			Production_destroy_AV[6] = new SButton(6, DESTROY_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_av.png");		// CattleFarm
+			Production_destroy_AV[7] = new SButton(7, DESTROY_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_av.png");		// SheepFarm
+			Production_destroy_AV[8] = new SButton(8, DESTROY_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_av.png");		// Winery
+			Production_destroy_AV[9] = new SButton(9, DESTROY_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_av.png");		// TobaccoPlantation
+			Production_destroy_AV[10] = new SButton(10, DESTROY_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_av.png");	// SugarcanePlantation
+			Production_destroy_AV[11] = new SButton(11, DESTROY_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_3, "destroy_av.png");	// IronMine
+			Production_destroy_AV[12] = new SButton(12, DESTROY_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_3, "destroy_av.png");	// DeepIronMine
+			Production_destroy_AV[13] = new SButton(13, DESTROY_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_3, "destroy_av.png");	// GoldMine
+			Production_destroy_AV[14] = new SButton(14, DESTROY_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_av.png");	// FishersHut
 
 			// destroy_NAV	Production
 			SButton* Production_destroy_NAV[16];
@@ -315,18 +315,18 @@ int main(int argc, char* args[])
 			// Tablica Processing
 			// build_AV		Processing
 			SButton* Processing_build_AV[12];
-			Processing_build_AV[0] = new SButton(0, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_av.png");			// Bakery
-			Processing_build_AV[1] = new SButton(1, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_2, "build_av.png");			// OreRafinery
-			Processing_build_AV[2] = new SButton(2, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_3, "build_av.png");			// GoldSmith
-			Processing_build_AV[3] = new SButton(3, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_av.png");			// ButchersShop
-			Processing_build_AV[4] = new SButton(4, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_av.png");			// RumDistillery
-			Processing_build_AV[5] = new SButton(5, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_3, "build_av.png");			// Clothiers
-			Processing_build_AV[6] = new SButton(6, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "build_av.png");			// TobaccoProduction
-			Processing_build_AV[7] = new SButton(7, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_av.png");			// WeavingMill
-			Processing_build_AV[8] = new SButton(8, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_av.png");			// WeavingHut
-			Processing_build_AV[9] = new SButton(9, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "build_av.png");			// ToolSmith
-			Processing_build_AV[10] = new SButton(10, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_av.png");		// WindMill
-			Processing_build_AV[11] = new SButton(15, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_av.png");		// StoneMason
+			Processing_build_AV[0] = new SButton(0, BUILD_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_av.png");			// Bakery
+			Processing_build_AV[1] = new SButton(1, BUILD_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_2, "build_av.png");			// OreRafinery
+			Processing_build_AV[2] = new SButton(2, BUILD_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_3, "build_av.png");			// GoldSmith
+			Processing_build_AV[3] = new SButton(3, BUILD_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_av.png");			// ButchersShop
+			Processing_build_AV[4] = new SButton(4, BUILD_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_av.png");			// RumDistillery
+			Processing_build_AV[5] = new SButton(5, BUILD_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_3, "build_av.png");			// Clothiers
+			Processing_build_AV[6] = new SButton(6, BUILD_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "build_av.png");			// TobaccoProduction
+			Processing_build_AV[7] = new SButton(7, BUILD_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_av.png");			// WeavingMill
+			Processing_build_AV[8] = new SButton(8, BUILD_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_av.png");			// WeavingHut
+			Processing_build_AV[9] = new SButton(9, BUILD_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "build_av.png");			// ToolSmith
+			Processing_build_AV[10] = new SButton(10, BUILD_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_av.png");		// WindMill
+			Processing_build_AV[11] = new SButton(15, BUILD_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_av.png");		// StoneMason
 
 			// build_NAV	Processing
 			SButton* Processing_build_NAV[12];
@@ -345,18 +345,18 @@ int main(int argc, char* args[])
 
 			// destroy_AV	Processing	
 			SButton* Processing_destroy_AV[12];
-			Processing_destroy_AV[0] = new SButton(0, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_av.png");			// Bakery
-			Processing_destroy_AV[1] = new SButton(1, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_2, "destroy_av.png");			// OreRafinery
-			Processing_destroy_AV[2] = new SButton(2, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_3, "destroy_av.png");			// GoldSmith
-			Processing_destroy_AV[3] = new SButton(3, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_av.png");			// ButchersShop
-			Processing_destroy_AV[4] = new SButton(4, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_av.png");			// RumDistillery
-			Processing_destroy_AV[5] = new SButton(5, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_3, "destroy_av.png");			// Clothiers
-			Processing_destroy_AV[6] = new SButton(6, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_av.png");			// TobaccoProduction
-			Processing_destroy_AV[7] = new SButton(7, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_av.png");			// WeavingMill
-			Processing_destroy_AV[8] = new SButton(8, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_av.png");			// WeavingHut
-			Processing_destroy_AV[9] = new SButton(9, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_av.png");			// ToolSmith
-			Processing_destroy_AV[10] = new SButton(10, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_av.png");		// WindMill
-			Processing_destroy_AV[11] = new SButton(15, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_av.png");		// StoneMason
+			Processing_destroy_AV[0] = new SButton(0, DESTROY_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_av.png");			// Bakery
+			Processing_destroy_AV[1] = new SButton(1, DESTROY_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_2, "destroy_av.png");			// OreRafinery
+			Processing_destroy_AV[2] = new SButton(2, DESTROY_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_3, "destroy_av.png");			// GoldSmith
+			Processing_destroy_AV[3] = new SButton(3, DESTROY_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_av.png");			// ButchersShop
+			Processing_destroy_AV[4] = new SButton(4, DESTROY_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_av.png");			// RumDistillery
+			Processing_destroy_AV[5] = new SButton(5, DESTROY_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_3, "destroy_av.png");			// Clothiers
+			Processing_destroy_AV[6] = new SButton(6, DESTROY_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_av.png");			// TobaccoProduction
+			Processing_destroy_AV[7] = new SButton(7, DESTROY_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_av.png");			// WeavingMill
+			Processing_destroy_AV[8] = new SButton(8, DESTROY_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_av.png");			// WeavingHut
+			Processing_destroy_AV[9] = new SButton(9, DESTROY_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_av.png");			// ToolSmith
+			Processing_destroy_AV[10] = new SButton(10, DESTROY_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_av.png");		// WindMill
+			Processing_destroy_AV[11] = new SButton(15, DESTROY_PROC, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_av.png");		// StoneMason
 
 			// destroy_NAV	Processing
 			SButton* Processing_destroy_NAV[12];
@@ -376,18 +376,18 @@ int main(int argc, char* args[])
 			// Tablica Public
 			// build_AV		Public
 			SButton* Public_build_AV[12];
-			Public_build_AV[0] = new SButton(0, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_av.png");		// Doctor
-			Public_build_AV[1] = new SButton(1, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_2, "build_av.png");		// Public Bath	
-			Public_build_AV[2] = new SButton(2, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "build_av.png");		// Fire Department
-			Public_build_AV[3] = new SButton(3, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "build_av.png");		// University
-			Public_build_AV[4] = new SButton(4, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_av.png");		// Chapel
-			Public_build_AV[5] = new SButton(5, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_3, "build_av.png");		// Cathedral
-			Public_build_AV[6] = new SButton(6, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_av.png");		// Church
-			Public_build_AV[7] = new SButton(7, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_av.png");		// Marketplace
-			Public_build_AV[8] = new SButton(8, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 - 53, W_3, "build_av.png");		// Palace 
-			Public_build_AV[9] = new SButton(9, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_av.png");		// School
-			Public_build_AV[10] = new SButton(10, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_av.png");	// Theatre
-			Public_build_AV[11] = new SButton(11, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_av.png");	// Tavern
+			Public_build_AV[0] = new SButton(0, BUILD_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_2, "build_av.png");		// Doctor
+			Public_build_AV[1] = new SButton(1, BUILD_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_2, "build_av.png");		// Public Bath	
+			Public_build_AV[2] = new SButton(2, BUILD_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_1, "build_av.png");		// Fire Department
+			Public_build_AV[3] = new SButton(3, BUILD_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_2, "build_av.png");		// University
+			Public_build_AV[4] = new SButton(4, BUILD_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_av.png");		// Chapel
+			Public_build_AV[5] = new SButton(5, BUILD_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_3, "build_av.png");		// Cathedral
+			Public_build_AV[6] = new SButton(6, BUILD_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_av.png");		// Church
+			Public_build_AV[7] = new SButton(7, BUILD_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_av.png");		// Marketplace
+			Public_build_AV[8] = new SButton(8, BUILD_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 - 53, W_3, "build_av.png");		// Palace 
+			Public_build_AV[9] = new SButton(9, BUILD_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_av.png");		// School
+			Public_build_AV[10] = new SButton(10, BUILD_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_av.png");	// Theatre
+			Public_build_AV[11] = new SButton(11, BUILD_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_av.png");	// Tavern
 
 			// build_NAV	Public
 			SButton* Public_build_NAV[12];
@@ -406,18 +406,18 @@ int main(int argc, char* args[])
 
 			// destroy_AV	Public
 			SButton* Public_destroy_AV[12];
-			Public_destroy_AV[0] = new SButton(0, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_av.png");		// Doctor
-			Public_destroy_AV[1] = new SButton(1, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_2, "destroy_av.png");		// Public Bath	
-			Public_destroy_AV[2] = new SButton(2, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_av.png");		// Fire Department
-			Public_destroy_AV[3] = new SButton(3, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_av.png");		// University
-			Public_destroy_AV[4] = new SButton(4, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_av.png");		// Chapel
-			Public_destroy_AV[5] = new SButton(5, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_3, "destroy_av.png");		// Cathedral
-			Public_destroy_AV[6] = new SButton(6, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_av.png");		// Church
-			Public_destroy_AV[7] = new SButton(7, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_av.png");		// Marketplace
-			Public_destroy_AV[8] = new SButton(8, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_3, "destroy_av.png");			// Palace 
-			Public_destroy_AV[9] = new SButton(9, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_av.png");		// School
-			Public_destroy_AV[10] = new SButton(10, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_av.png");	// Theatre
-			Public_destroy_AV[11] = new SButton(11, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_av.png");	// Tavern
+			Public_destroy_AV[0] = new SButton(0, DESTROY_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_2, "destroy_av.png");		// Doctor
+			Public_destroy_AV[1] = new SButton(1, DESTROY_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_2, "destroy_av.png");		// Public Bath	
+			Public_destroy_AV[2] = new SButton(2, DESTROY_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_av.png");		// Fire Department
+			Public_destroy_AV[3] = new SButton(3, DESTROY_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_2, "destroy_av.png");		// University
+			Public_destroy_AV[4] = new SButton(4, DESTROY_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_av.png");		// Chapel
+			Public_destroy_AV[5] = new SButton(5, DESTROY_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_3, "destroy_av.png");		// Cathedral
+			Public_destroy_AV[6] = new SButton(6, DESTROY_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_av.png");		// Church
+			Public_destroy_AV[7] = new SButton(7, DESTROY_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_av.png");		// Marketplace
+			Public_destroy_AV[8] = new SButton(8, DESTROY_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_3, "destroy_av.png");			// Palace 
+			Public_destroy_AV[9] = new SButton(9, DESTROY_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_av.png");		// School
+			Public_destroy_AV[10] = new SButton(10, DESTROY_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_av.png");	// Theatre
+			Public_destroy_AV[11] = new SButton(11, DESTROY_PUB, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_av.png");	// Tavern
 
 			// destroy_NAV	Public
 			SButton* Public_destroy_NAV[12];
@@ -438,24 +438,24 @@ int main(int argc, char* args[])
 			// Pionerzy
 			SButton build_NAV_House_L1(666, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_nav.png");
 			SButton destroy_NAV_House_L1(666, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_nav.png");
-			SButton build_AV_House_L1(666, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_av.png");
-			SButton destroy_AV_House_L1(666, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_av.png");
+			SButton build_AV_House_L1(666, BUILD_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_av.png");
+			SButton destroy_AV_House_L1(666, DESTROY_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_av.png");
 			// Osadnicy
 			SButton build_NAV_House_L2(666, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_nav.png");
 			SButton destroy_NAV_House_L2(666, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_nav.png");
-			SButton build_AV_House_L2(666, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_av.png");
-			SButton destroy_AV_House_L2(666, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_av.png");
+			SButton build_AV_House_L2(666, BUILD_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_av.png");
+			SButton destroy_AV_House_L2(666, DESTROY_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_av.png");
 			// Mieszczanie
 			SButton build_NAV_House_L3(666, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_nav.png");
 			SButton destroy_NAV_House_L3(666, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_nav.png");
-			SButton build_AV_House_L3(666, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_av.png");
-			SButton destroy_AV_House_L3(666, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_av.png");
+			SButton build_AV_House_L3(666, BUILD_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_av.png");
+			SButton destroy_AV_House_L3(666, DESTROY_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_av.png");
 			// Kupcy
 			SButton destroy_NAV_House_L4(666, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_nav.png");
-			SButton destroy_AV_House_L4(666, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_av.png");
+			SButton destroy_AV_House_L4(666, DESTROY_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_av.png");
 			// Arystokraci
 			SButton destroy_NAV_House_L5(666, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_nav.png");
-			SButton destroy_AV_House_L5(666, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_av.png");
+			SButton destroy_AV_House_L5(666, DESTROY_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_av.png");
 
 			// Pozwol budowac
 			SButton Allow_Build(666, ALLOW_BUILD, ALLOW_BUILD_BUTTON_WIDTH, ALLOW_BUILD_BUTTON_HEIGHT, A_B_X, A_B_Y, "allow_build.png");
@@ -928,31 +928,31 @@ int main(int argc, char* args[])
 							*/
 						}
 						// Wyswietlanie ilosci budynkow publicznych
-						gTextTexture.loadFromRenderedText(_itoa(tPublic[7]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[7]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_1, T_W_1);
-						gTextTexture.loadFromRenderedText(_itoa(tPublic[4]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[4]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_2, T_W_1); 
-						gTextTexture.loadFromRenderedText(_itoa(tPublic[11]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[11]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_3, T_W_1);
-						gTextTexture.loadFromRenderedText(_itoa(tPublic[2]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[2]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_4, T_W_1);
-						gTextTexture.loadFromRenderedText(_itoa(tPublic[9]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[9]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_5, T_W_1);
 
-						gTextTexture.loadFromRenderedText(_itoa(tPublic[0]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[0]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_1, T_W_2);
-						gTextTexture.loadFromRenderedText(_itoa(tPublic[6]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[6]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_2, T_W_2);
-						gTextTexture.loadFromRenderedText(_itoa(tPublic[10]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[10]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_3, T_W_2);
-						gTextTexture.loadFromRenderedText(_itoa(tPublic[3]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[3]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_4, T_W_2);
-						gTextTexture.loadFromRenderedText(_itoa(tPublic[1]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[1]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_5, T_W_2);
 
-						gTextTexture.loadFromRenderedText(_itoa(tPublic[5]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[5]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_1, T_W_3);
-						gTextTexture.loadFromRenderedText(_itoa(tPublic[8]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[8]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_4 + 85, T_W_3);
 						break;
 						// Ekran rozgrywki - przetworstwo
@@ -984,31 +984,31 @@ int main(int argc, char* args[])
 						}
 
 						// Wyswietlanie ilosci budynkow przetworczych
-						gTextTexture.loadFromRenderedText(_itoa(tProcessing[8]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[8]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_1, T_W_1);
-						gTextTexture.loadFromRenderedText(_itoa(tProcessing[3]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[3]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_2, T_W_1);
-						gTextTexture.loadFromRenderedText(_itoa(tProduction[15]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[15]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_3, T_W_1);
-						gTextTexture.loadFromRenderedText(_itoa(tProcessing[6]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[6]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_4, T_W_1);
-						gTextTexture.loadFromRenderedText(_itoa(tProcessing[4]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[4]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_5, T_W_1);
 
-						gTextTexture.loadFromRenderedText(_itoa(tProcessing[0]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[0]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_1, T_W_2);
-						gTextTexture.loadFromRenderedText(_itoa(tProcessing[7]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[7]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_2, T_W_2);
-						gTextTexture.loadFromRenderedText(_itoa(tProcessing[10]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[10]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_3, T_W_2);
-						gTextTexture.loadFromRenderedText(_itoa(tProcessing[9]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[9]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_4, T_W_2);
-						gTextTexture.loadFromRenderedText(_itoa(tProcessing[1]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[1]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_5, T_W_2);
 
-						gTextTexture.loadFromRenderedText(_itoa(tProcessing[5]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[5]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_2, T_W_3);
-						gTextTexture.loadFromRenderedText(_itoa(tProcessing[2]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[2]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_4, T_W_3);
 						break;
 						// Ekran rozgrywki - produkcja
@@ -1017,10 +1017,6 @@ int main(int argc, char* args[])
 						back_button.render();					back_button.handleEvent(&e);
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
-
-						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC !!!!!
-						gTextTexture.loadFromRenderedText(_itoa(chatka_drwala, People_char_buffor, 10), textC, gFont_12);
-						gTextTexture.render(57, 233);
 
 						for (int i = 0; i < 15; i++)
 						{
@@ -1042,37 +1038,37 @@ int main(int argc, char* args[])
 							}
 							*/
 						}
-						gTextTexture.loadFromRenderedText(_itoa(tProduction[1]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[1]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_1, T_W_1);
-						gTextTexture.loadFromRenderedText(_itoa(tProduction[14]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[14]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_2, T_W_1);
-						gTextTexture.loadFromRenderedText(_itoa(tProduction[7]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[7]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_3, T_W_1);
-						gTextTexture.loadFromRenderedText(_itoa(tProduction[4]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[4]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_4, T_W_1);
-						gTextTexture.loadFromRenderedText(_itoa(tProduction[6]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[6]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_5, T_W_1);
 
-						gTextTexture.loadFromRenderedText(_itoa(tProduction[10]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[10]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_1, T_W_2);
-						gTextTexture.loadFromRenderedText(_itoa(tProduction[8]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[8]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_2, T_W_2);
-						gTextTexture.loadFromRenderedText(_itoa(tProduction[9]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[9]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_3, T_W_2);
-						gTextTexture.loadFromRenderedText(_itoa(tProduction[3]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[3]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_4, T_W_2);
-						gTextTexture.loadFromRenderedText(_itoa(tProduction[2]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[2]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_5, T_W_2);
 
-						gTextTexture.loadFromRenderedText(_itoa(tProduction[11]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[11]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_1, T_W_3);
-						gTextTexture.loadFromRenderedText(_itoa(tProduction[13]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[13]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_2, T_W_3);
-						gTextTexture.loadFromRenderedText(_itoa(tProduction[5]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[5]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_3, T_W_3);
-						gTextTexture.loadFromRenderedText(_itoa(tProduction[0]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[0]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_4, T_W_3);
-						gTextTexture.loadFromRenderedText(_itoa(tProduction[12]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[12]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_5, T_W_3);
 						break;
 					}

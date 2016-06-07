@@ -17,7 +17,7 @@ Magazine::Magazine()
 	peopleClass = -1;
 	status = true;
 	level = 0;
-	magazineCapacity = 0;
+	magazineCapacity = 70;
 }
 
 bool Magazine::Build(Resource & _Money, Resource & _Bricks, Resource & _Tools, Resource & _Wood)

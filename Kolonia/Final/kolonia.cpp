@@ -129,9 +129,9 @@ int main(int argc, char* args[])
 	tResource[20] = new Resource(30);		// Bricks
 
 	tResource[0]->increase(5000);
-	tResource[18]->increase(5000);
-	tResource[19]->increase(5000);
-	tResource[20]->increase(5000);
+	tResource[18]->increase(50);
+	tResource[19]->increase(70);
+	tResource[20]->increase(13);
 
 	// Wlaczenie SDL i stworzenie okna
 	if (!init())
@@ -529,31 +529,31 @@ int main(int argc, char* args[])
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(gRenderer);
 
-			//	int przelicznik = tResource[1]->getNumber / WareHouse.getmagazineCapacity(); !!!!
+				//int przelicznik = tResource[1]->getNumber() / WareHouse.getmagazineCapacity();
 				// Paski surowców
-				SDL_Rect fillRect = { 6, 295, 30, 5 };			// 1 Iron Ore
-				SDL_Rect fillRect2 = { 71, 295, 30, 5 };		// 2 Gold
-				SDL_Rect fillRect3 = { 136, 295, 30, 5 };		// 3 Wool
-				SDL_Rect fillRect4 = { 201, 295, 30, 5 };		// 4 Sugar
-				SDL_Rect fillRect5 = { 266, 295, 30, 5 };		// 10 Food
+				SDL_Rect fillRect = { 6, 295, 56 * tResource[1]->getNumber() / WareHouse.getmagazineCapacity(), 5 };		// 1 Iron Ore
+				SDL_Rect fillRect2 = { 71, 295, 56 * tResource[2]->getNumber() / WareHouse.getmagazineCapacity(), 5 };		// 2 Gold
+				SDL_Rect fillRect3 = { 136, 295, 56 * tResource[3]->getNumber() / WareHouse.getmagazineCapacity(), 5 };		// 3 Wool
+				SDL_Rect fillRect4 = { 201, 295, 56 * tResource[4]->getNumber() / WareHouse.getmagazineCapacity(), 5 };		// 4 Sugar
+				SDL_Rect fillRect5 = { 266, 295, 56 * tResource[10]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 10 Food
 
-				SDL_Rect fillRect6 = { 6, 369, 30, 5 };			// 5 Tobacco
-				SDL_Rect fillRect7 = { 71, 369, 30, 5 };		// 6 Cattle
-				SDL_Rect fillRect8 = { 136, 369, 30, 5 };		// 7 Grain
-				SDL_Rect fillRect9 = { 201, 369, 30, 5 };		// 8 Flour
-				SDL_Rect fillRect10 = { 266, 369, 30, 5 };		// 14 Liquor
+				SDL_Rect fillRect6 = { 6, 369, 56 * tResource[5]->getNumber() / WareHouse.getmagazineCapacity(), 5 };		// 5 Tobacco
+				SDL_Rect fillRect7 = { 71, 369, 56 * tResource[6]->getNumber() / WareHouse.getmagazineCapacity(), 5 };		// 6 Cattle
+				SDL_Rect fillRect8 = { 136, 369, 56 * tResource[7]->getNumber() / WareHouse.getmagazineCapacity(), 5 };		// 7 Grain
+				SDL_Rect fillRect9 = { 201, 369, 56 * tResource[8]->getNumber() / WareHouse.getmagazineCapacity(), 5 };		// 8 Flour
+				SDL_Rect fillRect10 = { 266, 369, 56 * tResource[14]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 14 Liquor
 				
-				SDL_Rect fillRect11 = { 6, 437, 30, 5 };		// 12 Spices
-				SDL_Rect fillRect12 = { 71, 437, 30, 5 };		// 15 Cloth
-				SDL_Rect fillRect13 = { 136, 437, 30, 5 };		// 16 Clothes
-				SDL_Rect fillRect14 = { 201, 437, 30, 5 };		// 11 Tobacco Products
-				SDL_Rect fillRect15 = { 266, 437, 30, 5 };		// 17 Jewerly
+				SDL_Rect fillRect11 = { 6, 437, 56 * tResource[12]->getNumber() / WareHouse.getmagazineCapacity(), 5 };		// 12 Spices
+				SDL_Rect fillRect12 = { 71, 437, 56 * tResource[15]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 15 Cloth
+				SDL_Rect fillRect13 = { 136, 437, 56 * tResource[16]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 16 Clothes
+				SDL_Rect fillRect14 = { 201, 437, 56 * tResource[11]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 11 Tobacco Products
+				SDL_Rect fillRect15 = { 266, 437, 56 * tResource[17]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 17 Jewerly
 
-				SDL_Rect fillRect16 = { 6, 507, 30, 5 };		// 18 Tools
-				SDL_Rect fillRect17 = { 71, 507, 30, 5 };		// 19 Wood
-				SDL_Rect fillRect18 = { 136, 507, 30, 5 };		// 20 Bricks
-				SDL_Rect fillRect19 = { 201, 507, 30, 5 };		// 9 Iron
-				SDL_Rect fillRect20 = { 266, 507, 30, 5 };		// 13 Cocoa
+				SDL_Rect fillRect16 = { 6, 507, 56 * tResource[18]->getNumber()/WareHouse.getmagazineCapacity(), 5 };		// 18 Tools
+				SDL_Rect fillRect17 = { 71, 507, 56 * tResource[19]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 19 Wood
+				SDL_Rect fillRect18 = { 136, 507, 56 * tResource[20]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 20 Bricks
+				SDL_Rect fillRect19 = { 201, 507, 56 * tResource[9]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 9 Iron
+				SDL_Rect fillRect20 = { 266, 507, 56 * tResource[13]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 13 Cocoa
 				
 
 

@@ -16,3 +16,15 @@ bool allow_build = true;
 // Char buffor Ludzie i Pieniadze
 char People_char_buffor[4];				int People_int = 1;
 char Money_char_buffor[7];				int Money_int = 50000;
+
+// Pola wyspy
+int usedFields=0;
+int islandSize=1700;
+
+// Public(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, size, peopleToBuild, peopleClass)
+
+Public* tPublic[12];
+Production* tProduction[16];
+Processing* tProcessing[11];
+
+Resource* tResource[21];

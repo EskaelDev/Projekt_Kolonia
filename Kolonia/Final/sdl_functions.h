@@ -7,6 +7,8 @@
 #include <iostream>
 #include "sdl_objects.h"
 #include "STexture.h"
+#include "core/Public.h"
+
 
 using namespace std;
 
@@ -24,4 +26,10 @@ SDL_Texture* loadTexture(std::string path);
 
 // Tekstura tekstu
 extern STexture gTextTexture;
+
+// Buowanie budynków 
+bool Build(Public & Name, Resource & Money, Resource & Bricks, Resource & Tools, Resource & Wood);
+// Burzenie budynkow
+bool Destroy(Public & Name);
+
 #endif

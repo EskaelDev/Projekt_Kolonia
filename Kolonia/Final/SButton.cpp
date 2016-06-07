@@ -263,9 +263,11 @@ void SButton::operation(Actions action)
 		break;
 
 	case BUILD:
+		Build(*tPublic[id], *tResource[0], *tResource[20], *tResource[18], *tResource[19]);
 		break;
 
 	case DESTROY:
+		Destroy(*tPublic[id]);
 		break;
 
 	case UPGRADE://///////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC

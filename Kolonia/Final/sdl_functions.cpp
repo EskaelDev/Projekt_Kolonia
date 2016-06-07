@@ -225,3 +225,33 @@ SDL_Texture* loadTexture(std::string path)
 	}
 	return newTexture;
 }
+
+
+bool Build(Public & Name, Resource & Money, Resource & Bricks, Resource & Tools, Resource & Wood)
+{
+	if (Name.getStatus() == false)
+		return false;
+
+	else if (usedFields + Name.getSize() > islandSize)
+		return false;
+
+	else if (Name.Build(Money, Bricks, Tools, Wood) == false)
+		return false;
+	else
+	{
+		usedFields += Name.getSize();
+		return true;
+	}
+}
+
+bool Destroy(Public & Name)
+{
+	if (Name.Destroy() == true)
+	{
+		usedFields -= Name.getSize();
+		return true;
+	}
+
+	else
+		return false;
+}

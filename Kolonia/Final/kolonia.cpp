@@ -47,7 +47,7 @@ int main(int argc, char* args[])
 	Magazine WareHouse;
 
 	// Public(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, size, peopleToBuild, peopleClass)
-	Public* tPublic[12];
+
 	tPublic[0] = new Public(450, 9, 4, 4, 30, 4, 50, 2);			// Doctor
 	tPublic[1] = new Public(1200, 19, 6, 5, 60, 12, 210, 2);		// Public Bath	
 	tPublic[2] = new Public(150, 0, 3, 5, 15, 4, 15, 1);			// Fire Department
@@ -62,7 +62,7 @@ int main(int argc, char* args[])
 	tPublic[11] = new Public(250, 6, 3, 4, 15, 6, 50, 1);			// Tavern
 
 	// Production(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, size, magazineCapacity, peopleToBuild, peopleClass, productID)
-	Production* tProduction[16];
+
 	tProduction[0] = new Production(200, 6, 2, 3, 25, 10, 16, 9, 200, 2, 3);		// Cotton Plantation		
 	tProduction[1] = new Production(50, 0, 2, 0, 5, 0, 4, 10, 0, -1, 19);			// Foresters Lodge
 	tProduction[2] = new Production(100, 0, 2, 5, 5, 0, 16, 6, 75, 1, 7);			// Grain Farm
@@ -81,7 +81,7 @@ int main(int argc, char* args[])
 	tProduction[15] = new Production(100, 0, 5, 5, 5, 0, 4, 8, 15, 1, 20);			// Stone Mason
 
 	// Processing(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, magazineCapacity, peopleToBuild, peopleClass, productID, materialID, productNumber, materialNumber)
-	Processing* tProcessing[11];
+
 	tProcessing[0] = new Processing(150, 0, 2, 6, 5, 0, 4, 75, 1, 10, 8, 1, 2);			// Bakery
 	tProcessing[1] = new Processing(200, 4, 3, 1, 25, 10, 5, 120, 1, 9, 1, 1, 1);		// Ore Refenery
 	tProcessing[2] = new Processing(1500, 10, 7, 2, 45, 20, 4, 250, 3, 17, 2, 2, 1);	// Gold Smith
@@ -103,7 +103,6 @@ int main(int argc, char* args[])
 	tPeople[4] = new People(2);		// Aristocrats
 
 	// Resource(price)
-	Resource* tResource[21];
 	tResource[0] = new Resource(1);			// Money
 	tResource[1] = new Resource(60);		// Iron Ore
 	tResource[2] = new Resource(465);		// Gold
@@ -127,6 +126,9 @@ int main(int argc, char* args[])
 	tResource[20] = new Resource(30);		// Bricks
 
 	tResource[0]->increase(5000);
+	tResource[18]->increase(5000);
+	tResource[19]->increase(5000);
+	tResource[20]->increase(5000);
 
 	// Wlaczenie SDL i stworzenie okna
 	if (!init())
@@ -881,6 +883,9 @@ int main(int argc, char* args[])
 							}
 							*/
 						}
+
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[4]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(400 - gTextTexture.getWidth(), 62); 
 						break;
 						// Ekran rozgrywki - przetworstwo
 					case PROC:

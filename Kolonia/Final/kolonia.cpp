@@ -439,26 +439,26 @@ int main(int argc, char* args[])
 
 			// DOMY
 			// Pionerzy
-			SButton build_NAV_House_L1(666, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_nav.png");
-			SButton destroy_NAV_House_L1(666, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_nav.png");
-			SButton build_AV_House_L1(666, BUILD_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_av.png");
-			SButton destroy_AV_House_L1(666, DESTROY_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_av.png");
+			SButton build_NAV_House_L1(0, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_nav.png");
+			SButton destroy_NAV_House_L1(0, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_nav.png");
+			SButton build_AV_House_L1(0, BUILD_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_av.png");
+			SButton destroy_AV_House_L1(0, DESTROY_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_av.png");
 			// Osadnicy
-			SButton build_NAV_House_L2(666, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_nav.png");
-			SButton destroy_NAV_House_L2(666, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_nav.png");
-			SButton build_AV_House_L2(666, BUILD_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_av.png");
-			SButton destroy_AV_House_L2(666, DESTROY_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_av.png");
+			SButton build_NAV_House_L2(1, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_nav.png");
+			SButton destroy_NAV_House_L2(1, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_nav.png");
+			SButton build_AV_House_L2(1, BUILD_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_av.png");
+			SButton destroy_AV_House_L2(1, DESTROY_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_1, "destroy_av.png");
 			// Mieszczanie
-			SButton build_NAV_House_L3(666, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_nav.png");
-			SButton destroy_NAV_House_L3(666, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_nav.png");
-			SButton build_AV_House_L3(666, BUILD_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_av.png");
-			SButton destroy_AV_House_L3(666, DESTROY_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_av.png");
+			SButton build_NAV_House_L3(2, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_nav.png");
+			SButton destroy_NAV_House_L3(2, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_nav.png");
+			SButton build_AV_House_L3(2, BUILD_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_av.png");
+			SButton destroy_AV_House_L3(2, DESTROY_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_av.png");
 			// Kupcy
-			SButton destroy_NAV_House_L4(666, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_nav.png");
-			SButton destroy_AV_House_L4(666, DESTROY_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_av.png");
+			SButton destroy_NAV_House_L4(3, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_nav.png");
+			SButton destroy_AV_House_L4(3, DESTROY_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4 + R_R, W_1, "destroy_av.png");
 			// Arystokraci
-			SButton destroy_NAV_House_L5(666, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_nav.png");
-			SButton destroy_AV_House_L5(666, DESTROY_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_av.png");
+			SButton destroy_NAV_House_L5(4, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_nav.png");
+			SButton destroy_AV_House_L5(4, DESTROY_HOUSE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_av.png");
 
 			// Pozwol budowac
 			SButton Allow_Build(666, ALLOW_BUILD, ALLOW_BUILD_BUTTON_WIDTH, ALLOW_BUILD_BUTTON_HEIGHT, A_B_X, A_B_Y, "allow_build.png");
@@ -828,6 +828,18 @@ int main(int argc, char* args[])
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
 						timer.render();
+
+						// Wyswietlanie iloœci domów
+						gTextTexture.loadFromRenderedText(_itoa(tHouse[0]->getNumber(), People_char_buffor, 10), textC, gFont_12);
+						gTextTexture.render(T_C_1, T_W_1 - 43);
+						gTextTexture.loadFromRenderedText(_itoa(tHouse[1]->getNumber(), People_char_buffor, 10), textC, gFont_12);
+						gTextTexture.render(T_C_2+2, T_W_1 - 29);
+						gTextTexture.loadFromRenderedText(_itoa(tHouse[2]->getNumber(), People_char_buffor, 10), textC, gFont_12);
+						gTextTexture.render(T_C_3+3, T_W_1 - 29);
+						gTextTexture.loadFromRenderedText(_itoa(tHouse[3]->getNumber(), People_char_buffor, 10), textC, gFont_12);
+						gTextTexture.render(T_C_4+3, T_W_1 - 29);
+						gTextTexture.loadFromRenderedText(_itoa(tHouse[4]->getNumber(), People_char_buffor, 10), textC, gFont_12);
+						gTextTexture.render(T_C_5+3, T_W_1 - 29);
 
 						// Wyswietlanie stanu surowcow
 						gTextTexture.loadFromRenderedText(_itoa(tResource[1]->getNumber(), People_char_buffor, 10), textC, gFont);

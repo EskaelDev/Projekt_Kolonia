@@ -21,12 +21,13 @@ char Money_char_buffor[7];				int Money_int = 50000;
 int usedFields=0;
 int islandSize=1700;
 
-// Public(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, size, peopleToBuild, peopleClass)
-
+// Tablice budynków
 Public* tPublic[12];
 Production* tProduction[16];
 Processing* tProcessing[11];
 
+// Tablica surowców
 Resource* tResource[21];
 
+// Tablica domów
 House* tHouse[5];

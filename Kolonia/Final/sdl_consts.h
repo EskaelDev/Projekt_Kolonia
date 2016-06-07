@@ -41,6 +41,10 @@ const int C_1 = 17,  C_2 = 204, C_3 = 402, C_4 = 596, C_5 = 770;
 const int W_1 = 252, W_2 = 488, W_3 = 723;
 const int R_R = 66;
 
+// Wspolrzedne wyswiwetlania tekstu ilosci
+const int T_C_1 = 60, T_C_2 = 246, T_C_3 = 442, T_C_4 = 635, T_C_5 = 810;
+const int T_W_1 = 229, T_W_2 = 465, T_W_3 = 699;
+
 // Wspolrzedne ulepszenia
 const int U_X = 171, U_Y = 595;
 

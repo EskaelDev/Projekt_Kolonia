@@ -174,7 +174,7 @@ int main(int argc, char* args[])
 			SButton stats_button(VIEW_STATS, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 5, 732, "stats.png");
 
 			// Przyciski splashy
-			SButton ind_button(PROCESSING, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 0, "/buildings/ind.png");
+			SButton ind_button(PROCESSING_BUTTON, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 0, "/buildings/ind.png");
 			SButton prod_button(PRODUCTION, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 256, "/buildings/prod.png");
 			SButton pub_button(PUBLIC, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 512, "/buildings/pub.png");
 
@@ -384,7 +384,7 @@ int main(int argc, char* args[])
 			Public_build_AV[5] = new SButton(5, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_3, "build_av.png");		// Cathedral
 			Public_build_AV[6] = new SButton(6, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_av.png");		// Church
 			Public_build_AV[7] = new SButton(7, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_av.png");		// Marketplace
-			Public_build_AV[8] = new SButton(8, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_3, "build_av.png");		// Palace 
+			Public_build_AV[8] = new SButton(8, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 - 53, W_3, "build_av.png");		// Palace 
 			Public_build_AV[9] = new SButton(9, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_av.png");		// School
 			Public_build_AV[10] = new SButton(10, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_av.png");	// Theatre
 			Public_build_AV[11] = new SButton(11, BUILD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_av.png");	// Tavern
@@ -399,7 +399,7 @@ int main(int argc, char* args[])
 			Public_build_NAV[5] = new SButton(5, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_3, "build_nav.png");		// Cathedral
 			Public_build_NAV[6] = new SButton(6, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_2, "build_nav.png");		// Church
 			Public_build_NAV[7] = new SButton(7, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1, W_1, "build_nav.png");		// Marketplace
-			Public_build_NAV[8] = new SButton(8, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_3, "build_nav.png");		// Palace 
+			Public_build_NAV[8] = new SButton(8, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 - 53, W_3, "build_nav.png");		// Palace 
 			Public_build_NAV[9] = new SButton(9, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_nav.png");		// School
 			Public_build_NAV[10] = new SButton(10, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_nav.png");	// Theatre
 			Public_build_NAV[11] = new SButton(11, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1	, "build_nav.png");	// Tavern
@@ -414,7 +414,7 @@ int main(int argc, char* args[])
 			Public_destroy_AV[5] = new SButton(5, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_3, "destroy_av.png");		// Cathedral
 			Public_destroy_AV[6] = new SButton(6, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_av.png");		// Church
 			Public_destroy_AV[7] = new SButton(7, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_av.png");		// Marketplace
-			Public_destroy_AV[8] = new SButton(8, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_3, "destroy_av.png");		// Palace 
+			Public_destroy_AV[8] = new SButton(8, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_3, "destroy_av.png");			// Palace 
 			Public_destroy_AV[9] = new SButton(9, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_av.png");		// School
 			Public_destroy_AV[10] = new SButton(10, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_av.png");	// Theatre
 			Public_destroy_AV[11] = new SButton(11, DESTROY, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_av.png");	// Tavern
@@ -429,7 +429,7 @@ int main(int argc, char* args[])
 			Public_destroy_NAV[5] = new SButton(5, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_3, "destroy_nav.png");		// Cathedral
 			Public_destroy_NAV[6] = new SButton(6, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_2, "destroy_nav.png");		// Church
 			Public_destroy_NAV[7] = new SButton(7, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_1 + R_R, W_1, "destroy_nav.png");		// Marketplace
-			Public_destroy_NAV[8] = new SButton(8, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2 + R_R, W_3, "destroy_nav.png");		// Palace 
+			Public_destroy_NAV[8] = new SButton(8, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_3, "destroy_nav.png");				// Palace 
 			Public_destroy_NAV[9] = new SButton(9, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5 + R_R, W_1, "destroy_nav.png");		// School
 			Public_destroy_NAV[10] = new SButton(10, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_2, "destroy_nav.png");		// Theatre
 			Public_destroy_NAV[11] = new SButton(11, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 + R_R, W_1, "destroy_nav.png");		// Tavern
@@ -927,9 +927,33 @@ int main(int argc, char* args[])
 							}
 							*/
 						}
-
+						// Wyswietlanie ilosci budynkow
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[7]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_1, T_W_1);
 						gTextTexture.loadFromRenderedText(_itoa(tPublic[4]->getNumber(), People_char_buffor, 10), textC, gFont);
-						gTextTexture.render(400 - gTextTexture.getWidth(), 62); 
+						gTextTexture.render(T_C_2, T_W_1); 
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[11]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_3, T_W_1);
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[2]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_4, T_W_1);
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[9]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_5, T_W_1);
+
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[0]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_1, T_W_2);
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[6]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_2, T_W_2);
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[10]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_3, T_W_2);
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[3]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_4, T_W_2);
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[1]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_5, T_W_2);
+
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[5]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_1, T_W_3);
+						gTextTexture.loadFromRenderedText(_itoa(tPublic[8]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_4 + 85, T_W_3);
 						break;
 						// Ekran rozgrywki - przetworstwo
 					case PROC:

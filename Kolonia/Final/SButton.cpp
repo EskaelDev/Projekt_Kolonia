@@ -238,7 +238,7 @@ void SButton::operation(Actions action)
 		subScreen = PUB;
 		break;
 
-	case PROCESSING:
+	case PROCESSING_BUTTON:
 		SDL_DestroyTexture(gTexture2);
 		gTexture2 = NULL;
 		gTexture2 = loadTexture("imgs/production.png");

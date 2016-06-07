@@ -912,6 +912,12 @@ int main(int argc, char* args[])
 						//gTextTexture.loadFromRenderedText("Zapisz", textC);
 					//	gTextTexture.render(624, 200);
 
+						// Wyœwietlenie iloœci pól na wyspie i pól wolnych
+						gTextTexture.loadFromRenderedText(_itoa(islandSize, People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(I_S_X, I_S_Y);
+						gTextTexture.loadFromRenderedText(_itoa(islandSize-usedFields, People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(U_F_X, U_F_Y);
+
 						// Pozwolenie i zakaz budowy
 						if (allow_build == true)
 						{

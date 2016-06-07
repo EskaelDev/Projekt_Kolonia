@@ -324,11 +324,11 @@ void SButton::operation(Actions action)
 		break;
 
 	case ALLOW_BUILD:
-		allow_build = true;
+		allow_build = false;
 		break;
 
 	case DENY_BUILD:
-		allow_build = false;
+		allow_build = true;
 		break;
 
 	case CHANGE_MUSIC:

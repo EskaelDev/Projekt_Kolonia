@@ -77,4 +77,12 @@ const int wiersz_stat_3 = 570;
 const int wiersz_stat_4 = 640;
 
 const int C_M_B = 242, C_M_D = 276, W_M = 701;
+
+// Pozycja iloœci pól wyspy i pól wolnych do budowania
+const int I_S_X = 528;
+const int I_S_Y = 313;
+
+const int U_F_X = 860;
+const int U_F_Y = 313;
+
 #endif

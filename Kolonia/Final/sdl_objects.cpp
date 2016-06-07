@@ -21,7 +21,7 @@ SDL_Texture* Warehouse_IV_texture = NULL;
 SDL_Rect gWarehouse_rect_right;
 SDL_Rect gWarehouse_rect_left;
 SDL_Rect gWarehouse_rect_centre;
-
+/*
 // Paski stanow zasobow
 SDL_Rect fillRect = { 6, 295, 30, 5 };
 SDL_Rect fillRect2 = { 71, 295, 30, 5 };
@@ -46,7 +46,7 @@ SDL_Rect fillRect17 = { 71, 507, 30, 5 };
 SDL_Rect fillRect18 = { 136, 507, 30, 5 };
 SDL_Rect fillRect19 = { 201, 507, 30, 5 };
 SDL_Rect fillRect20 = { 266, 507, 30, 5 };
-
+*/
 // Viewporty
 SDL_Rect LargeViewport;
 SDL_Rect LeftViewport;

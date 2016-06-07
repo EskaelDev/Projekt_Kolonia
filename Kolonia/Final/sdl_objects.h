@@ -32,6 +32,7 @@ extern SDL_Rect gWarehouse_rect_left;
 extern SDL_Rect gWarehouse_rect_centre;
 
 // Paski stanow zasobow
+/*
 extern SDL_Rect fillRect;
 extern SDL_Rect fillRect2;
 extern SDL_Rect fillRect3;
@@ -55,7 +56,7 @@ extern SDL_Rect fillRect17;
 extern SDL_Rect fillRect18;
 extern SDL_Rect fillRect19;
 extern SDL_Rect fillRect20;
-
+*/
 // Viewporty
 extern SDL_Rect LargeViewport;
 extern SDL_Rect LeftViewport;

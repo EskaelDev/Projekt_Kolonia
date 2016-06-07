@@ -238,12 +238,12 @@ void SButton::operation(Actions action)
 		subScreen = PUB;
 		break;
 
-	case INDUSTRIAL:
+	case PROCESSING:
 		SDL_DestroyTexture(gTexture2);
 		gTexture2 = NULL;
 		gTexture2 = loadTexture("imgs/production.png");
 		screen = GAME;
-		subScreen = IND;
+		subScreen = PROC;
 		break;
 
 	case PRODUCTION:

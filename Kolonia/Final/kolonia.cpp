@@ -172,7 +172,7 @@ int main(int argc, char* args[])
 			SButton stats_button(VIEW_STATS, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 5, 732, "stats.png");
 
 			// Przyciski splashy
-			SButton ind_button(INDUSTRIAL, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 0, "/buildings/ind.png");
+			SButton ind_button(PROCESSING, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 0, "/buildings/ind.png");
 			SButton prod_button(PRODUCTION, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 256, "/buildings/prod.png");
 			SButton pub_button(PUBLIC, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 512, "/buildings/pub.png");
 
@@ -883,7 +883,7 @@ int main(int argc, char* args[])
 						}
 						break;
 						// Ekran rozgrywki - przetworstwo
-					case IND:
+					case PROC:
 						back_button.setPosition(300, 732);
 						back_button.render();					back_button.handleEvent(&e);
 						SDL_RenderSetViewport(gRenderer, &RightViewport);

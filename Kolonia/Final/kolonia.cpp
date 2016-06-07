@@ -927,7 +927,7 @@ int main(int argc, char* args[])
 							}
 							*/
 						}
-						// Wyswietlanie ilosci budynkow
+						// Wyswietlanie ilosci budynkow publicznych
 						gTextTexture.loadFromRenderedText(_itoa(tPublic[7]->getNumber(), People_char_buffor, 10), textC, gFont);
 						gTextTexture.render(T_C_1, T_W_1);
 						gTextTexture.loadFromRenderedText(_itoa(tPublic[4]->getNumber(), People_char_buffor, 10), textC, gFont);
@@ -983,6 +983,33 @@ int main(int argc, char* args[])
 							*/
 						}
 
+						// Wyswietlanie ilosci budynkow przetworczych
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[8]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_1, T_W_1);
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[3]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_2, T_W_1);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[15]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_3, T_W_1);
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[6]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_4, T_W_1);
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[4]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_5, T_W_1);
+
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[0]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_1, T_W_2);
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[7]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_2, T_W_2);
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[10]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_3, T_W_2);
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[9]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_4, T_W_2);
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[1]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_5, T_W_2);
+
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[5]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_2, T_W_3);
+						gTextTexture.loadFromRenderedText(_itoa(tProcessing[2]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_4, T_W_3);
 						break;
 						// Ekran rozgrywki - produkcja
 					case PROD:
@@ -1015,6 +1042,38 @@ int main(int argc, char* args[])
 							}
 							*/
 						}
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[1]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_1, T_W_1);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[14]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_2, T_W_1);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[7]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_3, T_W_1);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[4]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_4, T_W_1);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[6]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_5, T_W_1);
+
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[10]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_1, T_W_2);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[8]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_2, T_W_2);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[9]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_3, T_W_2);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[3]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_4, T_W_2);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[2]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_5, T_W_2);
+
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[11]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_1, T_W_3);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[13]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_2, T_W_3);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[5]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_3, T_W_3);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[0]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_4, T_W_3);
+						gTextTexture.loadFromRenderedText(_itoa(tProduction[12]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(T_C_5, T_W_3);
 						break;
 					}
 					break;

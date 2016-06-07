@@ -34,7 +34,7 @@ const int ALLOW_BUILD_BUTTON_HEIGHT = 37;
 const int ALLOW_BUILD_BUTTON_WIDTH = 105;
 
 // Wspolrzedne przyciskow zakaz budowy
-const int A_B_X = 584, A_B_Y = 308;
+const int A_B_X = 400, A_B_Y = 700;
 
 // Wspolrzedne przyiskow build, destroy
 const int C_1 = 17,  C_2 = 204, C_3 = 402, C_4 = 596, C_5 = 770;

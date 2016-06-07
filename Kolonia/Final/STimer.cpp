@@ -116,6 +116,6 @@ void STimer::render()
 	if (!gTimeTextTexture.loadFromRenderedText(timeText.str().c_str(), textColor, gFont))
 		std::cout << "Nie mozna wyrenderowac czasu!" << std::endl;
 	else
-		gTimeTextTexture.render((350 - gTimeTextTexture.getWidth()), 310);
+		gTimeTextTexture.render((325 - gTimeTextTexture.getWidth()), 312);
 }
 STimer timer;

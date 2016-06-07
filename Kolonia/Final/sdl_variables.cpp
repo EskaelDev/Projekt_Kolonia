@@ -28,3 +28,5 @@ Production* tProduction[16];
 Processing* tProcessing[11];
 
 Resource* tResource[21];
+
+House* tHouse[5];

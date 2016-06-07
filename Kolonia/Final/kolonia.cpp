@@ -40,7 +40,7 @@ using namespace std;
 int main(int argc, char* args[])
 {
 	// House(bricksToBuild, toolsToBuild, woodToBuild, inhabitants, startPeople, buildingID0, buildingID1, buildingID2)
-	House* tHouse[5]; { int tab0[1] = { -1 };
+	{ int tab0[1] = { -1 };
 	tHouse[0] = new House(0, 0, 3, 3, 1, -1, -1, -1, tab0, sizeof(tab0)); } 	/* Pioneers House */ { int tab1[2] = { 4, 7 };
 	tHouse[1] = new House(0, 1, 3, 7, 2, 4, 7, -1, tab1, sizeof(tab1)); }		/* Settlers House */ { int tab2[3] = { 2, 9, 11 };
 	tHouse[2] = new House(6, 2, 2, 15, 3, 2, 9, 11, tab2, sizeof(tab2)); }		/* Citizens House */ { int tab3[3] = { 0, 1, 6 };
@@ -529,7 +529,6 @@ int main(int argc, char* args[])
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(gRenderer);
 
-				//int przelicznik = tResource[1]->getNumber() / WareHouse.getmagazineCapacity();
 				// Paski surowców
 				SDL_Rect fillRect = { 6, 295, 56 * tResource[1]->getNumber() / WareHouse.getmagazineCapacity(), 5 };		// 1 Iron Ore
 				SDL_Rect fillRect2 = { 71, 295, 56 * tResource[2]->getNumber() / WareHouse.getmagazineCapacity(), 5 };		// 2 Gold
@@ -555,8 +554,6 @@ int main(int argc, char* args[])
 				SDL_Rect fillRect19 = { 201, 507, 56 * tResource[9]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 9 Iron
 				SDL_Rect fillRect20 = { 266, 507, 56 * tResource[13]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 13 Cocoa
 				
-
-
 				switch (screen)
 				{
 				case MAIN:

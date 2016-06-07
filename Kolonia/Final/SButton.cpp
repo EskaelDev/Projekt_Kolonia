@@ -287,9 +287,11 @@ void SButton::operation(Actions action)
 		break;
 
 	case BUILD_HOUSE:
+		Build_House(*tHouse[id], *tResource[20], *tResource[18], *tResource[19]);
 		break;
 
 	case DESTROY_HOUSE:
+		Destroy_House(*tHouse[id]);
 		break;
 
 	case UPGRADE://///////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC

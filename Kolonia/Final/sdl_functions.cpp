@@ -313,3 +313,32 @@ bool Destroy_Prod(Production & Name)
 	else
 		return false;
 }
+
+bool Build_House(House & Name, Resource & Bricks, Resource & Tools, Resource & Wood)
+{
+	if (Name.getStatus() == false)
+		return false;
+
+	else if (usedFields + Name.getSize() > islandSize)
+		return false;
+
+	else if (Name.Build(Bricks, Tools, Wood) == false)
+		return false;
+	else
+	{
+		usedFields += Name.getSize();
+		return true;
+	}
+}
+
+bool Destroy_House(House & Name)
+{
+	if (Name.Destroy() == true)
+	{
+		usedFields -= Name.getSize();
+		return true;
+	}
+
+	else
+		return false;
+}

@@ -8,6 +8,7 @@
 #include "sdl_objects.h"
 #include "STexture.h"
 #include "core/Public.h"
+#include "core/House.h"
 
 
 using namespace std;
@@ -41,6 +42,11 @@ bool Destroy_Proc(Processing & Name);
 bool Build_Prod(Production & Name, Resource & Money, Resource & Bricks, Resource & Tools, Resource & Wood);
 // Burzenie budynkow Production
 bool Destroy_ProD(Production & Name);
+
+// Buowanie domów
+bool Build_House(House & Name, Resource & Bricks, Resource & Tools, Resource & Wood);
+// Burzenie domów
+bool Destroy_House(House & Name);
 
 
 #endif

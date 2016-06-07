@@ -33,5 +33,6 @@ extern Processing* tProcessing[11];
 
 extern Resource* tResource[21];
 
+extern House* tHouse[5];
 
 #endif

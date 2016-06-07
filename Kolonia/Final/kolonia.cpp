@@ -799,6 +799,50 @@ int main(int argc, char* args[])
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
 						timer.render();
 
+						// Wyswietlanie stanu surowcow
+						gTextTexture.loadFromRenderedText(_itoa(tResource[1]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(85 - gTextTexture.getWidth(), 415);
+						gTextTexture.loadFromRenderedText(_itoa(tResource[2]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(250 - gTextTexture.getWidth(), 415);
+						gTextTexture.loadFromRenderedText(_itoa(tResource[3]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(415 - gTextTexture.getWidth(), 415);
+						gTextTexture.loadFromRenderedText(_itoa(tResource[4]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(580 - gTextTexture.getWidth(), 415);
+						gTextTexture.loadFromRenderedText(_itoa(tResource[10]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(745 - gTextTexture.getWidth(), 415);
+
+						gTextTexture.loadFromRenderedText(_itoa(tResource[5]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(85 - gTextTexture.getWidth(), 490);
+						gTextTexture.loadFromRenderedText(_itoa(tResource[6]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(250 - gTextTexture.getWidth(), 490);
+						gTextTexture.loadFromRenderedText(_itoa(tResource[7]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(415 - gTextTexture.getWidth(), 490);
+						gTextTexture.loadFromRenderedText(_itoa(tResource[8]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(580 - gTextTexture.getWidth(), 490);
+						gTextTexture.loadFromRenderedText(_itoa(tResource[14]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(745 - gTextTexture.getWidth(), 490);
+
+						gTextTexture.loadFromRenderedText(_itoa(tResource[12]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(85 - gTextTexture.getWidth(), 560);
+						gTextTexture.loadFromRenderedText(_itoa(tResource[15]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(250 - gTextTexture.getWidth(), 560);
+						gTextTexture.loadFromRenderedText(_itoa(tResource[16]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(415 - gTextTexture.getWidth(), 560);
+						gTextTexture.loadFromRenderedText(_itoa(tResource[11]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(580 - gTextTexture.getWidth(), 560);
+						gTextTexture.loadFromRenderedText(_itoa(tResource[17]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(745 - gTextTexture.getWidth(), 560);
+
+						gTextTexture.loadFromRenderedText(_itoa(tResource[18]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(85 - gTextTexture.getWidth(), 625);
+						gTextTexture.loadFromRenderedText(_itoa(tResource[19]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(250 - gTextTexture.getWidth(), 625);
+						gTextTexture.loadFromRenderedText(_itoa(tResource[20]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(415 - gTextTexture.getWidth(), 625);
+						gTextTexture.loadFromRenderedText(_itoa(tResource[9]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(580 - gTextTexture.getWidth(), 625);
+						gTextTexture.loadFromRenderedText(_itoa(tResource[13]->getNumber(), People_char_buffor, 10), textC, gFont);
+						gTextTexture.render(745 - gTextTexture.getWidth(), 625);
 						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
 						/*gTextTexture.loadFromRenderedText(_itoa(s1, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s11, Money_char_buffor, 10), textC);
 						gTextTexture.render(kolumna_stat_1, wiersz_stat_1);									gTextTexture.render(kolumna_stat_3, wiersz_stat_3);

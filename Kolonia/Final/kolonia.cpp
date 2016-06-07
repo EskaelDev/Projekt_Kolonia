@@ -915,11 +915,11 @@ int main(int argc, char* args[])
 						// Pozwolenie i zakaz budowy
 						if (allow_build == true)
 						{
-							Deny_Build.render();				Deny_Build.handleEvent(&e);
+							Allow_Build.render();				Allow_Build.handleEvent(&e);
 						}
 						else
 						{
-							Allow_Build.render();				Allow_Build.handleEvent(&e);
+							Deny_Build.render();				Deny_Build.handleEvent(&e);
 						}
 						// Buduj zburz domy
 						// BUILD								DESTROY

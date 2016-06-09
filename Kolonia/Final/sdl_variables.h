@@ -31,8 +31,18 @@ extern Public* tPublic[12];
 extern Production* tProduction[16];
 extern Processing* tProcessing[11];
 
+// Tablica surowców
 extern Resource* tResource[21];
 
+// Tablica domów
 extern House* tHouse[5];
+
+// Tablica ludzi
+extern People* tPeople[5];
+
+extern int maxBuildingNumber;					// okresla jakiego typu budynek posiada gracz w najwiekszej liczbie
+extern int totalMagazinesCapacity;				// calkowita pojemnosc magazynow budynkow
+extern int usedMagazine;						// wykorzystane miejsce w magazynie ogolnym
+extern int totalResources;						// suma wszystkich posiadanych surowcow
 
 #endif

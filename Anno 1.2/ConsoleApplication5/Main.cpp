@@ -188,7 +188,7 @@ int _tmain(int argc, _TCHAR* argv[])
 					tResource[tProduction[i]->getProductID()]->decrease(excess);		// TU JESZCZE DOKONCZ														// poziom surowcow zmniejsz do max dostepnej pojemnosci
 				}
 			}
-
+		
 		// DLA BUDYNKOW TYPU PROCESSING
 
 		for (int i = 0; i < 11; ++i)

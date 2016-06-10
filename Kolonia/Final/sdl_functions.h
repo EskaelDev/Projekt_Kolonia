@@ -51,5 +51,6 @@ bool Destroy_House(House & Name);
 
 void Fill_Arrays();
 
+Uint32 Update_All(Uint32 interval, void *param);
 
 #endif

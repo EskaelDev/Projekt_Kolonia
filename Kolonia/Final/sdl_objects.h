@@ -8,6 +8,7 @@
 #include "sdl_variables.h"
 #include "sdl_consts.h"
 #include <iostream>
+#include "core/Magazine.h"
 
 // Okno bedzie renderowane do
 extern SDL_Window* gWindow;
@@ -77,5 +78,7 @@ extern Mix_Chunk *gClickSound;
 extern Mix_Music *gBackgroundMusic;
 
 extern SDL_Event e;
+
+extern Magazine WareHouse;
 
 #endif

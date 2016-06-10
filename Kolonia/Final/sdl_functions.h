@@ -49,4 +49,6 @@ bool Build_House(House & Name, Resource & Bricks, Resource & Tools, Resource & W
 bool Destroy_House(House & Name);
 
 
+void Fill_Arrays();
+
 #endif

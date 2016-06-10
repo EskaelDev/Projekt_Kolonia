@@ -342,3 +342,94 @@ bool Destroy_House(House & Name)
 	else
 		return false;
 }
+
+
+void Fill_Arrays()
+{
+	// House(bricksToBuild, toolsToBuild, woodToBuild, inhabitants, startPeople, buildingID0, buildingID1, buildingID2)
+	{ int tab0[1] = { -1 };
+	tHouse[0] = new House(0, 0, 3, 3, 1, -1, -1, -1, tab0, sizeof(tab0)); } 	/* Pioneers House */ { int tab1[2] = { 4, 7 };
+	tHouse[1] = new House(0, 1, 3, 7, 2, 4, 7, -1, tab1, sizeof(tab1)); }		/* Settlers House */ { int tab2[3] = { 2, 9, 11 };
+	tHouse[2] = new House(6, 2, 2, 15, 3, 2, 9, 11, tab2, sizeof(tab2)); }		/* Citizens House */ { int tab3[3] = { 0, 1, 6 };
+	tHouse[3] = new House(9, 3, 3, 25, 4, 0, 1, 6, tab3, sizeof(tab3)); }		/* Merchansts House */ { int tab4[3] = { 3, 5, 10 };
+	tHouse[4] = new House(12, 3, 3, 40, 5, 3, 5, 10, tab4, sizeof(tab4)); }		/* Aristorcats House */
+
+	// Public(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, size, peopleToBuild, peopleClass)
+
+	tPublic[0] = new Public(450, 9, 4, 4, 30, 4, 50, 2);			// Doctor
+	tPublic[1] = new Public(1200, 19, 6, 5, 60, 12, 210, 2);		// Public Bath	
+	tPublic[2] = new Public(150, 0, 3, 5, 15, 4, 15, 1);			// Fire Department
+	tPublic[3] = new Public(750, 19, 6, 5, 60, 9, 250, 3);			// University
+	tPublic[4] = new Public(100, 0, 2, 5, 5, 2, 40, 0);				// Chapel
+	tPublic[5] = new Public(5000, 50, 15, 20, 40, 24, 1500, 3);		// Cathedral
+	tPublic[6] = new Public(1600, 25, 7, 7, 50, 12, 150, 2);		// Church
+	tPublic[7] = new Public(200, 0, 4, 10, 10, 12, 75, 0);			// Marketplace
+	tPublic[8] = new Public(7500, 70, 25, 25, 90, 35, 2500, 4);		// Palace 
+	tPublic[9] = new Public(450, 9, 4, 4, 30, 4, 100, 1);			// School
+	tPublic[10] = new Public(1200, 19, 2, 5, 80, 9, 300, 3);		// Theatre
+	tPublic[11] = new Public(250, 6, 3, 4, 15, 6, 50, 1);			// Tavern
+
+																	// Production(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, size, magazineCapacity, peopleToBuild, peopleClass, productID)
+
+	tProduction[0] = new Production(200, 6, 2, 3, 25, 10, 16, 9, 200, 2, 3);		// Cotton Plantation		
+	tProduction[1] = new Production(50, 0, 2, 0, 5, 0, 4, 10, 0, -1, 19);			// Foresters Lodge
+	tProduction[2] = new Production(100, 0, 2, 5, 5, 0, 16, 6, 75, 1, 7);			// Grain Farm
+	tProduction[3] = new Production(300, 8, 2, 3, 35, 15, 16, 4, 75, 1, 12);		// Spice Farm
+	tProduction[4] = new Production(50, 0, 2, 2, 5, 0, 4, 3, 0, -1, 10);			// Hunters Hut
+	tProduction[5] = new Production(300, 8, 2, 3, 35, 15, 16, 6, 200, 2, 13);		// Cocoa Plantation	
+	tProduction[6] = new Production(100, 0, 1, 4, 5, 0, 16, 4, 30, 0, 6);			// Cattle Farm
+	tProduction[7] = new Production(200, 0, 2, 4, 5, 0, 16, 8, 0, -1, 3);			// Sheep Farm
+	tProduction[8] = new Production(300, 8, 2, 3, 35, 15, 16, 6, 40, 1, 14);		// Winery
+	tProduction[9] = new Production(300, 8, 2, 3, 35, 15, 16, 6, 40, 1, 5);			// Tobacco Plantation
+	tProduction[10] = new Production(300, 8, 2, 3, 25, 10, 16, 6, 40, 1, 4);		// Sugarcane Plantation
+	tProduction[11] = new Production(1000, 5, 10, 20, 60, 20, 3, 4, 120, 1, 1);		// Iron Mine
+	tProduction[12] = new Production(1800, 7, 15, 30, 60, 20, 3, 4, 450, 2, 1);		// Deep Iron Mine
+	tProduction[13] = new Production(1000, 5, 10, 20, 60, 20, 3, 4, 150, 2, 2);		// Gold Mine
+	tProduction[14] = new Production(100, 0, 3, 5, 5, 0, 1, 4, 0, -1, 10);			// Fisters Hut
+	tProduction[15] = new Production(100, 0, 5, 5, 5, 0, 4, 8, 15, 1, 20);			// Stone Mason
+
+																					// Processing(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, magazineCapacity, peopleToBuild, peopleClass, productID, materialID, productNumber, materialNumber)
+
+	tProcessing[0] = new Processing(150, 0, 2, 6, 5, 0, 4, 75, 1, 10, 8, 1, 2);			// Bakery
+	tProcessing[1] = new Processing(200, 4, 3, 1, 25, 10, 5, 120, 1, 9, 1, 1, 1);		// Ore Refenery
+	tProcessing[2] = new Processing(1500, 10, 7, 2, 45, 20, 4, 250, 3, 17, 2, 2, 1);	// Gold Smith
+	tProcessing[3] = new Processing(150, 10, 3, 4, 5, 0, 4, 30, 0, 10, 6, 1, 2);		// Butcher Shop
+	tProcessing[4] = new Processing(200, 5, 3, 2, 25, 7, 4, 40, 1, 14, 4, 1, 2);		// Rum Distillery
+	tProcessing[5] = new Processing(150, 2, 3, 6, 10, 5, 4, 200, 2, 16, 15, 1, 1);		// Clothiers
+	tProcessing[6] = new Processing(200, 5, 3, 2, 20, 10, 4, 40, 1, 11, 5, 1, 2);		// TobaccoProduction
+	tProcessing[7] = new Processing(200, 7, 4, 3, 20, 10, 4, 75, 1, 15, 3, 1, 1);		// WeavingMill
+	tProcessing[8] = new Processing(200, 0, 3, 6, 10, 5, 4, 0, -1, 15, 3, 1, 2);		// WeavingHut
+	tProcessing[9] = new Processing(150, 5, 3, 2, 25, 10, 4, 100, 1, 18, 9, 2, 1);		// ToolSmithy
+	tProcessing[10] = new Processing(100, 0, 3, 6, 5, 0, 6, 75, 1, 10, 7, 1, 2);		// WindMill
+
+																						// People(tax)
+	tPeople[0] = new People(1);		// Pioneers
+	tPeople[1] = new People(1);		// Settlers
+	tPeople[2] = new People(1);		// Citizens
+	tPeople[3] = new People(2);		// Merchants
+	tPeople[4] = new People(2);		// Aristocrats
+
+									// Resource(price)
+	tResource[0] = new Resource(1);			// Money
+	tResource[1] = new Resource(60);		// Iron Ore
+	tResource[2] = new Resource(465);		// Gold
+	tResource[3] = new Resource(16);		// Wool
+	tResource[4] = new Resource(19);		// Sugar
+	tResource[5] = new Resource(23);		// Tobacco
+	tResource[6] = new Resource(6);			// Cattle
+	tResource[7] = new Resource(3);			// Grain
+	tResource[8] = new Resource(3);			// Flour
+	tResource[9] = new Resource(84);		// Iron
+	tResource[10] = new Resource(17);		// Food
+	tResource[11] = new Resource(65);		// Tobacco Products
+	tResource[12] = new Resource(40);		// Spices
+	tResource[13] = new Resource(33);		// Cocoa
+	tResource[14] = new Resource(52);		// Liquor
+	tResource[15] = new Resource(32);		// Cloth
+	tResource[16] = new Resource(130);		// Clothes
+	tResource[17] = new Resource(590);		// Jewerly
+	tResource[18] = new Resource(80);		// Tools
+	tResource[19] = new Resource(20);		// Wood
+	tResource[20] = new Resource(30);		// Bricks
+
+}

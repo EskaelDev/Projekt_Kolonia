@@ -40,15 +40,16 @@ Production* wskProduction = 0;
 
 int _tmain(int argc, _TCHAR* argv[])
 {	
-	//House(bricksToBuild, toolsToBuild, woodToBuild, inhabitants, startPeople, buildingID0, buildingID1, buildingID2)
-	House* tHouse[5];																					 { int tab0[1] = { -1 };
-	tHouse[0] = new House(0, 0, 3, 3, 1, -1, -1, -1, tab0, sizeof(tab0)); } 	/* Pioneers House */	 { int tab1[2] = { 4, 7 };
-	tHouse[1] = new House(0, 1, 3, 7, 2, 4, 7, -1, tab1, sizeof(tab1)); }		/* Settlers House */	 { int tab2[3] = { 2, 9, 11 };
-	tHouse[2] = new House (6, 2, 2, 15, 3, 2, 9, 11, tab2, sizeof(tab2)); } 	/* Citizens House */	 { int tab3[3] = { 0, 1, 6 };
-	tHouse[3] = new House (9, 3, 3, 25, 4, 0, 1, 6, tab3, sizeof(tab3)); }		/* Merchansts House */	 { int tab4[3] = { 3, 5, 10 };
-	tHouse[4] = new House(12, 3, 3, 40, 5, 3, 5, 10, tab4, sizeof(tab4)); }		/* Aristorcats House */
+	//House(bricksToBuild, toolsToBuild, woodToBuild, inhabitants, startPeople, tabBuildingId[], tabSize)
+	House* tHouse[5];																		 { int tab0[1] = { -1 };
+	tHouse[0] = new House(0, 0, 3, 3, 1, tab0, sizeof(tab0)); } 	/* Pioneers House */	 { int tab1[2] = { 4, 7 };
+	tHouse[1] = new House(0, 1, 3, 7, 2, tab1, sizeof(tab1)); }		/* Settlers House */	 { int tab2[3] = { 2, 9, 11 };
+	tHouse[2] = new House (6, 2, 2, 15, 3, tab2, sizeof(tab2)); } 	/* Citizens House */	 { int tab3[3] = { 0, 1, 6 };
+	tHouse[3] = new House (9, 3, 3, 25, 4, tab3, sizeof(tab3)); }	/* Merchansts House */	 { int tab4[3] = { 3, 5, 10 };
+	tHouse[4] = new House(12, 3, 3, 40, 5, tab4, sizeof(tab4)); }	/* Aristorcats House */
 
 	Magazine WareHouse;
+	usedFields += WareHouse.getSize();
 
 	//Public(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, size, peopleToBuild, peopleClass)
 	Public* tPublic[12];
@@ -171,7 +172,7 @@ int _tmain(int argc, _TCHAR* argv[])
 						if (usedMagazine < WareHouse.getmagazineCapacity())																			// oraz dostepne jest jeszcze miejsce w magazynie glownym
 							if (tProduction[i]->getNumber() >= j)																					// oraz mamy liczbe j budynkow aby moc dodaj j-ty surowiec
 							{
-								tResource[tProduction[i]->getProductID()]->increase(1);																// dodaj jedna jednostke surowiec
+								tResource[tProduction[i]->getProductID()]->increase(1);																// dodaj jedna jednostke surowca
 								++usedMagazine;																										// zwieksz zajetosc magazynu
 							}
 
@@ -247,7 +248,6 @@ int _tmain(int argc, _TCHAR* argv[])
 				tPublic[i]->checkStatus(tPeople[tPublic[i]->getClass()]->getNumber());
 
 		for (int i = 0; i < 16; ++i)
-
 			if (tProduction[i]->getClass() > -1)
 				tProduction[i]->checkStatus(tPeople[tProduction[i]->getClass()]->getNumber());
 
@@ -260,14 +260,13 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		// WYMAGANIA POSIADANIA KONRETNYCH BUDYNKOW 
 
-		for (int i = 1; i < 5; ++i)
-			for (int j = 0; j < 3; ++j)
-				if (tHouse[i]->getBuildingID(j) > -1)									// dla -1 warunek nie wystepuje
-				{
-					tHouse[i]->checkStatus(tPublic[tHouse[i]->getBuildingID(j)]->getNumber());
-					if (false == tHouse[i]->getStatus())								// wystarczy, ze nie posiadamy jednego budynku i budowa jest niedostepna
-						break;
-				}
+		for (int i = 1; i < 5; ++i)														// tHouse[0] zawsze dostepny
+			for (int j = 0; j < tHouse[i]->getTabIdSize(); ++j)
+			{
+				tHouse[i]->checkStatus(tPublic[tHouse[i]->getBuildingId(j)]->getNumber());
+				if (false == tHouse[i]->getStatus())								// wystarczy, ze nie posiadamy jednego budynku i budowa jest niedostepna
+					break;
+			}
 
 		// MENU (TYMCZASOWE DLA KONSOLI)
 
@@ -279,7 +278,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		cout << "Wykorzystane pola wyspy: " << usedFields << "    Dostepne pola: " << islandSize - usedFields << endl;
 		cout << "Pojemnosc magazynu: " << WareHouse.getmagazineCapacity() << "    Dostepne miejsce: " << endl;
 		previous = present;
-
+	
 		// WYSWIETLANIE STANU SUROWCOW
 
 		cout << "Pieniadze: " << tResource[0]->getNumber();
@@ -344,7 +343,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 				else
 				{
-					cout << "\n    Wybudowano budynek." << endl;
+					cout << "\n    Ulepszono budynek." << endl;
 					tPeople[decision - 39]->increase(tHouse[decision - 39]->getStartPeople());
 					usedFields += tHouse[decision - 39]->getSize();
 				}
@@ -359,11 +358,7 @@ int _tmain(int argc, _TCHAR* argv[])
 					cout << "\n    Brakuje dostepnych pol na wyspie." << endl;
 
 				else if (WareHouse.Build(*tResource[0], *tResource[20], *tResource[18], *tResource[19]) == true)
-				{
-					cout << "\n    Wybudowano budynek." << endl;
-					if (1 == WareHouse.getLevel())
-						usedFields += WareHouse.getSize();
-				}
+					cout << "\n    Ulepszono budynek." << endl;	
 
 				else
 					cout << "\n    Nie masz wystarczajacej ilosci surowcow." << endl;

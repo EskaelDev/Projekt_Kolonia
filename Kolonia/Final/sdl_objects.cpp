@@ -67,3 +67,5 @@ Mix_Chunk *gClickSound = NULL;
 Mix_Music *gBackgroundMusic = NULL;
 
 SDL_Event e;
+
+Magazine WareHouse;

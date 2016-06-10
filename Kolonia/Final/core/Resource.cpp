@@ -49,6 +49,9 @@ int Resource::getNumber() const
 	return number;
 }
 
+
+
+
 void Resource::test()
 {
 	cout << "Ilosc surowca = " << number << endl;

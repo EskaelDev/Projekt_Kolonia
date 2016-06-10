@@ -433,3 +433,4 @@ void Fill_Arrays()
 	tResource[20] = new Resource(30);		// Bricks
 
 }
+

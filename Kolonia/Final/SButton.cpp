@@ -101,12 +101,15 @@ void SButton::handleEvent(SDL_Event* e)
 				mCurrentSprite = BUTTON_SPRITE_MOUSE_DOWN;
 				if (action != NONE)
 					Mix_PlayChannel(-1, gClickSound, 0);
-				SDL_Delay(200);
+				
 				operation(action);
+				SDL_WaitEvent(e);
+
 				break;
 
 			case SDL_MOUSEBUTTONUP:
 				mCurrentSprite = BUTTON_SPRITE_MOUSE_OVER_MOTION;
+				
 				break;
 			}
 		}

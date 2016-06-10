@@ -11,9 +11,8 @@ protected:
 	int number;					// liczba budynkow
 	int inhabitants;			// max ilosc mieszkancow dla jednego domu
 	int startPeople;			// liczba mieszkancow, ktorzy wprowadzaja sie zaraz po budowie budynku
-	int buildingID[3];			// tablica wartosci odpowiadajacych indeksom budynkow z tablicy tPublic, ktore sa wymagane aby wybudowac budynek, -1 oznacza brak wymagan co do budynku
 	bool status;				// true - jesli dla budynku spelniono warunki z tablicy buildingID[], false - jesli nie
-	int * buildingId;
+	int * buildingId;			// wskaznik tablicy wartosci odpowiadajacych indeksom budynkow z tablicy tPublic, ktore sa wymagane aby wybudowac budynek, wskaznik nie wksazuje na nic, jezeli nie ma wymagan
 	int tabIdSize;				// rozmiar tablicy buidingID
 
 public:

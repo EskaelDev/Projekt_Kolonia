@@ -9,15 +9,15 @@ Magazine::Magazine()
 {
 	bricksToBuild = 0;
 	toolsToBuild = 3;
-	woodToBuild = 6;
+	woodToBuild = 7;
 	size = 6;
-	moneyToBuild = 100;
+	moneyToBuild = 180;
 	maintenanceActiveCost = 15;
-	peopleToBuild = 0;
-	peopleClass = -1;
+	peopleToBuild = 30;
+	peopleClass = 1;
 	status = true;
-	level = 0;
-	magazineCapacity = 0;
+	level = 1;
+	magazineCapacity = 30;
 }
 
 bool Magazine::Build(Resource & _Money, Resource & _Bricks, Resource & _Tools, Resource & _Wood)
@@ -33,17 +33,8 @@ bool Magazine::Build(Resource & _Money, Resource & _Bricks, Resource & _Tools, R
 			_Bricks.number -= bricksToBuild;
 			_Tools.number -= toolsToBuild;
 			_Wood.number -= woodToBuild;
-	
-			if (0 == level)
-			{
-				magazineCapacity = 30;
-				moneyToBuild = 180;
-				woodToBuild = 7;
-				peopleToBuild = 30;
-				peopleClass = 1;
-			}
 
-			else if (1 == level)
+			if (2 == level)
 			{
 				magazineCapacity = 50;
 				moneyToBuild = 250;
@@ -54,18 +45,13 @@ bool Magazine::Build(Resource & _Money, Resource & _Bricks, Resource & _Tools, R
 				peopleClass = 2;
 			}
 
-			else if (2 == level)
+			else if (3 == level)
 			{
 				magazineCapacity = 75;
 				bricksToBuild = 10;
 				toolsToBuild = 5;
 				peopleToBuild = 250;
 				peopleClass = 3;
-			}
-
-			else if (3 == level)
-			{
-				magazineCapacity = 100;
 			}
 
 			++level;

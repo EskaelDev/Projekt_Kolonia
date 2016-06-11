@@ -4,6 +4,9 @@ STimer::STimer()
 {
 	mStartTicks = 0;
 	mPausedTicks = 0;
+	m = 0;
+	s = 0;
+	prevS = 0;
 
 	mPaused = true;
 	mStarted = true;
@@ -82,6 +85,26 @@ Uint32 STimer::getTicks()
 	return time;
 }
 
+const int STimer::getSeconds() const
+{
+	return s;
+}
+
+const int STimer::getMinutes() const
+{
+	return m;
+}
+
+void STimer::setSeconds(int _s)
+{
+	prevS = _s;
+}
+
+void STimer::setMinutes(int _m)
+{
+	m = _m;
+}
+
 bool STimer::isStarted()
 {
 	// Timera dziala
@@ -101,7 +124,7 @@ void STimer::count()
 		m++;
 		s = 0;
 	}
-	s = (getTicks() / 1000) - (m * 60);
+	s = (getTicks() / 1000) - (m * 60) + prevS;
 }
 
 void STimer::render()

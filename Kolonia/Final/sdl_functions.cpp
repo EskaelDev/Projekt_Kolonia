@@ -566,3 +566,8 @@ Uint32 Update_All(Uint32 interval, void *param)
 
 	return 3000;
 }
+
+Uint32 Update_Buildings(Uint32 interval, void *param)
+{
+	return 0;
+}

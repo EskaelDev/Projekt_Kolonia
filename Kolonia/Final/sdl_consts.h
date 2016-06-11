@@ -91,4 +91,33 @@ const int U_F_Y = 313;
 
 const int MAX_SLOTS = 4;
 
+// ID budynków
+const int ID_Bakery = 2;
+const int ID_Ore_Refenery = 2;
+const int ID_Gold_Smith = 2;
+const int ID_Butcher_Shop = 2;
+const int ID_Rum_Distillery = 2;
+const int ID_Clothiers = 2;
+const int ID_TobaccoProduction = 2;
+const int ID_WeavingMill = 2;
+const int ID_WeavingHut = 2;
+const int ID_ToolSmithy = 2;
+const int ID_WindMill = 2;
+const int ID_Cotton_Plantation = 2;
+const int ID_Foresters_Lodge = 2;
+const int ID_Grain_Farm = 2;
+const int ID_Spice_Farm = 2;
+const int ID_Hunters_Hut = 2;
+const int ID_Cocoa_Plantation = 2;
+const int ID_Cattle_Farm = 2;
+const int ID_Sheep_Farm = 2;
+const int ID_Winery = 2;
+const int ID_Tobacco_Plantation = 2;
+const int ID_Sugarcane_Plantation = 2;
+const int ID_Iron_Mine = 2;
+const int ID_Deep_Iron_Mine = 2;
+const int ID_Gold_Mine = 2;
+const int ID_Fisters_Hut = 2;
+const int ID_Stone_Mason = 2;
+
 #endif

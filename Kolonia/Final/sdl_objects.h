@@ -81,4 +81,5 @@ extern SDL_Event e;
 
 extern Magazine WareHouse;
 
+extern FILE *slot[];
 #endif

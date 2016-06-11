@@ -1,24 +1,14 @@
 #ifndef SButton_H  
 #define SButton_H
-
-#ifndef STEXTURE_H
 #include "STexture.h"
-#endif
-#ifndef STIMER_H
 #include "STimer.h"
-#endif
-#ifndef SDL_FUNCTIONS_H
 #include "sdl_functions.h"
-#endif
-#ifndef SDL_VARIABLES_H
 #include "sdl_variables.h"
-#endif
-#ifndef SDL_CONSTS_H
 #include "sdl_consts.h"
-#endif
-#ifndef SDL_ENUMS_H
 #include "sdl_enums.h"
-#endif
+#include "sdl_objects.h"
+#include <string>
+#include <sstream>
 
 class SButton
 {

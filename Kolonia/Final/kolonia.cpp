@@ -1,27 +1,11 @@
-#ifndef SBUTTON_H
 #include "SButton.h"
-#endif
-#ifndef STEXTURE_H
 #include "STexture.h"
-#endif
-#ifndef STIMER_H
 #include "STimer.h"
-#endif
-#ifndef SDL_FUNCTIONS_H
 #include "sdl_functions.h"
-#endif
-#ifndef SDL_OBJECTS_H
 #include "sdl_objects.h"
-#endif
-#ifndef SDL_VARIABLES_H
 #include "sdl_variables.h"
-#endif
-#ifndef SDL_CONSTS_H
 #include "sdl_consts.h"
-#endif
-#ifndef SDL_ENUMS_H
 #include "sdl_enums.h"
-#endif
 #include "core/House.h"
 #include "core/Industrial.h"
 #include "core/Magazine.h"
@@ -90,6 +74,20 @@ int main(int argc, char* args[])
 			SButton save_game_button(SAVE_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 150, 732, "save.png");
 			SButton back_button(CONTINUE_GAME, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 300, 732, "back.png");
 			SButton stats_button(VIEW_STATS, MAIN_BUTTON_WIDTH, MAIN_BUTTON_HEIGHT, 5, 732, "stats.png");
+
+			// Przyciski wczytyania ze slotu
+			SButton* load_slot_button[4];
+			load_slot_button[0] = new SButton(1, LOAD_SLOT, SLOT_BUTTON_WIDTH, SLOT_BUTTON_HEIGHT, (SCREEN_WIDTH - SLOT_BUTTON_WIDTH) / 2, 380, "slot1.png");
+			load_slot_button[1] = new SButton(2, LOAD_SLOT, SLOT_BUTTON_WIDTH, SLOT_BUTTON_HEIGHT, (SCREEN_WIDTH - SLOT_BUTTON_WIDTH) / 2, 430, "slot2.png");
+			load_slot_button[2] = new SButton(3, LOAD_SLOT, SLOT_BUTTON_WIDTH, SLOT_BUTTON_HEIGHT, (SCREEN_WIDTH - SLOT_BUTTON_WIDTH) / 2, 480, "slot3.png");
+			load_slot_button[3] = new SButton(4, LOAD_SLOT, SLOT_BUTTON_WIDTH, SLOT_BUTTON_HEIGHT, (SCREEN_WIDTH - SLOT_BUTTON_WIDTH) / 2, 530, "slot4.png");
+
+			// Przyciski zapisu na slot
+			SButton* save_slot_button[4];
+			save_slot_button[0] = new SButton(1, SAVE_SLOT, SLOT_BUTTON_WIDTH, SLOT_BUTTON_HEIGHT, (SCREEN_WIDTH - SLOT_BUTTON_WIDTH) / 2, 380, "slot1.png");
+			save_slot_button[1] = new SButton(2, SAVE_SLOT, SLOT_BUTTON_WIDTH, SLOT_BUTTON_HEIGHT, (SCREEN_WIDTH - SLOT_BUTTON_WIDTH) / 2, 430, "slot2.png");
+			save_slot_button[2] = new SButton(3, SAVE_SLOT, SLOT_BUTTON_WIDTH, SLOT_BUTTON_HEIGHT, (SCREEN_WIDTH - SLOT_BUTTON_WIDTH) / 2, 480, "slot3.png");
+			save_slot_button[3] = new SButton(4, SAVE_SLOT, SLOT_BUTTON_WIDTH, SLOT_BUTTON_HEIGHT, (SCREEN_WIDTH - SLOT_BUTTON_WIDTH) / 2, 530, "slot4.png");
 
 			// Przyciski splashy
 			SButton ind_button(PROCESSING_BUTTON, BUILDINGS_BUTTON_WIDTH, BUILDINGS_BUTTON_HEIGHT, 0, 0, "/buildings/ind.png");
@@ -514,17 +512,33 @@ int main(int argc, char* args[])
 						break;
 						// Ekran wczytywania stanu gry
 					case LOAD:
+					{
 						gTextTexture.loadFromRenderedText("Wczytaj", textC, gFont);
 						gTextTexture.render(600, 200);
 						main_menu_button.setPosition(624, 660);
 						main_menu_button.render();				main_menu_button.handleEvent(&e);
+						string path;
+						for (int i = 0; i < MAX_SLOTS; i++)
+						{
+							path = "saves/slot" + to_string(i + 1) + ".txt";
+							if ((slot[i] = fopen(path.c_str(), "r")) != NULL)
+							{
+								load_slot_button[i]->render();		load_slot_button[i]->handleEvent(&e);
+								fclose(slot[i]);
+							}
+						}
 						break;
+					}
 						// Ekran zapisu stanu gry
 					case SAVE:
 						gTextTexture.loadFromRenderedText("Zapisz", textC, gFont);
 						gTextTexture.render(624, 200);
 						back_button.setPosition(624, 660);
 						back_button.render();					back_button.handleEvent(&e);
+						for (int i = 0; i < MAX_SLOTS; i++)
+						{
+							save_slot_button[i]->render();		save_slot_button[i]->handleEvent(&e);
+						}
 						break;
 					}
 					break;

@@ -69,3 +69,5 @@ Mix_Music *gBackgroundMusic = NULL;
 SDL_Event e;
 
 Magazine WareHouse;
+
+FILE *slot[MAX_SLOTS];

@@ -1,5 +1,5 @@
 #include "SButton.h"
-
+#include "conio.h"
 SButton::SButton(Actions action, int width, int height, int pos_x, int pos_y, char *image)
 	: action(action), w(width), h(height), mCurrentSprite(BUTTON_SPRITE_MOUSE_OUT)
 {
@@ -185,6 +185,29 @@ void SButton::operation(Actions action)
 		subScreen = LOAD;
 		break;
 
+	case LOAD_SLOT:
+	{
+		string path = "saves/slot" + to_string(id) + ".txt";
+		slot[id] = fopen(path.c_str(), "r");
+		int a = 0;
+		if (slot[id] != NULL)
+		{
+			/*
+			dane do odczytania
+			*/
+			fscanf(slot[id], "%d", &a);
+		}
+		if (gTexture != NULL)
+		{
+			SDL_DestroyTexture(gTexture);
+			gTexture = NULL;
+		}
+		gTexture = loadTexture("imgs/left.png");
+		screen = GAME;
+		subScreen = GAME;
+		break;
+		}
+
 	case SAVE_GAME:
 		SDL_DestroyTexture(gTexture);
 		gTexture = NULL;
@@ -192,6 +215,29 @@ void SButton::operation(Actions action)
 		screen = MAIN;
 		subScreen = SAVE;
 		break;
+
+	case SAVE_SLOT:
+	{
+		string path = "saves/slot" + to_string(id) + ".txt";
+		slot[id] = fopen(path.c_str(), "w");
+		if (slot[id] != NULL)
+		{
+			/*
+			dane do zapisu
+			*/
+			fprintf(slot[id], "%d", tResource[0]->getNumber());
+		}
+		if (gTexture != NULL)
+		{
+			SDL_DestroyTexture(gTexture);
+			gTexture = NULL;
+		}
+		fclose(slot[id]);
+		gTexture = loadTexture("imgs/left.png");
+		screen = GAME;
+		subScreen = GAME;
+		break;
+	}
 
 	case MAIN_MENU:
 		if (popUp)

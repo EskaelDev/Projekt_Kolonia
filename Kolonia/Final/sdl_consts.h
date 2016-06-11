@@ -9,6 +9,10 @@ const int SCREEN_HEIGHT = 768;
 const int MAIN_BUTTON_WIDTH = 118;
 const int MAIN_BUTTON_HEIGHT = 35;
 
+// Rozmiary przyciskow (wczytaj/zapisz slot)
+const int SLOT_BUTTON_WIDTH = 90;
+const int SLOT_BUTTON_HEIGHT = 28;
+
 // Rozmiary przyciskow splashy
 const int BUILDINGS_BUTTON_WIDTH = 911;
 const int BUILDINGS_BUTTON_HEIGHT = 256;
@@ -84,5 +88,7 @@ const int I_S_Y = 313;
 
 const int U_F_X = 860;
 const int U_F_Y = 313;
+
+const int MAX_SLOTS = 4;
 
 #endif

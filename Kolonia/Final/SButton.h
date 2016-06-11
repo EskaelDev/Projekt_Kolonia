@@ -8,7 +8,6 @@
 #include "sdl_enums.h"
 #include "sdl_objects.h"
 #include <string>
-#include <sstream>
 
 class SButton
 {

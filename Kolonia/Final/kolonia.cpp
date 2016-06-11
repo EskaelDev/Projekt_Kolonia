@@ -575,7 +575,6 @@ int main(int argc, char* args[])
 				case GAME:
 					timer.unpause();
 					timer.count();
-
 					SDL_RenderSetViewport(gRenderer, &LeftViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
 

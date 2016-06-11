@@ -189,9 +189,15 @@ void SButton::operation(Actions action)
 	{
 		string path = "saves/slot" + to_string(id) + ".txt";
 		slot[id] = fopen(path.c_str(), "r");
-		int a = 0;
+		int a = 0, b = 0;
 		if (slot[id] != NULL)
 		{
+			timer.stop();
+			fscanf(slot[id], "%d", &a);
+			timer.setSeconds(a);
+			fscanf(slot[id], "%d", &a);
+			timer.setMinutes(a);
+			timer.start();
 			/*
 			dane do odczytania
 			*/
@@ -222,6 +228,8 @@ void SButton::operation(Actions action)
 		slot[id] = fopen(path.c_str(), "w");
 		if (slot[id] != NULL)
 		{
+			fprintf(slot[id], "%d\n", timer.getSeconds());
+			fprintf(slot[id], "%d\n", timer.getMinutes());
 			/*
 			dane do zapisu
 			*/

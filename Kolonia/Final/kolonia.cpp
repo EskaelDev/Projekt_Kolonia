@@ -20,13 +20,13 @@ using namespace std;
 int thisTime = 0;
 int lastTime = 0;
 float deltaTime = 0.0;
+Uint32 sdl_timer;
 ////
 
 
 int main(int argc, char* args[])
 {
 	Fill_Arrays();
-	SDL_AddTimer(3000, Update_All, NULL);
 	tResource[0]->increase(5000);
 	tResource[18]->increase(50);
 	tResource[19]->increase(70);
@@ -405,6 +405,7 @@ int main(int argc, char* args[])
 			gWarehouse_rect_centre.w = gWarehouse_rect_centre_w;
 
 			// Glowna petla gry
+			sdl_timer = SDL_AddTimer(3000, Update_All, NULL);
 			while (!quit)
 			{
 				// Handle events on queue
@@ -1105,6 +1106,7 @@ int main(int argc, char* args[])
 				}
 				// Odswiezenie ekranu
 				SDL_RenderPresent(gRenderer);
+				
 			}
 		}
 	}

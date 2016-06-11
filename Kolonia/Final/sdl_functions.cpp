@@ -564,5 +564,5 @@ Uint32 Update_All(Uint32 interval, void *param)
 			}
 
 
-	return 300;
+	return 3000;
 }

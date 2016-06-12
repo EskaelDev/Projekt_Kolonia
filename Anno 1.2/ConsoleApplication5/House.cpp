@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include <iostream>
-#include "House.h"
 #include <conio.h>
+#include "House.h"
+#include "GlobalVariables.h"
 using namespace std;
 
 House::House(int _bricksToBuild, int _toolsToBuild, int _woodToBuild, int _inhabitants, int _startPeople, int tabBuildingId[], int tabSize)
@@ -25,16 +26,17 @@ House::House(int _bricksToBuild, int _toolsToBuild, int _woodToBuild, int _inhab
 		buildingId = 0;
 }
 
-bool House::Build(Resource & Bricks, Resource & Tools, Resource & Wood)
+bool House::Build(Resource *TResource[21])
 {
-	if (bricksToBuild > Bricks.number || toolsToBuild > Tools.number || woodToBuild > Wood.number)
+	if (bricksToBuild > TResource[Bricks]->getNumber() || toolsToBuild > TResource[Tools]->getNumber() || woodToBuild > TResource[Wood]->getNumber())
 		return false;
+	
 	else
 	{
 		++number;
-		Bricks.number -= bricksToBuild;
-		Tools.number -= toolsToBuild;
-		Wood.number -= woodToBuild;
+		TResource[Bricks]->decrease(bricksToBuild);
+		TResource[Tools]->decrease(toolsToBuild);
+		TResource[Wood]->decrease(woodToBuild);
 		return true;
 	}
 }
@@ -68,11 +70,6 @@ int House::getStartPeople() const
 int House::getBuildingId(int index) const
 {
 	return buildingId[index];
-}
-
-bool House::getStatus() const
-{
-	return status;
 }
 
 int House::getTabIdSize() const

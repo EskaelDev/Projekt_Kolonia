@@ -3,10 +3,6 @@
 
 class Resource
 {
-	friend class Magazine;
-	friend class Public;
-	friend class House;
-
 protected:
 	int number;			// liczba surowca
 	int price;			// cena za jednostke surowca	

@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Building.h" />
+    <ClInclude Include="GlobalVariables.h" />
     <ClInclude Include="House.h" />
     <ClInclude Include="Industrial.h" />
     <ClInclude Include="Magazine.h" />

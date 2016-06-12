@@ -53,6 +53,7 @@ void Fill_Arrays();
 
 Uint32 Update_All(Uint32 interval, void *param);
 // Update budynkow
-Uint32 Update_Buildings(Uint32 interval, void *param);
+Uint32 Update_Prod(Uint32 interval, void *param);
+Uint32 Update_Proc(Uint32 interval, void *param);
 
 #endif

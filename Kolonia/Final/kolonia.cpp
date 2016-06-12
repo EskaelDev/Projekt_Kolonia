@@ -405,33 +405,33 @@ int main(int argc, char* args[])
 			gWarehouse_rect_centre.w = gWarehouse_rect_centre_w;
 
 			// Timery odwierzajace stan surowcow
-			Update_CottonPlantation = 		SDL_AddTimer(3000, Update_Buildings, (int*) ID_Cotton_Plantation);
-			Update_ForestersLodge =			SDL_AddTimer(3000, Update_Buildings, (int*) ID_Foresters_Lodge);
-			Update_GrainFarm =				SDL_AddTimer(3000, Update_Buildings, (int*) ID_Grain_Farm);
-			Update_SpiceFarm =				SDL_AddTimer(3000, Update_Buildings, (int*) ID_Spice_Farm);
-			Update_HuntersHut =				SDL_AddTimer(3000, Update_Buildings, (int*) ID_Hunters_Hut);
-			Update_CocoaPlantation =		SDL_AddTimer(3000, Update_Buildings, (int*) ID_Cocoa_Plantation);
-			Update_CattleFarm =				SDL_AddTimer(3000, Update_Buildings, (int*) ID_Cattle_Farm);
-			Update_SheepFarm =				SDL_AddTimer(3000, Update_Buildings, (int*) ID_Sheep_Farm);
-			Update_Winery =					SDL_AddTimer(3000, Update_Buildings, (int*) ID_Winery);
-			Update_TobaccoPlantation =		SDL_AddTimer(3000, Update_Buildings, (int*) ID_Tobacco_Plantation);
-			Update_SugarcanePlantationion = SDL_AddTimer(3000, Update_Buildings, (int*) ID_Sugarcane_Plantation);
-			Update_IronMine =				SDL_AddTimer(3000, Update_Buildings, (int*) ID_Iron_Mine);
-			Update_DeepIronMine =			SDL_AddTimer(3000, Update_Buildings, (int*) ID_Deep_Iron_Mine);
-			Update_GoldMine =				SDL_AddTimer(3000, Update_Buildings, (int*) ID_Gold_Mine);
-			Update_FistersHut =				SDL_AddTimer(3000, Update_Buildings, (int*) ID_Fisters_Hut);
-			Update_StoneMason =				SDL_AddTimer(3000, Update_Buildings, (int*) ID_Stone_Mason);
-			Update_Bakery =					SDL_AddTimer(3000, Update_Buildings, (int*) ID_Bakery);
-			Update_OreRefenery =			SDL_AddTimer(3000, Update_Buildings, (int*) ID_Ore_Refenery);
-			Update_GoldSmith =				SDL_AddTimer(3000, Update_Buildings, (int*) ID_Gold_Smith);
-			Update_ButcherShop =			SDL_AddTimer(3000, Update_Buildings, (int*) ID_Butcher_Shop);
-			Update_RumDistillery = 			SDL_AddTimer(3000, Update_Buildings, (int*) ID_Rum_Distillery);
-			Update_Clothiers =				SDL_AddTimer(3000, Update_Buildings, (int*) ID_Clothiers);
-			Update_TobaccoProduction =		SDL_AddTimer(3000, Update_Buildings, (int*) ID_TobaccoProduction);
-			Update_WeavingMill =			SDL_AddTimer(3000, Update_Buildings, (int*) ID_WeavingMill);
-			Update_WeavingHut =				SDL_AddTimer(3000, Update_Buildings, (int*) ID_WeavingHut);
-			Update_ToolSmithy =				SDL_AddTimer(3000, Update_Buildings, (int*) ID_ToolSmithy);
-			Update_WindMill =				SDL_AddTimer(3000, Update_Buildings, (int*) ID_WindMill);
+			Update_CottonPlantation = 		SDL_AddTimer(3000, Update_Prod, (int*) ID_Cotton_Plantation);
+			Update_ForestersLodge =			SDL_AddTimer(3000, Update_Prod, (int*) ID_Foresters_Lodge);
+			Update_GrainFarm =				SDL_AddTimer(3000, Update_Prod, (int*) ID_Grain_Farm);
+			Update_SpiceFarm =				SDL_AddTimer(3000, Update_Prod, (int*) ID_Spice_Farm);
+			Update_HuntersHut =				SDL_AddTimer(3000, Update_Prod, (int*) ID_Hunters_Hut);
+			Update_CocoaPlantation =		SDL_AddTimer(3000, Update_Prod, (int*) ID_Cocoa_Plantation);
+			Update_CattleFarm =				SDL_AddTimer(3000, Update_Prod, (int*) ID_Cattle_Farm);
+			Update_SheepFarm =				SDL_AddTimer(3000, Update_Prod, (int*) ID_Sheep_Farm);
+			Update_Winery =					SDL_AddTimer(3000, Update_Prod, (int*) ID_Winery);
+			Update_TobaccoPlantation =		SDL_AddTimer(3000, Update_Prod, (int*) ID_Tobacco_Plantation);
+			Update_SugarcanePlantationion = SDL_AddTimer(3000, Update_Prod, (int*) ID_Sugarcane_Plantation);
+			Update_IronMine =				SDL_AddTimer(3000, Update_Prod, (int*) ID_Iron_Mine);
+			Update_DeepIronMine =			SDL_AddTimer(3000, Update_Prod, (int*) ID_Deep_Iron_Mine);
+			Update_GoldMine =				SDL_AddTimer(3000, Update_Prod, (int*) ID_Gold_Mine);
+			Update_FistersHut =				SDL_AddTimer(3000, Update_Prod, (int*) ID_Fisters_Hut);
+			Update_StoneMason =				SDL_AddTimer(3000, Update_Prod, (int*) ID_Stone_Mason);
+			Update_Bakery =					SDL_AddTimer(3000, Update_Proc, (int*) ID_Bakery);
+			Update_OreRefenery =			SDL_AddTimer(3000, Update_Proc, (int*) ID_Ore_Refenery);
+			Update_GoldSmith =				SDL_AddTimer(3000, Update_Proc, (int*) ID_Gold_Smith);
+			Update_ButcherShop =			SDL_AddTimer(3000, Update_Proc, (int*) ID_Butcher_Shop);
+			Update_RumDistillery = 			SDL_AddTimer(3000, Update_Proc, (int*) ID_Rum_Distillery);
+			Update_Clothiers =				SDL_AddTimer(3000, Update_Proc, (int*) ID_Clothiers);
+			Update_TobaccoProduction =		SDL_AddTimer(3000, Update_Proc, (int*) ID_TobaccoProduction);
+			Update_WeavingMill =			SDL_AddTimer(3000, Update_Proc, (int*) ID_WeavingMill);
+			Update_WeavingHut =				SDL_AddTimer(3000, Update_Proc, (int*) ID_WeavingHut);
+			Update_ToolSmithy =				SDL_AddTimer(3000, Update_Proc, (int*) ID_ToolSmithy);
+			Update_WindMill =				SDL_AddTimer(3000, Update_Proc, (int*) ID_WindMill);
 
 			// Glowna petla gry
 			while (!quit)
@@ -577,7 +577,7 @@ int main(int argc, char* args[])
 					timer.count();
 					SDL_RenderSetViewport(gRenderer, &LeftViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
-
+					
 					// Skarbiec - wyswietlanie wartosci
 					// Podatki
 					gTextTexture.loadFromRenderedText(_itoa(0, Money_char_buffor, 10), textC, gFont);

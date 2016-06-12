@@ -564,5 +564,37 @@ Uint32 Update_All(Uint32 interval, void *param)
 			}
 
 
-	return 300;
+	return 3000;
+}
+
+
+Uint32 Update_Prod(Uint32 interval, void* param)
+{
+	
+	int i = reinterpret_cast<int>(param);
+		totalResources += tResource[i]->getNumber();				// sumowanie liczby surowcow ktore posiada gracz
+		if (tProduction[i]->getNumber() > maxBuildingNumber)		// wyszukiwanie zmiennej maxBuldingNumber
+			maxBuildingNumber = tProduction[i]->getNumber();
+		totalMagazinesCapacity += tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber();		// sumowanie calkowitej pojemnosci magazynow budynkow
+	
+		if (tProduction[i]->getActiveNumber() < 5)
+			return 5000;
+		else 
+			return 3000;
+}
+
+Uint32 Update_Proc(Uint32 interval, void* param)
+{
+	int i = reinterpret_cast<int>(param);
+	if (tProcessing[i]->getMagazineCapacity() * tProcessing[i]->getNumber() > tResource[tProcessing[i]->getMaterialID()]->getNumber())	// jezeli pojemnosc magazynu * liczba budynkow > liczby posiadanych surowcow 
+				if (tResource[tProcessing[i]->getMaterialID()]->getNumber() >= tProcessing[i]->getMaterialNumber())								// oraz posiadamy przynamniej tyle surowca ile potrzeba do przetwarzania na inny to
+				{
+					tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getProductNumber());									// dodaj liczbe surowca, ktory zostal wyprodukowany
+					tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getMaterialNumber());									// zmniejsz liczbe liczbe surowca, ktory zostal przetworzony
+				}
+
+	if (tProcessing[i]->getActiveNumber() < 5)
+		return 7000;
+	else
+		return 3000;
 }

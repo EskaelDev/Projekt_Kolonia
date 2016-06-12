@@ -167,6 +167,7 @@
     <ClCompile Include="STimer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="cursor1.cur" />
     <None Include="libFLAC-8.dll" />
     <None Include="libfreetype-6.dll" />
     <None Include="libjpeg-9.dll" />
@@ -194,6 +195,7 @@
     <ClInclude Include="core\Production.h" />
     <ClInclude Include="core\Public.h" />
     <ClInclude Include="core\Resource.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SButton.h" />
     <ClInclude Include="sdl_consts.h" />
     <ClInclude Include="sdl_enums.h" />
@@ -202,6 +204,9 @@
     <ClInclude Include="sdl_variables.h" />
     <ClInclude Include="STexture.h" />
     <ClInclude Include="STimer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Final.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

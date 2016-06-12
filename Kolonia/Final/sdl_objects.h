@@ -81,4 +81,34 @@ extern SDL_Event e;
 
 extern Magazine WareHouse;
 
+extern FILE *slot[];
+
+// Timery odswierzajace budynki
+extern Uint32 Update_CottonPlantation;
+extern Uint32 Update_ForestersLodge;
+extern Uint32 Update_GrainFarm;
+extern Uint32 Update_SpiceFarm;
+extern Uint32 Update_HuntersHut;
+extern Uint32 Update_CocoaPlantation;
+extern Uint32 Update_CattleFarm;
+extern Uint32 Update_SheepFarm;
+extern Uint32 Update_Winery;
+extern Uint32 Update_TobaccoPlantation;
+extern Uint32 Update_SugarcanePlantationion;
+extern Uint32 Update_IronMine;
+extern Uint32 Update_DeepIronMine;
+extern Uint32 Update_GoldMine;
+extern Uint32 Update_FistersHut;
+extern Uint32 Update_StoneMason;
+extern Uint32 Update_Bakery;
+extern Uint32 Update_OreRefenery;
+extern Uint32 Update_GoldSmith;
+extern Uint32 Update_ButcherShop;
+extern Uint32 Update_RumDistillery;
+extern Uint32 Update_Clothiers;
+extern Uint32 Update_TobaccoProduction;
+extern Uint32 Update_WeavingMill;
+extern Uint32 Update_WeavingHut;
+extern Uint32 Update_ToolSmithy;
+extern Uint32 Update_WindMill;
 #endif

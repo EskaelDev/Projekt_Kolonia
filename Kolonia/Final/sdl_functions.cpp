@@ -456,33 +456,6 @@ Uint32 Update_Prod(Uint32 interval, void* param)
 								++usedMagazine;																										// zwieksz zajetosc magazynu
 							}
 
-		// ZAPELNIANIE MAGAZYNOW WEWNETRZNYCH BUDYNKOW DANEGO TYPU (w pierwszej kolejnosci)
-
-			if (tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber() > tResource[tProduction[i]->getProductID()]->getNumber())		// jezeli pojemnosc magazynu * liczba budynkow > liczby posiadanych surowcow to
-			{
-				tResource[tProduction[i]->getProductID()]->increase(tProduction[i]->getNumber());													// zwieksz liczbe surowca o liczbe posiadanych budynkow (kazdy budynek Production zwieksza o 1 jednostke surowca)
-
-				if (tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber() < tResource[tProduction[i]->getProductID()]->getNumber())	// jezeli po zwiekszeniu pojemnosc magazynu * liczba budynkow < liczby posiadanych surowcow to
-				{
-					int excess = tResource[tProduction[i]->getProductID()]->getNumber() - tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber();		// dodany nadmiar surowcow, ktory nie miesci sie w calkowitej pojemnosci magazynow danego typu budynku
-					tResource[tProduction[i]->getProductID()]->decrease(excess);		// TU JESZCZE DOKONCZ	! CO TU MIALO BYC :D !								// poziom surowcow zmniejsz do max dostepnej pojemnosci
-				}
-			}
-
-			// ZAPELNIANIE MAGAZYNU OGOLNEGO (w drugiej kolejnosci)
-
-			usedMagazine = totalResources - totalMagazinesCapacity;				// wykorzystanie magazynu glownego to dodatni wynik roznicy wszystkich surowcow od calkowitej pojemnosci wszystkich budynkow
-			if (usedMagazine < 0) usedMagazine = 0;								// wynik ujemny tej roznicy oznacza, ze magazyn w ogole nie jest wykorzystywany
-
-			for (int j = 1; j <= maxBuildingNumber; ++j)																								// dodawaj po jednej jednostce surowca tyle razy ile wynosi najwieksza liczba posiadanego budynku
-					if (tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber() <= tResource[tProduction[i]->getProductID()]->getNumber())	// jezeli pojemnosc magazynu * liczba budynkow <= liczby posiadanych surowcow 
-						if (tProduction[i]->getNumber() != 0)																							// oraz liczba budynkow jest != 0
-							if (usedMagazine < WareHouse.getmagazineCapacity())																			// oraz dostepne jest jeszcze miejsce w magazynie glownym
-								if (tProduction[i]->getNumber() >= j)																					// oraz mamy liczbe j budynkow aby moc dodaj j-ty surowiec
-								{
-									tResource[tProduction[i]->getProductID()]->increase(1);																// dodaj jedna jednostke surowca
-									++usedMagazine;																										// zwieksz zajetosc magazynu
-								}
 		if (tProduction[i]->getActiveNumber() < 5)
 			return 5000;
 		else 
@@ -492,41 +465,13 @@ Uint32 Update_Prod(Uint32 interval, void* param)
 Uint32 Update_Proc(Uint32 interval, void* param)
 {
 	int i = reinterpret_cast<int>(param);
-	if (tProcessing[i]->getMagazineCapacity() * tProcessing[i]->getNumber() > tResource[tProcessing[i]->getMaterialID()]->getNumber())	// jezeli pojemnosc magazynu * liczba budynkow > liczby posiadanych surowcow 
-				if (tResource[tProcessing[i]->getMaterialID()]->getNumber() >= tProcessing[i]->getMaterialNumber())								// oraz posiadamy przynamniej tyle surowca ile potrzeba do przetwarzania na inny to
-				{
-					tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getProductNumber());									// dodaj liczbe surowca, ktory zostal wyprodukowany
-					tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getMaterialNumber());									// zmniejsz liczbe liczbe surowca, ktory zostal przetworzony
-				}
-	maxBuildingNumber = tProcessing[i]->getNumber();
-	totalMagazinesCapacity += tProcessing[i]->getMagazineCapacity() * tProcessing[i]->getNumber();		// sumowanie calkowitej pojemnosci magazynow budynkow
-	usedMagazine = totalResources - totalMagazinesCapacity;				// wykorzystanie magazynu glownego to dodatni wynik roznicy wszystkich surowcow od calkowitej pojemnosci wszystkich budynkow
-	if (usedMagazine < 0) usedMagazine = 0;								// wynik ujemny tej roznicy oznacza, ze magazyn w ogole nie jest wykorzystywany
-
-	for (int j = 1; j <= maxBuildingNumber; ++j)																								// dodawaj po jednej jednostce surowca tyle razy ile wynosi najwieksza liczba posiadanego budynku
-			if (tProcessing[i]->getMagazineCapacity() * tProcessing[i]->getNumber() <= tResource[tProcessing[i]->getProductID()]->getNumber())	// jezeli pojemnosc magazynu * liczba budynkow <= liczby posiadanych surowcow 
-				if (tProcessing[i]->getNumber() != 0)																							// oraz liczba budynkow jest != 0
-					if (usedMagazine < WareHouse.getmagazineCapacity())																			// oraz dostepne jest jeszcze miejsce w magazynie glownym
-						if (tProcessing[i]->getNumber() >= j)																					// oraz mamy liczbe j budynkow aby moc dodaj j-ty surowiec
-						{
-							tResource[tProcessing[i]->getProductID()]->increase(1);																// dodaj jedna jednostke surowca
-							++usedMagazine;																										// zwieksz zajetosc magazynu
-						}
-
-	// ZAPELNIANIE MAGAZYNOW WEWNETRZNYCH BUDYNKOW DANEGO TYPU (w pierwszej kolejnosci)
-
-	for (int i = 0; i < 15; ++i)
-		if (tProcessing[i]->getMagazineCapacity() * tProcessing[i]->getNumber() > tResource[tProcessing[i]->getProductID()]->getNumber())		// jezeli pojemnosc magazynu * liczba budynkow > liczby posiadanych surowcow to
-		{
-			tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getNumber());													// zwieksz liczbe surowca o liczbe posiadanych budynkow (kazdy budynek Production zwieksza o 1 jednostke surowca)
-
-			if (tProcessing[i]->getMagazineCapacity() * tProcessing[i]->getNumber() < tResource[tProcessing[i]->getProductID()]->getNumber())	// jezeli po zwiekszeniu pojemnosc magazynu * liczba budynkow < liczby posiadanych surowcow to
+	for (int j = 0; j < tProcessing[i]->getNumber(); ++j)
+		if (tProcessing[i]->getMagazineCapacity() * tProcessing[i]->getNumber() > tResource[tProcessing[i]->getMaterialID()]->getNumber())	// jezeli pojemnosc magazynu * liczba budynkow > liczby posiadanych surowcow 
+			if (tResource[tProcessing[i]->getMaterialID()]->getNumber() >= tProcessing[i]->getMaterialNumber())								// oraz posiadamy przynamniej tyle surowca ile potrzeba do przetwarzania na inny to
 			{
-				int excess = tResource[tProcessing[i]->getProductID()]->getNumber() - tProcessing[i]->getMagazineCapacity() * tProcessing[i]->getNumber();		// dodany nadmiar surowcow, ktory nie miesci sie w calkowitej pojemnosci magazynow danego typu budynku
-				tResource[tProcessing[i]->getProductID()]->decrease(excess);		// TU JESZCZE DOKONCZ	! CO TU MIALO BYC :D !								// poziom surowcow zmniejsz do max dostepnej pojemnosci
+				tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getProductNumber());									// dodaj liczbe surowca, ktory zostal wyprodukowany
+				tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getMaterialNumber());									// zmniejsz liczbe liczbe surowca, ktory zostal przetworzony
 			}
-		}
-
 	if (tProcessing[i]->getActiveNumber() < 5)
 		return 7000;
 	else

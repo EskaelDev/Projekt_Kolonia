@@ -439,7 +439,8 @@ int main(int argc, char* args[])
 			// Glowna petla gry
 			while (!quit)
 			{
-			
+				
+
 				// Handle events on queue
 				while (SDL_PollEvent(&e) != 0)
 				{
@@ -542,7 +543,6 @@ int main(int argc, char* args[])
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(gRenderer);
 
-				
 				switch (screen)
 				{
 				case MAIN:

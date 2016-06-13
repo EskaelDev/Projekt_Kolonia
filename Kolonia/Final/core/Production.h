@@ -14,9 +14,9 @@ protected:
 public:
 	Production();
 	Production(int, int, int, int, int, int, int, int, int, int, int);
-	bool Build(Resource &, Resource &, Resource &, Resource &);
-	bool activate();			// funkcja wznawia produkcje budynku, zwraca true, jesli posiadamy choc jeden budynek z wstrzymana produkcja, false jesli nie
-	bool deactivate();			// funkcja wstrzymuje produkcje budynku, zwraca true, jesli posiadamy choc jeden budynek z aktywna produkcja, false jesli nie
+	bool Build(Resource* [21]) override;
+	bool activate();						// funkcja wznawia produkcje budynku, zwraca true, jesli posiadamy choc jeden budynek z wstrzymana produkcja, false jesli nie
+	bool deactivate();						// funkcja wstrzymuje produkcje budynku, zwraca true, jesli posiadamy choc jeden budynek z aktywna produkcja, false jesli nie
 	int getProductID() const;
 	int getMagazineCapacity() const;
 	int getMaintenancePassiveCost() const;

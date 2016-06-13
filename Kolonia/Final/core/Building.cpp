@@ -21,3 +21,7 @@ int Building::getSize() const
 	return size;
 }
 
+bool Building::getStatus() const
+{
+	return status;
+}

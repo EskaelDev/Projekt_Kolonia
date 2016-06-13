@@ -472,29 +472,60 @@ int main(int argc, char* args[])
 				SDL_RenderClear(gRenderer);
 
 				// Paski surowców
-				SDL_Rect fillRect = { 6, 295, 56 * tResource[1]->getNumber() / WareHouse.getmagazineCapacity(), 5 };		// 1 Iron Ore
-				SDL_Rect fillRect2 = { 71, 295, 56 * tResource[2]->getNumber() / WareHouse.getmagazineCapacity(), 5 };		// 2 Gold
-				SDL_Rect fillRect3 = { 136, 295, 56 * tResource[3]->getNumber() / WareHouse.getmagazineCapacity(), 5 };		// 3 Wool
-				SDL_Rect fillRect4 = { 201, 295, 56 * tResource[4]->getNumber() / WareHouse.getmagazineCapacity(), 5 };		// 4 Sugar
-				SDL_Rect fillRect5 = { 266, 295, 56 * tResource[10]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 10 Food
-
-				SDL_Rect fillRect6 = { 6, 369, 56 * tResource[5]->getNumber() / WareHouse.getmagazineCapacity(), 5 };		// 5 Tobacco
-				SDL_Rect fillRect7 = { 71, 369, 56 * tResource[6]->getNumber() / WareHouse.getmagazineCapacity(), 5 };		// 6 Cattle
-				SDL_Rect fillRect8 = { 136, 369, 56 * tResource[7]->getNumber() / WareHouse.getmagazineCapacity(), 5 };		// 7 Grain
-				SDL_Rect fillRect9 = { 201, 369, 56 * tResource[8]->getNumber() / WareHouse.getmagazineCapacity(), 5 };		// 8 Flour
-				SDL_Rect fillRect10 = { 266, 369, 56 * tResource[14]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 14 Liquor
+				SDL_Rect fillRect = { 6, 295, 56 * tResource[1]->getNumber() / (WareHouse.getmagazineCapacity()+
+					tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };		// 1 Iron Ore
 				
-				SDL_Rect fillRect11 = { 6, 437, 56 * tResource[12]->getNumber() / WareHouse.getmagazineCapacity(), 5 };		// 12 Spices
-				SDL_Rect fillRect12 = { 71, 437, 56 * tResource[15]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 15 Cloth
-				SDL_Rect fillRect13 = { 136, 437, 56 * tResource[16]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 16 Clothes
-				SDL_Rect fillRect14 = { 201, 437, 56 * tResource[11]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 11 Tobacco Products
-				SDL_Rect fillRect15 = { 266, 437, 56 * tResource[17]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 17 Jewerly
+				SDL_Rect fillRect2 = { 71, 295, 56 * tResource[2]->getNumber() / (WareHouse.getmagazineCapacity()+
+					tProduction[ID_Gold_Mine]->getActiveNumber()*tProduction[ID_Gold_Mine]->getMagazineCapacity()), 5 };		// 2 Gold
+				
+				SDL_Rect fillRect3 = { 136, 295, 56 * tResource[3]->getNumber() / (WareHouse.getmagazineCapacity() + 
+					tProduction[ID_Sheep_Farm]->getActiveNumber()*tProduction[ID_Sheep_Farm]->getMagazineCapacity() +
+					tProduction[ID_Cotton_Plantation]->getActiveNumber()*tProduction[ID_Cotton_Plantation]->getMagazineCapacity()), 5 };		// 3 Wool
+				
+				SDL_Rect fillRect4 = { 201, 295, 56 * tResource[4]->getNumber() / (WareHouse.getmagazineCapacity()+tProduction[ID_Sugarcane_Plantation]->getActiveNumber()*tProduction[ID_Sugarcane_Plantation]->getMagazineCapacity()), 5 };		// 4 Sugar
+				
+				SDL_Rect fillRect5 = { 266, 295, 56 * tResource[10]->getNumber() / (WareHouse.getmagazineCapacity()+
+					tProduction[ID_Bakery]->getActiveNumber()*tProduction[ID_Bakery]->getMagazineCapacity() + 
+					tProduction[ID_Butcher_Shop]->getActiveNumber()*tProduction[ID_Butcher_Shop]->getMagazineCapacity() + 
+					tProduction[ID_Fisters_Hut]->getActiveNumber()*tProduction[ID_Fisters_Hut]->getMagazineCapacity()+
+					tProduction[ID_Hunters_Hut]->getActiveNumber()*tProduction[ID_Hunters_Hut]->getMagazineCapacity()), 5 };	// 10 Food
 
-				SDL_Rect fillRect16 = { 6, 507, 56 * tResource[18]->getNumber()/WareHouse.getmagazineCapacity(), 5 };		// 18 Tools
-				SDL_Rect fillRect17 = { 71, 507, 56 * tResource[19]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 19 Wood
-				SDL_Rect fillRect18 = { 136, 507, 56 * tResource[20]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 20 Bricks
-				SDL_Rect fillRect19 = { 201, 507, 56 * tResource[9]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 9 Iron
-				SDL_Rect fillRect20 = { 266, 507, 56 * tResource[13]->getNumber() / WareHouse.getmagazineCapacity(), 5 };	// 13 Cocoa
+				
+				SDL_Rect fillRect6 = { 6, 369, 56 * tResource[5]->getNumber() / (WareHouse.getmagazineCapacity()+
+					tProduction[ID_Tobacco_Plantation]->getActiveNumber()*tProduction[ID_Tobacco_Plantation]->getMagazineCapacity()), 5 };		// 5 Tobacco
+				
+				SDL_Rect fillRect7 = { 71, 369, 56 * tResource[6]->getNumber() / (WareHouse.getmagazineCapacity()+
+					tProduction[ID_Cattle_Farm]->getActiveNumber()*tProduction[ID_Cattle_Farm]->getMagazineCapacity()), 5 };		// 6 Cattle
+				
+				SDL_Rect fillRect8 = { 136, 369, 56 * tResource[7]->getNumber() / (WareHouse.getmagazineCapacity()+
+					tProduction[ID_Grain_Farm]->getActiveNumber()*tProduction[ID_Grain_Farm]->getMagazineCapacity()), 5 };		// 7 Grain
+				
+				SDL_Rect fillRect9 = { 201, 369, 56 * tResource[8]->getNumber() / (WareHouse.getmagazineCapacity()+
+					tProduction[ID_WindMill]->getActiveNumber()*tProduction[ID_WindMill]->getMagazineCapacity()), 5 };		// 8 Flour
+				
+				SDL_Rect fillRect10 = { 266, 369, 56 * tResource[14]->getNumber() / (WareHouse.getmagazineCapacity()+
+					tProduction[ID_Rum_Distillery]->getActiveNumber()*tProduction[ID_Rum_Distillery]->getMagazineCapacity()), 5 };	// 14 Liquor
+				
+				SDL_Rect fillRect11 = { 6, 437, 56 * tResource[12]->getNumber() / (WareHouse.getmagazineCapacity()+
+					tProduction[ID_Spice_Farm]->getActiveNumber()*tProduction[ID_Spice_Farm]->getMagazineCapacity()), 5 };		// 12 Spices
+				
+				SDL_Rect fillRect12 = { 71, 437, 56 * tResource[15]->getNumber() / (WareHouse.getmagazineCapacity()+tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };	// 15 Cloth
+				
+				SDL_Rect fillRect13 = { 136, 437, 56 * tResource[16]->getNumber() / (WareHouse.getmagazineCapacity()+tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };	// 16 Clothes
+				
+				SDL_Rect fillRect14 = { 201, 437, 56 * tResource[11]->getNumber() / (WareHouse.getmagazineCapacity()+tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };	// 11 Tobacco Products
+				
+				SDL_Rect fillRect15 = { 266, 437, 56 * tResource[17]->getNumber() / (WareHouse.getmagazineCapacity()+tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };	// 17 Jewerly
+
+				SDL_Rect fillRect16 = { 6, 507, 56 * tResource[18]->getNumber()/(WareHouse.getmagazineCapacity()+tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };		// 18 Tools
+				
+				SDL_Rect fillRect17 = { 71, 507, 56 * tResource[19]->getNumber() / (WareHouse.getmagazineCapacity()+tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };	// 19 Wood
+				
+				SDL_Rect fillRect18 = { 136, 507, 56 * tResource[20]->getNumber() / (WareHouse.getmagazineCapacity()+tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };	// 20 Bricks
+				
+				SDL_Rect fillRect19 = { 201, 507, 56 * tResource[9]->getNumber() / (WareHouse.getmagazineCapacity()+tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };	// 9 Iron
+				
+				SDL_Rect fillRect20 = { 266, 507, 56 * tResource[13]->getNumber() / (WareHouse.getmagazineCapacity()+tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };	// 13 Cocoa
 				
 				switch (screen)
 				{

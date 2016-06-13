@@ -29,7 +29,7 @@ int main(int argc, char* args[])
 	Fill_Arrays();
 	tResource[0]->increase(5000);
 	tResource[18]->increase(50);
-	tResource[19]->increase(70);
+	tResource[19]->increase(50);
 	tResource[20]->increase(13);
 
 	// Wlaczenie SDL i stworzenie okna
@@ -404,6 +404,9 @@ int main(int argc, char* args[])
 			gWarehouse_rect_centre.h = gWarehouse_rect_centre_h;
 			gWarehouse_rect_centre.w = gWarehouse_rect_centre_w;
 
+
+			
+
 			// Timery odwierzajace stan surowcow
 			Update_CottonPlantation = 		SDL_AddTimer(3000, Update_Prod, (int*) ID_Cotton_Plantation);
 			Update_ForestersLodge =			SDL_AddTimer(3000, Update_Prod, (int*) ID_Foresters_Lodge);
@@ -436,6 +439,7 @@ int main(int argc, char* args[])
 			// Glowna petla gry
 			while (!quit)
 			{
+			
 				// Handle events on queue
 				while (SDL_PollEvent(&e) != 0)
 				{
@@ -466,66 +470,78 @@ int main(int argc, char* args[])
 						screen = MAIN;
 						subScreen = MAIN;
 					}
+				// Paski surowców
+				SDL_Rect fillRect = { 6, 295, 56 * tResource[1]->getNumber() / (WareHouse.getmagazineCapacity() +
+					tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };		// 1 Iron Ore
 
+				SDL_Rect fillRect2 = { 71, 295, 56 * tResource[2]->getNumber() / (WareHouse.getmagazineCapacity() +
+					tProduction[ID_Gold_Mine]->getActiveNumber()*tProduction[ID_Gold_Mine]->getMagazineCapacity()), 5 };		// 2 Gold
+
+				SDL_Rect fillRect3 = { 136, 295, 56 * tResource[3]->getNumber() / (WareHouse.getmagazineCapacity() +
+					tProduction[ID_Sheep_Farm]->getActiveNumber()*tProduction[ID_Sheep_Farm]->getMagazineCapacity() +
+					tProduction[ID_Cotton_Plantation]->getActiveNumber()*tProduction[ID_Cotton_Plantation]->getMagazineCapacity()), 5 };		// 3 Wool
+
+				SDL_Rect fillRect4 = { 201, 295, 56 * tResource[4]->getNumber() / (WareHouse.getmagazineCapacity() + tProduction[ID_Sugarcane_Plantation]->getActiveNumber()*tProduction[ID_Sugarcane_Plantation]->getMagazineCapacity()), 5 };		// 4 Sugar
+
+				SDL_Rect fillRect5 = { 266, 295, 56 * tResource[10]->getNumber() / (WareHouse.getmagazineCapacity() +
+					tProcessing[ID_Bakery]->getActiveNumber()*tProcessing[ID_Bakery]->getMagazineCapacity() +
+					tProcessing[ID_Butcher_Shop]->getActiveNumber()*tProcessing[ID_Butcher_Shop]->getMagazineCapacity() +
+					tProduction[ID_Fisters_Hut]->getActiveNumber()*tProduction[ID_Fisters_Hut]->getMagazineCapacity() +
+					tProduction[ID_Hunters_Hut]->getActiveNumber()*tProduction[ID_Hunters_Hut]->getMagazineCapacity()), 5 };	// 10 Food
+
+
+				SDL_Rect fillRect6 = { 6, 369, 56 * tResource[5]->getNumber() / (WareHouse.getmagazineCapacity() +
+					tProduction[ID_Tobacco_Plantation]->getActiveNumber()*tProduction[ID_Tobacco_Plantation]->getMagazineCapacity()), 5 };	// 5 Tobacco
+
+				SDL_Rect fillRect7 = { 71, 369, 56 * tResource[6]->getNumber() / (WareHouse.getmagazineCapacity() +
+					tProduction[ID_Cattle_Farm]->getActiveNumber()*tProduction[ID_Cattle_Farm]->getMagazineCapacity()), 5 };		// 6 Cattle
+
+				SDL_Rect fillRect8 = { 136, 369, 56 * tResource[7]->getNumber() / (WareHouse.getmagazineCapacity() +
+					tProduction[ID_Grain_Farm]->getActiveNumber()*tProduction[ID_Grain_Farm]->getMagazineCapacity()), 5 };		// 7 Grain
+
+				SDL_Rect fillRect9 = { 201, 369, 56 * tResource[8]->getNumber() / (WareHouse.getmagazineCapacity() +
+					tProcessing[ID_WindMill]->getActiveNumber()*tProcessing[ID_WindMill]->getMagazineCapacity()), 5 };		// 8 Flour
+
+				SDL_Rect fillRect10 = { 266, 369, 56 * tResource[14]->getNumber() / (WareHouse.getmagazineCapacity() +
+					tProcessing[ID_Rum_Distillery]->getActiveNumber()*tProcessing[ID_Rum_Distillery]->getMagazineCapacity()), 5 };	// 14 Liquor
+
+				SDL_Rect fillRect11 = { 6, 437, 56 * tResource[12]->getNumber() / (WareHouse.getmagazineCapacity() +
+					tProduction[ID_Spice_Farm]->getActiveNumber()*tProduction[ID_Spice_Farm]->getMagazineCapacity()), 5 };		// 12 Spices
+
+				SDL_Rect fillRect12 = { 71, 437, 56 * tResource[15]->getNumber() / (WareHouse.getmagazineCapacity() +
+					tProcessing[ID_WeavingMill]->getActiveNumber()*tProcessing[ID_WeavingMill]->getMagazineCapacity() +
+					tProcessing[ID_WeavingHut]->getActiveNumber()*tProcessing[ID_WeavingHut]->getMagazineCapacity()), 5 };	// 15 Cloth
+
+				SDL_Rect fillRect13 = { 136, 437, 56 * tResource[16]->getNumber() / (WareHouse.getmagazineCapacity() +
+					tProcessing[ID_Clothiers]->getActiveNumber()*tProcessing[ID_Clothiers]->getMagazineCapacity()), 5 };	// 16 Clothes
+
+				SDL_Rect fillRect14 = { 201, 437, 56 * tResource[11]->getNumber() / (WareHouse.getmagazineCapacity() +
+					tProcessing[ID_TobaccoProduction]->getActiveNumber()*tProcessing[ID_TobaccoProduction]->getMagazineCapacity()), 5 };	// 11 Tobacco Products
+
+				SDL_Rect fillRect15 = { 266, 437, 56 * tResource[17]->getNumber() / (WareHouse.getmagazineCapacity() +
+					tProcessing[ID_Gold_Smith]->getActiveNumber()*tProcessing[ID_Gold_Smith]->getMagazineCapacity()), 5 };	// 17 Jewerly
+
+				SDL_Rect fillRect16 = { 6, 507, 56* tResource[18]->getNumber() / (WareHouse.getmagazineCapacity() +
+					tProcessing[ID_ToolSmithy]->getActiveNumber()*tProcessing[ID_ToolSmithy]->getMagazineCapacity()), 5 };		// 18 Tools
+
+				SDL_Rect fillRect17 = { 71, 507, (56*tResource[19]->getNumber()) / (WareHouse.getmagazineCapacity() +
+					tProduction[ID_Foresters_Lodge]->getActiveNumber()*tProduction[ID_Foresters_Lodge]->getMagazineCapacity()), 5 };	// 19 Wood
+
+				SDL_Rect fillRect18 = { 136, 507,56*tResource[20]->getNumber() / (WareHouse.getmagazineCapacity() +
+					tProduction[ID_Stone_Mason]->getActiveNumber()*tProduction[ID_Stone_Mason]->getMagazineCapacity()), 5 };	// 20 Bricks
+
+				SDL_Rect fillRect19 = { 201, 507, 56 * tResource[9]->getNumber() / (WareHouse.getmagazineCapacity() +
+					tProduction[ID_Ore_Refenery]->getActiveNumber()*tProcessing[ID_Ore_Refenery]->getMagazineCapacity()), 5 };	// 9 Iron
+
+				SDL_Rect fillRect20 = { 266, 507, 56 * tResource[13]->getNumber() / (WareHouse.getmagazineCapacity() +
+					tProduction[ID_Cocoa_Plantation]->getActiveNumber()*tProduction[ID_Cocoa_Plantation]->getMagazineCapacity()), 5 };	// 13 Cocoa
+
+				cout << 56 <<" * "<< tResource[19]->getNumber() << " / " << WareHouse.getmagazineCapacity() << " + " <<
+					tProduction[ID_Foresters_Lodge]->getActiveNumber() << " * " << tProduction[ID_Foresters_Lodge]->getMagazineCapacity() << endl;
 				// Czyszczenie ekranu
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(gRenderer);
 
-				// Paski surowców
-				SDL_Rect fillRect = { 6, 295, 56 * tResource[1]->getNumber() / (WareHouse.getmagazineCapacity()+
-					tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };		// 1 Iron Ore
-				
-				SDL_Rect fillRect2 = { 71, 295, 56 * tResource[2]->getNumber() / (WareHouse.getmagazineCapacity()+
-					tProduction[ID_Gold_Mine]->getActiveNumber()*tProduction[ID_Gold_Mine]->getMagazineCapacity()), 5 };		// 2 Gold
-				
-				SDL_Rect fillRect3 = { 136, 295, 56 * tResource[3]->getNumber() / (WareHouse.getmagazineCapacity() + 
-					tProduction[ID_Sheep_Farm]->getActiveNumber()*tProduction[ID_Sheep_Farm]->getMagazineCapacity() +
-					tProduction[ID_Cotton_Plantation]->getActiveNumber()*tProduction[ID_Cotton_Plantation]->getMagazineCapacity()), 5 };		// 3 Wool
-				
-				SDL_Rect fillRect4 = { 201, 295, 56 * tResource[4]->getNumber() / (WareHouse.getmagazineCapacity()+tProduction[ID_Sugarcane_Plantation]->getActiveNumber()*tProduction[ID_Sugarcane_Plantation]->getMagazineCapacity()), 5 };		// 4 Sugar
-				
-				SDL_Rect fillRect5 = { 266, 295, 56 * tResource[10]->getNumber() / (WareHouse.getmagazineCapacity()+
-					tProduction[ID_Bakery]->getActiveNumber()*tProduction[ID_Bakery]->getMagazineCapacity() + 
-					tProduction[ID_Butcher_Shop]->getActiveNumber()*tProduction[ID_Butcher_Shop]->getMagazineCapacity() + 
-					tProduction[ID_Fisters_Hut]->getActiveNumber()*tProduction[ID_Fisters_Hut]->getMagazineCapacity()+
-					tProduction[ID_Hunters_Hut]->getActiveNumber()*tProduction[ID_Hunters_Hut]->getMagazineCapacity()), 5 };	// 10 Food
-
-				
-				SDL_Rect fillRect6 = { 6, 369, 56 * tResource[5]->getNumber() / (WareHouse.getmagazineCapacity()+
-					tProduction[ID_Tobacco_Plantation]->getActiveNumber()*tProduction[ID_Tobacco_Plantation]->getMagazineCapacity()), 5 };		// 5 Tobacco
-				
-				SDL_Rect fillRect7 = { 71, 369, 56 * tResource[6]->getNumber() / (WareHouse.getmagazineCapacity()+
-					tProduction[ID_Cattle_Farm]->getActiveNumber()*tProduction[ID_Cattle_Farm]->getMagazineCapacity()), 5 };		// 6 Cattle
-				
-				SDL_Rect fillRect8 = { 136, 369, 56 * tResource[7]->getNumber() / (WareHouse.getmagazineCapacity()+
-					tProduction[ID_Grain_Farm]->getActiveNumber()*tProduction[ID_Grain_Farm]->getMagazineCapacity()), 5 };		// 7 Grain
-				
-				SDL_Rect fillRect9 = { 201, 369, 56 * tResource[8]->getNumber() / (WareHouse.getmagazineCapacity()+
-					tProduction[ID_WindMill]->getActiveNumber()*tProduction[ID_WindMill]->getMagazineCapacity()), 5 };		// 8 Flour
-				
-				SDL_Rect fillRect10 = { 266, 369, 56 * tResource[14]->getNumber() / (WareHouse.getmagazineCapacity()+
-					tProduction[ID_Rum_Distillery]->getActiveNumber()*tProduction[ID_Rum_Distillery]->getMagazineCapacity()), 5 };	// 14 Liquor
-				
-				SDL_Rect fillRect11 = { 6, 437, 56 * tResource[12]->getNumber() / (WareHouse.getmagazineCapacity()+
-					tProduction[ID_Spice_Farm]->getActiveNumber()*tProduction[ID_Spice_Farm]->getMagazineCapacity()), 5 };		// 12 Spices
-				
-				SDL_Rect fillRect12 = { 71, 437, 56 * tResource[15]->getNumber() / (WareHouse.getmagazineCapacity()+tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };	// 15 Cloth
-				
-				SDL_Rect fillRect13 = { 136, 437, 56 * tResource[16]->getNumber() / (WareHouse.getmagazineCapacity()+tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };	// 16 Clothes
-				
-				SDL_Rect fillRect14 = { 201, 437, 56 * tResource[11]->getNumber() / (WareHouse.getmagazineCapacity()+tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };	// 11 Tobacco Products
-				
-				SDL_Rect fillRect15 = { 266, 437, 56 * tResource[17]->getNumber() / (WareHouse.getmagazineCapacity()+tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };	// 17 Jewerly
-
-				SDL_Rect fillRect16 = { 6, 507, 56 * tResource[18]->getNumber()/(WareHouse.getmagazineCapacity()+tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };		// 18 Tools
-				
-				SDL_Rect fillRect17 = { 71, 507, 56 * tResource[19]->getNumber() / (WareHouse.getmagazineCapacity()+tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };	// 19 Wood
-				
-				SDL_Rect fillRect18 = { 136, 507, 56 * tResource[20]->getNumber() / (WareHouse.getmagazineCapacity()+tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };	// 20 Bricks
-				
-				SDL_Rect fillRect19 = { 201, 507, 56 * tResource[9]->getNumber() / (WareHouse.getmagazineCapacity()+tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };	// 9 Iron
-				
-				SDL_Rect fillRect20 = { 266, 507, 56 * tResource[13]->getNumber() / (WareHouse.getmagazineCapacity()+tProduction[ID_Iron_Mine]->getActiveNumber()*tProduction[ID_Iron_Mine]->getMagazineCapacity()), 5 };	// 13 Cocoa
 				
 				switch (screen)
 				{
@@ -608,7 +624,10 @@ int main(int argc, char* args[])
 					timer.count();
 					SDL_RenderSetViewport(gRenderer, &LeftViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
+
+
 					
+
 					// Skarbiec - wyswietlanie wartosci
 					// Podatki
 					gTextTexture.loadFromRenderedText(_itoa(0, Money_char_buffor, 10), textC, gFont);
@@ -704,10 +723,10 @@ int main(int argc, char* args[])
 					// Aktualizacje stanów	
 					
 					// AKTUALIZACJA STANU SUROWCOW
-					thisTime = timer.getTicks();
+					/*thisTime = timer.getTicks();
 					deltaTime = (float)(thisTime - lastTime);
 					cout << thisTime << " " << deltaTime << " " << lastTime << endl;
-					lastTime = thisTime;
+					lastTime = thisTime;*/
 					
 					
 
@@ -780,6 +799,13 @@ int main(int argc, char* args[])
 					}
 					SDL_SetRenderDrawColor(gRenderer, 0xFF, 0x00, 0x00, 0xFF);
 
+					
+
+					buy_button.render();						buy_button.handleEvent(&e);
+					sell_button.render();						sell_button.handleEvent(&e);
+					stats_button.render();						stats_button.handleEvent(&e);
+					save_game_button.render();					save_game_button.handleEvent(&e);
+
 					// Paski stanu zasobow
 					SDL_RenderFillRect(gRenderer, &fillRect);
 					SDL_RenderFillRect(gRenderer, &fillRect2);
@@ -804,11 +830,6 @@ int main(int argc, char* args[])
 					SDL_RenderFillRect(gRenderer, &fillRect18);
 					SDL_RenderFillRect(gRenderer, &fillRect19);
 					SDL_RenderFillRect(gRenderer, &fillRect20);
-
-					buy_button.render();						buy_button.handleEvent(&e);
-					sell_button.render();						sell_button.handleEvent(&e);
-					stats_button.render();						stats_button.handleEvent(&e);
-					save_game_button.render();					save_game_button.handleEvent(&e);
 					switch (subScreen)
 					{
 						// Ekran rozgrywki - wybor budynkow

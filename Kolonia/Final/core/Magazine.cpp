@@ -17,7 +17,7 @@ Magazine::Magazine()
 	peopleClass = 1;
 	status = true;
 	level = 1;
-	magazineCapacity = 30;
+	magazineCapacity = 70;
 }
 
 bool Magazine::Build(Resource* TResource[21])
@@ -36,7 +36,7 @@ bool Magazine::Build(Resource* TResource[21])
 
 			if (2 == level)
 			{
-				magazineCapacity = 50;
+				magazineCapacity = 120;
 				moneyToBuild = 250;
 				bricksToBuild = 6;
 				toolsToBuild = 4;
@@ -47,7 +47,7 @@ bool Magazine::Build(Resource* TResource[21])
 
 			else if (3 == level)
 			{
-				magazineCapacity = 75;
+				magazineCapacity = 200;
 				bricksToBuild = 10;
 				toolsToBuild = 5;
 				peopleToBuild = 250;

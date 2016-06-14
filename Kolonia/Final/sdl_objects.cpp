@@ -16,6 +16,7 @@ SDL_Texture* Warehouse_I_texture = NULL;
 SDL_Texture* Warehouse_II_texture = NULL;
 SDL_Texture* Warehouse_III_texture = NULL;
 SDL_Texture* Warehouse_IV_texture = NULL;
+SDL_Texture* End_Screen_texture = NULL;
 
 // Czworokaty magazynow
 SDL_Rect gWarehouse_rect_right;

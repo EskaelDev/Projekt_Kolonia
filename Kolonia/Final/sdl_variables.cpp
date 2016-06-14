@@ -10,6 +10,7 @@ bool sell = false;
 
 bool popUp = false;
 bool startScreen = false;
+bool endScreen = true;
 
 // Mozna budowac
 bool allow_build = true;

@@ -19,6 +19,7 @@ public:
 	int getSize() const;
 	bool getStatus() const;
 
+	virtual ~Building() {};
 	virtual bool Build(Resource* [21]) = 0;
 	virtual void checkStatus(int) = 0;		
 	virtual void test() const = 0;

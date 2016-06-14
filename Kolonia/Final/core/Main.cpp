@@ -214,7 +214,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		// POBOR PODATKU OD MIESZKANCOW
 
 		for (int i = 0; i < 5; ++i)
-			tResource[0]->increase(tPeople[i]->getNumber());
+			tResource[0]->increase(tPeople[i]->getNumber()*tPeople[i]->getTax());
 
 		// KOSZTY UTRZYMANIA POSIADANYCH BUDYNKOW
 

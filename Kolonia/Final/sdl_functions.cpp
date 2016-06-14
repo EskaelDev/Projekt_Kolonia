@@ -348,11 +348,11 @@ void Fill_Arrays()
 {
 	// House(bricksToBuild, toolsToBuild, woodToBuild, inhabitants, startPeople, buildingID0, buildingID1, buildingID2)
 	{ int tab0[1] = { -1 };
-	tHouse[0] = new House(0, 0, 3, 3, 1, tab0, sizeof(tab0)); } 	/* Pioneers House */ { int tab1[2] = { 4, 7 };
-	tHouse[1] = new House(0, 1, 3, 7, 2, tab1, sizeof(tab1)); }		/* Settlers House */ { int tab2[3] = { 2, 9, 11 };
-	tHouse[2] = new House(6, 2, 2, 15, 3, tab2, sizeof(tab2)); } 	/* Citizens House */ { int tab3[3] = { 0, 1, 6 };
-	tHouse[3] = new House(9, 3, 3, 25, 4, tab3, sizeof(tab3)); }	/* Merchansts House */ { int tab4[3] = { 3, 5, 10 };
-	tHouse[4] = new House(12, 3, 3, 40, 5, tab4, sizeof(tab4)); }	/* Aristorcats House */
+	tHouse[0] = new House(0, 0, 3, 3, 1, tab0, 1); } 	/* Pioneers House */ { int tab1[2] = { 4, 7 };
+	tHouse[1] = new House(0, 1, 3, 7, 2, tab1, 2); }		/* Settlers House */ { int tab2[3] = { 2, 9, 11 };
+	tHouse[2] = new House(6, 2, 2, 15, 3, tab2, 3); } 	/* Citizens House */ { int tab3[3] = { 0, 1, 6 };
+	tHouse[3] = new House(9, 3, 3, 25, 4, tab3, 3); }	/* Merchansts House */ { int tab4[3] = { 3, 5, 10 };
+	tHouse[4] = new House(12, 3, 3, 40, 5, tab4, 3); }	/* Aristorcats House */
 
 	// Public(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, size, peopleToBuild, peopleClass)
 
@@ -441,22 +441,22 @@ Uint32 Update_Prod(Uint32 interval, void* param)
 	int i = reinterpret_cast<int>(param);
 	if (tProduction[i]->getNumber() > 0)
 	{
-		if (tResource[tProduction[i]->getProductID()]->getNumber() + tProduction[i]->getActiveNumber()*tProduction[i]->getMagazineCapacity() < WareHouse.getmagazineCapacity() + tProduction[i]->getActiveNumber()*tProduction[i]->getMagazineCapacity())
+		if (tResource[tProduction[i]->getProductID()]->getNumber() + tProduction[i]->getNumber()*tProduction[i]->getMagazineCapacity() < WareHouse.getmagazineCapacity() + tProduction[i]->getNumber()*tProduction[i]->getMagazineCapacity())
 		{
-			if (tProduction[i]->getActiveNumber() < 5)
+			if (tProduction[i]->getNumber() < 5)
 			{
-				tResource[tProduction[i]->getProductID()]->increase(tProduction[i]->getActiveNumber()*tProduction[i]->getMagazineCapacity() );
+				tResource[tProduction[i]->getProductID()]->increase(tProduction[i]->getNumber() );
 
 				return 5000;
 			}
 			else
 			{
-				tResource[tProduction[i]->getProductID()]->increase(tProduction[i]->getActiveNumber()*tProduction[i]->getMagazineCapacity() );
+				tResource[tProduction[i]->getProductID()]->increase(tProduction[i]->getNumber() );
 				return 3000;
 			}
 		}
 		else
-			tResource[tProduction[i]->getProductID()]->setNumber(WareHouse.getmagazineCapacity() + tProduction[i]->getActiveNumber()*tProduction[i]->getMagazineCapacity());
+			tResource[tProduction[i]->getProductID()]->setNumber(WareHouse.getmagazineCapacity() + tProduction[i]->getNumber()*tProduction[i]->getMagazineCapacity());
 		return 3000;
 	}
 	return 2000;
@@ -470,27 +470,93 @@ Uint32 Update_Proc(Uint32 interval, void* param)
 	{
 		if (tResource[tProcessing[i]->getMaterialID()]->getNumber() > tProcessing[i]->getMaterialNumber())
 		{
-			if (tResource[tProcessing[i]->getProductID()]->getNumber() + tProcessing[i]->getActiveNumber()*tProcessing[i]->getNumber() < WareHouse.getmagazineCapacity() + tProcessing[i]->getActiveNumber()*tProcessing[i]->getMagazineCapacity())
+			if (tResource[tProcessing[i]->getProductID()]->getNumber() + tProcessing[i]->getNumber()*tProcessing[i]->getNumber() < WareHouse.getmagazineCapacity() + tProcessing[i]->getNumber()*tProcessing[i]->getMagazineCapacity())
 			{
-				if (tProcessing[i]->getActiveNumber() < 5)
+				if (tProcessing[i]->getNumber() < 5)
 				{
-					tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getActiveNumber()*tProcessing[i]->getProductNumber());
-					tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getActiveNumber()*tProcessing[i]->getMaterialNumber());
+					tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getNumber()*tProcessing[i]->getProductNumber());
+					tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getNumber()*tProcessing[i]->getMaterialNumber());
 					return 7000;
 				}
 				else
 				{
-					tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getActiveNumber()*tProcessing[i]->getProductNumber());
-					tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getActiveNumber()*tProcessing[i]->getMaterialNumber());
+					tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getNumber()*tProcessing[i]->getProductNumber());
+					tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getNumber()*tProcessing[i]->getMaterialNumber());
 					return 5000;
 				}
 			}
 			else
-				tResource[tProcessing[i]->getProductID()]->setNumber(WareHouse.getmagazineCapacity() + tProcessing[i]->getActiveNumber()*tProcessing[i]->getMagazineCapacity());
+				tResource[tProcessing[i]->getProductID()]->setNumber(WareHouse.getmagazineCapacity() + tProcessing[i]->getNumber()*tProcessing[i]->getMagazineCapacity());
 			return 3000;
 		}
 		else
 			return 2000;
 	}
 	return 2000;
+}
+
+Uint32 Update_Tax(Uint32 interval, void *param) 
+{
+	// AKTUALIZACJA LICZBY MIESZKANCOW
+
+	for (int i = 0; i < 5; ++i)
+	{
+		if (tHouse[i]->getInhabitants() * tHouse[i]->getNumber() > tPeople[i]->getNumber())			// jezeli liczba lokatorow jednego domu * liczba domow jest wieksza od liczby posiadanych mieszkancow
+			tPeople[i]->increase(tHouse[i]->getNumber());											// zwieksz liczbe mieszkancow o liczbe posiadanych budynkow mieszkalnych
+
+		if (tHouse[i]->getInhabitants() * tHouse[i]->getNumber() < tPeople[i]->getNumber())			// jezeli przekroczono limit mieszkancow jaki mozemy posiadac
+			tPeople[i]->setNumber(tHouse[i]->getInhabitants() * tHouse[i]->getNumber());			// ustaw liczbe mieszkancow na maksimum
+	}
+
+	// POBOR PODATKU OD MIESZKANCOW
+
+	for (int i = 0; i < 5; ++i)
+		tResource[0]->increase(tPeople[i]->getNumber());
+
+	// KOSZTY UTRZYMANIA POSIADANYCH BUDYNKOW
+
+	for (int i = 0; i < 12; ++i)
+		tResource[0]->decrease(tPublic[i]->getMaintenanceActiveCost() * tPublic[i]->getNumber());
+
+	for (int i = 0; i < 16; ++i)
+		tResource[0]->decrease(tProduction[i]->getMaintenanceActiveCost() * tProduction[i]->getActiveNumber()
+			+ tProduction[i]->getMaintenancePassiveCost() * (tProduction[i]->getNumber() - tProduction[i]->getActiveNumber()));
+
+	for (int i = 0; i < 11; ++i)
+		tResource[0]->decrease(tProcessing[i]->getMaintenanceActiveCost() * tProcessing[i]->getActiveNumber()
+			+ tProcessing[i]->getMaintenancePassiveCost() * (tProcessing[i]->getNumber() - tProcessing[i]->getActiveNumber()));
+
+	return 1000;
+}
+
+Uint32 Update_Req(Uint32 interval, void* param)
+{
+	// SPRAWDZENIE WARUNKU DOSTEPNOSCI BUDYNKOW:
+	// WYMAGANIA POSIADANIA KONKRETNEJ KLASY LUDNOSCI
+
+	for (int i = 0; i < 12; ++i)
+		if (tPublic[i]->getClass() > -1)
+			tPublic[i]->checkStatus(tPeople[tPublic[i]->getClass()]->getNumber());
+
+	for (int i = 0; i < 16; ++i)
+		if (tProduction[i]->getClass() > -1)
+			tProduction[i]->checkStatus(tPeople[tProduction[i]->getClass()]->getNumber());
+
+	for (int i = 0; i < 11; ++i)
+		if (tProcessing[i]->getClass() > -1)
+			tProcessing[i]->checkStatus(tPeople[tProcessing[i]->getClass()]->getNumber());
+
+	if (WareHouse.getClass() > -1)
+		WareHouse.checkStatus(tPeople[WareHouse.getClass()]->getNumber());
+
+	// WYMAGANIA POSIADANIA KONRETNYCH BUDYNKOW 
+
+	for (int i = 1; i < 5; ++i)														// tHouse[0] zawsze dostepny
+		for (int j = 0; j < tHouse[i]->getTabIdSize(); ++j)
+		{
+			tHouse[i]->checkStatus(tPublic[tHouse[i]->getBuildingId(j)]->getNumber());
+			if (false == tHouse[i]->getStatus())								// wystarczy, ze nie posiadamy jednego budynku i budowa jest niedostepna
+				break;
+		}
+	return 500;
 }

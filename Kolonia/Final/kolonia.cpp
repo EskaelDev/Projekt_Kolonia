@@ -28,9 +28,9 @@ int main(int argc, char* args[])
 {
 	Fill_Arrays();
 	tResource[0]->increase(5000);
-	tResource[18]->increase(50);
-	tResource[19]->increase(50);
-	tResource[20]->increase(13);
+	tResource[18]->increase(200);
+	tResource[19]->increase(200);
+	tResource[20]->increase(200);
 
 	// Wlaczenie SDL i stworzenie okna
 	if (!init())
@@ -435,7 +435,8 @@ int main(int argc, char* args[])
 			Update_WeavingHut = SDL_AddTimer(3000, Update_Proc, (int*)ID_WeavingHut);
 			Update_ToolSmithy = SDL_AddTimer(3000, Update_Proc, (int*)ID_ToolSmithy);
 			Update_WindMill = SDL_AddTimer(3000, Update_Proc, (int*)ID_WindMill);
-
+			Update_Money = SDL_AddTimer(1000, Update_Tax, NULL);
+			Update_lvlStat = SDL_AddTimer(500, Update_Req, NULL);
 			// Glowna petla gry
 			while (!quit)
 			{

@@ -26,6 +26,7 @@ public:
 	void setNumber(int);
 	void checkStatus(int) override;			// sprawdza czy posiadamy budynek i ustawia pole status
 	void test() const;
+	virtual ~House() override;
 };
 
 #endif House_h

@@ -54,6 +54,9 @@ void Fill_Arrays();
 // Update budynkow
 Uint32 Update_Prod(Uint32 interval, void *param);
 Uint32 Update_Proc(Uint32 interval, void *param);
-// Uint32 Update_Tax(Uint32 interval, void *param);
+
+// Update reszty
+Uint32 Update_Tax(Uint32 interval, void *param);
+Uint32 Update_Req(Uint32 interval, void *param);
 
 #endif

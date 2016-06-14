@@ -18,8 +18,8 @@ House::House(int _bricksToBuild, int _toolsToBuild, int _woodToBuild, int _inhab
 	tabIdSize = tabSize;
 	if (tabBuildingId[0] > -1)
 	{
-		buildingId = new int[tabSize / sizeof(int)];
-		for (int i = 0; i < tabSize / sizeof(int); ++i)
+		buildingId = new int[tabSize];
+		for (int i = 0; i < tabSize; ++i)
 			buildingId[i] = tabBuildingId[i];
 	}
 	else
@@ -89,6 +89,12 @@ void House::checkStatus(int buildingNumber)
 	else
 		status = false;
 }
+
+House::~House()
+{
+	delete[] buildingId;
+}
+
 
 void House::test() const
 {

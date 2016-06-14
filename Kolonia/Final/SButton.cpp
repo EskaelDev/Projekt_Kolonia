@@ -189,19 +189,25 @@ void SButton::operation(Actions action)
 	{
 		string path = "saves/slot" + to_string(id) + ".txt";
 		slot[id] = fopen(path.c_str(), "r");
-		int a = 0, b = 0;
+		int var = 0;
 		if (slot[id] != NULL)
 		{
 			timer.stop();
-			fscanf(slot[id], "%d", &a);
-			timer.setSeconds(a);
-			fscanf(slot[id], "%d", &a);
-			timer.setMinutes(a);
-			timer.start();
+			fscanf(slot[id], "%d", &var);
+			timer.setSeconds(var);
+			fscanf(slot[id], "%d", &var);
+			timer.setMinutes(var);
+			
+			// Odczytanie stanu surowcow
+			for (int i = 0; i < 20; i++)
+			{
+				fscanf(slot[id], "%d", &var);
+				tResource[i]->setNumber(var);
+			}
 			/*
 			dane do odczytania
 			*/
-			fscanf(slot[id], "%d", &a);
+			timer.start();
 		}
 		if (gTexture != NULL)
 		{
@@ -230,10 +236,10 @@ void SButton::operation(Actions action)
 		{
 			fprintf(slot[id], "%d\n", timer.getSeconds());
 			fprintf(slot[id], "%d\n", timer.getMinutes());
-			/*
-			dane do zapisu
-			*/
-			fprintf(slot[id], "%d", tResource[0]->getNumber());
+			for (int i = 0; i < 20; i++)
+			{
+				fprintf(slot[id], "%d\n", tResource[i]->getNumber());
+			}
 		}
 		if (gTexture != NULL)
 		{

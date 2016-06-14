@@ -62,5 +62,8 @@ Uint32 Update_Req(Uint32 interval, void *param);
 // Levelowanie siê ludzi
 Uint32 Update_PeopleLVL(Uint32 interval, void *param);
 
+// Update pobierania z magazynu przez ludzi
+Uint32 Update_ResourcesOutgo(Uint32 interval, void *param);
+
 
 #endif

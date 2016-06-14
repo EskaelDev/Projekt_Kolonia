@@ -78,3 +78,4 @@ Uint32 Update_WindMill=NULL;
 Uint32 Update_Money = NULL;
 Uint32 Update_lvlStat = NULL; 
 Uint32 Update_People_LVL = NULL;
+Uint32 Update_Resources_Outgo = NULL;

@@ -549,17 +549,7 @@ Uint32 Update_Tax(Uint32 interval, void *param)
 		costs += tProcessing[i]->getMaintenanceActiveCost() * tProcessing[i]->getActiveNumber()
 			+ tProcessing[i]->getMaintenancePassiveCost() * (tProcessing[i]->getNumber() - tProcessing[i]->getActiveNumber());
 	}
-	// Pobieranie z magazynu surowców przez mieszkañców
-	for (int i = 0; i < 5;i++)
-	{
-		for (int j = 0; j < tPeople[i]->getTabIdSize();j++)
-		{
-			if (tResource[tPeople[i]->getResourceId(j)]->getNumber() - tPeople[i]->getNumber() > 0)
-				tResource[tPeople[i]->getResourceId(j)]->decrease(tPeople[i]->getNumber()/3);
-			else
-				Destroy_House(*tHouse[i]);
-		}
-	}
+
 	return 1000;
 }
 
@@ -611,4 +601,20 @@ Uint32 Update_PeopleLVL(Uint32 interval, void *param)
 		}
 	}
 	return 3000;
+}
+
+Uint32 Update_ResourcesOutgo(Uint32 interval, void *param)
+{
+	// Pobieranie z magazynu surowców przez mieszkañców
+	for (int i = 0; i < 5; i++)
+	{
+		for (int j = 0; j < tPeople[i]->getTabIdSize(); j++)
+		{
+			if (tResource[tPeople[i]->getResourceId(j)]->getNumber() - tPeople[i]->getNumber() > 0)
+				tResource[tPeople[i]->getResourceId(j)]->decrease(tPeople[i]->getNumber() / 3);
+			else
+				Destroy_House(*tHouse[i]);
+		}
+	}
+	return 4000;
 }

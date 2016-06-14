@@ -509,23 +509,34 @@ Uint32 Update_Tax(Uint32 interval, void *param)
 	}
 
 	// POBOR PODATKU OD MIESZKANCOW
-
-	for (int i = 0; i < 5; ++i)
-		tResource[0]->increase(tPeople[i]->getNumber());
+	taxes = 0;
+	for (int i = 0; i < 5; ++i) 
+	{
+		tResource[0]->increase(tPeople[i]->getTax());
+		taxes += tPeople[i]->getTax();
+	}
 
 	// KOSZTY UTRZYMANIA POSIADANYCH BUDYNKOW
-
+	costs = 0;
 	for (int i = 0; i < 12; ++i)
+	{
 		tResource[0]->decrease(tPublic[i]->getMaintenanceActiveCost() * tPublic[i]->getNumber());
-
+		costs += tPublic[i]->getMaintenanceActiveCost() * tPublic[i]->getNumber();
+	}
 	for (int i = 0; i < 16; ++i)
-		tResource[0]->decrease(tProduction[i]->getMaintenanceActiveCost() * tProduction[i]->getNumber()
-			+ tProduction[i]->getMaintenancePassiveCost() * (tProduction[i]->getNumber() - tProduction[i]->getNumber()));
-
+	{
+		tResource[0]->decrease(tProduction[i]->getMaintenanceActiveCost() * tProduction[i]->getActiveNumber()
+			+ tProduction[i]->getMaintenancePassiveCost() * (tProduction[i]->getNumber() - tProduction[i]->getActiveNumber()));
+		costs += tProduction[i]->getMaintenanceActiveCost() * tProduction[i]->getActiveNumber()
+			+ tProduction[i]->getMaintenancePassiveCost() * (tProduction[i]->getNumber() - tProduction[i]->getActiveNumber());
+	}
 	for (int i = 0; i < 11; ++i)
-		tResource[0]->decrease(tProcessing[i]->getMaintenanceActiveCost() * tProcessing[i]->getNumber()
-			+ tProcessing[i]->getMaintenancePassiveCost() * (tProcessing[i]->getNumber() - tProcessing[i]->getNumber()));
-
+	{
+		tResource[0]->decrease(tProcessing[i]->getMaintenanceActiveCost() * tProcessing[i]->getActiveNumber()
+			+ tProcessing[i]->getMaintenancePassiveCost() * (tProcessing[i]->getNumber() - tProcessing[i]->getActiveNumber()));
+		costs += tProcessing[i]->getMaintenanceActiveCost() * tProcessing[i]->getActiveNumber()
+			+ tProcessing[i]->getMaintenancePassiveCost() * (tProcessing[i]->getNumber() - tProcessing[i]->getActiveNumber());
+	}
 	return 1000;
 }
 
@@ -558,5 +569,8 @@ Uint32 Update_Req(Uint32 interval, void* param)
 			if (false == tHouse[i]->getStatus())								// wystarczy, ze nie posiadamy jednego budynku i budowa jest niedostepna
 				break;
 		}
+	balance = taxes - costs + buy_income - sale_costs;
+
 	return 500;
+
 }

@@ -48,5 +48,9 @@ extern int totalMagazinesCapacity;				// calkowita pojemnosc magazynow budynkow
 extern int usedMagazine;						// wykorzystane miejsce w magazynie ogolnym
 extern int totalResources;						// suma wszystkich posiadanych surowcow
 
-
+extern int taxes;
+extern int costs;
+extern int buy_income;
+extern int sale_costs;
+extern int balance;
 #endif

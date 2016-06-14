@@ -52,6 +52,11 @@ int Public::getNumber() const
 	return number;
 }
 
+void Public::setNumber(int _number)
+{
+	number = _number;
+}
+
 void Public::test() const
 {
 	cout << "Liczba = " << number << endl;

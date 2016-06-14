@@ -77,6 +77,11 @@ int House::getTabIdSize() const
 	return tabIdSize;
 }
 
+void House::setNumber(int _number)
+{
+	number = _number;
+}
+
 void House::checkStatus(int buildingNumber)
 {
 	if (buildingNumber > 0)

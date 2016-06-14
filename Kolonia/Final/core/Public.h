@@ -16,6 +16,7 @@ public:
 	bool Build(Resource* [21]) override;	// aktualizuje stan surowcow po budowie i parametry budynku, zwraca false jesli brakuje surowcowow, true jesli sa dostepne surowce 
 	bool Destroy();							// niszczy budynek jesli istnieje, w przypadku powodzenia zwraca true, w przypadku niepowodzenia false
 	int getNumber() const;
+	void setNumber(int);
 	void test() const;
 };
 

@@ -199,10 +199,40 @@ void SButton::operation(Actions action)
 			timer.setMinutes(var);
 			
 			// Odczytanie stanu surowcow
-			for (int i = 0; i < 20; i++)
+			for (int i = 0; i < 21; i++)
 			{
 				fscanf(slot[id], "%d", &var);
 				tResource[i]->setNumber(var);
+			}
+			// Odczytanie ilosci ludnosci
+			for (int i = 0; i < 5; i++)
+			{
+				fscanf(slot[id], "%d", &var);
+				tPeople[i]->setNumber(var);
+			}
+			// Odczytanie ilosci domow
+			for (int i = 0; i < 5; i++)
+			{
+				fscanf(slot[id], "%d", &var);
+				tHouse[i]->setNumber(var);
+			}
+			// Odczytanie ilosci budynkow publicznych
+			for (int i = 0; i < 12; i++)
+			{
+				fscanf(slot[id], "%d", &var);
+				tPublic[i]->setNumber(var);
+			}
+			// Odczytanie ilosci budynkow rolniczych
+			for (int i = 0; i < 16; i++)
+			{
+				fscanf(slot[id], "%d", &var);
+				tProcessing[i]->setNumber(var);
+			}
+			// Odczytanie ilosci budynkow przetworczych
+			for (int i = 0; i < 11; i++)
+			{
+				fscanf(slot[id], "%d", &var);
+				tProcessing[i]->setNumber(var);
 			}
 			/*
 			dane do odczytania
@@ -236,9 +266,34 @@ void SButton::operation(Actions action)
 		{
 			fprintf(slot[id], "%d\n", timer.getSeconds());
 			fprintf(slot[id], "%d\n", timer.getMinutes());
-			for (int i = 0; i < 20; i++)
+			for (int i = 0; i < 21; i++)
 			{
 				fprintf(slot[id], "%d\n", tResource[i]->getNumber());
+			}
+			// Zapisywanie ilosci ludnosci
+			for (int i = 0; i < 5; i++)
+			{
+				fprintf(slot[id], "%d\n", tPeople[i]->getNumber());
+			}
+			// Zapisywanie ilosci domow
+			for (int i = 0; i < 5; i++)
+			{
+				fprintf(slot[id], "%d\n", tHouse[i]->getNumber());
+			}
+			// Zapisywanie ilosci budynkow publicznych
+			for (int i = 0; i < 12; i++)
+			{
+				fprintf(slot[id], "%d\n", tPublic[i]->getNumber());
+			}
+			// Zapisywanie ilosci budynkow rolniczych
+			for (int i = 0; i < 16; i++)
+			{
+				fprintf(slot[id], "%d\n", tProcessing[i]->getNumber());
+			}
+			// Zapisywanie ilosci budynkow przetworczych
+			for (int i = 0; i < 11; i++)
+			{
+				fprintf(slot[id], "%d\n", tProcessing[i]->getNumber());
 			}
 		}
 		if (gTexture != NULL)

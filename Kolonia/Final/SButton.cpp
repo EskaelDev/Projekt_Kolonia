@@ -200,9 +200,9 @@ void SButton::operation(Actions action)
 			SDL_DestroyTexture(gTexture);
 			gTexture = NULL;
 		}
-		gTexture = loadTexture("imgs/left.png");
-		screen = GAME;
-		subScreen = GAME;
+		gTexture = loadTexture("imgs/start_screen.png");
+		screen = MAIN;
+		subScreen = STARTSCREEN;
 		break;
 
 	case CONTINUE_GAME:

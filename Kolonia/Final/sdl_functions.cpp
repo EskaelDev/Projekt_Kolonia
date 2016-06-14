@@ -539,8 +539,8 @@ Uint32 Update_Tax(Uint32 interval, void *param)
 	}
 	for(int i=0;i<5;i++)
 	{
-		for(int j = 0; j < tPeople[i]->getTabIdSize(); ++j)
-		tResource[tPeople[i]->getResourceId(j)]->decrease(tPeople[i]->getNumber());
+		for (int j = 0; j < tPeople[i]->getTabIdSize(); ++j)
+			tResource[tPeople[i]->getResourceId(j)]->decrease(tPeople[i]->getNumber());
 	}
 	return 1000;
 }

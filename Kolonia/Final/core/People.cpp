@@ -5,6 +5,7 @@ People::People(int _tax, int tabResourceId[], int tabSize)
 {
 	number = 0;
 	tax = _tax;
+	tabIdSize = tabSize;
 	if (tabResourceId[0] > -1)
 	{
 		resourceId = new int[tabSize];

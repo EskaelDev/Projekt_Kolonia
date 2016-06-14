@@ -145,7 +145,7 @@ void SButton::operation(Actions action)
 		for (int i = 0; i < 21; i++)
 		{
 			if (0 == i)
-				tResource[i]->setNumber(1000);
+				tResource[i]->setNumber(10000);
 			else if (10 == i)
 				tResource[i]->setNumber(50);
 			else if (18 == i)
@@ -388,7 +388,7 @@ void SButton::operation(Actions action)
 		break;
 
 	case SELL_RESOURCE:
-		if (tResource[id]->getNumber() - 5>0)
+		if (tResource[id]->getNumber() - 5>=0)
 			tResource[id]->sell(*tResource[0]);
 		break;
 

@@ -141,6 +141,45 @@ void SButton::operation(Actions action)
 	switch (action)
 	{
 	case NEW_GAME:
+		// Ustawianie stanu surowcow
+		for (int i = 0; i < 21; i++)
+		{
+			if (0 == i)
+				tResource[i]->setNumber(1000);
+			else if (10 == i)
+				tResource[i]->setNumber(50);
+			else if (18 == i)
+				tResource[i]->setNumber(50);
+			else if (19 == i)
+				tResource[i]->setNumber(50);
+			else
+				tResource[i]->setNumber(0);
+		}
+		// Zerowanie ilosci ludnosci
+		for (int i = 0; i < 5; i++)
+		{
+			tPeople[i]->setNumber(0);
+		}
+		// Zerowanie ilosci domow
+		for (int i = 0; i < 5; i++)
+		{
+			tHouse[i]->setNumber(0);
+		}
+		// Zerowanie ilosci budynkow publicznych
+		for (int i = 0; i < 12; i++)
+		{
+			tPublic[i]->setNumber(0);
+		}
+		// Zerowanie ilosci budynkow rolniczych
+		for (int i = 0; i < 16; i++)
+		{
+			tProduction[i]->setNumber(0);
+		}
+		// Zerowanie ilosci budynkow przetworczych
+		for (int i = 0; i < 11; i++)
+		{
+			tProcessing[i]->setNumber(0);
+		}
 		if (popUp)
 		{
 			if (gTexture != NULL)
@@ -226,7 +265,7 @@ void SButton::operation(Actions action)
 			for (int i = 0; i < 16; i++)
 			{
 				fscanf(slot[id], "%d", &var);
-				tProcessing[i]->setNumber(var);
+				tProduction[i]->setNumber(var);
 			}
 			// Odczytanie ilosci budynkow przetworczych
 			for (int i = 0; i < 11; i++)
@@ -288,7 +327,7 @@ void SButton::operation(Actions action)
 			// Zapisywanie ilosci budynkow rolniczych
 			for (int i = 0; i < 16; i++)
 			{
-				fprintf(slot[id], "%d\n", tProcessing[i]->getNumber());
+				fprintf(slot[id], "%d\n", tProduction[i]->getNumber());
 			}
 			// Zapisywanie ilosci budynkow przetworczych
 			for (int i = 0; i < 11; i++)

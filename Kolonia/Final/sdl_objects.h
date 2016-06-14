@@ -87,4 +87,5 @@ extern Uint32 Update_ToolSmithy;
 extern Uint32 Update_WindMill;
 extern Uint32 Update_Money;
 extern Uint32 Update_lvlStat;
+extern Uint32 Update_People_LVL;
 #endif

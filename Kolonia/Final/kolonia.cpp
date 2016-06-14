@@ -431,10 +431,11 @@ int main(int argc, char* args[])
 			Update_WindMill = SDL_AddTimer(3000, Update_Proc, (int*)ID_WindMill);
 			Update_Money = SDL_AddTimer(1000, Update_Tax, NULL);
 			Update_lvlStat = SDL_AddTimer(500, Update_Req, NULL);
+			Update_People_LVL = SDL_AddTimer(3000, Update_PeopleLVL, NULL);
 			// Glowna petla gry
+			
 			while (!quit)
 			{
-
 
 				// Handle events on queue
 				while (SDL_PollEvent(&e) != 0)

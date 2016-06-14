@@ -75,4 +75,5 @@ Uint32 Update_WeavingHut=NULL;
 Uint32 Update_ToolSmithy=NULL;
 Uint32 Update_WindMill=NULL;
 Uint32 Update_Money = NULL;
-Uint32 Update_lvlStat = NULL;
+Uint32 Update_lvlStat = NULL; 
+Uint32 Update_People_LVL = NULL;

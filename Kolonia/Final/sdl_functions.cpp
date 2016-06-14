@@ -389,17 +389,17 @@ void Fill_Arrays()
 
  // Processing(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, magazineCapacity, peopleToBuild, peopleClass, productID, materialID, productNumber, materialNumber)
 
-	tProcessing[0] = new Processing(150, 0, 2, 6, 5, 0, 4, 75, 1, 10, 8, 3, 2);			// Bakery
+	tProcessing[0] = new Processing(150, 0, 2, 6, 5, 0, 4, 75, 1, 10, 8, 4, 2);			// Bakery
 	tProcessing[1] = new Processing(200, 4, 3, 1, 25, 10, 5, 120, 1, 9, 1, 1, 1);		// Ore Refenery
-	tProcessing[2] = new Processing(1500, 10, 7, 2, 45, 20, 4, 250, 3, 17, 2, 2, 1);	// Gold Smith
-	tProcessing[3] = new Processing(150, 10, 3, 4, 5, 0, 4, 30, 0, 10, 6, 1, 2);		// Butcher Shop
+	tProcessing[2] = new Processing(1500, 10, 7, 2, 45, 20, 4, 250, 3, 17, 2, 3, 1);	// Gold Smith
+	tProcessing[3] = new Processing(150, 10, 3, 4, 5, 0, 4, 30, 0, 10, 6, 2, 1);		// Butcher Shop
 	tProcessing[4] = new Processing(200, 5, 3, 2, 25, 7, 4, 40, 1, 14, 4, 1, 2);		// Rum Distillery
-	tProcessing[5] = new Processing(150, 2, 3, 6, 10, 5, 4, 200, 2, 16, 15, 1, 1);		// Clothiers
+	tProcessing[5] = new Processing(150, 2, 3, 6, 10, 5, 4, 200, 2, 16, 15, 1, 2);		// Clothiers
 	tProcessing[6] = new Processing(200, 5, 3, 2, 20, 10, 4, 40, 1, 11, 5, 1, 2);		// TobaccoProduction
 	tProcessing[7] = new Processing(200, 7, 4, 3, 20, 10, 4, 75, 1, 15, 3, 3, 2);		// WeavingMill
 	tProcessing[8] = new Processing(200, 0, 3, 6, 10, 5, 4, 0, -1, 15, 3, 1, 2);		// WeavingHut
 	tProcessing[9] = new Processing(150, 5, 3, 2, 25, 10, 4, 100, 1, 18, 9, 2, 1);		// ToolSmithy
-	tProcessing[10] = new Processing(100, 0, 3, 6, 5, 0, 6, 75, 1, 10, 7, 1, 2);		// WindMill
+	tProcessing[10] = new Processing(100, 0, 3, 6, 5, 0, 6, 75, 1, 10, 7, 2, 1);		// WindMill
 
  // People(tax)
 																{ int tab0[1] = { ID_Food };
@@ -472,22 +472,28 @@ Uint32 Update_Proc(Uint32 interval, void* param)
 		{
 			if (tResource[tProcessing[i]->getProductID()]->getNumber() + tProcessing[i]->getNumber()*tProcessing[i]->getNumber() < WareHouse.getmagazineCapacity() + tProcessing[i]->getNumber()*tProcessing[i]->getMagazineCapacity())
 			{
-				if (tProcessing[i]->getNumber() < 5)
+				if (tProcessing[i]->getNumber() < 15)
 				{
 					tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getNumber()*tProcessing[i]->getProductNumber());
 					tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getNumber()*tProcessing[i]->getMaterialNumber());
-					return 7000;
+					return 2000;
 				}
-				else
+				else if (tProcessing[i]->getNumber() < 10)
 				{
 					tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getNumber()*tProcessing[i]->getProductNumber());
 					tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getNumber()*tProcessing[i]->getMaterialNumber());
 					return 5000;
 				}
+				else if (tProcessing[i]->getNumber() < 5)
+				{
+					tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getNumber()*tProcessing[i]->getProductNumber());
+					tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getNumber()*tProcessing[i]->getMaterialNumber());
+					return 7000;
+				}
 			}
 			else
 				tResource[tProcessing[i]->getProductID()]->setNumber(WareHouse.getmagazineCapacity() + tProcessing[i]->getNumber()*tProcessing[i]->getMagazineCapacity());
-			return 3000;
+			return 1000;
 		}
 		else
 			return 2000;
@@ -584,4 +590,19 @@ Uint32 Update_Req(Uint32 interval, void* param)
 
 	return 500;
 	
+}
+
+Uint32 Update_PeopleLVL(Uint32 interval, void *param)
+{
+	for (int i = 1; i < 4; i++)
+	{
+		for (int j = 0; j < tPeople[i]->getTabIdSize(); j++)
+		{
+			if (tResource[tPeople[i+1]->getResourceId(j)]->getNumber() > 0 && tHouse[i + 1]->Build(tResource))
+			{
+				tHouse[i]->Destroy();
+			}
+		}
+	}
+	return 3000;
 }

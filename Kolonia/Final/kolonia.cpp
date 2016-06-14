@@ -25,7 +25,6 @@ Uint32 sdl_timer;
 int main(int argc, char* args[])
 {
 	Fill_Arrays();
-
 	// Wlaczenie SDL i stworzenie okna
 	if (!init())
 		cout << "Blad inicjalizacji!" << endl;
@@ -56,7 +55,6 @@ int main(int argc, char* args[])
 
 			gFont = TTF_OpenFont("fonts/times.ttf", 19);
 			gFont_12 = TTF_OpenFont("fonts/times.ttf", 12);
-
 
 			// Przyciski menu
 			// przycisk(akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)	
@@ -398,9 +396,6 @@ int main(int argc, char* args[])
 			gWarehouse_rect_centre.h = gWarehouse_rect_centre_h;
 			gWarehouse_rect_centre.w = gWarehouse_rect_centre_w;
 
-
-
-
 			// Timery odwierzajace stan surowcow
 			Update_CottonPlantation = SDL_AddTimer(3000, Update_Prod, (int*)ID_Cotton_Plantation);
 			Update_ForestersLodge = SDL_AddTimer(3000, Update_Prod, (int*)ID_Foresters_Lodge);
@@ -432,12 +427,10 @@ int main(int argc, char* args[])
 			Update_Money = SDL_AddTimer(1000, Update_Tax, NULL);
 			Update_lvlStat = SDL_AddTimer(500, Update_Req, NULL);
 			Update_People_LVL = SDL_AddTimer(3000, Update_PeopleLVL, NULL);
-			Update_Resources_Outgo = SDL_AddTimer(4000, Update_ResourcesOutgo, NULL);
+
 			// Glowna petla gry
-			
 			while (!quit)
 			{
-
 				// Handle events on queue
 				while (SDL_PollEvent(&e) != 0)
 				{
@@ -534,11 +527,9 @@ int main(int argc, char* args[])
 				SDL_Rect fillRect20 = { 266, 507, 56 * tResource[13]->getNumber() / (WareHouse.getmagazineCapacity() +
 					tProduction[ID_Cocoa_Plantation]->getActiveNumber()*tProduction[ID_Cocoa_Plantation]->getMagazineCapacity()), 5 };	// 13 Cocoa
 
-
 				// Czyszczenie ekranu
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(gRenderer);
-
 				switch (screen)
 				{
 				case MAIN:
@@ -594,7 +585,7 @@ int main(int argc, char* args[])
 					case LOAD:
 					{
 						gTextTexture.loadFromRenderedText("Wczytaj", textC, gFont);
-						gTextTexture.render(600, 200);
+						gTextTexture.render((SCREEN_WIDTH - gTextTexture.getWidth()) / 2, 200);
 						main_menu_button.setPosition(624, 660);
 						main_menu_button.render();				main_menu_button.handleEvent(&e);
 						string path;
@@ -612,7 +603,7 @@ int main(int argc, char* args[])
 					// Ekran zapisu stanu gry
 					case SAVE:
 						gTextTexture.loadFromRenderedText("Zapisz", textC, gFont);
-						gTextTexture.render(624, 200);
+						gTextTexture.render((SCREEN_WIDTH - gTextTexture.getWidth()) / 2, 200);
 						back_button.setPosition(624, 660);
 						back_button.render();					back_button.handleEvent(&e);
 						for (int i = 0; i < MAX_SLOTS; i++)
@@ -676,42 +667,8 @@ int main(int argc, char* args[])
 					gTextTexture.render(400 - gTextTexture.getWidth(), 175);
 
 					// Magazyny
-					// LVL1////////////////////////////////////////////////////////////////////////////////////////////////////// WWYWALIC (coœ z tym zrobic)
-					{
-						SDL_RenderCopy(gRenderer, Warehouse_I_texture, NULL, &gWarehouse_rect_left);
-						SDL_RenderCopy(gRenderer, Warehouse_II_texture, NULL, &gWarehouse_rect_right);
-					}
-					// LVL2
-					/*
-					{
-						if (Warehouse_I_texture != NULL)
-						{
-							SDL_DestroyTexture(Warehouse_I_texture);
-							Warehouse_I_texture = NULL;
-						{
-						SDL_RenderCopy(gRenderer, Warehouse_I_texture, NULL, &gWarehouse_rect_left);
-						SDL_RenderCopy(gRenderer, Warehouse_III_texture, NULL, &gWarehouse_rect_right);
-					}
-					// LVL3
-					{
-						if (Warehouse_I_texture != NULL)
-						{
-							SDL_DestroyTexture(Warehouse_II_texture);
-							Warehouse_I_texture = NULL;
-						{
-						SDL_RenderCopy(gRenderer, Warehouse_III_texture, NULL, &gWarehouse_rect_left);
-						SDL_RenderCopy(gRenderer, Warehouse_IV_texture, NULL, &gWarehouse_rect_right);
-					}
-					// LVL4
-					{
-						if (Warehouse_I_texture != NULL)
-						{
-							SDL_DestroyTexture(Warehouse_III_texture);
-							Warehouse_I_texture = NULL;
-						{
-						SDL_RenderCopy(gRenderer, Warehouse_IV_texture, NULL, &gWarehouse_rect_centre);
-					}
-					*/
+					SDL_RenderCopy(gRenderer, Warehouse_I_texture, NULL, &gWarehouse_rect_left);
+					SDL_RenderCopy(gRenderer, Warehouse_II_texture, NULL, &gWarehouse_rect_right);
 					if (WareHouse.getClass() > -1)
 						WareHouse.checkStatus(tPeople[WareHouse.getClass()]->getNumber());
 					// UPGRADE
@@ -726,18 +683,6 @@ int main(int argc, char* args[])
 							upgrade_AV_Warehouse.render();
 							upgrade_AV_Warehouse.handleEvent(&e);
 						}
-
-					// Aktualizacje stanów	
-
-					// AKTUALIZACJA STANU SUROWCOW
-					/*thisTime = timer.getTicks();
-					deltaTime = (float)(thisTime - lastTime);
-					cout << thisTime << " " << deltaTime << " " << lastTime << endl;
-					lastTime = thisTime;*/
-
-
-
-
 					if (buy == true)
 					{
 						gTextTexture.loadFromRenderedText("Kup", textC, gFont);
@@ -805,8 +750,6 @@ int main(int argc, char* args[])
 						cancel_NAV_button.render();				cancel_NAV_button.handleEvent(&e);
 					}
 					SDL_SetRenderDrawColor(gRenderer, 0xFF, 0x00, 0x00, 0xFF);
-
-
 
 					buy_button.render();						buy_button.handleEvent(&e);
 					sell_button.render();						sell_button.handleEvent(&e);
@@ -916,26 +859,12 @@ int main(int argc, char* args[])
 						gTextTexture.loadFromRenderedText(_itoa(tResource[13]->getNumber(), People_char_buffor, 10), textC, gFont);
 						gTextTexture.render(745 - gTextTexture.getWidth(), 625);
 
-						// gTextTexture.loadFromRenderedText("Zapisz", textC);
-						// gTextTexture.render(624, 200);
-
 						// Wyœwietlenie iloœci pól na wyspie i pól wolnych
 						gTextTexture.loadFromRenderedText(_itoa(islandSize, People_char_buffor, 10), textC, gFont);
 						gTextTexture.render(I_S_X, I_S_Y);
 						gTextTexture.loadFromRenderedText(_itoa(islandSize - usedFields, People_char_buffor, 10), textC, gFont);
 						gTextTexture.render(U_F_X, U_F_Y);
 
-						/*
-						// Pozwolenie i zakaz budowy
-						if (allow_build == true)
-						{
-							Allow_Build.render();				Allow_Build.handleEvent(&e);
-						}
-						else
-						{
-							Deny_Build.render();				Deny_Build.handleEvent(&e);
-						}
-						*/
 						// Buduj zburz domy
 						// Pionierzy
 						build_AV_House_L1.render();				destroy_AV_House_L1.render();
@@ -1071,9 +1000,7 @@ int main(int argc, char* args[])
 								Processing_destroy_NAV[i]->render();
 								Processing_destroy_NAV[i]->handleEvent(&e);
 							}
-
 						}
-
 						// Wyswietlanie ilosci budynkow przetworczych
 						gTextTexture.loadFromRenderedText(_itoa(tProcessing[8]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_1, T_W_1);
@@ -1127,7 +1054,6 @@ int main(int argc, char* args[])
 								Production_destroy_NAV[i]->render();
 								Production_destroy_NAV[i]->handleEvent(&e);
 							}
-
 						}
 						// Wyswietlanie ilosci budynkow produkcyjnych
 						gTextTexture.loadFromRenderedText(_itoa(tProduction[1]->getNumber(), People_char_buffor, 10), textC, gFont_12);
@@ -1183,8 +1109,6 @@ int main(int argc, char* args[])
 			}
 		}
 	}
-	// getch do testowania
-	//_getch();
 	// Zwalnianie zasobów i zamykanie SDL
 	close();
 	return 0;

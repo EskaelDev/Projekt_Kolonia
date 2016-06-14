@@ -915,8 +915,8 @@ int main(int argc, char* args[])
 						gTextTexture.loadFromRenderedText(_itoa(tResource[13]->getNumber(), People_char_buffor, 10), textC, gFont);
 						gTextTexture.render(745 - gTextTexture.getWidth(), 625);
 
-						//gTextTexture.loadFromRenderedText("Zapisz", textC);
-					//	gTextTexture.render(624, 200);
+						// gTextTexture.loadFromRenderedText("Zapisz", textC);
+						// gTextTexture.render(624, 200);
 
 						// Wyœwietlenie iloœci pól na wyspie i pól wolnych
 						gTextTexture.loadFromRenderedText(_itoa(islandSize, People_char_buffor, 10), textC, gFont);
@@ -924,6 +924,7 @@ int main(int argc, char* args[])
 						gTextTexture.loadFromRenderedText(_itoa(islandSize - usedFields, People_char_buffor, 10), textC, gFont);
 						gTextTexture.render(U_F_X, U_F_Y);
 
+						/*
 						// Pozwolenie i zakaz budowy
 						if (allow_build == true)
 						{
@@ -933,6 +934,7 @@ int main(int argc, char* args[])
 						{
 							Deny_Build.render();				Deny_Build.handleEvent(&e);
 						}
+						*/
 						// Buduj zburz domy
 						// Pionierzy
 						build_AV_House_L1.render();				destroy_AV_House_L1.render();

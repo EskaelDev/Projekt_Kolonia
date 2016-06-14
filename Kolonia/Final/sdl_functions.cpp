@@ -402,11 +402,11 @@ void Fill_Arrays()
 	tProcessing[10] = new Processing(100, 0, 3, 6, 5, 0, 6, 75, 1, 10, 7, 1, 2);		// WindMill
 
  // People(tax)
-																{ int tab0[1] = { ID_Money };
-	tPeople[0] = new People(1, tab0, 1); }	/* Pioneers */		{ int tab1[3] = { ID_Money, ID_Cloth, ID_Sugar };
-	tPeople[1] = new People(1, tab1, 3); }	/* Settlers	*/		{ int tab2[5] = { ID_Money, ID_Cloth, ID_Sugar, ID_Liquor, ID_Spices };
-	tPeople[2] = new People(1, tab2, 5); }	/* Citizens	*/		{ int tab3[7] = { ID_Money, ID_Cloth, ID_Sugar, ID_Liquor, ID_Spices, ID_Cocoa, ID_Tobacco_Products };
-	tPeople[3] = new People(2, tab3, 7); }	/* Merchants */		{ int tab4[9] = { ID_Money, ID_Cloth, ID_Sugar, ID_Liquor, ID_Spices, ID_Cocoa, ID_Tobacco_Products, ID_Jewerly, ID_Clothes };
+																{ int tab0[1] = { ID_Food };
+	tPeople[0] = new People(1, tab0, 1); }	/* Pioneers */		{ int tab1[3] = { ID_Food, ID_Cloth, ID_Sugar };
+	tPeople[1] = new People(1, tab1, 3); }	/* Settlers	*/		{ int tab2[5] = { ID_Food, ID_Cloth, ID_Sugar, ID_Liquor, ID_Spices };
+	tPeople[2] = new People(1, tab2, 5); }	/* Citizens	*/		{ int tab3[7] = { ID_Food, ID_Cloth, ID_Sugar, ID_Liquor, ID_Spices, ID_Cocoa, ID_Tobacco_Products };
+	tPeople[3] = new People(2, tab3, 7); }	/* Merchants */		{ int tab4[9] = { ID_Food, ID_Cloth, ID_Sugar, ID_Liquor, ID_Spices, ID_Cocoa, ID_Tobacco_Products, ID_Jewerly, ID_Clothes };
 	tPeople[4] = new People(2, tab4, 9); }	/* Aristocrats */
 
  // Resource(price)
@@ -525,7 +525,7 @@ Uint32 Update_Tax(Uint32 interval, void *param)
 	}
 	for (int i = 0; i < 16; ++i)
 	{
-		tResource[0]->decrease(tProduction[i]->getMaintenanceActiveCost() * tProduction[i]->getActiveNumber()
+		tResource[0]	->decrease(tProduction[i]->getMaintenanceActiveCost() * tProduction[i]->getActiveNumber()
 			+ tProduction[i]->getMaintenancePassiveCost() * (tProduction[i]->getNumber() - tProduction[i]->getActiveNumber()));
 		costs += tProduction[i]->getMaintenanceActiveCost() * tProduction[i]->getActiveNumber()
 			+ tProduction[i]->getMaintenancePassiveCost() * (tProduction[i]->getNumber() - tProduction[i]->getActiveNumber());
@@ -537,10 +537,17 @@ Uint32 Update_Tax(Uint32 interval, void *param)
 		costs += tProcessing[i]->getMaintenanceActiveCost() * tProcessing[i]->getActiveNumber()
 			+ tProcessing[i]->getMaintenancePassiveCost() * (tProcessing[i]->getNumber() - tProcessing[i]->getActiveNumber());
 	}
-	for (int i = 0; i < 5; ++i)
-		for (int j = 0; j < tPeople[i]->getTabIdSize(); ++j)
-			tResource[tPeople[i]->getResourceId(j)]->decrease(tPeople[i]->getNumber());
-
+	// Pobieranie z magazynu surowców przez mieszkañców
+	for (int i = 0; i < 5;i++)
+	{
+		for (int j = 0; j < tPeople[i]->getTabIdSize();j++)
+		{
+			if (tResource[tPeople[i]->getResourceId(j)]->getNumber() - tPeople[i]->getNumber() > 0)
+				tResource[tPeople[i]->getResourceId(j)]->decrease(tPeople[i]->getNumber()/3);
+			else
+				Destroy_House(*tHouse[i]);
+		}
+	}
 	return 1000;
 }
 

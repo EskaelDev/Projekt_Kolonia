@@ -1,7 +1,5 @@
 #include "stdafx.h"
-#include <iostream>
 #include "Production.h"
-using namespace std;
 
 Production::Production() {}
 
@@ -75,14 +73,4 @@ int Production::getMaintenancePassiveCost() const
 int Production::getActiveNumber() const
 {
 	return activeNumber;
-}
-
-void Production::test() const
-{
-	Public::test();
-	cout << "Koszt wstrzymanej produkcji = " << maintenancePassiveCost << endl;
-	cout << "Liczba budynkow z aktywna produkcja= " << activeNumber << endl;
-	cout << "Liczba budynkow z wstrzymana produkcja = " << number - activeNumber << endl;
-	cout << "Pojemnosc magazynu = " << magazineCapacity << endl;
-	cout << "Indeks produkowanego towaru: " << productID << endl;
 }

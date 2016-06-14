@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include <iostream>
 #include "Processing.h"
 using namespace std;
 
@@ -38,12 +37,4 @@ int Processing::getProductNumber() const
 int Processing::getMaterialNumber() const
 {
 	return materialNumber;
-}
-
-void Processing::test() const
-{
-	Production::test();
-	cout << "Indeks przetwarzanego towaru: " << materialID << endl;
-	cout << "Liczba produkowanego towaru: " << productNumber << endl;
-	cout << "Liczba przetwarzanego towaru: " << materialNumber << endl;
 }

@@ -194,7 +194,6 @@
     <ClInclude Include="core\Production.h" />
     <ClInclude Include="core\Public.h" />
     <ClInclude Include="core\Resource.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="SButton.h" />
     <ClInclude Include="sdl_consts.h" />
     <ClInclude Include="sdl_enums.h" />

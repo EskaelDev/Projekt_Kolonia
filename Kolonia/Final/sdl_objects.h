@@ -32,32 +32,6 @@ extern SDL_Rect gWarehouse_rect_right;
 extern SDL_Rect gWarehouse_rect_left;
 extern SDL_Rect gWarehouse_rect_centre;
 
-// Paski stanow zasobow
-/*
-extern SDL_Rect fillRect;
-extern SDL_Rect fillRect2;
-extern SDL_Rect fillRect3;
-extern SDL_Rect fillRect4;
-extern SDL_Rect fillRect5;
-
-extern SDL_Rect fillRect6;
-extern SDL_Rect fillRect7;
-extern SDL_Rect fillRect8;
-extern SDL_Rect fillRect9;
-extern SDL_Rect fillRect10;
-
-extern SDL_Rect fillRect11;
-extern SDL_Rect fillRect12;
-extern SDL_Rect fillRect13;
-extern SDL_Rect fillRect14;
-extern SDL_Rect fillRect15;
-
-extern SDL_Rect fillRect16;
-extern SDL_Rect fillRect17;
-extern SDL_Rect fillRect18;
-extern SDL_Rect fillRect19;
-extern SDL_Rect fillRect20;
-*/
 // Viewporty
 extern SDL_Rect LargeViewport;
 extern SDL_Rect LeftViewport;

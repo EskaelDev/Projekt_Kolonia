@@ -2,9 +2,7 @@
 #define STIMER_H
 
 #include <sstream>
-#ifndef STEXTURE_H
 #include "STexture.h"
-#endif
 
 class STimer
 {

@@ -589,6 +589,10 @@ int main(int argc, char* args[])
 						main_menu_button.setPosition(525, 520);
 						main_menu_button.render();				main_menu_button.handleEvent(&e);
 						break;
+					case STARTSCREEN:
+						continue_button.setPosition(624, 700);
+						continue_button.render();				continue_button.handleEvent(&e);
+						break;
 						// Ekran wczytywania stanu gry
 					case LOAD:
 					{
@@ -627,10 +631,7 @@ int main(int argc, char* args[])
 					timer.count();
 					SDL_RenderSetViewport(gRenderer, &LeftViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
-
-
-
-					
+			
 					// Skarbiec - wyswietlanie wartosci
 					// Podatki
 					gTextTexture.loadFromRenderedText(_itoa(taxes, Money_char_buffor, 10), textC, gFont);

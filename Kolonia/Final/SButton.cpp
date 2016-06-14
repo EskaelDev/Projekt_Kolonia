@@ -277,6 +277,7 @@ void SButton::operation(Actions action)
 			dane do odczytania
 			*/
 			timer.start();
+			fclose(slot[id]);
 		}
 		if (gTexture != NULL)
 		{
@@ -334,13 +335,13 @@ void SButton::operation(Actions action)
 			{
 				fprintf(slot[id], "%d\n", tProcessing[i]->getNumber());
 			}
+			fclose(slot[id]);
 		}
 		if (gTexture != NULL)
 		{
 			SDL_DestroyTexture(gTexture);
 			gTexture = NULL;
 		}
-		fclose(slot[id]);
 		gTexture = loadTexture("imgs/left.png");
 		screen = GAME;
 		subScreen = GAME;

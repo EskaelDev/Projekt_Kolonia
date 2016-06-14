@@ -719,7 +719,7 @@ int main(int argc, char* args[])
 						upgrade_AV_Warehouse.render();
 						upgrade_AV_Warehouse.handleEvent(&e);
 					}
-
+					
 					// Aktualizacje stanów	
 
 					// AKTUALIZACJA STANU SUROWCOW

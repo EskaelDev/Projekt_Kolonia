@@ -173,7 +173,7 @@ int main(int argc, char* args[])
 			Production_build_AV[12] = new SButton(12, BUILD_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_3, "build_av.png");		// DeepIronMine
 			Production_build_AV[13] = new SButton(13, BUILD_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_3, "build_av.png");		// GoldMine
 			Production_build_AV[14] = new SButton(14, BUILD_PROD, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_2, W_1, "build_av.png");		// FishersHut
-		
+
 			// build_NAV	Production
 			SButton* Production_build_NAV[16];
 			Production_build_NAV[0] = new SButton(0, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_4, W_3, "build_nav.png");		// CottonPlantation
@@ -318,7 +318,7 @@ int main(int argc, char* args[])
 			Public_build_NAV[8] = new SButton(8, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3 - 53, W_3, "build_nav.png");		// Palace 
 			Public_build_NAV[9] = new SButton(9, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_5, W_1, "build_nav.png");		// School
 			Public_build_NAV[10] = new SButton(10, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_2, "build_nav.png");	// Theatre
-			Public_build_NAV[11] = new SButton(11, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1	, "build_nav.png");	// Tavern
+			Public_build_NAV[11] = new SButton(11, NONE, BUILD_BUTTON_WIDTH, BUILD_BUTTON_HEIGHT, C_3, W_1, "build_nav.png");	// Tavern
 
 			// destroy_AV	Public
 			SButton* Public_destroy_AV[12];
@@ -405,41 +405,41 @@ int main(int argc, char* args[])
 			gWarehouse_rect_centre.w = gWarehouse_rect_centre_w;
 
 
-			
+
 
 			// Timery odwierzajace stan surowcow
-			Update_CottonPlantation = 		SDL_AddTimer(3000, Update_Prod, (int*) ID_Cotton_Plantation);
-			Update_ForestersLodge =			SDL_AddTimer(3000, Update_Prod, (int*) ID_Foresters_Lodge);
-			Update_GrainFarm =				SDL_AddTimer(3000, Update_Prod, (int*) ID_Grain_Farm);
-			Update_SpiceFarm =				SDL_AddTimer(3000, Update_Prod, (int*) ID_Spice_Farm);
-			Update_HuntersHut =				SDL_AddTimer(3000, Update_Prod, (int*) ID_Hunters_Hut);
-			Update_CocoaPlantation =		SDL_AddTimer(3000, Update_Prod, (int*) ID_Cocoa_Plantation);
-			Update_CattleFarm =				SDL_AddTimer(3000, Update_Prod, (int*) ID_Cattle_Farm);
-			Update_SheepFarm =				SDL_AddTimer(3000, Update_Prod, (int*) ID_Sheep_Farm);
-			Update_Winery =					SDL_AddTimer(3000, Update_Prod, (int*) ID_Winery);
-			Update_TobaccoPlantation =		SDL_AddTimer(3000, Update_Prod, (int*) ID_Tobacco_Plantation);
-			Update_SugarcanePlantationion = SDL_AddTimer(3000, Update_Prod, (int*) ID_Sugarcane_Plantation);
-			Update_IronMine =				SDL_AddTimer(3000, Update_Prod, (int*) ID_Iron_Mine);
-			Update_DeepIronMine =			SDL_AddTimer(3000, Update_Prod, (int*) ID_Deep_Iron_Mine);
-			Update_GoldMine =				SDL_AddTimer(3000, Update_Prod, (int*) ID_Gold_Mine);
-			Update_FistersHut =				SDL_AddTimer(3000, Update_Prod, (int*) ID_Fisters_Hut);
-			Update_StoneMason =				SDL_AddTimer(3000, Update_Prod, (int*) ID_Stone_Mason);
-			Update_Bakery =					SDL_AddTimer(3000, Update_Proc, (int*) ID_Bakery);
-			Update_OreRefenery =			SDL_AddTimer(3000, Update_Proc, (int*) ID_Ore_Refenery);
-			Update_GoldSmith =				SDL_AddTimer(3000, Update_Proc, (int*) ID_Gold_Smith);
-			Update_ButcherShop =			SDL_AddTimer(3000, Update_Proc, (int*) ID_Butcher_Shop);
-			Update_RumDistillery = 			SDL_AddTimer(3000, Update_Proc, (int*) ID_Rum_Distillery);
-			Update_Clothiers =				SDL_AddTimer(3000, Update_Proc, (int*) ID_Clothiers);
-			Update_TobaccoProduction =		SDL_AddTimer(3000, Update_Proc, (int*) ID_TobaccoProduction);
-			Update_WeavingMill =			SDL_AddTimer(3000, Update_Proc, (int*) ID_WeavingMill);
-			Update_WeavingHut =				SDL_AddTimer(3000, Update_Proc, (int*) ID_WeavingHut);
-			Update_ToolSmithy =				SDL_AddTimer(3000, Update_Proc, (int*) ID_ToolSmithy);
-			Update_WindMill =				SDL_AddTimer(3000, Update_Proc, (int*) ID_WindMill);
+			Update_CottonPlantation = SDL_AddTimer(3000, Update_Prod, (int*)ID_Cotton_Plantation);
+			Update_ForestersLodge = SDL_AddTimer(3000, Update_Prod, (int*)ID_Foresters_Lodge);
+			Update_GrainFarm = SDL_AddTimer(3000, Update_Prod, (int*)ID_Grain_Farm);
+			Update_SpiceFarm = SDL_AddTimer(3000, Update_Prod, (int*)ID_Spice_Farm);
+			Update_HuntersHut = SDL_AddTimer(3000, Update_Prod, (int*)ID_Hunters_Hut);
+			Update_CocoaPlantation = SDL_AddTimer(3000, Update_Prod, (int*)ID_Cocoa_Plantation);
+			Update_CattleFarm = SDL_AddTimer(3000, Update_Prod, (int*)ID_Cattle_Farm);
+			Update_SheepFarm = SDL_AddTimer(3000, Update_Prod, (int*)ID_Sheep_Farm);
+			Update_Winery = SDL_AddTimer(3000, Update_Prod, (int*)ID_Winery);
+			Update_TobaccoPlantation = SDL_AddTimer(3000, Update_Prod, (int*)ID_Tobacco_Plantation);
+			Update_SugarcanePlantationion = SDL_AddTimer(3000, Update_Prod, (int*)ID_Sugarcane_Plantation);
+			Update_IronMine = SDL_AddTimer(3000, Update_Prod, (int*)ID_Iron_Mine);
+			Update_DeepIronMine = SDL_AddTimer(3000, Update_Prod, (int*)ID_Deep_Iron_Mine);
+			Update_GoldMine = SDL_AddTimer(3000, Update_Prod, (int*)ID_Gold_Mine);
+			Update_FistersHut = SDL_AddTimer(3000, Update_Prod, (int*)ID_Fisters_Hut);
+			Update_StoneMason = SDL_AddTimer(3000, Update_Prod, (int*)ID_Stone_Mason);
+			Update_Bakery = SDL_AddTimer(3000, Update_Proc, (int*)ID_Bakery);
+			Update_OreRefenery = SDL_AddTimer(3000, Update_Proc, (int*)ID_Ore_Refenery);
+			Update_GoldSmith = SDL_AddTimer(3000, Update_Proc, (int*)ID_Gold_Smith);
+			Update_ButcherShop = SDL_AddTimer(3000, Update_Proc, (int*)ID_Butcher_Shop);
+			Update_RumDistillery = SDL_AddTimer(3000, Update_Proc, (int*)ID_Rum_Distillery);
+			Update_Clothiers = SDL_AddTimer(3000, Update_Proc, (int*)ID_Clothiers);
+			Update_TobaccoProduction = SDL_AddTimer(3000, Update_Proc, (int*)ID_TobaccoProduction);
+			Update_WeavingMill = SDL_AddTimer(3000, Update_Proc, (int*)ID_WeavingMill);
+			Update_WeavingHut = SDL_AddTimer(3000, Update_Proc, (int*)ID_WeavingHut);
+			Update_ToolSmithy = SDL_AddTimer(3000, Update_Proc, (int*)ID_ToolSmithy);
+			Update_WindMill = SDL_AddTimer(3000, Update_Proc, (int*)ID_WindMill);
 
 			// Glowna petla gry
 			while (!quit)
 			{
-				
+
 
 				// Handle events on queue
 				while (SDL_PollEvent(&e) != 0)
@@ -522,13 +522,13 @@ int main(int argc, char* args[])
 				SDL_Rect fillRect15 = { 266, 437, 56 * tResource[17]->getNumber() / (WareHouse.getmagazineCapacity() +
 					tProcessing[ID_Gold_Smith]->getActiveNumber()*tProcessing[ID_Gold_Smith]->getMagazineCapacity()), 5 };	// 17 Jewerly
 
-				SDL_Rect fillRect16 = { 6, 507, 56* tResource[18]->getNumber() / (WareHouse.getmagazineCapacity() +
+				SDL_Rect fillRect16 = { 6, 507, 56 * tResource[18]->getNumber() / (WareHouse.getmagazineCapacity() +
 					tProcessing[ID_ToolSmithy]->getActiveNumber()*tProcessing[ID_ToolSmithy]->getMagazineCapacity()), 5 };		// 18 Tools
 
-				SDL_Rect fillRect17 = { 71, 507, (56*tResource[19]->getNumber()) / (WareHouse.getmagazineCapacity() +
+				SDL_Rect fillRect17 = { 71, 507, (56 * tResource[19]->getNumber()) / (WareHouse.getmagazineCapacity() +
 					tProduction[ID_Foresters_Lodge]->getActiveNumber()*tProduction[ID_Foresters_Lodge]->getMagazineCapacity()), 5 };	// 19 Wood
 
-				SDL_Rect fillRect18 = { 136, 507,56*tResource[20]->getNumber() / (WareHouse.getmagazineCapacity() +
+				SDL_Rect fillRect18 = { 136, 507,56 * tResource[20]->getNumber() / (WareHouse.getmagazineCapacity() +
 					tProduction[ID_Stone_Mason]->getActiveNumber()*tProduction[ID_Stone_Mason]->getMagazineCapacity()), 5 };	// 20 Bricks
 
 				SDL_Rect fillRect19 = { 201, 507, 56 * tResource[9]->getNumber() / (WareHouse.getmagazineCapacity() +
@@ -537,8 +537,7 @@ int main(int argc, char* args[])
 				SDL_Rect fillRect20 = { 266, 507, 56 * tResource[13]->getNumber() / (WareHouse.getmagazineCapacity() +
 					tProduction[ID_Cocoa_Plantation]->getActiveNumber()*tProduction[ID_Cocoa_Plantation]->getMagazineCapacity()), 5 };	// 13 Cocoa
 
-				cout << 56 <<" * "<< tResource[19]->getNumber() << " / " << WareHouse.getmagazineCapacity() << " + " <<
-					tProduction[ID_Foresters_Lodge]->getActiveNumber() << " * " << tProduction[ID_Foresters_Lodge]->getMagazineCapacity() << endl;
+
 				// Czyszczenie ekranu
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(gRenderer);
@@ -551,7 +550,7 @@ int main(int argc, char* args[])
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
 					switch (subScreen)
 					{
-					// Ekran menu glownego
+						// Ekran menu glownego
 					case MAIN:
 						if (timer.getTicks() > 0)
 						{
@@ -559,7 +558,7 @@ int main(int argc, char* args[])
 							continue_button.handleEvent(&e);
 						}
 						new_game_button.setPosition(624, 400);
-						new_game_button.handleEvent(&e);		new_game_button.render();					
+						new_game_button.handleEvent(&e);		new_game_button.render();
 						load_game_button.render();				load_game_button.handleEvent(&e);
 						exit_game_button.render();				exit_game_button.handleEvent(&e);
 						if (MUSIC_ON == true)
@@ -605,7 +604,7 @@ int main(int argc, char* args[])
 						}
 						break;
 					}
-						// Ekran zapisu stanu gry
+					// Ekran zapisu stanu gry
 					case SAVE:
 						gTextTexture.loadFromRenderedText("Zapisz", textC, gFont);
 						gTextTexture.render(624, 200);
@@ -626,7 +625,7 @@ int main(int argc, char* args[])
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
 
 
-					
+
 
 					// Skarbiec - wyswietlanie wartosci
 					// Podatki
@@ -665,7 +664,7 @@ int main(int argc, char* args[])
 					gTextTexture.loadFromRenderedText(_itoa(tPeople[4]->getNumber(), People_char_buffor, 10), textC, gFont);
 					gTextTexture.render(400 - gTextTexture.getWidth(), 146);
 					// Mieszkancy
-					gTextTexture.loadFromRenderedText(_itoa(tPeople[0]->getNumber() + tPeople[1]->getNumber() + tPeople[2]->getNumber() 
+					gTextTexture.loadFromRenderedText(_itoa(tPeople[0]->getNumber() + tPeople[1]->getNumber() + tPeople[2]->getNumber()
 						+ tPeople[3]->getNumber() + tPeople[4]->getNumber(), People_char_buffor, 10), textC, gFont);
 					gTextTexture.render(400 - gTextTexture.getWidth(), 175);
 
@@ -719,16 +718,16 @@ int main(int argc, char* args[])
 						upgrade_AV_Warehouse.render();
 						upgrade_AV_Warehouse.handleEvent(&e);
 					}
-						
+
 					// Aktualizacje stanów	
-					
+
 					// AKTUALIZACJA STANU SUROWCOW
 					/*thisTime = timer.getTicks();
 					deltaTime = (float)(thisTime - lastTime);
 					cout << thisTime << " " << deltaTime << " " << lastTime << endl;
 					lastTime = thisTime;*/
-					
-					
+
+
 
 
 					if (buy == true)
@@ -799,7 +798,7 @@ int main(int argc, char* args[])
 					}
 					SDL_SetRenderDrawColor(gRenderer, 0xFF, 0x00, 0x00, 0xFF);
 
-					
+
 
 					buy_button.render();						buy_button.handleEvent(&e);
 					sell_button.render();						sell_button.handleEvent(&e);
@@ -847,7 +846,7 @@ int main(int argc, char* args[])
 					case STATS:
 						back_button.setPosition(300, 732);
 						back_button.render();					back_button.handleEvent(&e);
-		
+
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
 						timer.render();
@@ -856,13 +855,13 @@ int main(int argc, char* args[])
 						gTextTexture.loadFromRenderedText(_itoa(tHouse[0]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_1, T_W_1 - 43);
 						gTextTexture.loadFromRenderedText(_itoa(tHouse[1]->getNumber(), People_char_buffor, 10), textC, gFont_12);
-						gTextTexture.render(T_C_2+2, T_W_1 - 29);
+						gTextTexture.render(T_C_2 + 2, T_W_1 - 29);
 						gTextTexture.loadFromRenderedText(_itoa(tHouse[2]->getNumber(), People_char_buffor, 10), textC, gFont_12);
-						gTextTexture.render(T_C_3+3, T_W_1 - 29);
+						gTextTexture.render(T_C_3 + 3, T_W_1 - 29);
 						gTextTexture.loadFromRenderedText(_itoa(tHouse[3]->getNumber(), People_char_buffor, 10), textC, gFont_12);
-						gTextTexture.render(T_C_4+3, T_W_1 - 29);
+						gTextTexture.render(T_C_4 + 3, T_W_1 - 29);
 						gTextTexture.loadFromRenderedText(_itoa(tHouse[4]->getNumber(), People_char_buffor, 10), textC, gFont_12);
-						gTextTexture.render(T_C_5+3, T_W_1 - 29);
+						gTextTexture.render(T_C_5 + 3, T_W_1 - 29);
 
 						// Wyswietlanie stanu surowcow
 						gTextTexture.loadFromRenderedText(_itoa(tResource[1]->getNumber(), People_char_buffor, 10), textC, gFont);
@@ -938,7 +937,7 @@ int main(int argc, char* args[])
 						// Wyœwietlenie iloœci pól na wyspie i pól wolnych
 						gTextTexture.loadFromRenderedText(_itoa(islandSize, People_char_buffor, 10), textC, gFont);
 						gTextTexture.render(I_S_X, I_S_Y);
-						gTextTexture.loadFromRenderedText(_itoa(islandSize-usedFields, People_char_buffor, 10), textC, gFont);
+						gTextTexture.loadFromRenderedText(_itoa(islandSize - usedFields, People_char_buffor, 10), textC, gFont);
 						gTextTexture.render(U_F_X, U_F_Y);
 
 						// Pozwolenie i zakaz budowy
@@ -956,7 +955,7 @@ int main(int argc, char* args[])
 						build_AV_House_L1.handleEvent(&e);		destroy_AV_House_L1.handleEvent(&e);
 
 						// Osadnicy
-						if(tHouse[1]->getStatus())
+						if (tHouse[1]->getStatus())
 						{
 							build_AV_House_L2.render();			destroy_AV_House_L2.render();
 							build_AV_House_L2.handleEvent(&e);	destroy_AV_House_L2.handleEvent(&e);
@@ -966,7 +965,7 @@ int main(int argc, char* args[])
 							build_NAV_House_L2.render();			destroy_NAV_House_L2.render();
 							build_NAV_House_L2.handleEvent(&e);		destroy_NAV_House_L2.handleEvent(&e);
 						}
-						
+
 						// Mieszczanie
 						if (tHouse[2]->getStatus())
 						{
@@ -1015,7 +1014,7 @@ int main(int argc, char* args[])
 
 						for (int i = 0; i < 12; i++)
 						{
-							if(tPublic[i]->getStatus())
+							if (tPublic[i]->getStatus())
 							{
 								Public_build_AV[i]->render();
 								Public_build_AV[i]->handleEvent(&e);
@@ -1030,13 +1029,13 @@ int main(int argc, char* args[])
 								Public_destroy_NAV[i]->render();
 								Public_destroy_NAV[i]->handleEvent(&e);
 							}
-							
+
 						}
 						// Wyswietlanie ilosci budynkow publicznych
 						gTextTexture.loadFromRenderedText(_itoa(tPublic[7]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_1, T_W_1);
 						gTextTexture.loadFromRenderedText(_itoa(tPublic[4]->getNumber(), People_char_buffor, 10), textC, gFont_12);
-						gTextTexture.render(T_C_2, T_W_1); 
+						gTextTexture.render(T_C_2, T_W_1);
 						gTextTexture.loadFromRenderedText(_itoa(tPublic[11]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_3, T_W_1);
 						gTextTexture.loadFromRenderedText(_itoa(tPublic[2]->getNumber(), People_char_buffor, 10), textC, gFont_12);
@@ -1069,7 +1068,7 @@ int main(int argc, char* args[])
 
 						for (int i = 0; i < 12; i++)
 						{
-							if(tProcessing[i]->getStatus())
+							if (tProcessing[i]->getStatus())
 							{
 								Processing_build_AV[i]->render();
 								Processing_build_AV[i]->handleEvent(&e);
@@ -1085,7 +1084,7 @@ int main(int argc, char* args[])
 								Processing_destroy_NAV[i]->render();
 								Processing_destroy_NAV[i]->handleEvent(&e);
 							}
-							
+
 						}
 
 						// Wyswietlanie ilosci budynkow przetworczych
@@ -1125,13 +1124,13 @@ int main(int argc, char* args[])
 
 						for (int i = 0; i < 15; i++)
 						{
-							if(tProduction[i]->getStatus())
+							if (tProduction[i]->getStatus())
 							{
-							Production_build_AV[i]->render();
-							Production_build_AV[i]->handleEvent(&e);
+								Production_build_AV[i]->render();
+								Production_build_AV[i]->handleEvent(&e);
 
-							Production_destroy_AV[i]->render();
-							Production_destroy_AV[i]->handleEvent(&e);
+								Production_destroy_AV[i]->render();
+								Production_destroy_AV[i]->handleEvent(&e);
 							}
 							else
 							{
@@ -1185,7 +1184,7 @@ int main(int argc, char* args[])
 				}
 				// Odswiezenie ekranu
 				SDL_RenderPresent(gRenderer);
-				
+
 			}
 		}
 	}

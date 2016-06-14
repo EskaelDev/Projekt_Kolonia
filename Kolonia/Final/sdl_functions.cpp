@@ -227,7 +227,7 @@ SDL_Texture* loadTexture(std::string path)
 }
 
 
-bool Build_Pub(Public & Name,Resource *TResource[21])
+bool Build_Pub(Public & Name, Resource *TResource[21])
 {
 	if (Name.getStatus() == false)
 		return false;
@@ -256,7 +256,7 @@ bool Destroy_Pub(Public & Name)
 		return false;
 }
 
-bool Build_Proc(Processing & Name,Resource *TResource[21])
+bool Build_Proc(Processing & Name, Resource *TResource[21])
 {
 	if (Name.getStatus() == false)
 		return false;
@@ -285,7 +285,7 @@ bool Destroy_Proc(Processing & Name)
 		return false;
 }
 
-bool Build_Prod(Production & Name,Resource *TResource[21])
+bool Build_Prod(Production & Name, Resource *TResource[21])
 {
 	if (Name.getStatus() == false)
 		return false;
@@ -390,14 +390,14 @@ void Fill_Arrays()
 
 																					// Processing(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, magazineCapacity, peopleToBuild, peopleClass, productID, materialID, productNumber, materialNumber)
 
-	tProcessing[0] = new Processing(150, 0, 2, 6, 5, 0, 4, 75, 1, 10, 8, 1, 2);			// Bakery
+	tProcessing[0] = new Processing(150, 0, 2, 6, 5, 0, 4, 75, 1, 10, 8, 3, 2);			// Bakery
 	tProcessing[1] = new Processing(200, 4, 3, 1, 25, 10, 5, 120, 1, 9, 1, 1, 1);		// Ore Refenery
 	tProcessing[2] = new Processing(1500, 10, 7, 2, 45, 20, 4, 250, 3, 17, 2, 2, 1);	// Gold Smith
 	tProcessing[3] = new Processing(150, 10, 3, 4, 5, 0, 4, 30, 0, 10, 6, 1, 2);		// Butcher Shop
 	tProcessing[4] = new Processing(200, 5, 3, 2, 25, 7, 4, 40, 1, 14, 4, 1, 2);		// Rum Distillery
 	tProcessing[5] = new Processing(150, 2, 3, 6, 10, 5, 4, 200, 2, 16, 15, 1, 1);		// Clothiers
 	tProcessing[6] = new Processing(200, 5, 3, 2, 20, 10, 4, 40, 1, 11, 5, 1, 2);		// TobaccoProduction
-	tProcessing[7] = new Processing(200, 7, 4, 3, 20, 10, 4, 75, 1, 15, 3, 1, 1);		// WeavingMill
+	tProcessing[7] = new Processing(200, 7, 4, 3, 20, 10, 4, 75, 1, 15, 3, 3, 2);		// WeavingMill
 	tProcessing[8] = new Processing(200, 0, 3, 6, 10, 5, 4, 0, -1, 15, 3, 1, 2);		// WeavingHut
 	tProcessing[9] = new Processing(150, 5, 3, 2, 25, 10, 4, 100, 1, 18, 9, 2, 1);		// ToolSmithy
 	tProcessing[10] = new Processing(100, 0, 3, 6, 5, 0, 6, 75, 1, 10, 7, 1, 2);		// WindMill
@@ -437,43 +437,60 @@ void Fill_Arrays()
 
 Uint32 Update_Prod(Uint32 interval, void* param)
 {
-	
+
 	int i = reinterpret_cast<int>(param);
-		totalResources += tResource[i]->getNumber();				// sumowanie liczby surowcow ktore posiada gracz
-		if (tProduction[i]->getNumber() > maxBuildingNumber)		// wyszukiwanie zmiennej maxBuldingNumber
-			maxBuildingNumber = tProduction[i]->getNumber();
-		totalMagazinesCapacity += tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber();		// sumowanie calkowitej pojemnosci magazynow budynkow
-		usedMagazine = totalResources - totalMagazinesCapacity;				// wykorzystanie magazynu glownego to dodatni wynik roznicy wszystkich surowcow od calkowitej pojemnosci wszystkich budynkow
-		if (usedMagazine < 0) usedMagazine = 0;								// wynik ujemny tej roznicy oznacza, ze magazyn w ogole nie jest wykorzystywany
+	if (tProduction[i]->getNumber() > 0)
+	{
+		if (tResource[tProduction[i]->getProductID()]->getNumber() + tProduction[i]->getActiveNumber()*tProduction[i]->getMagazineCapacity() < WareHouse.getmagazineCapacity() + tProduction[i]->getActiveNumber()*tProduction[i]->getMagazineCapacity())
+		{
+			if (tProduction[i]->getActiveNumber() < 5)
+			{
+				tResource[tProduction[i]->getProductID()]->increase(tProduction[i]->getActiveNumber()*tProduction[i]->getMagazineCapacity() );
 
-		for (int j = 1; j <= maxBuildingNumber; ++j)																								// dodawaj po jednej jednostce surowca tyle razy ile wynosi najwieksza liczba posiadanego budynku
-				if (tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber() <= tResource[tProduction[i]->getProductID()]->getNumber())	// jezeli pojemnosc magazynu * liczba budynkow <= liczby posiadanych surowcow 
-					if (tProduction[i]->getNumber() != 0)																							// oraz liczba budynkow jest != 0
-						if (usedMagazine < WareHouse.getmagazineCapacity())																			// oraz dostepne jest jeszcze miejsce w magazynie glownym
-							if (tProduction[i]->getNumber() >= j)																					// oraz mamy liczbe j budynkow aby moc dodaj j-ty surowiec
-							{
-								tResource[tProduction[i]->getProductID()]->increase(1);																// dodaj jedna jednostke surowca
-								++usedMagazine;																										// zwieksz zajetosc magazynu
-							}
-
-		if (tProduction[i]->getActiveNumber() < 5)
-			return 5000;
-		else 
-			return 3000;
+				return 5000;
+			}
+			else
+			{
+				tResource[tProduction[i]->getProductID()]->increase(tProduction[i]->getActiveNumber()*tProduction[i]->getMagazineCapacity() );
+				return 3000;
+			}
+		}
+		else
+			tResource[tProduction[i]->getProductID()]->setNumber(WareHouse.getmagazineCapacity() + tProduction[i]->getActiveNumber()*tProduction[i]->getMagazineCapacity());
+		return 3000;
+	}
+	return 2000;
 }
 
 Uint32 Update_Proc(Uint32 interval, void* param)
 {
 	int i = reinterpret_cast<int>(param);
-	for (int j = 0; j < tProcessing[i]->getNumber(); ++j)
-		if (tProcessing[i]->getMagazineCapacity() * tProcessing[i]->getNumber() > tResource[tProcessing[i]->getMaterialID()]->getNumber())	// jezeli pojemnosc magazynu * liczba budynkow > liczby posiadanych surowcow 
-			if (tResource[tProcessing[i]->getMaterialID()]->getNumber() >= tProcessing[i]->getMaterialNumber())								// oraz posiadamy przynamniej tyle surowca ile potrzeba do przetwarzania na inny to
+
+	if (tProcessing[i]->getNumber() > 0)
+	{
+		if (tResource[tProcessing[i]->getMaterialID()]->getNumber() > tProcessing[i]->getMaterialNumber())
+		{
+			if (tResource[tProcessing[i]->getProductID()]->getNumber() + tProcessing[i]->getActiveNumber()*tProcessing[i]->getNumber() < WareHouse.getmagazineCapacity() + tProcessing[i]->getActiveNumber()*tProcessing[i]->getMagazineCapacity())
 			{
-				tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getProductNumber());									// dodaj liczbe surowca, ktory zostal wyprodukowany
-				tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getMaterialNumber());									// zmniejsz liczbe liczbe surowca, ktory zostal przetworzony
+				if (tProcessing[i]->getActiveNumber() < 5)
+				{
+					tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getActiveNumber()*tProcessing[i]->getProductNumber());
+					tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getActiveNumber()*tProcessing[i]->getMaterialNumber());
+					return 7000;
+				}
+				else
+				{
+					tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getActiveNumber()*tProcessing[i]->getProductNumber());
+					tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getActiveNumber()*tProcessing[i]->getMaterialNumber());
+					return 5000;
+				}
 			}
-	if (tProcessing[i]->getActiveNumber() < 5)
-		return 7000;
-	else
-		return 3000;
+			else
+				tResource[tProcessing[i]->getProductID()]->setNumber(WareHouse.getmagazineCapacity() + tProcessing[i]->getActiveNumber()*tProcessing[i]->getMagazineCapacity());
+			return 3000;
+		}
+		else
+			return 2000;
+	}
+	return 2000;
 }

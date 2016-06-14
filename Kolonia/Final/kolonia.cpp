@@ -553,9 +553,11 @@ int main(int argc, char* args[])
 					{
 						// Ekran menu glownego
 					case MAIN:
+						continue_button.setPosition(624, 350);
+
 						if (timer.getTicks() > 0)
 						{
-							continue_button.setPosition(624, 350);
+							//continue_button.setPosition(624, 350);
 							continue_button.render();
 							continue_button.handleEvent(&e);
 						}

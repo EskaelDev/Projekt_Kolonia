@@ -591,6 +591,7 @@ int main(int argc, char* args[])
 						continue_button.setPosition(624, 700);
 						continue_button.render();				continue_button.handleEvent(&e);
 						break;
+
 						// Ekran wczytywania stanu gry
 					case LOAD:
 					{

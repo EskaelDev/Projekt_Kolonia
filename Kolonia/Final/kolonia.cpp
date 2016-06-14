@@ -708,6 +708,7 @@ int main(int argc, char* args[])
 					if (WareHouse.getClass() > -1)
 						WareHouse.checkStatus(tPeople[WareHouse.getClass()]->getNumber());
 					// UPGRADE
+					if(licze_magazyny<3)
 					if (WareHouse.getStatus() == false)
 					{
 						upgrade_NAV_Warehouse.render();

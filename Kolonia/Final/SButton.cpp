@@ -476,6 +476,7 @@ void SButton::operation(Actions action)
 			Warehouse_I_texture = loadTexture("imgs/magazyn4.png");
 			Warehouse_II_texture = loadTexture("imgs/magazyn5.png");
 		}
+		WareHouse.Build(tResource);
 		licze_magazyny++;
 		upgrade = false;
 		break;

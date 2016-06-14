@@ -9,6 +9,7 @@ enum Screen
 	SAVE,
 	GAME,
 	POPUPMSG,
+	STARTSCREEN,
 	PUB,
 	PROC,
 	PROD,

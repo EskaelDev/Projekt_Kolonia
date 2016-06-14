@@ -15,6 +15,9 @@ extern bool sell;
 // Czy ma pojawic sie komunikat
 extern bool popUp;
 
+// Ekran po nacisnieciu na nowa gra
+extern bool startScreen;
+
 // Mozna budowac
 extern bool allow_build;
 

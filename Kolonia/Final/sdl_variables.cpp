@@ -9,6 +9,7 @@ bool buy = false;
 bool sell = false;
 
 bool popUp = false;
+bool startScreen = false;
 
 // Mozna budowac
 bool allow_build = true;

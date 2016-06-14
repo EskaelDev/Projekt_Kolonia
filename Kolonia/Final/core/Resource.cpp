@@ -12,8 +12,8 @@ bool Resource::buy(Resource & _Money)
 {
 	if (_Money.getNumber() >= price)
 	{
-		++number;
-		_Money.decrease(price);
+		number+=5;
+		_Money.decrease(price*5);
 		return true;
 	}
 	else

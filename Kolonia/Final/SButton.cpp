@@ -378,6 +378,8 @@ void SButton::operation(Actions action)
 		break;
 
 	case BUY_RESOURCE:
+		if(tResource[id]->getNumber()+5<WareHouse.getmagazineCapacity())
+		tResource[id]->buy(*tResource[0]);
 		break;
 
 	case SELL:
@@ -386,6 +388,8 @@ void SButton::operation(Actions action)
 		break;
 
 	case SELL_RESOURCE:
+		if (tResource[id]->getNumber() - 5>0)
+			tResource[id]->sell(*tResource[0]);
 		break;
 
 	case PUBLIC:

@@ -326,7 +326,7 @@ void SButton::operation(Actions action)
 		break;
 
 	case BUILD_PUB:
-		Build_Pub(*tPublic[id], *tResource[0], *tResource[20], *tResource[18], *tResource[19]);
+		Build_Pub(*tPublic[id], tResource);
 		break;
 
 	case DESTROY_PUB:
@@ -334,7 +334,7 @@ void SButton::operation(Actions action)
 		break;
 
 	case BUILD_PROC:
-		Build_Pub(*tProcessing[id], *tResource[0], *tResource[20], *tResource[18], *tResource[19]);
+		Build_Pub(*tProcessing[id], tResource);
 		break;
 		
 	case DESTROY_PROC:
@@ -342,7 +342,7 @@ void SButton::operation(Actions action)
 		break;
 
 	case BUILD_PROD:
-		Build_Pub(*tProduction[id], *tResource[0], *tResource[20], *tResource[18], *tResource[19]);
+		Build_Pub(*tProduction[id], tResource);
 		break;
 
 	case DESTROY_PROD:
@@ -350,7 +350,7 @@ void SButton::operation(Actions action)
 		break;
 
 	case BUILD_HOUSE:
-		Build_House(*tHouse[id], *tResource[20], *tResource[18], *tResource[19]);
+		Build_House(*tHouse[id], tResource);
 		break;
 
 	case DESTROY_HOUSE:

@@ -555,6 +555,7 @@ int main(int argc, char* args[])
 					case MAIN:
 						if (timer.getTicks() > 0)
 						{
+							continue_button.setPosition(624, 350);
 							continue_button.render();
 							continue_button.handleEvent(&e);
 						}

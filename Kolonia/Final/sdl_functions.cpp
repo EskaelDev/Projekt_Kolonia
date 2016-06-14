@@ -512,7 +512,7 @@ Uint32 Update_Tax(Uint32 interval, void *param)
 	taxes = 0;
 	for (int i = 0; i < 5; ++i) 
 	{
-		tResource[0]->increase(tPeople[i]->getTax());
+		tResource[ID_Money]->increase(tPeople[i]->getTax());
 		taxes += tPeople[i]->getTax();
 	}
 
@@ -537,11 +537,10 @@ Uint32 Update_Tax(Uint32 interval, void *param)
 		costs += tProcessing[i]->getMaintenanceActiveCost() * tProcessing[i]->getActiveNumber()
 			+ tProcessing[i]->getMaintenancePassiveCost() * (tProcessing[i]->getNumber() - tProcessing[i]->getActiveNumber());
 	}
-	for(int i=0;i<5;i++)
-	{
+	for (int i = 0; i < 5; ++i)
 		for (int j = 0; j < tPeople[i]->getTabIdSize(); ++j)
 			tResource[tPeople[i]->getResourceId(j)]->decrease(tPeople[i]->getNumber());
-	}
+
 	return 1000;
 }
 

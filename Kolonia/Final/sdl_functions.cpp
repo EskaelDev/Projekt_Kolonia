@@ -512,7 +512,7 @@ Uint32 Update_Tax(Uint32 interval, void *param)
 	taxes = 0;
 	for (int i = 0; i < 5; ++i) 
 	{
-		tResource[ID_Money]->increase(tPeople[i]->getTax());
+		tResource[0]->increase(tPeople[i]->getTax());
 		taxes += tPeople[i]->getTax();
 	}
 

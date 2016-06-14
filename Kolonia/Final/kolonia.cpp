@@ -25,10 +25,6 @@ Uint32 sdl_timer;
 int main(int argc, char* args[])
 {
 	Fill_Arrays();
-	tResource[0]->increase(5000);
-	tResource[18]->increase(200);
-	tResource[19]->increase(200);
-	tResource[20]->increase(200);
 
 	// Wlaczenie SDL i stworzenie okna
 	if (!init())

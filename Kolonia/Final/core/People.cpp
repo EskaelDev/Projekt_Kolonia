@@ -5,10 +5,14 @@ People::People(int _tax, int tabResourceId[], int tabSize)
 {
 	number = 0;
 	tax = _tax;
-	tabIdSize = tabSize;
-	resourceId = new int[tabSize];
-	for (int i = 0; i < tabSize; ++i)
-		resourceId[i] = tabResourceId[i];
+	if (tabResourceId[0] > -1)
+	{
+		resourceId = new int[tabSize];
+		for (int i = 0; i < tabSize; ++i)
+				resourceId[i] = tabResourceId[i];
+		}
+	else
+		resourceId = 0;
 }
 
 int People::getNumber() const

@@ -16,7 +16,6 @@ public:
 	bool Build(Resource* [21]) override;
 	int getmagazineCapacity() const;
 	int getLevel() const;
-	void test() const;
 };
 
 #endif

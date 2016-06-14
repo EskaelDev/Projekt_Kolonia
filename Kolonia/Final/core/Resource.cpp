@@ -1,7 +1,5 @@
 #include "stdafx.h"
-#include <iostream>
 #include "Resource.h"
-using namespace std;
 
 Resource::Resource(int _price)
 {
@@ -52,10 +50,4 @@ void Resource::setNumber(int _number)
 int Resource::getNumber() const
 {
 	return number;
-}
-
-void Resource::test()
-{
-	cout << "Ilosc surowca = " << number << endl;
-	cout << "Cena = " << price << endl;
 }

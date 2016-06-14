@@ -1,5 +1,5 @@
 #include "SButton.h"
-#include "conio.h"
+
 SButton::SButton(Actions action, int width, int height, int pos_x, int pos_y, char *image)
 	: action(action), w(width), h(height), mCurrentSprite(BUTTON_SPRITE_MOUSE_OUT)
 {

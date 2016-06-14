@@ -21,8 +21,6 @@ int thisTime = 0;
 int lastTime = 0;
 float deltaTime = 0.0;
 Uint32 sdl_timer;
-////
-
 
 int main(int argc, char* args[])
 {

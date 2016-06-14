@@ -1,5 +1,6 @@
 #ifndef SButton_H  
 #define SButton_H
+
 #include "STexture.h"
 #include "STimer.h"
 #include "sdl_functions.h"

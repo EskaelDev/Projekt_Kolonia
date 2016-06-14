@@ -17,7 +17,6 @@ public:
 	bool Destroy();							// niszczy budynek jesli istnieje, w przypadku powodzenia zwraca true, w przypadku niepowodzenia false
 	int getNumber() const;
 	void setNumber(int);
-	void test() const;
 };
 
 #endif

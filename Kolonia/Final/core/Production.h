@@ -21,7 +21,6 @@ public:
 	int getMagazineCapacity() const;
 	int getMaintenancePassiveCost() const;
 	int getActiveNumber() const;
-	void test() const;
 };
 
 #endif

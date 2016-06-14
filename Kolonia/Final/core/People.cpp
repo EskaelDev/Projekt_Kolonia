@@ -1,7 +1,5 @@
 #include "stdafx.h"
-#include <iostream>
 #include "People.h"
-using namespace std;
 
 People::People(int _tax, int tabResourceId[], int tabSize)
 {
@@ -46,10 +44,4 @@ void People::setNumber(int _peopleNumber)
 People::~People()
 {
 	delete[] resourceId;
-}
-
-void People::test() const
-{
-	cout << "Liczba = " << number << endl;
-	cout << "Podatek = " << tax << endl;
 }

@@ -18,7 +18,6 @@ public:
 	int getTabIdSize() const;
 	void increase(int);				// zwieksza liczbe mieszkancow o podana wartosc
 	void setNumber(int);			// ustawia liczbe mieszkancow na konkretna wartosc
-	void test() const;
 };
 
 #endif

@@ -19,7 +19,6 @@ public:
 	void decrease(int);		// zmniejsza liczbe surowca o podana wartosc
 	void setNumber(int);
 	int getNumber() const;
-	void test();
 };
 
 #endif

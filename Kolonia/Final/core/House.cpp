@@ -1,9 +1,6 @@
 #include "stdafx.h"
-#include <iostream>
-#include <conio.h>
 #include "House.h"
 #include "GlobalVariables.h"
-using namespace std;
 
 House::House(int _bricksToBuild, int _toolsToBuild, int _woodToBuild, int _inhabitants, int _startPeople, int tabBuildingId[], int tabSize)
 {
@@ -93,27 +90,4 @@ void House::checkStatus(int buildingNumber)
 House::~House()
 {
 	delete[] buildingId;
-}
-
-
-void House::test() const
-{
-	cout << "Liczba = " << number << endl;
-	cout << "Cegly do budowy = " << bricksToBuild << endl;
-	cout << "Narzedzia do budowy = " << toolsToBuild << endl;
-	cout << "Drewno do budowy = " << woodToBuild << endl;
-	cout << "Zajmowany obszar = " << size << endl;
-	cout << "Mieszkancy max = " << inhabitants << endl;
-	cout << "Mieszkancy po wprowadzeniu = " << startPeople << endl;
-	if (buildingId != 0) 
-	{
-		cout << "Budynki wymagane do budowy: ";
-		if (4 == buildingId[0]) cout << "kaplica, plac targowy" << endl;
-		if (2 == buildingId[0]) cout << "straz ogniowa, szkola, tawerna" << endl;
-		if (0 == buildingId[0]) cout << "przychodnia lekarska, laznia publiczna, kosciol" << endl;
-		if (3 == buildingId[0]) cout << "uniwersytet, teart, katedra" << endl;
-	}
-	cout << "Status dostepnosci: ";
-	if (status == true) cout << "dostepny" << endl;
-	else cout << "niedostepny" << endl;
 }

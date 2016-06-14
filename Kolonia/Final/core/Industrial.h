@@ -17,7 +17,6 @@ public:
 	int getMoney() const;
 	int getClass() const;
 	int getMaintenanceActiveCost() const;
-	virtual ~Industrial() {};
 };
 
 #endif

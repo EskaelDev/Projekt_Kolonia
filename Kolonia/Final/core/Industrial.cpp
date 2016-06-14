@@ -27,4 +27,3 @@ int Industrial::getMaintenanceActiveCost() const
 {
 	return maintenanceActiveCost;
 }
-

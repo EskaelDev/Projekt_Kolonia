@@ -4,10 +4,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-
-#ifndef SDL_OBJECTS_H
 #include "sdl_objects.h"
-#endif
 #include <iostream>
 using namespace std;
 

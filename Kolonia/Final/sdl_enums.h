@@ -10,6 +10,7 @@ enum Screen
 	GAME,
 	POPUPMSG,
 	STARTSCREEN,
+	ENDSCREEN,
 	PUB,
 	PROC,
 	PROD,

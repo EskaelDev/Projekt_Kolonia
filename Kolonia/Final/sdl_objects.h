@@ -26,6 +26,7 @@ extern SDL_Texture* Warehouse_I_texture;
 extern SDL_Texture* Warehouse_II_texture;
 extern SDL_Texture* Warehouse_III_texture;
 extern SDL_Texture* Warehouse_IV_texture;
+extern SDL_Texture* End_Screen_texture;
 
 // Czworokaty magazynow
 extern SDL_Rect gWarehouse_rect_right;

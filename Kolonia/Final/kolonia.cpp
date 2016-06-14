@@ -622,11 +622,16 @@ int main(int argc, char* args[])
 					break;
 					// Ekran rozgrywki
 				case GAME:
+					if (tPublic[ID_Palace]->getNumber() > 0 && endScreen == true)
+					{
+						endScreen = false;
+						subScreen = ENDSCREEN;
+					}
 					timer.unpause();
 					timer.count();
 					SDL_RenderSetViewport(gRenderer, &LeftViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
-			
+
 					// Skarbiec - wyswietlanie wartosci
 					// Podatki
 					gTextTexture.loadFromRenderedText(_itoa(taxes, Money_char_buffor, 10), textC, gFont);
@@ -708,18 +713,18 @@ int main(int argc, char* args[])
 					if (WareHouse.getClass() > -1)
 						WareHouse.checkStatus(tPeople[WareHouse.getClass()]->getNumber());
 					// UPGRADE
-					if(licze_magazyny<3)
-					if (WareHouse.getStatus() == false)
-					{
-						upgrade_NAV_Warehouse.render();
-						upgrade_NAV_Warehouse.handleEvent(&e);
-					}
-					else
-					{
-						upgrade_AV_Warehouse.render();
-						upgrade_AV_Warehouse.handleEvent(&e);
-					}
-					
+					if (licze_magazyny < 3)
+						if (WareHouse.getStatus() == false)
+						{
+							upgrade_NAV_Warehouse.render();
+							upgrade_NAV_Warehouse.handleEvent(&e);
+						}
+						else
+						{
+							upgrade_AV_Warehouse.render();
+							upgrade_AV_Warehouse.handleEvent(&e);
+						}
+
 					// Aktualizacje stanów	
 
 					// AKTUALIZACJA STANU SUROWCOW
@@ -908,29 +913,6 @@ int main(int argc, char* args[])
 						gTextTexture.render(580 - gTextTexture.getWidth(), 625);
 						gTextTexture.loadFromRenderedText(_itoa(tResource[13]->getNumber(), People_char_buffor, 10), textC, gFont);
 						gTextTexture.render(745 - gTextTexture.getWidth(), 625);
-						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
-						/*gTextTexture.loadFromRenderedText(_itoa(s1, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s11, Money_char_buffor, 10), textC);
-						gTextTexture.render(kolumna_stat_1, wiersz_stat_1);									gTextTexture.render(kolumna_stat_3, wiersz_stat_3);
-						gTextTexture.loadFromRenderedText(_itoa(s2, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s12, Money_char_buffor, 10), textC);
-						gTextTexture.render(kolumna_stat_1, wiersz_stat_2);									gTextTexture.render(kolumna_stat_3, wiersz_stat_4);
-						gTextTexture.loadFromRenderedText(_itoa(s3, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s13, Money_char_buffor, 10), textC);
-						gTextTexture.render(kolumna_stat_1, wiersz_stat_3);									gTextTexture.render(kolumna_stat_4, wiersz_stat_1);
-						gTextTexture.loadFromRenderedText(_itoa(s4, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s14, Money_char_buffor, 10), textC);
-						gTextTexture.render(kolumna_stat_1, wiersz_stat_4);									gTextTexture.render(kolumna_stat_4, wiersz_stat_2);
-						gTextTexture.loadFromRenderedText(_itoa(s5, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s15, Money_char_buffor, 10), textC);
-						gTextTexture.render(kolumna_stat_2, wiersz_stat_1);									gTextTexture.render(kolumna_stat_4, wiersz_stat_3);
-						gTextTexture.loadFromRenderedText(_itoa(s6, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s16, Money_char_buffor, 10), textC);
-						gTextTexture.render(kolumna_stat_2, wiersz_stat_2);									gTextTexture.render(kolumna_stat_4, wiersz_stat_4);
-						gTextTexture.loadFromRenderedText(_itoa(s7, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s17, Money_char_buffor, 10), textC);
-						gTextTexture.render(kolumna_stat_2, wiersz_stat_3);									gTextTexture.render(kolumna_stat_5, wiersz_stat_1);
-						gTextTexture.loadFromRenderedText(_itoa(s8, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s18, Money_char_buffor, 10), textC);
-						gTextTexture.render(kolumna_stat_2, wiersz_stat_4);									gTextTexture.render(kolumna_stat_5, wiersz_stat_2);
-						gTextTexture.loadFromRenderedText(_itoa(s9, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s19, Money_char_buffor, 10), textC);
-						gTextTexture.render(kolumna_stat_3, wiersz_stat_1);									gTextTexture.render(kolumna_stat_5, wiersz_stat_3);
-						gTextTexture.loadFromRenderedText(_itoa(s10, Money_char_buffor, 10), textC);		gTextTexture.loadFromRenderedText(_itoa(s20, Money_char_buffor, 10), textC);
-						gTextTexture.render(kolumna_stat_3, wiersz_stat_2);									gTextTexture.render(kolumna_stat_5, wiersz_stat_4);*/
-						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
-
 
 						//gTextTexture.loadFromRenderedText("Zapisz", textC);
 					//	gTextTexture.render(624, 200);
@@ -1176,6 +1158,13 @@ int main(int argc, char* args[])
 						gTextTexture.render(T_C_4, T_W_3);
 						gTextTexture.loadFromRenderedText(_itoa(tProduction[12]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_5, T_W_3);
+						break;
+					case ENDSCREEN:
+						SDL_RenderSetViewport(gRenderer, &LargeViewport);
+						SDL_RenderCopy(gRenderer, End_Screen_texture, NULL, NULL);
+						endScreen = false;
+						continue_button.setPosition(624, 700);
+						continue_button.render();					continue_button.handleEvent(&e);
 						break;
 					}
 					break;

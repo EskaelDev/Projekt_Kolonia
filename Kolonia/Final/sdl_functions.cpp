@@ -107,6 +107,12 @@ bool loadMedia()
 		cout << "Nie mozna zaladowac obrazka!" << endl;
 		success = false;
 	}
+	End_Screen_texture = loadTexture("imgs/end_screen.png");
+	if (End_Screen_texture == NULL)
+	{
+		cout << "Nie mozna zaladowac obrazka!" << endl;
+		success = false;
+	}
 	// Ladowanie czcionki
 	gFont = TTF_OpenFont("fonts/Caladea-Regular.ttf", 19);
 	if (gFont == NULL)

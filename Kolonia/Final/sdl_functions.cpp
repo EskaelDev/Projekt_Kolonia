@@ -343,15 +343,14 @@ bool Destroy_House(House & Name)
 		return false;
 }
 
-
 void Fill_Arrays()
 {
 	// House(bricksToBuild, toolsToBuild, woodToBuild, inhabitants, startPeople, buildingID0, buildingID1, buildingID2)
-	{ int tab0[1] = { -1 };
-	tHouse[0] = new House(0, 0, 3, 3, 1, tab0, 1); } 	/* Pioneers House */ { int tab1[2] = { 4, 7 };
-	tHouse[1] = new House(0, 1, 3, 7, 2, tab1, 2); }		/* Settlers House */ { int tab2[3] = { 2, 9, 11 };
-	tHouse[2] = new House(6, 2, 2, 15, 3, tab2, 3); } 	/* Citizens House */ { int tab3[3] = { 0, 1, 6 };
-	tHouse[3] = new House(9, 3, 3, 25, 4, tab3, 3); }	/* Merchansts House */ { int tab4[3] = { 3, 5, 10 };
+																					{ int tab0[1] = { -1 };
+	tHouse[0] = new House(0, 0, 3, 3, 1, tab0, 1); } 	/* Pioneers House */		{ int tab1[2] = { 4, 7 };
+	tHouse[1] = new House(0, 1, 3, 7, 2, tab1, 2); }		/* Settlers House */	{ int tab2[3] = { 2, 9, 11 };
+	tHouse[2] = new House(6, 2, 2, 15, 3, tab2, 3); } 	/* Citizens House */		{ int tab3[3] = { 0, 1, 6 };
+	tHouse[3] = new House(9, 3, 3, 25, 4, tab3, 3); }	/* Merchansts House */		{ int tab4[3] = { 3, 5, 10 };
 	tHouse[4] = new House(12, 3, 3, 40, 5, tab4, 3); }	/* Aristorcats House */
 
 	// Public(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, size, peopleToBuild, peopleClass)

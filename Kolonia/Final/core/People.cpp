@@ -3,10 +3,18 @@
 #include "People.h"
 using namespace std;
 
-People::People(int _tax)
+People::People(int _tax, int tabResourceId[])
 {
 	number = 0;
 	tax = _tax;
+	if (tabResourceId[0] > -1)
+	{
+		ResourceId = new int[tabSize];
+		for (int i = 0; i < tabSize; ++i)
+			ResourceId[i] = tabResourceId[i];
+	}
+	else
+		ResourceId = 0;
 }
 
 int People::getNumber() const

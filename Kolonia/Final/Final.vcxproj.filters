@@ -84,9 +84,6 @@
     <None Include="SDL2_ttf.dll" />
     <None Include="smpeg2.dll" />
     <None Include="zlib1.dll" />
-    <None Include="cursor1.cur">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SButton.h">
@@ -143,10 +140,5 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Final.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>

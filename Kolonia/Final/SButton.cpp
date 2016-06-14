@@ -189,19 +189,55 @@ void SButton::operation(Actions action)
 	{
 		string path = "saves/slot" + to_string(id) + ".txt";
 		slot[id] = fopen(path.c_str(), "r");
-		int a = 0, b = 0;
+		int var = 0;
 		if (slot[id] != NULL)
 		{
 			timer.stop();
-			fscanf(slot[id], "%d", &a);
-			timer.setSeconds(a);
-			fscanf(slot[id], "%d", &a);
-			timer.setMinutes(a);
-			timer.start();
+			fscanf(slot[id], "%d", &var);
+			timer.setSeconds(var);
+			fscanf(slot[id], "%d", &var);
+			timer.setMinutes(var);
+			
+			// Odczytanie stanu surowcow
+			for (int i = 0; i < 21; i++)
+			{
+				fscanf(slot[id], "%d", &var);
+				tResource[i]->setNumber(var);
+			}
+			// Odczytanie ilosci ludnosci
+			for (int i = 0; i < 5; i++)
+			{
+				fscanf(slot[id], "%d", &var);
+				tPeople[i]->setNumber(var);
+			}
+			// Odczytanie ilosci domow
+			for (int i = 0; i < 5; i++)
+			{
+				fscanf(slot[id], "%d", &var);
+				tHouse[i]->setNumber(var);
+			}
+			// Odczytanie ilosci budynkow publicznych
+			for (int i = 0; i < 12; i++)
+			{
+				fscanf(slot[id], "%d", &var);
+				tPublic[i]->setNumber(var);
+			}
+			// Odczytanie ilosci budynkow rolniczych
+			for (int i = 0; i < 16; i++)
+			{
+				fscanf(slot[id], "%d", &var);
+				tProcessing[i]->setNumber(var);
+			}
+			// Odczytanie ilosci budynkow przetworczych
+			for (int i = 0; i < 11; i++)
+			{
+				fscanf(slot[id], "%d", &var);
+				tProcessing[i]->setNumber(var);
+			}
 			/*
 			dane do odczytania
 			*/
-			fscanf(slot[id], "%d", &a);
+			timer.start();
 		}
 		if (gTexture != NULL)
 		{
@@ -230,10 +266,35 @@ void SButton::operation(Actions action)
 		{
 			fprintf(slot[id], "%d\n", timer.getSeconds());
 			fprintf(slot[id], "%d\n", timer.getMinutes());
-			/*
-			dane do zapisu
-			*/
-			fprintf(slot[id], "%d", tResource[0]->getNumber());
+			for (int i = 0; i < 21; i++)
+			{
+				fprintf(slot[id], "%d\n", tResource[i]->getNumber());
+			}
+			// Zapisywanie ilosci ludnosci
+			for (int i = 0; i < 5; i++)
+			{
+				fprintf(slot[id], "%d\n", tPeople[i]->getNumber());
+			}
+			// Zapisywanie ilosci domow
+			for (int i = 0; i < 5; i++)
+			{
+				fprintf(slot[id], "%d\n", tHouse[i]->getNumber());
+			}
+			// Zapisywanie ilosci budynkow publicznych
+			for (int i = 0; i < 12; i++)
+			{
+				fprintf(slot[id], "%d\n", tPublic[i]->getNumber());
+			}
+			// Zapisywanie ilosci budynkow rolniczych
+			for (int i = 0; i < 16; i++)
+			{
+				fprintf(slot[id], "%d\n", tProcessing[i]->getNumber());
+			}
+			// Zapisywanie ilosci budynkow przetworczych
+			for (int i = 0; i < 11; i++)
+			{
+				fprintf(slot[id], "%d\n", tProcessing[i]->getNumber());
+			}
 		}
 		if (gTexture != NULL)
 		{
@@ -320,7 +381,7 @@ void SButton::operation(Actions action)
 		break;
 
 	case BUILD_PUB:
-		Build_Pub(*tPublic[id], *tResource[0], *tResource[20], *tResource[18], *tResource[19]);
+		Build_Pub(*tPublic[id], tResource);
 		break;
 
 	case DESTROY_PUB:
@@ -328,7 +389,7 @@ void SButton::operation(Actions action)
 		break;
 
 	case BUILD_PROC:
-		Build_Pub(*tProcessing[id], *tResource[0], *tResource[20], *tResource[18], *tResource[19]);
+		Build_Pub(*tProcessing[id], tResource);
 		break;
 		
 	case DESTROY_PROC:
@@ -336,7 +397,7 @@ void SButton::operation(Actions action)
 		break;
 
 	case BUILD_PROD:
-		Build_Pub(*tProduction[id], *tResource[0], *tResource[20], *tResource[18], *tResource[19]);
+		Build_Pub(*tProduction[id], tResource);
 		break;
 
 	case DESTROY_PROD:
@@ -344,7 +405,7 @@ void SButton::operation(Actions action)
 		break;
 
 	case BUILD_HOUSE:
-		Build_House(*tHouse[id], *tResource[20], *tResource[18], *tResource[19]);
+		Build_House(*tHouse[id], tResource);
 		break;
 
 	case DESTROY_HOUSE:

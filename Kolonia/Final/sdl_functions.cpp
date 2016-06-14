@@ -227,7 +227,7 @@ SDL_Texture* loadTexture(std::string path)
 }
 
 
-bool Build_Pub(Public & Name, Resource & Money, Resource & Bricks, Resource & Tools, Resource & Wood)
+bool Build_Pub(Public & Name, Resource *TResource[21])
 {
 	if (Name.getStatus() == false)
 		return false;
@@ -235,7 +235,7 @@ bool Build_Pub(Public & Name, Resource & Money, Resource & Bricks, Resource & To
 	else if (usedFields + Name.getSize() > islandSize)
 		return false;
 
-	else if (Name.Build(Money, Bricks, Tools, Wood) == false)
+	else if (Name.Build(TResource) == false)
 		return false;
 	else
 	{
@@ -256,7 +256,7 @@ bool Destroy_Pub(Public & Name)
 		return false;
 }
 
-bool Build_Proc(Processing & Name, Resource & Money, Resource & Bricks, Resource & Tools, Resource & Wood)
+bool Build_Proc(Processing & Name, Resource *TResource[21])
 {
 	if (Name.getStatus() == false)
 		return false;
@@ -264,7 +264,7 @@ bool Build_Proc(Processing & Name, Resource & Money, Resource & Bricks, Resource
 	else if (usedFields + Name.getSize() > islandSize)
 		return false;
 
-	else if (Name.Build(Money, Bricks, Tools, Wood) == false)
+	else if (Name.Build(TResource) == false)
 		return false;
 	else
 	{
@@ -285,7 +285,7 @@ bool Destroy_Proc(Processing & Name)
 		return false;
 }
 
-bool Build_Prod(Production & Name, Resource & Money, Resource & Bricks, Resource & Tools, Resource & Wood)
+bool Build_Prod(Production & Name, Resource *TResource[21])
 {
 	if (Name.getStatus() == false)
 		return false;
@@ -293,7 +293,7 @@ bool Build_Prod(Production & Name, Resource & Money, Resource & Bricks, Resource
 	else if (usedFields + Name.getSize() > islandSize)
 		return false;
 
-	else if (Name.Build(Money, Bricks, Tools, Wood) == false)
+	else if (Name.Build(TResource) == false)
 		return false;
 	else
 	{
@@ -314,7 +314,7 @@ bool Destroy_Prod(Production & Name)
 		return false;
 }
 
-bool Build_House(House & Name, Resource & Bricks, Resource & Tools, Resource & Wood)
+bool Build_House(House & Name, Resource *TResource[21])
 {
 	if (Name.getStatus() == false)
 		return false;
@@ -322,7 +322,7 @@ bool Build_House(House & Name, Resource & Bricks, Resource & Tools, Resource & W
 	else if (usedFields + Name.getSize() > islandSize)
 		return false;
 
-	else if (Name.Build(Bricks, Tools, Wood) == false)
+	else if (Name.Build(tResource) == false)
 		return false;
 	else
 	{
@@ -343,18 +343,17 @@ bool Destroy_House(House & Name)
 		return false;
 }
 
-
 void Fill_Arrays()
 {
-	// House(bricksToBuild, toolsToBuild, woodToBuild, inhabitants, startPeople, buildingID0, buildingID1, buildingID2)
-	{ int tab0[1] = { -1 };
-	tHouse[0] = new House(0, 0, 3, 3, 1, -1, -1, -1, tab0, sizeof(tab0)); } 	/* Pioneers House */ { int tab1[2] = { 4, 7 };
-	tHouse[1] = new House(0, 1, 3, 7, 2, 4, 7, -1, tab1, sizeof(tab1)); }		/* Settlers House */ { int tab2[3] = { 2, 9, 11 };
-	tHouse[2] = new House(6, 2, 2, 15, 3, 2, 9, 11, tab2, sizeof(tab2)); }		/* Citizens House */ { int tab3[3] = { 0, 1, 6 };
-	tHouse[3] = new House(9, 3, 3, 25, 4, 0, 1, 6, tab3, sizeof(tab3)); }		/* Merchansts House */ { int tab4[3] = { 3, 5, 10 };
-	tHouse[4] = new House(12, 3, 3, 40, 5, 3, 5, 10, tab4, sizeof(tab4)); }		/* Aristorcats House */
-
-	// Public(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, size, peopleToBuild, peopleClass)
+  //House(bricksToBuild, toolsToBuild, woodToBuild, inhabitants, startPeople, tabBuildingId[], tabSize)
+																					{ int tab0[1] = { -1 };
+	tHouse[0] = new House(0, 0, 3, 3, 1, tab0, 1); } 	/* Pioneers House */		{ int tab1[2] = { ID_Chapel , ID_Marketplace };
+	tHouse[1] = new House(0, 1, 3, 7, 2, tab1, 2); }	/* Settlers House */		{ int tab2[3] = { ID_Fire_Department, ID_School, ID_Tavern };
+	tHouse[2] = new House(6, 2, 2, 15, 3, tab2, 3); } 	/* Citizens House */		{ int tab3[3] = { ID_Doctor, ID_Public_Bath, ID_Church };
+	tHouse[3] = new House(9, 3, 3, 25, 4, tab3, 3); }	/* Merchansts House */		{ int tab4[3] = { ID_University, ID_Cathedral, ID_Theatre };
+	tHouse[4] = new House(12, 3, 3, 40, 5, tab4, 3); }	/* Aristorcats House */
+	
+ // Public(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, size, peopleToBuild, peopleClass)
 
 	tPublic[0] = new Public(450, 9, 4, 4, 30, 4, 50, 2);			// Doctor
 	tPublic[1] = new Public(1200, 19, 6, 5, 60, 12, 210, 2);		// Public Bath	
@@ -369,7 +368,7 @@ void Fill_Arrays()
 	tPublic[10] = new Public(1200, 19, 2, 5, 80, 9, 300, 3);		// Theatre
 	tPublic[11] = new Public(250, 6, 3, 4, 15, 6, 50, 1);			// Tavern
 
-																	// Production(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, size, magazineCapacity, peopleToBuild, peopleClass, productID)
+ // Production(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, size, magazineCapacity, peopleToBuild, peopleClass, productID)
 
 	tProduction[0] = new Production(200, 6, 2, 3, 25, 10, 16, 9, 200, 2, 3);		// Cotton Plantation		
 	tProduction[1] = new Production(50, 0, 2, 0, 5, 0, 4, 10, 0, -1, 19);			// Foresters Lodge
@@ -388,28 +387,30 @@ void Fill_Arrays()
 	tProduction[14] = new Production(100, 0, 3, 5, 5, 0, 1, 4, 0, -1, 10);			// Fisters Hut
 	tProduction[15] = new Production(100, 0, 5, 5, 5, 0, 4, 8, 15, 1, 20);			// Stone Mason
 
-																					// Processing(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, magazineCapacity, peopleToBuild, peopleClass, productID, materialID, productNumber, materialNumber)
+ // Processing(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, magazineCapacity, peopleToBuild, peopleClass, productID, materialID, productNumber, materialNumber)
 
-	tProcessing[0] = new Processing(150, 0, 2, 6, 5, 0, 4, 75, 1, 10, 8, 1, 2);			// Bakery
+	tProcessing[0] = new Processing(150, 0, 2, 6, 5, 0, 4, 75, 1, 10, 8, 3, 2);			// Bakery
 	tProcessing[1] = new Processing(200, 4, 3, 1, 25, 10, 5, 120, 1, 9, 1, 1, 1);		// Ore Refenery
 	tProcessing[2] = new Processing(1500, 10, 7, 2, 45, 20, 4, 250, 3, 17, 2, 2, 1);	// Gold Smith
 	tProcessing[3] = new Processing(150, 10, 3, 4, 5, 0, 4, 30, 0, 10, 6, 1, 2);		// Butcher Shop
 	tProcessing[4] = new Processing(200, 5, 3, 2, 25, 7, 4, 40, 1, 14, 4, 1, 2);		// Rum Distillery
 	tProcessing[5] = new Processing(150, 2, 3, 6, 10, 5, 4, 200, 2, 16, 15, 1, 1);		// Clothiers
 	tProcessing[6] = new Processing(200, 5, 3, 2, 20, 10, 4, 40, 1, 11, 5, 1, 2);		// TobaccoProduction
-	tProcessing[7] = new Processing(200, 7, 4, 3, 20, 10, 4, 75, 1, 15, 3, 1, 1);		// WeavingMill
+	tProcessing[7] = new Processing(200, 7, 4, 3, 20, 10, 4, 75, 1, 15, 3, 3, 2);		// WeavingMill
 	tProcessing[8] = new Processing(200, 0, 3, 6, 10, 5, 4, 0, -1, 15, 3, 1, 2);		// WeavingHut
 	tProcessing[9] = new Processing(150, 5, 3, 2, 25, 10, 4, 100, 1, 18, 9, 2, 1);		// ToolSmithy
 	tProcessing[10] = new Processing(100, 0, 3, 6, 5, 0, 6, 75, 1, 10, 7, 1, 2);		// WindMill
 
-																						// People(tax)
-	tPeople[0] = new People(1);		// Pioneers
-	tPeople[1] = new People(1);		// Settlers
-	tPeople[2] = new People(1);		// Citizens
-	tPeople[3] = new People(2);		// Merchants
-	tPeople[4] = new People(2);		// Aristocrats
+ // People(tax)
+																{ int tab0[1] = { ID_Money };
+	tPeople[0] = new People(1, tab0, 1); }	/* Pioneers */		{ int tab1[3] = { ID_Money, ID_Cloth, ID_Sugar };
+	tPeople[1] = new People(1, tab1, 3); }	/* Settlers	*/		{ int tab2[5] = { ID_Money, ID_Cloth, ID_Sugar, ID_Liquor, ID_Spices };
+	tPeople[2] = new People(1, tab2, 5); }	/* Citizens	*/		{ int tab3[7] = { ID_Money, ID_Cloth, ID_Sugar, ID_Liquor, ID_Spices, ID_Cocoa, ID_Tobacco_Products };
+	tPeople[3] = new People(2, tab3, 7); }	/* Merchants */		{ int tab4[9] = { ID_Money, ID_Cloth, ID_Sugar, ID_Liquor, ID_Spices, ID_Cocoa, ID_Tobacco_Products, ID_Jewerly, ID_Clothes };
+	tPeople[4] = new People(2, tab4, 9); }	/* Aristocrats */
 
-									// Resource(price)
+ // Resource(price)
+
 	tResource[0] = new Resource(1);			// Money
 	tResource[1] = new Resource(60);		// Iron Ore
 	tResource[2] = new Resource(465);		// Gold
@@ -434,76 +435,68 @@ void Fill_Arrays()
 
 }
 
-Uint32 Update_All(Uint32 interval, void *param)
+Uint32 Update_Prod(Uint32 interval, void* param)
 {
 
-	
-	// DLA BUDYNKOW TYPU PRODUCTION
-	for (int i = 1; i < 21; ++i)
-		totalResources += tResource[i]->getNumber();				// sumowanie liczby surowcow ktore posiada gracz
-
-	for (int i = 0; i < 15; ++i)
+	int i = reinterpret_cast<int>(param);
+	if (tProduction[i]->getNumber() > 0)
 	{
-		if (tProduction[i]->getNumber() > maxBuildingNumber)		// wyszukiwanie zmiennej maxBuldingNumber
-			maxBuildingNumber = tProduction[i]->getNumber();
-
-		totalMagazinesCapacity += tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber();		// sumowanie calkowitej pojemnosci magazynow budynkow
-	}
-
-	for (int i = 0; i < 11; ++i)
-		totalMagazinesCapacity += tProcessing[i]->getMagazineCapacity() * tProcessing[i]->getNumber();		// sumowanie calkowitej pojemnosci magazynow budynkow cd.
-
-																											// ZAPELNIANIE MAGAZYNU OGOLNEGO (w drugiej kolejnosci)
-
-	usedMagazine = totalResources - totalMagazinesCapacity;				// wykorzystanie magazynu glownego to dodatni wynik roznicy wszystkich surowcow od calkowitej pojemnosci wszystkich budynkow
-	if (usedMagazine < 0) usedMagazine = 0;								// wynik ujemny tej roznicy oznacza, ze magazyn w ogole nie jest wykorzystywany
-
-	for (int j = 1; j <= maxBuildingNumber; ++j)																								// dodawaj po jednej jednostce surowca tyle razy ile wynosi najwieksza liczba posiadanego budynku
-		for (int i = 0; i < 15; ++i)
-			if (tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber() <= tResource[tProduction[i]->getProductID()]->getNumber())	// jezeli pojemnosc magazynu * liczba budynkow <= liczby posiadanych surowcow 
-				if (tProduction[i]->getNumber() != 0)																							// oraz liczba budynkow jest != 0
-					if (usedMagazine < WareHouse.getmagazineCapacity())																			// oraz dostepne jest jeszcze miejsce w magazynie glownym
-						if (tProduction[i]->getNumber() >= j)																					// oraz mamy liczbe j budynkow aby moc dodaj j-ty surowiec
-						{
-							tResource[tProduction[i]->getProductID()]->increase(1);																// dodaj jedna jednostke surowiec
-							++usedMagazine;																										// zwieksz zajetosc magazynu
-						}
-
-	// ZAPELNIANIE MAGAZYNOW WEWNETRZNYCH BUDYNKOW DANEGO TYPU (w pierwszej kolejnosci)
-
-	for (int i = 0; i < 15; ++i)
-		if (tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber() > tResource[tProduction[i]->getProductID()]->getNumber())		// jezeli pojemnosc magazynu * liczba budynkow > liczby posiadanych surowcow to
+		if (tResource[tProduction[i]->getProductID()]->getNumber() + tProduction[i]->getNumber()*tProduction[i]->getMagazineCapacity() < WareHouse.getmagazineCapacity() + tProduction[i]->getNumber()*tProduction[i]->getMagazineCapacity())
 		{
-			tResource[tProduction[i]->getProductID()]->increase(tProduction[i]->getNumber());													// zwieksz liczbe surowca o liczbe posiadanych budynkow (kazdy budynek Production zwieksza o 1 jednostke surowca)
-
-			if (tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber() < tResource[tProduction[i]->getProductID()]->getNumber())	// jezeli po zwiekszeniu pojemnosc magazynu * liczba budynkow < liczby posiadanych surowcow to
+			if (tProduction[i]->getNumber() < 5)
 			{
-				int excess = tResource[tProduction[i]->getProductID()]->getNumber() - tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber();		// dodany nadmiar surowcow, ktory nie miesci sie w calkowitej pojemnosci magazynow danego typu budynku
-				tResource[tProduction[i]->getProductID()]->decrease(excess);		// TU JESZCZE DOKONCZ														// poziom surowcow zmniejsz do max dostepnej pojemnosci
+				tResource[tProduction[i]->getProductID()]->increase(tProduction[i]->getNumber() );
+
+				return 5000;
+			}
+			else
+			{
+				tResource[tProduction[i]->getProductID()]->increase(tProduction[i]->getNumber() );
+				return 3000;
 			}
 		}
+		else
+			tResource[tProduction[i]->getProductID()]->setNumber(WareHouse.getmagazineCapacity() + tProduction[i]->getNumber()*tProduction[i]->getMagazineCapacity());
+		return 3000;
+	}
+	return 2000;
+}
 
-	// DLA BUDYNKOW TYPU PROCESSING
+Uint32 Update_Proc(Uint32 interval, void* param)
+{
+	int i = reinterpret_cast<int>(param);
 
-	for (int i = 0; i < 11; ++i)
-		for (int j = 0; j < tProcessing[i]->getNumber(); ++j)
-			if (tProcessing[i]->getMagazineCapacity() * tProcessing[i]->getNumber() > tResource[tProcessing[i]->getMaterialID()]->getNumber())	// jezeli pojemnosc magazynu * liczba budynkow > liczby posiadanych surowcow 
-				if (tResource[tProcessing[i]->getMaterialID()]->getNumber() >= tProcessing[i]->getMaterialNumber())								// oraz posiadamy przynamniej tyle surowca ile potrzeba do przetwarzania na inny to
+	if (tProcessing[i]->getNumber() > 0)
+	{
+		if (tResource[tProcessing[i]->getMaterialID()]->getNumber() > tProcessing[i]->getMaterialNumber())
+		{
+			if (tResource[tProcessing[i]->getProductID()]->getNumber() + tProcessing[i]->getNumber()*tProcessing[i]->getNumber() < WareHouse.getmagazineCapacity() + tProcessing[i]->getNumber()*tProcessing[i]->getMagazineCapacity())
+			{
+				if (tProcessing[i]->getNumber() < 5)
 				{
-					tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getProductNumber());									// dodaj liczbe surowca, ktory zostal wyprodukowany
-					tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getMaterialNumber());									// zmniejsz liczbe liczbe surowca, ktory zostal przetworzony
+					tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getNumber()*tProcessing[i]->getProductNumber());
+					tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getNumber()*tProcessing[i]->getMaterialNumber());
+					return 7000;
 				}
+				else
+				{
+					tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getNumber()*tProcessing[i]->getProductNumber());
+					tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getNumber()*tProcessing[i]->getMaterialNumber());
+					return 5000;
+				}
+			}
+			else
+				tResource[tProcessing[i]->getProductID()]->setNumber(WareHouse.getmagazineCapacity() + tProcessing[i]->getNumber()*tProcessing[i]->getMagazineCapacity());
+			return 3000;
+		}
+		else
+			return 2000;
+	}
+	return 2000;
+}
 
-	//for (int i = 0; i < 11; ++i)
-	//	for (int j = 0; j < tProcessing[i]->getNumber(); ++j)
-	//		if (totalResources < WareHouse.getmagazineCapacity())
-	//			if (tResource[tProcessing[i]->getMaterialID()]->getNumber() >= tProcessing[i]->getMaterialNumber())
-	//			{
-	//				tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getProductNumber());
-	//				tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getMaterialNumber());
-	//				totalResources += (tProcessing[i]->getProductNumber() - tProcessing[i]->getMaterialNumber());
-	//			}
-
+Uint32 Update_Tax(Uint32 interval, void *param) 
+{
 	// AKTUALIZACJA LICZBY MIESZKANCOW
 
 	for (int i = 0; i < 5; ++i)
@@ -533,6 +526,11 @@ Uint32 Update_All(Uint32 interval, void *param)
 		tResource[0]->decrease(tProcessing[i]->getMaintenanceActiveCost() * tProcessing[i]->getActiveNumber()
 			+ tProcessing[i]->getMaintenancePassiveCost() * (tProcessing[i]->getNumber() - tProcessing[i]->getActiveNumber()));
 
+	return 1000;
+}
+
+Uint32 Update_Req(Uint32 interval, void* param)
+{
 	// SPRAWDZENIE WARUNKU DOSTEPNOSCI BUDYNKOW:
 	// WYMAGANIA POSIADANIA KONKRETNEJ KLASY LUDNOSCI
 
@@ -541,7 +539,6 @@ Uint32 Update_All(Uint32 interval, void *param)
 			tPublic[i]->checkStatus(tPeople[tPublic[i]->getClass()]->getNumber());
 
 	for (int i = 0; i < 16; ++i)
-
 		if (tProduction[i]->getClass() > -1)
 			tProduction[i]->checkStatus(tPeople[tProduction[i]->getClass()]->getNumber());
 
@@ -554,47 +551,12 @@ Uint32 Update_All(Uint32 interval, void *param)
 
 	// WYMAGANIA POSIADANIA KONRETNYCH BUDYNKOW 
 
-	for (int i = 1; i < 5; ++i)
-		for (int j = 0; j < 3; ++j)
-			if (tHouse[i]->getBuildingID(j) > -1)									// dla -1 warunek nie wystepuje
-			{
-				tHouse[i]->checkStatus(tPublic[tHouse[i]->getBuildingID(j)]->getNumber());
-				if (false == tHouse[i]->getStatus())								// wystarczy, ze nie posiadamy jednego budynku i budowa jest niedostepna
-					break;
-			}
-
-
-	return 3000;
-}
-
-
-Uint32 Update_Prod(Uint32 interval, void* param)
-{
-	
-	int i = reinterpret_cast<int>(param);
-		totalResources += tResource[i]->getNumber();				// sumowanie liczby surowcow ktore posiada gracz
-		if (tProduction[i]->getNumber() > maxBuildingNumber)		// wyszukiwanie zmiennej maxBuldingNumber
-			maxBuildingNumber = tProduction[i]->getNumber();
-		totalMagazinesCapacity += tProduction[i]->getMagazineCapacity() * tProduction[i]->getNumber();		// sumowanie calkowitej pojemnosci magazynow budynkow
-	
-		if (tProduction[i]->getActiveNumber() < 5)
-			return 5000;
-		else 
-			return 3000;
-}
-
-Uint32 Update_Proc(Uint32 interval, void* param)
-{
-	int i = reinterpret_cast<int>(param);
-	if (tProcessing[i]->getMagazineCapacity() * tProcessing[i]->getNumber() > tResource[tProcessing[i]->getMaterialID()]->getNumber())	// jezeli pojemnosc magazynu * liczba budynkow > liczby posiadanych surowcow 
-				if (tResource[tProcessing[i]->getMaterialID()]->getNumber() >= tProcessing[i]->getMaterialNumber())								// oraz posiadamy przynamniej tyle surowca ile potrzeba do przetwarzania na inny to
-				{
-					tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getProductNumber());									// dodaj liczbe surowca, ktory zostal wyprodukowany
-					tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getMaterialNumber());									// zmniejsz liczbe liczbe surowca, ktory zostal przetworzony
-				}
-
-	if (tProcessing[i]->getActiveNumber() < 5)
-		return 7000;
-	else
-		return 3000;
+	for (int i = 1; i < 5; ++i)													// tHouse[0] zawsze dostepny
+		for (int j = 0; j < tHouse[i]->getTabIdSize(); ++j)
+		{
+			tHouse[i]->checkStatus(tPublic[tHouse[i]->getBuildingId(j)]->getNumber());
+			if (false == tHouse[i]->getStatus())								// wystarczy, ze nie posiadamy jednego budynku i budowa jest niedostepna
+				break;
+		}
+	return 500;
 }

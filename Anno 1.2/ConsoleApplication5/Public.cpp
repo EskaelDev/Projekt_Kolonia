@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Public.h"
 #include "People.h"
-
+#include "GlobalVariables.h"
 using namespace std;
 
 Public::Public() {}
@@ -21,17 +21,17 @@ Public::Public(int _moneyToBuild, int _bricksToBuild, int _toolsToBuild, int _wo
 	status = true;
 }
 
-bool Public::Build(Resource & _Money, Resource & _Bricks, Resource & _Tools, Resource & _Wood)
+bool Public::Build(Resource* TResource[21])
 {
-	if (moneyToBuild > _Money.number || bricksToBuild > _Bricks.number || toolsToBuild > _Tools.number || woodToBuild > _Wood.number)
+	if (moneyToBuild > TResource[Money]->getNumber() || bricksToBuild > TResource[Bricks]->getNumber() || toolsToBuild > TResource[Tools]->getNumber() || woodToBuild > TResource[Wood]->getNumber())
 		return false;
 	else
 	{
 		++number;
-		_Money.number -= moneyToBuild;
-		_Bricks.number -= bricksToBuild;
-		_Tools.number -= toolsToBuild;
-		_Wood.number -= woodToBuild;
+		TResource[Money]->decrease(moneyToBuild);
+		TResource[Bricks]->decrease(bricksToBuild);
+		TResource[Tools]->decrease(toolsToBuild);
+		TResource[Wood]->decrease(woodToBuild);
 		return true;
 	}
 }

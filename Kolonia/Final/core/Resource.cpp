@@ -44,6 +44,11 @@ void Resource::decrease(int _number)
 	number -= _number;
 }
 
+void Resource::setNumber(int _number)
+{
+	number = _number;
+}
+
 int Resource::getNumber() const
 {
 	return number;

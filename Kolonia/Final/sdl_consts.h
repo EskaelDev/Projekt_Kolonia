@@ -120,4 +120,39 @@ const int ID_Gold_Mine = 13;
 const int ID_Fisters_Hut = 14;
 const int ID_Stone_Mason = 15;
 
+const int ID_Money = 0;
+const int ID_Iron_Ore = 1;
+const int ID_Gold = 2;
+const int ID_Wool = 3;
+const int ID_Sugar = 4;
+const int ID_Tobacco = 5;
+const int ID_Cattle = 6;
+const int ID_Grain = 7;
+const int ID_Flour = 8;
+const int ID_Iron = 9;
+const int ID_Food = 10;
+const int ID_Tobacco_Products = 11;
+const int ID_Spices = 12;
+const int ID_Cocoa = 13;
+const int ID_Liquor = 14;
+const int ID_Cloth = 15;
+const int ID_Clothes = 16;
+const int ID_Jewerly = 17;
+const int ID_Tools = 18;
+const int ID_Wood = 19;
+const int ID_Bricks = 20;
+
+const int ID_Doctor = 0;
+const int ID_Public_Bath = 1;
+const int ID_Fire_Department = 2;
+const int ID_University = 3;
+const int ID_Chapel = 4;
+const int ID_Cathedral = 5;
+const int ID_Church = 6;
+const int ID_Marketplace = 7;
+const int ID_Palace = 8;
+const int ID_School = 9;
+const int ID_Theatre = 10;
+const int ID_Tavern = 11;
+
 #endif

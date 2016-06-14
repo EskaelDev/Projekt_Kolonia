@@ -17,6 +17,7 @@ public:
 	bool sell(Resource &);	// funkcja sprzedaje towar, zwraca true w przypadku gdy posiadamy dany towar, false gdy nie
 	void increase(int);		// zwieksza liczbe surowca o podana wartosc
 	void decrease(int);		// zmniejsza liczbe surowca o podana wartosc
+	void setNumber(int);
 	int getNumber() const;
 	void test();
 };

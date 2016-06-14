@@ -24,9 +24,9 @@ Production::Production(int _moneyToBuild, int _bricksToBuild, int _toolsToBuild,
 	productID = _productID;
 }
 
-bool Production::Build(Resource & _Money, Resource & _Bricks, Resource & _Tools, Resource & _Wood)
+bool Production::Build(Resource *TResource[21])
 {
-	if (true == Public::Build(_Money, _Bricks, _Tools, _Wood))
+	if (true == Public::Build(TResource))
 	{
 		++activeNumber;
 		return true;

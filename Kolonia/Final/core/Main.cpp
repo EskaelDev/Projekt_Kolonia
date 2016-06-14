@@ -20,11 +20,11 @@ using namespace std;
 
 // FUNKCJE---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-void Build(Public &, Resource* [21]);		// Funkcja do budowy budynkow.
-void Destroy(Public &);						// Funkcja do niszczenia budynkow.
-void menuBuilding();						// Funkcja wyswietla menu: spis budynkow
-void menuResource();						// Funkcja wyswietla menu: spis surowcow
-void menuBuildingCost();					// Funkcja wyswietla menu: spis budynkow generujacych koszty
+void Build(Public &, Resource* [21]);									// Funkcja do budowy budynkow.
+void Destroy(Public &);													// Funkcja do niszczenia budynkow.
+void menuBuilding();													// Funkcja wyswietla menu: spis budynkow
+void menuResource();													// Funkcja wyswietla menu: spis surowcow
+void menuBuildingCost();												// Funkcja wyswietla menu: spis budynkow generujacych koszty
 
 // STALE I ZMIENNE-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -214,7 +214,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		// POBOR PODATKU OD MIESZKANCOW
 
 		for (int i = 0; i < 5; ++i)
-			tResource[0]->increase(tPeople[i]->getNumber());
+			tResource[0]->increase(tPeople[i]->getNumber()*tPeople[i]->getTax());
 
 		// KOSZTY UTRZYMANIA POSIADANYCH BUDYNKOW
 

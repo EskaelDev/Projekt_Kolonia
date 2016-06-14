@@ -111,4 +111,6 @@ extern Uint32 Update_WeavingMill;
 extern Uint32 Update_WeavingHut;
 extern Uint32 Update_ToolSmithy;
 extern Uint32 Update_WindMill;
+extern Uint32 Update_Money;
+extern Uint32 Update_lvlStat;
 #endif

@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Magazine.h"
 #include "People.h"
-
+#include "GlobalVariables.h"
 using namespace std;
 
 Magazine::Magazine()
@@ -20,19 +20,19 @@ Magazine::Magazine()
 	magazineCapacity = 30;
 }
 
-bool Magazine::Build(Resource & _Money, Resource & _Bricks, Resource & _Tools, Resource & _Wood)
+bool Magazine::Build(Resource* TResource[21])
 {
 	if (level < 4)
 	{
-		if (moneyToBuild > _Money.number || bricksToBuild > _Bricks.number || toolsToBuild > _Tools.number || woodToBuild > _Wood.number)
+		if (moneyToBuild > TResource[Money]->getNumber() || bricksToBuild > TResource[Bricks]->getNumber() || toolsToBuild > TResource[Tools]->getNumber() || woodToBuild > TResource[Wood]->getNumber())
 			return false;
 		
 		else
 		{
-			_Money.number -= moneyToBuild;
-			_Bricks.number -= bricksToBuild;
-			_Tools.number -= toolsToBuild;
-			_Wood.number -= woodToBuild;
+			TResource[Money]->decrease(moneyToBuild);
+			TResource[Bricks]->decrease(bricksToBuild);
+			TResource[Tools]->decrease(toolsToBuild);
+			TResource[Wood]->decrease(woodToBuild);
 
 			if (2 == level)
 			{

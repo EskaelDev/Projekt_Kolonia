@@ -29,31 +29,34 @@ SDL_Texture* loadTexture(std::string path);
 extern STexture gTextTexture;
 
 // Buowanie budynków Publiczych
-bool Build_Pub(Public & Name, Resource & Money, Resource & Bricks, Resource & Tools, Resource & Wood);
+bool Build_Pub(Public & Name,Resource *TResource[21]);
 // Burzenie budynkow Publicznych
 bool Destroy_Pub(Public & Name);
 
 // Buowanie budynków Procesing
-bool Build_Proc(Processing & Name, Resource & Money, Resource & Bricks, Resource & Tools, Resource & Wood);
+bool Build_Proc(Processing & Name,Resource *TResource[21]);
 // Burzenie budynkow Procesing
 bool Destroy_Proc(Processing & Name);
 
 // Buowanie budynków Production
-bool Build_Prod(Production & Name, Resource & Money, Resource & Bricks, Resource & Tools, Resource & Wood);
+bool Build_Prod(Production & Name,Resource *TResource[21]);
 // Burzenie budynkow Production
 bool Destroy_ProD(Production & Name);
 
 // Buowanie domów
-bool Build_House(House & Name, Resource & Bricks, Resource & Tools, Resource & Wood);
+bool Build_House(House & Name, Resource *TResource[21]);
 // Burzenie domów
 bool Destroy_House(House & Name);
 
 
 void Fill_Arrays();
 
-Uint32 Update_All(Uint32 interval, void *param);
 // Update budynkow
 Uint32 Update_Prod(Uint32 interval, void *param);
 Uint32 Update_Proc(Uint32 interval, void *param);
+
+// Update reszty
+Uint32 Update_Tax(Uint32 interval, void *param);
+Uint32 Update_Req(Uint32 interval, void *param);
 
 #endif

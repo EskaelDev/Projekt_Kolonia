@@ -28,7 +28,3 @@ int Industrial::getMaintenanceActiveCost() const
 	return maintenanceActiveCost;
 }
 
-bool Industrial::getStatus() const
-{
-	return status;
-}

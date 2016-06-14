@@ -13,7 +13,7 @@ protected:
 
 public:
 	Magazine();
-	bool Build(Resource &, Resource &, Resource &, Resource &);
+	bool Build(Resource* [21]) override;
 	int getmagazineCapacity() const;
 	int getLevel() const;
 	void test() const;

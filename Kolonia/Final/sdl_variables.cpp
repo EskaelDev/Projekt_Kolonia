@@ -40,3 +40,9 @@ int maxBuildingNumber = 0;					// okresla jakiego typu budynek posiada gracz w n
 int totalMagazinesCapacity = 0;				// calkowita pojemnosc magazynow budynkow
 int usedMagazine = 0;						// wykorzystane miejsce w magazynie ogolnym
 int totalResources = 0;						// suma wszystkich posiadanych surowcow
+
+int taxes = 0;			// Podatki
+int costs = 0;			// Koszta
+int buy_income = 0;		// dochód ze sprzedarzy
+int sale_costs = 0;		// koszta kupna
+int balance = 0;		// bilans

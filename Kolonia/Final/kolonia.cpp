@@ -627,13 +627,13 @@ int main(int argc, char* args[])
 
 
 
-
+					
 					// Skarbiec - wyswietlanie wartosci
 					// Podatki
-					gTextTexture.loadFromRenderedText(_itoa(0, Money_char_buffor, 10), textC, gFont);
+					gTextTexture.loadFromRenderedText(_itoa(taxes, Money_char_buffor, 10), textC, gFont);
 					gTextTexture.render(155 - gTextTexture.getWidth(), 38);
 					// Koszty
-					gTextTexture.loadFromRenderedText("0", textC, gFont);
+					gTextTexture.loadFromRenderedText(_itoa(costs, Money_char_buffor, 10), textC, gFont);
 					gTextTexture.render(155 - gTextTexture.getWidth(), 61);
 					// Sprzedaz
 					gTextTexture.loadFromRenderedText("0", textC, gFont);
@@ -642,7 +642,7 @@ int main(int argc, char* args[])
 					gTextTexture.loadFromRenderedText("0", textC, gFont);
 					gTextTexture.render(155 - gTextTexture.getWidth(), 113);
 					// Bilans
-					gTextTexture.loadFromRenderedText("0", textC, gFont);
+					gTextTexture.loadFromRenderedText(_itoa(balance, Money_char_buffor, 10), textC, gFont);
 					gTextTexture.render(155 - gTextTexture.getWidth(), 139);
 					// Srodki
 					gTextTexture.loadFromRenderedText(_itoa(tResource[0]->getNumber(), Money_char_buffor, 10), textC, gFont);
@@ -1143,6 +1143,7 @@ int main(int argc, char* args[])
 							}
 
 						}
+						// Wyswietlanie ilosci budynkow produkcyjnych
 						gTextTexture.loadFromRenderedText(_itoa(tProduction[1]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_1, T_W_1);
 						gTextTexture.loadFromRenderedText(_itoa(tProduction[14]->getNumber(), People_char_buffor, 10), textC, gFont_12);

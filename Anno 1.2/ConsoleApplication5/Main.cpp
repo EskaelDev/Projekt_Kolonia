@@ -20,11 +20,11 @@ using namespace std;
 
 // FUNKCJE---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-void Build(Public &, Resource* [21]);									// Funkcja do budowy budynkow.
-void Destroy(Public &);													// Funkcja do niszczenia budynkow.
-void menuBuilding();													// Funkcja wyswietla menu: spis budynkow
-void menuResource();													// Funkcja wyswietla menu: spis surowcow
-void menuBuildingCost();												// Funkcja wyswietla menu: spis budynkow generujacych koszty
+void Build(Public &, Resource* [21]);		// Funkcja do budowy budynkow.
+void Destroy(Public &);						// Funkcja do niszczenia budynkow.
+void menuBuilding();						// Funkcja wyswietla menu: spis budynkow
+void menuResource();						// Funkcja wyswietla menu: spis surowcow
+void menuBuildingCost();					// Funkcja wyswietla menu: spis budynkow generujacych koszty
 
 // STALE I ZMIENNE-------------------------------------------------------------------------------------------------------------------------------------------------------------
 

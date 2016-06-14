@@ -345,15 +345,15 @@ bool Destroy_House(House & Name)
 
 void Fill_Arrays()
 {
-	// House(bricksToBuild, toolsToBuild, woodToBuild, inhabitants, startPeople, buildingID0, buildingID1, buildingID2)
+  //House(bricksToBuild, toolsToBuild, woodToBuild, inhabitants, startPeople, tabBuildingId[], tabSize)
 																					{ int tab0[1] = { -1 };
-	tHouse[0] = new House(0, 0, 3, 3, 1, tab0, 1); } 	/* Pioneers House */		{ int tab1[2] = { 4, 7 };
-	tHouse[1] = new House(0, 1, 3, 7, 2, tab1, 2); }		/* Settlers House */	{ int tab2[3] = { 2, 9, 11 };
-	tHouse[2] = new House(6, 2, 2, 15, 3, tab2, 3); } 	/* Citizens House */		{ int tab3[3] = { 0, 1, 6 };
-	tHouse[3] = new House(9, 3, 3, 25, 4, tab3, 3); }	/* Merchansts House */		{ int tab4[3] = { 3, 5, 10 };
+	tHouse[0] = new House(0, 0, 3, 3, 1, tab0, 1); } 	/* Pioneers House */		{ int tab1[2] = { ID_Chapel , ID_Marketplace };
+	tHouse[1] = new House(0, 1, 3, 7, 2, tab1, 2); }	/* Settlers House */		{ int tab2[3] = { ID_Fire_Department, ID_School, ID_Tavern };
+	tHouse[2] = new House(6, 2, 2, 15, 3, tab2, 3); } 	/* Citizens House */		{ int tab3[3] = { ID_Doctor, ID_Public_Bath, ID_Church };
+	tHouse[3] = new House(9, 3, 3, 25, 4, tab3, 3); }	/* Merchansts House */		{ int tab4[3] = { ID_University, ID_Cathedral, ID_Theatre };
 	tHouse[4] = new House(12, 3, 3, 40, 5, tab4, 3); }	/* Aristorcats House */
-
-	// Public(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, size, peopleToBuild, peopleClass)
+	
+ // Public(goldToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, size, peopleToBuild, peopleClass)
 
 	tPublic[0] = new Public(450, 9, 4, 4, 30, 4, 50, 2);			// Doctor
 	tPublic[1] = new Public(1200, 19, 6, 5, 60, 12, 210, 2);		// Public Bath	
@@ -368,7 +368,7 @@ void Fill_Arrays()
 	tPublic[10] = new Public(1200, 19, 2, 5, 80, 9, 300, 3);		// Theatre
 	tPublic[11] = new Public(250, 6, 3, 4, 15, 6, 50, 1);			// Tavern
 
-																	// Production(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, size, magazineCapacity, peopleToBuild, peopleClass, productID)
+ // Production(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, size, magazineCapacity, peopleToBuild, peopleClass, productID)
 
 	tProduction[0] = new Production(200, 6, 2, 3, 25, 10, 16, 9, 200, 2, 3);		// Cotton Plantation		
 	tProduction[1] = new Production(50, 0, 2, 0, 5, 0, 4, 10, 0, -1, 19);			// Foresters Lodge
@@ -387,7 +387,7 @@ void Fill_Arrays()
 	tProduction[14] = new Production(100, 0, 3, 5, 5, 0, 1, 4, 0, -1, 10);			// Fisters Hut
 	tProduction[15] = new Production(100, 0, 5, 5, 5, 0, 4, 8, 15, 1, 20);			// Stone Mason
 
-																					// Processing(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, magazineCapacity, peopleToBuild, peopleClass, productID, materialID, productNumber, materialNumber)
+ // Processing(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, magazineCapacity, peopleToBuild, peopleClass, productID, materialID, productNumber, materialNumber)
 
 	tProcessing[0] = new Processing(150, 0, 2, 6, 5, 0, 4, 75, 1, 10, 8, 3, 2);			// Bakery
 	tProcessing[1] = new Processing(200, 4, 3, 1, 25, 10, 5, 120, 1, 9, 1, 1, 1);		// Ore Refenery
@@ -401,14 +401,16 @@ void Fill_Arrays()
 	tProcessing[9] = new Processing(150, 5, 3, 2, 25, 10, 4, 100, 1, 18, 9, 2, 1);		// ToolSmithy
 	tProcessing[10] = new Processing(100, 0, 3, 6, 5, 0, 6, 75, 1, 10, 7, 1, 2);		// WindMill
 
-																						// People(tax)
-	tPeople[0] = new People(1);		// Pioneers
-	tPeople[1] = new People(1);		// Settlers
-	tPeople[2] = new People(1);		// Citizens
-	tPeople[3] = new People(2);		// Merchants
-	tPeople[4] = new People(2);		// Aristocrats
+ // People(tax)
+																{ int tab0[1] = { ID_Money };
+	tPeople[0] = new People(1, tab0, 1); }	/* Pioneers */		{ int tab1[3] = { ID_Money, ID_Cloth, ID_Sugar };
+	tPeople[1] = new People(1, tab1, 3); }	/* Settlers	*/		{ int tab2[5] = { ID_Money, ID_Cloth, ID_Sugar, ID_Liquor, ID_Spices };
+	tPeople[2] = new People(1, tab2, 5); }	/* Citizens	*/		{ int tab3[7] = { ID_Money, ID_Cloth, ID_Sugar, ID_Liquor, ID_Spices, ID_Cocoa, ID_Tobacco_Products };
+	tPeople[3] = new People(2, tab3, 7); }	/* Merchants */		{ int tab4[9] = { ID_Money, ID_Cloth, ID_Sugar, ID_Liquor, ID_Spices, ID_Cocoa, ID_Tobacco_Products, ID_Jewerly, ID_Clothes };
+	tPeople[4] = new People(2, tab4, 9); }	/* Aristocrats */
 
-									// Resource(price)
+ // Resource(price)
+
 	tResource[0] = new Resource(1);			// Money
 	tResource[1] = new Resource(60);		// Iron Ore
 	tResource[2] = new Resource(465);		// Gold
@@ -432,7 +434,6 @@ void Fill_Arrays()
 	tResource[20] = new Resource(30);		// Bricks
 
 }
-
 
 Uint32 Update_Prod(Uint32 interval, void* param)
 {
@@ -550,7 +551,7 @@ Uint32 Update_Req(Uint32 interval, void* param)
 
 	// WYMAGANIA POSIADANIA KONRETNYCH BUDYNKOW 
 
-	for (int i = 1; i < 5; ++i)														// tHouse[0] zawsze dostepny
+	for (int i = 1; i < 5; ++i)													// tHouse[0] zawsze dostepny
 		for (int j = 0; j < tHouse[i]->getTabIdSize(); ++j)
 		{
 			tHouse[i]->checkStatus(tPublic[tHouse[i]->getBuildingId(j)]->getNumber());

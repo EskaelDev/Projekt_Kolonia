@@ -6,8 +6,8 @@ const int SettlersHouse = 1;
 const int CitizensHouse = 2;
 const int MerchantsHouse = 3;
 const int AristocratsHouse = 4;
-const int Doctor = 0;
 
+const int Doctor = 0;
 const int PublicBath = 1;
 const int FireDepartment = 2;
 const int University = 3;

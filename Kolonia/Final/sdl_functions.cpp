@@ -557,7 +557,6 @@ Uint32 Update_Req(Uint32 interval, void* param)
 {
 	// SPRAWDZENIE WARUNKU DOSTEPNOSCI BUDYNKOW:
 	// WYMAGANIA POSIADANIA KONKRETNEJ KLASY LUDNOSCI
-
 	for (int i = 0; i < 12; ++i)
 		if (tPublic[i]->getClass() > -1)
 			tPublic[i]->checkStatus(tPeople[tPublic[i]->getClass()]->getNumber());

@@ -983,7 +983,23 @@ int main(int argc, char* args[])
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
 
-						for (int i = 0; i < 12; i++)
+						if (tProduction[15]->getStatus())
+						{
+							Processing_build_AV[11]->render();
+							Processing_build_AV[11]->handleEvent(&e);
+
+							Processing_destroy_AV[11]->render();
+							Processing_destroy_AV[11]->handleEvent(&e);
+						}
+						else
+						{
+							Processing_build_NAV[11]->render();
+							Processing_build_NAV[11]->handleEvent(&e);
+
+							Processing_destroy_NAV[11]->render();
+							Processing_destroy_NAV[11]->handleEvent(&e);
+						}
+						for (int i = 0; i < 11; i++)
 						{
 							if (tProcessing[i]->getStatus())
 							{

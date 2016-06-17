@@ -25,11 +25,6 @@ Uint32 sdl_timer;
 int main(int argc, char* args[])
 {
 	Fill_Arrays();
-	tResource[0]->increase(5000);
-	tResource[18]->increase(200);
-	tResource[19]->increase(200);
-	tResource[20]->increase(200);
-
 	// Wlaczenie SDL i stworzenie okna
 	if (!init())
 		cout << "Blad inicjalizacji!" << endl;
@@ -60,7 +55,6 @@ int main(int argc, char* args[])
 
 			gFont = TTF_OpenFont("fonts/times.ttf", 19);
 			gFont_12 = TTF_OpenFont("fonts/times.ttf", 12);
-
 
 			// Przyciski menu
 			// przycisk(akcja, szerokosc, wysokosc, poz_x, poz_y, nazwa_pliku)	
@@ -402,9 +396,6 @@ int main(int argc, char* args[])
 			gWarehouse_rect_centre.h = gWarehouse_rect_centre_h;
 			gWarehouse_rect_centre.w = gWarehouse_rect_centre_w;
 
-
-
-
 			// Timery odwierzajace stan surowcow
 			Update_CottonPlantation = SDL_AddTimer(3000, Update_Prod, (int*)ID_Cotton_Plantation);
 			Update_ForestersLodge = SDL_AddTimer(3000, Update_Prod, (int*)ID_Foresters_Lodge);
@@ -435,11 +426,12 @@ int main(int argc, char* args[])
 			Update_WindMill = SDL_AddTimer(3000, Update_Proc, (int*)ID_WindMill);
 			Update_Money = SDL_AddTimer(1000, Update_Tax, NULL);
 			Update_lvlStat = SDL_AddTimer(500, Update_Req, NULL);
+			Update_People_LVL = SDL_AddTimer(3000, Update_PeopleLVL, NULL);
+			Update_Resources_Outgo = SDL_AddTimer(4000, Update_ResourcesOutgo, NULL);
+
 			// Glowna petla gry
 			while (!quit)
 			{
-
-
 				// Handle events on queue
 				while (SDL_PollEvent(&e) != 0)
 				{
@@ -536,11 +528,9 @@ int main(int argc, char* args[])
 				SDL_Rect fillRect20 = { 266, 507, 56 * tResource[13]->getNumber() / (WareHouse.getmagazineCapacity() +
 					tProduction[ID_Cocoa_Plantation]->getActiveNumber()*tProduction[ID_Cocoa_Plantation]->getMagazineCapacity()), 5 };	// 13 Cocoa
 
-
 				// Czyszczenie ekranu
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(gRenderer);
-
 				switch (screen)
 				{
 				case MAIN:
@@ -591,11 +581,12 @@ int main(int argc, char* args[])
 						continue_button.setPosition(624, 700);
 						continue_button.render();				continue_button.handleEvent(&e);
 						break;
+
 						// Ekran wczytywania stanu gry
 					case LOAD:
 					{
 						gTextTexture.loadFromRenderedText("Wczytaj", textC, gFont);
-						gTextTexture.render(600, 200);
+						gTextTexture.render((SCREEN_WIDTH - gTextTexture.getWidth()) / 2, 200);
 						main_menu_button.setPosition(624, 660);
 						main_menu_button.render();				main_menu_button.handleEvent(&e);
 						string path;
@@ -613,7 +604,7 @@ int main(int argc, char* args[])
 					// Ekran zapisu stanu gry
 					case SAVE:
 						gTextTexture.loadFromRenderedText("Zapisz", textC, gFont);
-						gTextTexture.render(624, 200);
+						gTextTexture.render((SCREEN_WIDTH - gTextTexture.getWidth()) / 2, 200);
 						back_button.setPosition(624, 660);
 						back_button.render();					back_button.handleEvent(&e);
 						for (int i = 0; i < MAX_SLOTS; i++)
@@ -625,11 +616,16 @@ int main(int argc, char* args[])
 					break;
 					// Ekran rozgrywki
 				case GAME:
+					if (tPublic[ID_Palace]->getNumber() > 0 && endScreen == true)
+					{
+						endScreen = false;
+						subScreen = ENDSCREEN;
+					}
 					timer.unpause();
 					timer.count();
 					SDL_RenderSetViewport(gRenderer, &LeftViewport);
 					SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
-			
+
 					// Skarbiec - wyswietlanie wartosci
 					// Podatki
 					gTextTexture.loadFromRenderedText(_itoa(taxes, Money_char_buffor, 10), textC, gFont);
@@ -673,67 +669,22 @@ int main(int argc, char* args[])
 					gTextTexture.render(400 - gTextTexture.getWidth(), 175);
 
 					// Magazyny
-					// LVL1////////////////////////////////////////////////////////////////////////////////////////////////////// WWYWALIC (coœ z tym zrobic)
-					{
-						SDL_RenderCopy(gRenderer, Warehouse_I_texture, NULL, &gWarehouse_rect_left);
-						SDL_RenderCopy(gRenderer, Warehouse_II_texture, NULL, &gWarehouse_rect_right);
-					}
-					// LVL2
-					/*
-					{
-						if (Warehouse_I_texture != NULL)
-						{
-							SDL_DestroyTexture(Warehouse_I_texture);
-							Warehouse_I_texture = NULL;
-						{
-						SDL_RenderCopy(gRenderer, Warehouse_I_texture, NULL, &gWarehouse_rect_left);
-						SDL_RenderCopy(gRenderer, Warehouse_III_texture, NULL, &gWarehouse_rect_right);
-					}
-					// LVL3
-					{
-						if (Warehouse_I_texture != NULL)
-						{
-							SDL_DestroyTexture(Warehouse_II_texture);
-							Warehouse_I_texture = NULL;
-						{
-						SDL_RenderCopy(gRenderer, Warehouse_III_texture, NULL, &gWarehouse_rect_left);
-						SDL_RenderCopy(gRenderer, Warehouse_IV_texture, NULL, &gWarehouse_rect_right);
-					}
-					// LVL4
-					{
-						if (Warehouse_I_texture != NULL)
-						{
-							SDL_DestroyTexture(Warehouse_III_texture);
-							Warehouse_I_texture = NULL;
-						{
-						SDL_RenderCopy(gRenderer, Warehouse_IV_texture, NULL, &gWarehouse_rect_centre);
-					}
-					*/
+					SDL_RenderCopy(gRenderer, Warehouse_I_texture, NULL, &gWarehouse_rect_left);
+					SDL_RenderCopy(gRenderer, Warehouse_II_texture, NULL, &gWarehouse_rect_right);
 					if (WareHouse.getClass() > -1)
 						WareHouse.checkStatus(tPeople[WareHouse.getClass()]->getNumber());
 					// UPGRADE
-					if (WareHouse.getStatus() == false)
-					{
-						upgrade_NAV_Warehouse.render();
-						upgrade_NAV_Warehouse.handleEvent(&e);
-					}
-					else
-					{
-						upgrade_AV_Warehouse.render();
-						upgrade_AV_Warehouse.handleEvent(&e);
-					}
-
-					// Aktualizacje stanów	
-
-					// AKTUALIZACJA STANU SUROWCOW
-					/*thisTime = timer.getTicks();
-					deltaTime = (float)(thisTime - lastTime);
-					cout << thisTime << " " << deltaTime << " " << lastTime << endl;
-					lastTime = thisTime;*/
-
-
-
-
+					if (licze_magazyny < 3)
+						if (WareHouse.getStatus() == false)
+						{
+							upgrade_NAV_Warehouse.render();
+							upgrade_NAV_Warehouse.handleEvent(&e);
+						}
+						else
+						{
+							upgrade_AV_Warehouse.render();
+							upgrade_AV_Warehouse.handleEvent(&e);
+						}
 					if (buy == true)
 					{
 						gTextTexture.loadFromRenderedText("Kup", textC, gFont);
@@ -801,8 +752,6 @@ int main(int argc, char* args[])
 						cancel_NAV_button.render();				cancel_NAV_button.handleEvent(&e);
 					}
 					SDL_SetRenderDrawColor(gRenderer, 0xFF, 0x00, 0x00, 0xFF);
-
-
 
 					buy_button.render();						buy_button.handleEvent(&e);
 					sell_button.render();						sell_button.handleEvent(&e);
@@ -911,32 +860,6 @@ int main(int argc, char* args[])
 						gTextTexture.render(580 - gTextTexture.getWidth(), 625);
 						gTextTexture.loadFromRenderedText(_itoa(tResource[13]->getNumber(), People_char_buffor, 10), textC, gFont);
 						gTextTexture.render(745 - gTextTexture.getWidth(), 625);
-						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
-						/*gTextTexture.loadFromRenderedText(_itoa(s1, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s11, Money_char_buffor, 10), textC);
-						gTextTexture.render(kolumna_stat_1, wiersz_stat_1);									gTextTexture.render(kolumna_stat_3, wiersz_stat_3);
-						gTextTexture.loadFromRenderedText(_itoa(s2, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s12, Money_char_buffor, 10), textC);
-						gTextTexture.render(kolumna_stat_1, wiersz_stat_2);									gTextTexture.render(kolumna_stat_3, wiersz_stat_4);
-						gTextTexture.loadFromRenderedText(_itoa(s3, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s13, Money_char_buffor, 10), textC);
-						gTextTexture.render(kolumna_stat_1, wiersz_stat_3);									gTextTexture.render(kolumna_stat_4, wiersz_stat_1);
-						gTextTexture.loadFromRenderedText(_itoa(s4, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s14, Money_char_buffor, 10), textC);
-						gTextTexture.render(kolumna_stat_1, wiersz_stat_4);									gTextTexture.render(kolumna_stat_4, wiersz_stat_2);
-						gTextTexture.loadFromRenderedText(_itoa(s5, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s15, Money_char_buffor, 10), textC);
-						gTextTexture.render(kolumna_stat_2, wiersz_stat_1);									gTextTexture.render(kolumna_stat_4, wiersz_stat_3);
-						gTextTexture.loadFromRenderedText(_itoa(s6, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s16, Money_char_buffor, 10), textC);
-						gTextTexture.render(kolumna_stat_2, wiersz_stat_2);									gTextTexture.render(kolumna_stat_4, wiersz_stat_4);
-						gTextTexture.loadFromRenderedText(_itoa(s7, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s17, Money_char_buffor, 10), textC);
-						gTextTexture.render(kolumna_stat_2, wiersz_stat_3);									gTextTexture.render(kolumna_stat_5, wiersz_stat_1);
-						gTextTexture.loadFromRenderedText(_itoa(s8, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s18, Money_char_buffor, 10), textC);
-						gTextTexture.render(kolumna_stat_2, wiersz_stat_4);									gTextTexture.render(kolumna_stat_5, wiersz_stat_2);
-						gTextTexture.loadFromRenderedText(_itoa(s9, Money_char_buffor, 10), textC);			gTextTexture.loadFromRenderedText(_itoa(s19, Money_char_buffor, 10), textC);
-						gTextTexture.render(kolumna_stat_3, wiersz_stat_1);									gTextTexture.render(kolumna_stat_5, wiersz_stat_3);
-						gTextTexture.loadFromRenderedText(_itoa(s10, Money_char_buffor, 10), textC);		gTextTexture.loadFromRenderedText(_itoa(s20, Money_char_buffor, 10), textC);
-						gTextTexture.render(kolumna_stat_3, wiersz_stat_2);									gTextTexture.render(kolumna_stat_5, wiersz_stat_4);*/
-						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// WYWALIC
-
-
-						//gTextTexture.loadFromRenderedText("Zapisz", textC);
-					//	gTextTexture.render(624, 200);
 
 						// Wyœwietlenie iloœci pól na wyspie i pól wolnych
 						gTextTexture.loadFromRenderedText(_itoa(islandSize, People_char_buffor, 10), textC, gFont);
@@ -944,15 +867,6 @@ int main(int argc, char* args[])
 						gTextTexture.loadFromRenderedText(_itoa(islandSize - usedFields, People_char_buffor, 10), textC, gFont);
 						gTextTexture.render(U_F_X, U_F_Y);
 
-						// Pozwolenie i zakaz budowy
-						if (allow_build == true)
-						{
-							Allow_Build.render();				Allow_Build.handleEvent(&e);
-						}
-						else
-						{
-							Deny_Build.render();				Deny_Build.handleEvent(&e);
-						}
 						// Buduj zburz domy
 						// Pionierzy
 						build_AV_House_L1.render();				destroy_AV_House_L1.render();
@@ -1070,7 +984,23 @@ int main(int argc, char* args[])
 						SDL_RenderSetViewport(gRenderer, &RightViewport);
 						SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
 
-						for (int i = 0; i < 12; i++)
+						if (tProduction[15]->getStatus())
+						{
+							Processing_build_AV[11]->render();
+							Processing_build_AV[11]->handleEvent(&e);
+
+							Processing_destroy_AV[11]->render();
+							Processing_destroy_AV[11]->handleEvent(&e);
+						}
+						else
+						{
+							Processing_build_NAV[11]->render();
+							Processing_build_NAV[11]->handleEvent(&e);
+
+							Processing_destroy_NAV[11]->render();
+							Processing_destroy_NAV[11]->handleEvent(&e);
+						}
+						for (int i = 0; i < 11; i++)
 						{
 							if (tProcessing[i]->getStatus())
 							{
@@ -1088,9 +1018,7 @@ int main(int argc, char* args[])
 								Processing_destroy_NAV[i]->render();
 								Processing_destroy_NAV[i]->handleEvent(&e);
 							}
-
 						}
-
 						// Wyswietlanie ilosci budynkow przetworczych
 						gTextTexture.loadFromRenderedText(_itoa(tProcessing[8]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_1, T_W_1);
@@ -1144,7 +1072,6 @@ int main(int argc, char* args[])
 								Production_destroy_NAV[i]->render();
 								Production_destroy_NAV[i]->handleEvent(&e);
 							}
-
 						}
 						// Wyswietlanie ilosci budynkow produkcyjnych
 						gTextTexture.loadFromRenderedText(_itoa(tProduction[1]->getNumber(), People_char_buffor, 10), textC, gFont_12);
@@ -1180,6 +1107,13 @@ int main(int argc, char* args[])
 						gTextTexture.loadFromRenderedText(_itoa(tProduction[12]->getNumber(), People_char_buffor, 10), textC, gFont_12);
 						gTextTexture.render(T_C_5, T_W_3);
 						break;
+					case ENDSCREEN:
+						SDL_RenderSetViewport(gRenderer, &LargeViewport);
+						SDL_RenderCopy(gRenderer, End_Screen_texture, NULL, NULL);
+						endScreen = false;
+						continue_button.setPosition(624, 700);
+						continue_button.render();					continue_button.handleEvent(&e);
+						break;
 					}
 					break;
 				case QUIT:
@@ -1193,8 +1127,6 @@ int main(int argc, char* args[])
 			}
 		}
 	}
-	// getch do testowania
-	//_getch();
 	// Zwalnianie zasobów i zamykanie SDL
 	close();
 	return 0;

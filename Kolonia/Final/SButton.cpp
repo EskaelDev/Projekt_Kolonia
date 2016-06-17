@@ -145,7 +145,7 @@ void SButton::operation(Actions action)
 		for (int i = 0; i < 21; i++)
 		{
 			if (0 == i)
-				tResource[i]->setNumber(1000);
+				tResource[i]->setNumber(10000);
 			else if (10 == i)
 				tResource[i]->setNumber(50);
 			else if (18 == i)
@@ -378,6 +378,8 @@ void SButton::operation(Actions action)
 		break;
 
 	case BUY_RESOURCE:
+		if(tResource[id]->getNumber()+5<WareHouse.getmagazineCapacity())
+		tResource[id]->buy(*tResource[0]);
 		break;
 
 	case SELL:
@@ -386,6 +388,8 @@ void SButton::operation(Actions action)
 		break;
 
 	case SELL_RESOURCE:
+		if (tResource[id]->getNumber() - 5>=0)
+			tResource[id]->sell(*tResource[0]);
 		break;
 
 	case PUBLIC:
@@ -472,6 +476,7 @@ void SButton::operation(Actions action)
 			Warehouse_I_texture = loadTexture("imgs/magazyn4.png");
 			Warehouse_II_texture = loadTexture("imgs/magazyn5.png");
 		}
+		WareHouse.Build(tResource);
 		licze_magazyny++;
 		upgrade = false;
 		break;

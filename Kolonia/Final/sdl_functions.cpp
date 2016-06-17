@@ -107,6 +107,12 @@ bool loadMedia()
 		cout << "Nie mozna zaladowac obrazka!" << endl;
 		success = false;
 	}
+	End_Screen_texture = loadTexture("imgs/end_screen.png");
+	if (End_Screen_texture == NULL)
+	{
+		cout << "Nie mozna zaladowac obrazka!" << endl;
+		success = false;
+	}
 	// Ladowanie czcionki
 	gFont = TTF_OpenFont("fonts/Caladea-Regular.ttf", 19);
 	if (gFont == NULL)
@@ -389,24 +395,24 @@ void Fill_Arrays()
 
  // Processing(moneyToBuild, bricksToBuild, toolsToBuild, woodToBuild, maintenanceActiveCost, maintenancePassiveCost, magazineCapacity, peopleToBuild, peopleClass, productID, materialID, productNumber, materialNumber)
 
-	tProcessing[0] = new Processing(150, 0, 2, 6, 5, 0, 4, 75, 1, 10, 8, 3, 2);			// Bakery
+	tProcessing[0] = new Processing(150, 0, 2, 6, 5, 0, 4, 75, 1, 10, 8, 4, 2);			// Bakery
 	tProcessing[1] = new Processing(200, 4, 3, 1, 25, 10, 5, 120, 1, 9, 1, 1, 1);		// Ore Refenery
-	tProcessing[2] = new Processing(1500, 10, 7, 2, 45, 20, 4, 250, 3, 17, 2, 2, 1);	// Gold Smith
-	tProcessing[3] = new Processing(150, 10, 3, 4, 5, 0, 4, 30, 0, 10, 6, 1, 2);		// Butcher Shop
+	tProcessing[2] = new Processing(1500, 10, 7, 2, 45, 20, 4, 250, 3, 17, 2, 3, 1);	// Gold Smith
+	tProcessing[3] = new Processing(150, 10, 3, 4, 5, 0, 4, 30, 0, 10, 6, 2, 1);		// Butcher Shop
 	tProcessing[4] = new Processing(200, 5, 3, 2, 25, 7, 4, 40, 1, 14, 4, 1, 2);		// Rum Distillery
-	tProcessing[5] = new Processing(150, 2, 3, 6, 10, 5, 4, 200, 2, 16, 15, 1, 1);		// Clothiers
+	tProcessing[5] = new Processing(150, 2, 3, 6, 10, 5, 4, 200, 2, 16, 15, 1, 2);		// Clothiers
 	tProcessing[6] = new Processing(200, 5, 3, 2, 20, 10, 4, 40, 1, 11, 5, 1, 2);		// TobaccoProduction
 	tProcessing[7] = new Processing(200, 7, 4, 3, 20, 10, 4, 75, 1, 15, 3, 3, 2);		// WeavingMill
 	tProcessing[8] = new Processing(200, 0, 3, 6, 10, 5, 4, 0, -1, 15, 3, 1, 2);		// WeavingHut
 	tProcessing[9] = new Processing(150, 5, 3, 2, 25, 10, 4, 100, 1, 18, 9, 2, 1);		// ToolSmithy
-	tProcessing[10] = new Processing(100, 0, 3, 6, 5, 0, 6, 75, 1, 10, 7, 1, 2);		// WindMill
+	tProcessing[10] = new Processing(100, 0, 3, 6, 5, 0, 6, 75, 1, 10, 7, 2, 1);		// WindMill
 
  // People(tax)
-																{ int tab0[1] = { ID_Money };
-	tPeople[0] = new People(1, tab0, 1); }	/* Pioneers */		{ int tab1[3] = { ID_Money, ID_Cloth, ID_Sugar };
-	tPeople[1] = new People(1, tab1, 3); }	/* Settlers	*/		{ int tab2[5] = { ID_Money, ID_Cloth, ID_Sugar, ID_Liquor, ID_Spices };
-	tPeople[2] = new People(1, tab2, 5); }	/* Citizens	*/		{ int tab3[7] = { ID_Money, ID_Cloth, ID_Sugar, ID_Liquor, ID_Spices, ID_Cocoa, ID_Tobacco_Products };
-	tPeople[3] = new People(2, tab3, 7); }	/* Merchants */		{ int tab4[9] = { ID_Money, ID_Cloth, ID_Sugar, ID_Liquor, ID_Spices, ID_Cocoa, ID_Tobacco_Products, ID_Jewerly, ID_Clothes };
+																{ int tab0[1] = { ID_Food };
+	tPeople[0] = new People(1, tab0, 1); }	/* Pioneers */		{ int tab1[3] = { ID_Food, ID_Cloth, ID_Sugar };
+	tPeople[1] = new People(1, tab1, 3); }	/* Settlers	*/		{ int tab2[5] = { ID_Food, ID_Cloth, ID_Sugar, ID_Liquor, ID_Spices };
+	tPeople[2] = new People(1, tab2, 5); }	/* Citizens	*/		{ int tab3[7] = { ID_Food, ID_Cloth, ID_Sugar, ID_Liquor, ID_Spices, ID_Cocoa, ID_Tobacco_Products };
+	tPeople[3] = new People(2, tab3, 7); }	/* Merchants */		{ int tab4[9] = { ID_Food, ID_Cloth, ID_Sugar, ID_Liquor, ID_Spices, ID_Cocoa, ID_Tobacco_Products, ID_Jewerly, ID_Clothes };
 	tPeople[4] = new People(2, tab4, 9); }	/* Aristocrats */
 
  // Resource(price)
@@ -472,22 +478,28 @@ Uint32 Update_Proc(Uint32 interval, void* param)
 		{
 			if (tResource[tProcessing[i]->getProductID()]->getNumber() + tProcessing[i]->getNumber()*tProcessing[i]->getNumber() < WareHouse.getmagazineCapacity() + tProcessing[i]->getNumber()*tProcessing[i]->getMagazineCapacity())
 			{
-				if (tProcessing[i]->getNumber() < 5)
+				if (tProcessing[i]->getNumber() < 15)
 				{
 					tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getNumber()*tProcessing[i]->getProductNumber());
 					tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getNumber()*tProcessing[i]->getMaterialNumber());
-					return 7000;
+					return 2000;
 				}
-				else
+				else if (tProcessing[i]->getNumber() < 10)
 				{
 					tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getNumber()*tProcessing[i]->getProductNumber());
 					tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getNumber()*tProcessing[i]->getMaterialNumber());
 					return 5000;
 				}
+				else if (tProcessing[i]->getNumber() < 5)
+				{
+					tResource[tProcessing[i]->getProductID()]->increase(tProcessing[i]->getNumber()*tProcessing[i]->getProductNumber());
+					tResource[tProcessing[i]->getMaterialID()]->decrease(tProcessing[i]->getNumber()*tProcessing[i]->getMaterialNumber());
+					return 7000;
+				}
 			}
 			else
 				tResource[tProcessing[i]->getProductID()]->setNumber(WareHouse.getmagazineCapacity() + tProcessing[i]->getNumber()*tProcessing[i]->getMagazineCapacity());
-			return 3000;
+			return 1000;
 		}
 		else
 			return 2000;
@@ -512,7 +524,7 @@ Uint32 Update_Tax(Uint32 interval, void *param)
 	taxes = 0;
 	for (int i = 0; i < 5; ++i) 
 	{
-		tResource[ID_Money]->increase(tPeople[i]->getTax());
+		tResource[0]->increase(tPeople[i]->getTax());
 		taxes += tPeople[i]->getTax();
 	}
 
@@ -525,7 +537,7 @@ Uint32 Update_Tax(Uint32 interval, void *param)
 	}
 	for (int i = 0; i < 16; ++i)
 	{
-		tResource[0]->decrease(tProduction[i]->getMaintenanceActiveCost() * tProduction[i]->getActiveNumber()
+		tResource[0]	->decrease(tProduction[i]->getMaintenanceActiveCost() * tProduction[i]->getActiveNumber()
 			+ tProduction[i]->getMaintenancePassiveCost() * (tProduction[i]->getNumber() - tProduction[i]->getActiveNumber()));
 		costs += tProduction[i]->getMaintenanceActiveCost() * tProduction[i]->getActiveNumber()
 			+ tProduction[i]->getMaintenancePassiveCost() * (tProduction[i]->getNumber() - tProduction[i]->getActiveNumber());
@@ -537,9 +549,6 @@ Uint32 Update_Tax(Uint32 interval, void *param)
 		costs += tProcessing[i]->getMaintenanceActiveCost() * tProcessing[i]->getActiveNumber()
 			+ tProcessing[i]->getMaintenancePassiveCost() * (tProcessing[i]->getNumber() - tProcessing[i]->getActiveNumber());
 	}
-	for (int i = 0; i < 5; ++i)
-		for (int j = 0; j < tPeople[i]->getTabIdSize(); ++j)
-			tResource[tPeople[i]->getResourceId(j)]->decrease(tPeople[i]->getNumber());
 
 	return 1000;
 }
@@ -548,7 +557,6 @@ Uint32 Update_Req(Uint32 interval, void* param)
 {
 	// SPRAWDZENIE WARUNKU DOSTEPNOSCI BUDYNKOW:
 	// WYMAGANIA POSIADANIA KONKRETNEJ KLASY LUDNOSCI
-
 	for (int i = 0; i < 12; ++i)
 		if (tPublic[i]->getClass() > -1)
 			tPublic[i]->checkStatus(tPeople[tPublic[i]->getClass()]->getNumber());
@@ -577,4 +585,35 @@ Uint32 Update_Req(Uint32 interval, void* param)
 
 	return 500;
 	
+}
+
+Uint32 Update_PeopleLVL(Uint32 interval, void *param)
+{
+	for (int i = 1; i < 4; i++)
+	{
+		for (int j = 0; j < tPeople[i]->getTabIdSize(); j++)
+		{
+			if (tResource[tPeople[i+1]->getResourceId(j)]->getNumber() > 0 && tHouse[i + 1]->Build(tResource))
+			{
+				tHouse[i]->Destroy();
+			}
+		}
+	}
+	return 3000;
+}
+
+Uint32 Update_ResourcesOutgo(Uint32 interval, void *param)
+{
+	// Pobieranie z magazynu surowców przez mieszkañców
+	for (int i = 0; i < 5; i++)
+	{
+		for (int j = 0; j < tPeople[i]->getTabIdSize(); j++)
+		{
+			if (tResource[tPeople[i]->getResourceId(j)]->getNumber() - tPeople[i]->getNumber() > 0)
+				tResource[tPeople[i]->getResourceId(j)]->decrease(tPeople[i]->getNumber() / 3);
+			else
+				Destroy_House(*tHouse[i]);
+		}
+	}
+	return 4000;
 }

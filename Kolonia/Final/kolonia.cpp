@@ -652,6 +652,7 @@ int main(int argc, char* args[])
 
 					// Ludnosc - wyswietlanie wartosci
 					// Pionierzy
+					cout << tResource[0]->getNumber();
 					gTextTexture.loadFromRenderedText(_itoa(tPeople[0]->getNumber(), People_char_buffor, 10), textC, gFont);
 					gTextTexture.render(400 - gTextTexture.getWidth(), 38);
 					// Osadnicy
